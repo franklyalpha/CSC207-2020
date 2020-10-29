@@ -13,6 +13,7 @@ public class User {
         userType = type;
         chatroom = new ArrayList<Integer>();
         activities = new ArrayList<String>();
+        int check = 2;
     }
 
 
