@@ -7,7 +7,7 @@ public class User {
     private ArrayList<Integer> chatroom;
     private ArrayList<String> activities;
 
-    public User(String name, String password, String type){
+    public User(String name, String password, String type) {
         username = name;
         this.password = password;
         userType = type;
@@ -15,5 +15,12 @@ public class User {
         activities = new ArrayList<String>();
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public boolean setUsername(String newname) {
+        username = newname;
+        return true;
+    }
 }
