@@ -38,6 +38,9 @@ public class User {
     public void setUsername(String newname) {
         username = newname;
     }
-
+    /**
+     * will set arraylists and hashmaps in use-case class. however, when returning something outside use-case,
+     * it would be safer to make a DEEP copy of variable so that any possible modifications won't affect original data.
+     */
 
 }
