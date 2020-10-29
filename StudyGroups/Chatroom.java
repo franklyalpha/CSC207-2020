@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Chatroom {
 
-    static int count = 0;  // used to update and assign room IDs
+    private static int count = 0;  // used to update and assign room IDs
 
     private int id;  // unique identifier for each Chatroom
     private ArrayList<String> usersInvolved;  // holds username of all Users in this Chatroom
@@ -15,6 +15,22 @@ public class Chatroom {
         historicalChats = new ArrayList<String>();  // start with empty chatHistory
     }
 
+    // getter for id
+    public int getId(){
+        return this.id;
+    }
+
+    // getter for usersInvolved
+    public ArrayList<String> getUsersInvolved(){
+        return this.usersInvolved;
+    }
+
+    // getter for historicalChats
+    public ArrayList<String> getHistoricalChats(){
+        return this.historicalChats;
+    }
+
+    // setters TBD
 
 }
 
