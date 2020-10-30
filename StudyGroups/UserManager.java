@@ -1,22 +1,25 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.time.*;
 
 public class UserManager {
     /**
      * features should include:
      * its own constructor
      * store different list of users;(will return getter of organizer and speakers)
+     * store the user who is currently using the system;
      * being able to instantiate a user and store in proper list(with unique id, using UUID);
      * being able to check whether someone is a user (i.e, is in one of the lists);
      * being able to check whether the password is correct(return true)
-     * able to check whether a given user is in another's contact list;
+     * able to check whether a given user/activity is in another's contact list;
      * being able to return scheduled activities of the user
      * being able to add a new activity to schedule
      * being able to add a new chatroom the person is in
      * being able to delete an activity participated, and being
      * able to dissociate the specific chatroom the user is in;
      * a method to store data(either implements serializable or use a gateway interface)
+     * (being able to reset userOnAir, in case the user wants to log out)
      */
     private ArrayList<User> organizers;
     private ArrayList<User> speakers;
@@ -111,6 +114,25 @@ public class UserManager {
             return true;
         }
         return false;
+    }
+
+    public HashMap<LocalDateTime[], String> schedules(){
+        return userOnAir.getActivities();
+    }
+
+    public boolean isFree(LocalDateTime[] actinterv){
+        HashMap<LocalDateTime[], String> userSchedule = userOnAir.getActivities();
+        for(LocalDateTime[] interv: userSchedule.keySet()){
+            if (interv[0].isBefore(actinterv[0]) && interv[1].isAfter(actinterv[1])){
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public void addSchedule(){
+        return;
     }
 
 
