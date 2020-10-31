@@ -40,46 +40,46 @@ public class UserManager {
         switch (type) {
             case "organizer":
                 User org = new User(name, password, type);
-                organizers.add(org);
-                num_user += 1;
+                addUser(org, organizers);
                 break;
             case "attendee":
                 User att = new User(name, password, type);
-                attendee.add(att);
-                num_user += 1;
+                addUser(att, attendee);
                 break;
             case "speaker":
                 User spe = new User(name, password, type);
-                speakers.add(spe);
-                num_user += 1;
+                addUser(spe, speakers);
                 break;
         }
         // return name: just in case to notify users about their exact username;
     }
 
+    private void addUser(User users, ArrayList<User> type){
+        type.add(users);
+        num_user += 1;
+    }
+
     public int isUser(String username, String type) {
+        int returnindex = 0;
         switch (type) {
             case "organizer":
-                for (User org : organizers) {
-                    if (org.getUsername() == username) {
-                        return organizers.indexOf(org) + 1;
-                    }
-                }
+                returnindex = checkUserIndex(username, organizers);
                 break;
             case "attendee":
-                for (User att : attendee) {
-                    if (att.getUsername() == username) {
-                        return attendee.indexOf(att) + 1;
-                    }
-                }
+                returnindex = checkUserIndex(username, attendee);
                 break;
             case "speaker":
-                for (User spe : speakers) {
-                    if (spe.getUsername() == username) {
-                        return speakers.indexOf(spe) + 1;
-                    }
-                }
+                returnindex = checkUserIndex(username, speakers);
                 break;
+        }
+        return returnindex;
+    }
+
+    private int checkUserIndex(String username, ArrayList<User> type){
+        for (User users : type){
+            if (users.getUsername() == username){
+                return type.indexOf(users) + 1;
+            }
         }
         return 0;
     }
@@ -123,10 +123,11 @@ public class UserManager {
     public boolean isFree(LocalDateTime[] actinterv){
         HashMap<LocalDateTime[], String> userSchedule = userOnAir.getActivities();
         for(LocalDateTime[] interv: userSchedule.keySet()){
-            if (interv[0].isBefore(actinterv[0]) && interv[1].isAfter(actinterv[1])){
+            LocalDateTime start = interv[0].minusSeconds(150);
+            LocalDateTime end = interv[1].plusSeconds(150);
+            if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
                 return false;
             }
-
         }
         return true;
     }
