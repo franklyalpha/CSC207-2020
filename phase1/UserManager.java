@@ -13,13 +13,13 @@ public class UserManager {
      * being able to check whether someone is a user (i.e, is in one of the lists);
      * being able to check whether the password is correct(return true)
      * able to check whether a given user/activity is in another's contact list;
-     * being able to return scheduled activities of the user
+     * being able to return scheduled activities of the user--done to this step
      * being able to add a new activity to schedule
      * being able to add a new chatroom the person is in
      * being able to delete an activity participated, and being
      * able to dissociate the specific chatroom the user is in;
-     * a method to store data(either implements serializable or use a gateway interface)
-     * (being able to reset userOnAir, in case the user wants to log out)
+     * a method to store data(either implements serializable or use a gateway interface for fileIO)
+     * (being able to reset userOnAir, in case the user wants to log out - phase 2)
      */
     private ArrayList<User> organizers;
     private ArrayList<User> speakers;
@@ -35,6 +35,14 @@ public class UserManager {
         userOnAir = null;
     }
 
+    /**
+     * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
+     * an independent account creator class would be implemented, and only the function
+     * 'add user would be kept, and being made public'
+     * @param username
+     * @param password
+     * @param type
+     */
     public void CreateUser(String username, String password, String type) {
         String name = username + num_user;
         switch (type) {

@@ -9,6 +9,10 @@ public class User {
     private HashMap<String, Integer> chatroom;
     private HashMap<LocalDateTime[], String> activities;
 
+    /**
+     * may need to consider associating other account types, by creating another hashmap.
+     */
+
     public User(String name, String password, String type) {
         username = name;
         this.password = password;
