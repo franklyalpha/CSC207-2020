@@ -1,18 +1,24 @@
+import java.sql.Array;
 import java.util.*;
+import java.time.*;
 
 public class User {
     private String username;
     private String password;
     private String userType;
     private HashMap<String, Integer> chatroom;
-    private ArrayList<String> activities;
+    private HashMap<LocalDateTime[], String> activities;
+
+    /**
+     * may need to consider associating other account types, by creating another hashmap.
+     */
 
     public User(String name, String password, String type) {
         username = name;
         this.password = password;
         userType = type;
         chatroom = new HashMap<String, Integer>();
-        activities = new ArrayList<String>();
+        activities = new HashMap<LocalDateTime[], String>();
     }
 
     public String getUsername() {
@@ -31,7 +37,7 @@ public class User {
         return chatroom;
     }
 
-    public ArrayList<String> getActivities() {
+    public HashMap<LocalDateTime[], String> getActivities() {
         return activities;
     }
 
