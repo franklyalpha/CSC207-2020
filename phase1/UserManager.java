@@ -13,8 +13,8 @@ public class UserManager {
      * being able to check whether someone is a user (i.e, is in one of the lists);
      * being able to check whether the password is correct(return true)
      * able to check whether a given user/activity is in another's contact list;
-     * being able to return scheduled activities of the user--done to this step
-     * being able to add a new activity to schedule
+     * being able to return scheduled activities of the user
+     * being able to add a new activity to schedule--done to this step
      * being able to add a new chatroom the person is in
      * being able to delete an activity participated, and being
      * able to dissociate the specific chatroom the user is in;
@@ -160,5 +160,20 @@ public class UserManager {
         userOnAir.getActivities().put(time, act.getIdentity().toString());
     }
 
+    public boolean addChatroom(Chatroom privateRoom){
+        if (privateRoom.getUsersInvolved().size() > 2){
+            return false;
+        }
+        for (String name: privateRoom.getUsersInvolved()){
+            if (name != userOnAir.getUsername()){
+                userOnAir.getChatroom().put(name, privateRoom.getId());
+            }
+        }
+        return true;
+    }
+
+    public void addChatroom(Activity act){
+
+    }
 
 }
