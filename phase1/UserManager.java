@@ -3,7 +3,9 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.time.*;
 
-public class UserManager {
+//public class UserManager implements java.io.Serializable
+
+public class UserManager{
     /**
      * features should include:
      * its own constructor
@@ -14,10 +16,10 @@ public class UserManager {
      * being able to check whether the password is correct(return true)
      * able to check whether a given user/activity is in another's contact list;
      * being able to return scheduled activities of the user
-     * being able to add a new activity to schedule--done to this step
+     * being able to add a new activity to schedule
      * being able to add a new chatroom the person is in
      * being able to delete an activity participated, and being
-     * able to dissociate the specific chatroom the user is in;
+     * able to dissociate the specific chatroom the user is in;--done to this step
      * a method to store data(either implements serializable or use a gateway interface for fileIO)
      * (being able to reset userOnAir, in case the user wants to log out - phase 2)
      */
@@ -124,11 +126,8 @@ public class UserManager {
     }
 
     public boolean contactable(String username){
-        HashMap<String, Integer> contacts = userOnAir.getChatroom();
-        if (contacts.containsKey(username)){
-            return true;
-        }
-        return false;
+        HashMap<String, String> contacts = userOnAir.getChatroom();
+        return contacts.containsKey(username);
     }
 
     public HashMap<LocalDateTime[], String> schedules(){
@@ -154,9 +153,7 @@ public class UserManager {
     }
 
     public void addSchedule(Activity act){
-        LocalDateTime[] time = new LocalDateTime[2];
-        time[0] = act.getStartTime();;
-        time[1] = act.getEndTime();
+        LocalDateTime[] time = timeProcessing(act);
         userOnAir.getActivities().put(time, act.getIdentity().toString());
     }
 
@@ -165,15 +162,43 @@ public class UserManager {
             return false;
         }
         for (String name: privateRoom.getUsersInvolved()){
-            if (name != userOnAir.getUsername()){
-                userOnAir.getChatroom().put(name, privateRoom.getId());
+            if (!name.equals(userOnAir.getUsername())){
+                userOnAir.getChatroom().put(name,
+                        privateRoom.getId().toString());
             }
         }
         return true;
     }
 
-    public void addChatroom(Activity act){
+    public boolean addChatroom(Activity act){
+        userOnAir.getChatroom().put(act.getIdentity().toString(),
+                act.getChatID().toString());
+        return true;
+    }
 
+    private LocalDateTime[] timeProcessing(Activity act){
+        LocalDateTime[] time = new LocalDateTime[2];
+        time[0] = act.getStartTime();;
+        time[1] = act.getEndTime();
+        return time;
+    }
+
+    public boolean deleteActivity(Activity act){
+        LocalDateTime[] time = timeProcessing(act);
+        if (userOnAir.getActivities().containsKey(time)){
+            userOnAir.getActivities().remove(time);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteChat(Activity act){
+        String roomID = act.getChatID().toString();
+        if (userOnAir.getChatroom().containsKey(roomID)){
+            userOnAir.getChatroom().remove(roomID);
+            return true;
+        }
+        return false;
     }
 
 }
