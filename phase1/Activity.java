@@ -18,6 +18,7 @@ public class Activity {
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private UUID Identity;
     private final UUID conferenceChat; //TODO UUID or int? (im thinking of UUID)
     //TODO add conference room
     //TODO add topic
@@ -31,6 +32,7 @@ public class Activity {
         this.endTime = endTime;
         this.duration = Duration.between(startTime, endTime);
         this.conferenceChat = conferenceChat;
+        this.Identity = UUID.randomUUID();
     }
 
     public boolean AddAttendants(UUID attendant){
@@ -85,6 +87,10 @@ public class Activity {
     public Duration getDuration(){return this.duration;}
 
     public UUID getChatID(){return this.conferenceChat;}
+
+    public UUID getIdentity(){
+        return this.Identity;
+    }
 
     //TODO add toString and ShortToString
     public String toString(){

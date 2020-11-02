@@ -99,6 +99,7 @@ public class UserManager {
      */
 
     public boolean loginCheck(int index, String type, String passcode){
+
         switch (type) {
             case "organizer":
                 if(organizers.get(index - 1).getPassword() == passcode){
@@ -142,12 +143,21 @@ public class UserManager {
             if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
                 return false;
             }
+            if (start.isAfter(actinterv[0]) && start.isBefore(actinterv[1])){
+                return false;
+            }
+            if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
+                return false;
+            }
         }
         return true;
     }
 
-    public void addSchedule(){
-        return;
+    public void addSchedule(Activity act){
+        LocalDateTime[] time = new LocalDateTime[2];
+        time[0] = act.getStartTime();;
+        time[1] = act.getEndTime();
+        userOnAir.getActivities().put(time, act.getIdentity().toString());
     }
 
 
