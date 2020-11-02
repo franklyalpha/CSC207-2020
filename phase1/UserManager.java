@@ -92,6 +92,12 @@ public class UserManager {
         return 0;
     }
 
+
+    /** check whether the password is correct
+     @param index >= 0.
+     @return true if password is correct, false otherwise.
+     */
+
     public boolean loginCheck(int index, String type, String passcode){
         switch (type) {
             case "organizer":
