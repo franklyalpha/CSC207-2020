@@ -23,6 +23,11 @@ public class UserManager{
      * a method to store data(either implements serializable or use a gateway interface for fileIO)
      * (being able to reset userOnAir, in case the user wants to log out - phase 2)
      */
+
+    /**
+     * will consider adding another type-indicator String[], stores all possible type names.
+     * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
+     */
     private ArrayList<User> organizers;
     private ArrayList<User> speakers;
     private ArrayList<User> attendee;
