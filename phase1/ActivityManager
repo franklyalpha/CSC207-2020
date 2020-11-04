@@ -3,6 +3,17 @@ import java.util.*;
 
 public class ActivityManager{
 
+    /**
+     * modifications:
+     * modify the way of storing activity lists as Hashmap<Hashtable<LocalDateTime[], String>,Activity>;
+     * Hashtable is similar to 'tuple' in python;  LocalDateTime[] is scheduled period; String is Speaker's name
+     *
+     * missing functioning:
+     * 1: being able to check whether there's a scheduled activity during assigned time period;
+     * 2: being able to search activities by available time period;
+     * 3: being able to modify a scheduled period by time and speaker. (phase 2)
+     */
+
     private final ArrayList<Activity> upcomingActivities;
     private final ArrayList<Activity> archivedActivities;
 
