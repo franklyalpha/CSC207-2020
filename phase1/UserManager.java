@@ -28,11 +28,18 @@ public class UserManager{
      * will consider adding another type-indicator String[], stores all possible type names.
      * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
      */
+
+    // call modification and reset
+
     private ArrayList<User> organizers;
     private ArrayList<User> speakers;
     private ArrayList<User> attendee;
+    // regex
     private int num_user;
     private User userOnAir;
+
+    // may consider simple factory design pattern in controller layer;
+    // make sure organizers don't access speaker's controllers  !!!!! 
 
     public UserManager() {
         organizers = new ArrayList<>();
@@ -106,7 +113,6 @@ public class UserManager{
      */
 
     public boolean loginCheck(int index, String type, String passcode){
-
         switch (type) {
             case "organizer":
                 if(organizers.get(index - 1).getPassword() == passcode){

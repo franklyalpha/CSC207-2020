@@ -37,6 +37,7 @@ public class Activity {
         this.identity = UUID.randomUUID();
         this.conferenceRoomNum = conferenceRoomNum;
         this.topic = topic;
+        // consider order of creating activity and corresponding chatroom
     }
 
     public boolean AddAttendants(String attendant){

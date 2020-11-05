@@ -8,6 +8,8 @@ public class User {
     private String userType;
     private HashMap<String, String> chatroom;
     private HashMap<LocalDateTime[], String> activities;
+    // need setter;
+    // including ArrayList.remove()
 
     /**
      * may need to consider associating other account types, by creating another hashmap.

@@ -16,6 +16,7 @@ public class ActivityManager{
 
     private final ArrayList<Activity> upcomingActivities;
     private final ArrayList<Activity> archivedActivities;
+    // consider modifying as Hashmaps
 
     public ActivityManager(){
         this.upcomingActivities = new ArrayList<Activity>();
