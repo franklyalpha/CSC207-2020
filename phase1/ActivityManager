@@ -1,0 +1,63 @@
+import java.time.*;
+import java.util.*;
+
+public class ActivityManager{
+
+    /**
+     * modifications:
+     * modify the way of storing activity lists as Hashmap<Hashtable<LocalDateTime[], String>,Activity>;
+     * Hashtable is similar to 'tuple' in python;  LocalDateTime[] is scheduled period; String is Speaker's name
+     *
+     * missing functioning:
+     * 1: being able to check whether there's a scheduled activity during assigned time period;
+     * 2: being able to search activities by available time period;
+     * 3: being able to modify a scheduled period by time and speaker. (phase 2)
+     */
+
+    private final ArrayList<Activity> upcomingActivities;
+    private final ArrayList<Activity> archivedActivities;
+
+    public ActivityManager(){
+        this.upcomingActivities = new ArrayList<Activity>();
+        this.archivedActivities = new ArrayList<Activity>();
+    }
+
+    public void addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
+                               int conferenceRoomNum, String topic){
+        upcomingActivities.add(new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic));
+    }
+
+    public boolean markActivityDone(Activity act){
+        if(upcomingActivities.contains(act)){
+            archivedActivities.add(act);
+            upcomingActivities.remove(act);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //TODO full and condensed search system
+    public ArrayList<Activity> searchActivityByTopic(String topic){
+        ArrayList<Activity> results = new ArrayList<Activity>();
+        for(Activity i: this.upcomingActivities){
+            if(i.getTopic().equals(topic)){
+                results.add(i);
+            }
+        }
+        return results;
+    }
+
+    public ArrayList<Activity> searchActivityBySpeaker(String speaker){
+        ArrayList<Activity> results = new ArrayList<Activity>();
+        for(Activity i: this.upcomingActivities){
+            if(i.getSpeakersList().contains(speaker)){
+                results.add(i);
+            }
+        }
+        return results;
+    }
+
+    //speaker identity duration topic roomnum starttime
+    //public ArrayList<Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
+}

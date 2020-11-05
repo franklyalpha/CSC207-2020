@@ -6,7 +6,7 @@ public class User {
     private String username;
     private String password;
     private String userType;
-    private HashMap<String, Integer> chatroom;
+    private HashMap<String, String> chatroom;
     private HashMap<LocalDateTime[], String> activities;
 
     /**
@@ -17,7 +17,7 @@ public class User {
         username = name;
         this.password = password;
         userType = type;
-        chatroom = new HashMap<String, Integer>();
+        chatroom = new HashMap<String, String>();
         activities = new HashMap<LocalDateTime[], String>();
     }
 
@@ -33,7 +33,7 @@ public class User {
         return userType;
     }
 
-    public HashMap<String, Integer> getChatroom() {
+    public HashMap<String, String> getChatroom() {
         return chatroom;
     }
 

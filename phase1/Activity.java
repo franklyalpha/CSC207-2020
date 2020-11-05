@@ -12,29 +12,35 @@ public class Activity {
 
         Methods include:
         Getters and setters;
-     */
-    private final ArrayList<UUID> speakers;
-    private final ArrayList<UUID> attendants;
+    */
+    private final ArrayList<String> speakers;
+    private final ArrayList<String> attendants;
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private final UUID conferenceChat; //TODO UUID or int? (im thinking of UUID)
-    //TODO add conference room
-    //TODO add topic
+    private final UUID identity;
+    private final UUID conferenceChat;
+    private int conferenceRoomNum; //will adjust accordingly when they actually implements it.
+    private String topic;
+    //Maybe event tags for easier search?
 
-    //TODO Im thinking of making multiple constructors later
+    //TODO thinking of making multiple constructors later
     //basic constructor
-    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat){
-        this.speakers = new ArrayList<UUID>();
-        this.attendants = new ArrayList<UUID>();
+    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, int conferenceRoomNum,
+                    String topic){
+        this.speakers = new ArrayList<String>();
+        this.attendants = new ArrayList<String>();
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = Duration.between(startTime, endTime);
         this.conferenceChat = conferenceChat;
+        this.identity = UUID.randomUUID();
+        this.conferenceRoomNum = conferenceRoomNum;
+        this.topic = topic;
     }
 
-    public boolean AddAttendants(UUID attendant){
-        if(attendants.contains(attendant)){
+    public boolean AddAttendants(String attendant){
+        if(this.attendants.contains(attendant)){
             this.attendants.add(attendant);
             return true;
         }else{
@@ -42,14 +48,46 @@ public class Activity {
         }
     }
 
-    //TODO add failsafe for all the rest
-    public void addAttendants(ArrayList<UUID> attendants){this.attendants.addAll(attendants);}
+    public boolean addAttendants(ArrayList<String> attendants){
+        boolean addedAll = true;
+        for(String i: attendants){
+            if(this.attendants.contains(i)) {
+                this.attendants.add(i);
+            }else{
+                addedAll = false;
+            }
+        }
+        return addedAll;
+    }
 
-    public void removeAttendants(UUID attendant){this.attendants.remove(attendant);}
+    public boolean removeAttendant(String attendant){return this.attendants.remove(attendant);}
 
-    public void addSpeakers(UUID speaker){this.speakers.add(speaker);}
+    public boolean addSpeakers(String speaker){
+        if(speakers.contains(speaker)){
+            this.speakers.add(speaker);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-    public void addSpeakers(ArrayList<UUID> speakers){this.speakers.addAll(speakers);}
+    public boolean addSpeakers(ArrayList<String> speakers){
+        boolean addedAll = true;
+        for(String i: speakers){
+            if(this.speakers.contains(i)) {
+                this.speakers.add(i);
+            }else{
+                addedAll = false;
+            }
+        }
+        return addedAll;
+    }
+
+    public boolean removeSpeaker(String speaker){return this.speakers.remove(speaker);}
+
+    public void changeTopic(String topic){this.topic = topic;}
+
+    public void changeRoom(int conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
 
     public boolean changeStartTime(LocalDateTime startTime){
         if(startTime.isAfter(this.endTime)){
@@ -74,9 +112,9 @@ public class Activity {
         this.endTime = this.startTime.plus(duration);
     }
 
-    public ArrayList<UUID> getAttendantsList(){return this.attendants;}
+    public ArrayList<String> getAttendantsList(){return this.attendants;}
 
-    public ArrayList<UUID> getSpeakersList(){return this.speakers;}
+    public ArrayList<String> getSpeakersList(){return this.speakers;}
 
     public LocalDateTime getStartTime(){return this.startTime;}
 
@@ -86,9 +124,21 @@ public class Activity {
 
     public UUID getChatID(){return this.conferenceChat;}
 
-    //TODO add toString and ShortToString
+    public UUID getIdentity(){return this.identity;}
+
+    public int getConferenceRoomNum(){return this.conferenceRoomNum;}
+
+    public String getTopic(){return this.topic;}
+
     public String toString(){
-        return "";
+        String description = "Topic: " + this.topic + "\n" +
+                "Speakers: ";
+        for(String i: this.speakers){description += (i + " ");}
+        description += ("\nConference Room " + this.conferenceRoomNum);
+        description += ("\nFrom " + this.startTime + " to " + this.endTime);
+        description += ("\nID: " + this.identity);
+        description += ("\nChat ID: " + this.conferenceChat);
+        return description;
     }
 
 }
