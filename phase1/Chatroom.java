@@ -3,7 +3,6 @@ import java.util.UUID;
 
 public class Chatroom {
 
-
     private UUID id;  // unique identifier for each Chatroom
     private ArrayList<String> usersInvolved;  // holds username of all Users in this Chatroom
     private ArrayList<String> historicalChats;  // holds previously sent messages from this Chatroom
@@ -29,7 +28,8 @@ public class Chatroom {
         return this.historicalChats;
     }
 
-    // setters TBD
+    // no setters: we don't want to be able to modify the Chatroom ID.
+    // We will 'get' the lists in the UseCase modify the ArrayLists there.
 
 }
 
