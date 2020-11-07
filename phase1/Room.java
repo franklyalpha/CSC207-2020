@@ -1,15 +1,16 @@
+import java.time.*;
+import java.util.*;
+
 public class Room {
 
     private int id;
     private int capacity;
-    private Map schedule;
-    public Chatroom Messageboard;
+    private HashMap<LocalDateTime, String> schedule;
 
-    public Room(int id, int capacity, Chatroom chatroom){
+    public Room(int id, int capacity){
         this.id = id;
         this.capacity = capacity;
-        this.schedule = new HashMap<Date, String>();
-        this.Messageboard = chatroom;
+        this.schedule = new HashMap<LocalDateTime, String>();
     }
 
     public int getId() { return id; }
