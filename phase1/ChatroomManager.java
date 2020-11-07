@@ -23,7 +23,6 @@ public class ChatroomManager {
 
     private ArrayList<Chatroom> conferenceChats;
     private ArrayList<Chatroom> privateChats;
-    private int test;
 
 
     public ChatroomManager(ArrayList<String> organizerSpeakers) {
