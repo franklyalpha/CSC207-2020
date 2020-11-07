@@ -20,6 +20,4 @@ public class Room {
     public void setId(int id) { this.id = id; }
 
     public void setCapacity(int capacity) { this.capacity = capacity; }
-
-    public void addTalk(){}
 }
