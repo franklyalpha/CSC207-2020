@@ -23,7 +23,6 @@ public class ChatroomManager {
 
     private ArrayList<Chatroom> conferenceChats;
     private ArrayList<Chatroom> privateChats;
-    private int test;
 
 
     public ChatroomManager(ArrayList<String> organizerSpeakers) {
@@ -36,7 +35,7 @@ public class ChatroomManager {
         // precondition: length(users) > 1
 
         Chatroom newRoom= new Chatroom(users); // create new room with given list of users
-        if (length(users) = 2){
+        if (users.size() == 2){
             privateChats.add(newRoom);  // add to privateChats list if there's only 2 users in the room (i.e. its private)
         }
         else{
@@ -46,7 +45,7 @@ public class ChatroomManager {
 
     public void addUser(ArrayList<String> users, UUID chat) {
         for (Chatroom room : conferenceChats){
-            if (room.getId() = chat){               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat){               // check the UUID to make sure we have the right Chatroom
                 for(String userID : users){
                     room.getUsersInvolved().add(userID);  // add users to the usersInvolved in this chat
                 }
@@ -56,7 +55,7 @@ public class ChatroomManager {
 
     public void removeUser(ArrayList<String> users, UUID chat) {
         for (Chatroom room : conferenceChats) {
-            if (room.getId() = chat) {               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
                 for (String userID : users) {
                     room.getUsersInvolved().add(userID);  // remove users to the usersInvolved in this chat
                 }
@@ -66,7 +65,7 @@ public class ChatroomManager {
 
     public void sendMessage(String message, UUID chat){
         for (Chatroom room : conferenceChats) {
-            if (room.getId() = chat) {               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
         }
