@@ -40,19 +40,21 @@ public class LoginController {
             if (usermanage.typeChoice(typeName) == -1){
                 System.out.println("Wrong user type!!!\n");
             }
-            if (checkLoginCondition(typeName, userName, password)){
-                //note that switch can be used here, for implementing
-                //factory design pattern (see more on code-smell website)
-                switch(typeName){
-                    case "organizer":
-                        OrganizerController org = new OrganizerController();
-                        org.run();
-                    case "speaker":
-                        SpeakerController spe = new SpeakerController();
-                        spe.run();
-                    case "attendant":
-                        AttendantController att = new AttendantController();
-                        att.run();
+            else{
+                if (checkLoginCondition(typeName, userName, password)){
+                    //note that switch can be used here, for implementing
+                    //factory design pattern (see more on code-smell website)
+                    switch(typeName){
+                        case "organizer":
+                            OrganizerController org = new OrganizerController();
+                            org.run();
+                        case "speaker":
+                            SpeakerController spe = new SpeakerController();
+                            spe.run();
+                        case "attendant":
+                            AttendantController att = new AttendantController();
+                            att.run();
+                    }
                 }
             }
             // following code determine whether the program will continue running;
