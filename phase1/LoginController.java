@@ -41,11 +41,35 @@ public class LoginController {
                 System.out.println("Wrong user type!!!\n");
             }
             if (checkLoginCondition(typeName, userName, password)){
-
+                //note that switch can be used here, for implementing
+                //factory design pattern (see more on code-smell website)
+                switch(typeName){
+                    case "organizer":
+                        OrganizerController org = new OrganizerController();
+                        org.run();
+                    case "speaker":
+                        SpeakerController spe = new SpeakerController();
+                        spe.run();
+                    case "attendant":
+                        AttendantController att = new AttendantController();
+                        att.run();
+                }
             }
-
+            // following code determine whether the program will continue running;
+            // may consider putting into a separate private method;
+            boolean validinput = false;
+            while(!validinput){
+                System.out.println("Continue running or not? (type \"true\" or \"false\")");
+                Scanner nextChoice = new Scanner(System.in);
+                if (nextChoice.hasNextBoolean()){
+                    stop = nextChoice.nextBoolean();
+                    validinput = true;
+                }
+                else{
+                    System.out.println("invalid input! try again; \n");
+                }
+            }
         }
-
     }
 
     private boolean checkLoginCondition(String type, String username, String password){
