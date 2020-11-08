@@ -37,6 +37,8 @@ public class UserManager{
     // regex
     private int num_user;
     private User userOnAir;
+    ArrayList<User>[] typeArray = new ArrayList[3];
+//    private ArrayList<User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
     // make sure organizers don't access speaker's controllers  !!!!! 
@@ -47,32 +49,31 @@ public class UserManager{
         attendee = new ArrayList<>();
         num_user = 1;
         userOnAir = null;
+        typeArray[0] = organizers;
+        typeArray[1] = speakers;
+        typeArray[2] = attendee;
     }
 
     /**
      * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
      * an independent account creator class would be implemented, and only the function
      * 'add user would be kept, and being made public'
-     * @param username
-     * @param password
-     * @param type
      */
+
+    private int typeChoice(String usertype){
+        return switch (usertype) {
+            case "organizer" -> 0;
+            case "speaker" -> 1;
+            case "attendee" -> 2;
+            default -> -1;
+        };
+    }
+
     public void CreateUser(String username, String password, String type) {
         String name = username + num_user;
-        switch (type) {
-            case "organizer":
-                User org = new User(name, password, type);
-                addUser(org, organizers);
-                break;
-            case "attendee":
-                User att = new User(name, password, type);
-                addUser(att, attendee);
-                break;
-            case "speaker":
-                User spe = new User(name, password, type);
-                addUser(spe, speakers);
-                break;
-        }
+        int types = typeChoice(type);
+        User org = new User(name, password, type);
+        addUser(org, typeArray[types]);
         // return name: just in case to notify users about their exact username;
     }
 
@@ -83,29 +84,19 @@ public class UserManager{
 
     public int isUser(String username, String type) {
         int returnindex = 0;
-        switch (type) {
-            case "organizer":
-                returnindex = checkUserIndex(username, organizers);
-                break;
-            case "attendee":
-                returnindex = checkUserIndex(username, attendee);
-                break;
-            case "speaker":
-                returnindex = checkUserIndex(username, speakers);
-                break;
-        }
+        int types = typeChoice(type);
+        returnindex = checkUserIndex(username, typeArray[types]);
         return returnindex;
     }
 
     private int checkUserIndex(String username, ArrayList<User> type){
         for (User users : type){
-            if (users.getUsername() == username){
+            if (users.getUsername().equals(username)){
                 return type.indexOf(users) + 1;
             }
         }
         return 0;
     }
-
 
     /** check whether the password is correct
      @param index >= 0.
@@ -113,25 +104,10 @@ public class UserManager{
      */
 
     public boolean loginCheck(int index, String type, String passcode){
-        switch (type) {
-            case "organizer":
-                if(organizers.get(index - 1).getPassword() == passcode){
-                    userOnAir = organizers.get(index - 1);
-                    return true;
-                }
-                break;
-            case "attendee":
-                if(attendee.get(index - 1).getPassword() == passcode){
-                    userOnAir = attendee.get(index - 1);
-                    return true;
-                }
-                break;
-            case "speaker":
-                if(speakers.get(index - 1).getPassword() == passcode){
-                    userOnAir = speakers.get(index - 1);
-                    return true;
-                }
-                break;
+        int types = typeChoice(type);
+        if(typeArray[types].get(index - 1).getPassword().equals(passcode)) {
+            userOnAir = typeArray[types].get(index - 1);
+            return true;
         }
         return false;
     }
