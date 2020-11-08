@@ -1,5 +1,9 @@
+import java.util.Scanner;
+
 public class LoginController {
     private UserManager usermanage = new UserManager();
+
+    // will consider instantiating presenters here
     /**
     this is the very beginning controller, for user login, and
      distribute the correct user-controller to corresponding user type.
@@ -22,9 +26,38 @@ public class LoginController {
      */
 
     public void run(){
-        // will call file reading methods here, if not implementing serializable
-        // will call serialized file reading, if being serialized
+        boolean stop = false;
+        while(stop){
+            // will call file reading methods here, if not implementing serializable
+            // will call serialized file reading, if being serialized
 
+            Scanner type = new Scanner(System.in);
+            System.out.println("please enter your usertype (organizer, speaker, attendant) at first line,\n" +
+                    " your username at second line \n and passcode at third line: \n");
+            String typeName = type.nextLine();
+            String userName = type.nextLine();
+            String password = type.nextLine();
+            if (usermanage.typeChoice(typeName) == -1){
+                System.out.println("Wrong user type!!!\n");
+            }
+            if (checkLoginCondition(typeName, userName, password)){
 
+            }
+
+        }
+
+    }
+
+    private boolean checkLoginCondition(String type, String username, String password){
+        int userindex = usermanage.isUser(username, type);
+        if (userindex != 0){
+            if(usermanage.loginCheck(userindex, type, password)){
+                return true;
+            }
+            System.out.println("Wrong password!!!");
+            return false;
+        }
+        System.out.println("Username not found!!!");
+        return false;
     }
 }

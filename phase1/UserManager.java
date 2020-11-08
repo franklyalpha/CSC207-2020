@@ -37,7 +37,7 @@ public class UserManager{
     // regex
     private int num_user;
     private User userOnAir;
-    ArrayList<User>[] typeArray = new ArrayList[3];
+    private ArrayList<User>[] typeArray = new ArrayList[3];
 //    private ArrayList<User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
@@ -60,7 +60,7 @@ public class UserManager{
      * 'add user would be kept, and being made public'
      */
 
-    private int typeChoice(String usertype){
+    public int typeChoice(String usertype){
         return switch (usertype) {
             case "organizer" -> 0;
             case "speaker" -> 1;
