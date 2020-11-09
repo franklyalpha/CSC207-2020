@@ -59,11 +59,13 @@ public class ActivityManager{
         return results;
     }
 
-    public ArrayList<Activity> searchActivityByUUID(ArrayList<String> IDs){
-        ArrayList<Activity> results = new ArrayList<Activity>();
+    public ArrayList<String[]> searchActivityByUUID(ArrayList<String> IDs){
+        ArrayList<String[]> results = new ArrayList<String[]>();
         for(Activity i: this.upcomingActivities){
             if(IDs.contains(i.getIdentity().toString())){
-                results.add(i);
+                String[] info = {i.getIdentity().toString(), i.getTopic(),
+                        i.getStartTime().toString(), i.getEndTime().toString()};
+                results.add(info);
             }
         }
         return results;
