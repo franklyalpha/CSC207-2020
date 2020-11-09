@@ -59,6 +59,16 @@ public class ActivityManager{
         return results;
     }
 
+    public ArrayList<Activity> searchActivityByUUID(UUID ID){
+        ArrayList<Activity> results = new ArrayList<Activity>();
+        for(Activity i: this.upcomingActivities){
+            if(i.getIdentity().equals(ID)){
+                results.add(i);
+            }
+        }
+        return results;
+    }
+
     //speaker identity duration topic roomnum starttime
     //public ArrayList<Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
 }
