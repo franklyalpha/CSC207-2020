@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
@@ -6,11 +7,13 @@ import java.util.*;
 public class UserController {
     private UserManager userma = new UserManager();
     private ChatroomManager chatmana = new ChatroomManager();
+    private ActivityManager actmanag = new ActivityManager();
 
     //just for occupying the space;
     public void run(){}
 
     private void viewPrivateMessage(){
+        // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
         HashMap<String, UUID> contacts = userma.contacts();
         HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
@@ -33,11 +36,13 @@ public class UserController {
         System.out.println("please input the emssage you wanta send:");
         String message = messageScan.nextLine();
         if (userma.contactable(userName)){
+            // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userma.contacts();
             UUID chatID = contacts.get(userName);
             chatmana.sendPrivateMessage(message, chatID);
         }
         else{
+            // may consider putting into another private method;
             ArrayList<String> userInvolved = new ArrayList<String>();
             userInvolved.add(userma.currentUsername());
             userInvolved.add(userName);
@@ -49,7 +54,23 @@ public class UserController {
     }
 
 
+    private void viewAllSchedule(){
+        HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
+        ArrayList<String> actIDs = UUIDlist(schedules);
+        ArrayList<Activity> allSchedule = actmanag.searchActivityByUUID(actIDs);
 
+
+        // will call presenter below
+    }
+
+    private ArrayList<String> UUIDlist(HashMap<LocalDateTime[], UUID> schedule){
+        ArrayList<UUID> IDs = (ArrayList<UUID>) schedule.values();
+        ArrayList<String> stringIDs = new ArrayList<String>();
+        for (UUID id: IDs){
+            stringIDs.add(id.toString());
+        }
+        return stringIDs;
+    }
 
 
     private Chatroom findPrivateChatroom(UUID chatID){
