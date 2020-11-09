@@ -117,6 +117,10 @@ public class UserManager{
         return contacts.containsKey(username);
     }
 
+    public String[] contacts(){
+        return userOnAir.getChatroom().keySet().toArray(String[]::new);
+    }
+
     public HashMap<LocalDateTime[], String> schedules(){
         return userOnAir.getActivities();
     }
@@ -154,12 +158,6 @@ public class UserManager{
                         privateRoom.getId().toString());
             }
         }
-        return true;
-    }
-
-    public boolean addChatroom(Activity act){
-        userOnAir.getChatroom().put(act.getIdentity().toString(),
-                act.getChatID().toString());
         return true;
     }
 
