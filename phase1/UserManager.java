@@ -125,11 +125,15 @@ public class UserManager{
         return userOnAir.getActivities();
     }
 
+    public String currentUsername(){
+        return userOnAir.getUsername();
+    }
+
     public boolean isFree(LocalDateTime[] actinterv){
         HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getActivities();
         for(LocalDateTime[] interv: userSchedule.keySet()){
-            LocalDateTime start = interv[0].minusSeconds(150);
-            LocalDateTime end = interv[1].plusSeconds(150);
+            LocalDateTime start = interv[0];
+            LocalDateTime end = interv[1];
             if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
                 return false;
             }
