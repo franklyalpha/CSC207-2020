@@ -89,5 +89,13 @@ public class ChatroomManager {
         }
     }
 
+    public void sendPrivateMessage(String message, UUID chat){
+        for (Chatroom room : privateChats) {
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
+                room.getHistoricalChats().add(message);  // add message to historicalChats of room
+            }
+        }
+    }
+
 
 }
