@@ -97,5 +97,18 @@ public class ChatroomManager {
         }
     }
 
+    public Chatroom findPrivateChatroom(UUID chatID){
+
+        //should move this method to use-case class;
+        // (since this is a functionality only allowed in use-case)
+        Chatroom returns = null;
+        for (Chatroom chatrooms : privateChats){
+            if (chatrooms.getId().equals(chatID)){
+                returns = chatrooms;
+            }
+        }
+        return returns;
+    }
+
 
 }
