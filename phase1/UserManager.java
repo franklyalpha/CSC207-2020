@@ -165,6 +165,34 @@ public class UserManager{
         return true;
     }
 
+    public boolean addChatroom(String userName, Chatroom privateRoom){
+        if (privateRoom.getUsersInvolved().size() > 2){
+            return false;
+        }
+        User targetedUser = findUser(userName);
+        for (String name: privateRoom.getUsersInvolved()){
+            if (!name.equals(userName)){
+                // following line may need modification;
+                assert targetedUser != null;
+                targetedUser.getChatroom().put(userOnAir.getUsername(),
+                        privateRoom.getId());
+            }
+        }
+        return true;
+    }
+
+    private User findUser(String userName){
+        ArrayList<User> allUser = new ArrayList<User>(organizers);
+        allUser.addAll(speakers);
+        allUser.addAll(attendee);
+        for (User users: allUser){
+            if (users.getUsername().equals(userName)){
+                return users;
+            }
+        }
+        return null;
+    }
+
     private LocalDateTime[] timeProcessing(Activity act){
         LocalDateTime[] time = new LocalDateTime[2];
         time[0] = act.getStartTime();;
