@@ -147,9 +147,8 @@ public class UserManager{
         return true;
     }
 
-    public void addSchedule(Activity act){
-        LocalDateTime[] time = timeProcessing(act);
-        userOnAir.getActivities().put(time, act.getIdentity());
+    public void addSchedule(LocalDateTime[] time, UUID actID){ ;
+        userOnAir.getActivities().put(time, actID);
     }
 
     public void selfAddChatroom(String userName, UUID chatID){
@@ -175,15 +174,7 @@ public class UserManager{
         return null;
     }
 
-    private LocalDateTime[] timeProcessing(Activity act){
-        LocalDateTime[] time = new LocalDateTime[2];
-        time[0] = act.getStartTime();;
-        time[1] = act.getEndTime();
-        return time;
-    }
-
-    public boolean deleteActivity(Activity act){
-        LocalDateTime[] time = timeProcessing(act);
+    public boolean deleteActivity(LocalDateTime[] time){
         if (userOnAir.getActivities().containsKey(time)){
             userOnAir.getActivities().remove(time);
             return true;
@@ -191,13 +182,5 @@ public class UserManager{
         return false;
     }
 
-    public boolean deleteChat(Activity act){
-        String roomID = act.getChatID().toString();
-        if (userOnAir.getChatroom().containsKey(roomID)){
-            userOnAir.getChatroom().remove(roomID);
-            return true;
-        }
-        return false;
-    }
 
 }
