@@ -36,6 +36,18 @@ public class ChatroomManager {
         privateChats = new ArrayList<>();
     }
 
+    public Chatroom getCoopRoom() {
+        return coopRoom;
+    }
+
+    public ArrayList<Chatroom> getPrivateChats() {
+        return privateChats;
+    }
+
+    public ArrayList<Chatroom> getConferenceChats() {
+        return conferenceChats;
+    }
+
     public void createChatroom(ArrayList<String> users){
         // precondition: length(users) > 1
 
