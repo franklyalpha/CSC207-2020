@@ -32,9 +32,14 @@ public class UserController {
                 "you wish to contact");
         String userName = userScanner.nextLine();
 
+        Scanner typeScan = new Scanner(System.in);
+        System.out.println("please input the type of this user:");
+        String typeName = userScanner.nextLine();
+
         Scanner messageScan = new Scanner(System.in);
         System.out.println("please input the emssage you wanta send:");
         String message = messageScan.nextLine();
+
         if (userma.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userma.contacts();
@@ -43,13 +48,20 @@ public class UserController {
         }
         else{
             // may consider putting into another private method;
-            ArrayList<String> userInvolved = new ArrayList<String>();
-            userInvolved.add(userma.currentUsername());
-            userInvolved.add(userName);
-            UUID newChatroom = chatmana.createChatroom(userInvolved);
-            userma.selfAddChatroom(userName, newChatroom);
-            userma.otherAddChatroom(userName, newChatroom);
-            chatmana.sendPrivateMessage(message, newChatroom);
+            if (userma.isUser(userName, typeName) != 0){
+                ArrayList<String> userInvolved = new ArrayList<String>();
+                userInvolved.add(userma.currentUsername());
+                userInvolved.add(userName);
+
+                UUID newChatroom = chatmana.createChatroom(userInvolved);
+                userma.selfAddChatroom(userName, newChatroom);
+                userma.otherAddChatroom(userName, newChatroom);
+
+                chatmana.sendPrivateMessage(message, newChatroom);
+            }
+            else {
+                System.out.println("Invalid username or usertype! Try again later!");
+            }
         }
     }
 
