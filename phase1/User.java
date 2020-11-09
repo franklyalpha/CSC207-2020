@@ -6,8 +6,8 @@ public class User {
     private String username;
     private String password;
     private String userType;
-    private HashMap<String, String> chatroom;
-    private HashMap<LocalDateTime[], String> activities;
+    private HashMap<String, UUID> chatroom;
+    private HashMap<LocalDateTime[], UUID> activities;
     // need setter;
     // including ArrayList.remove()
 
@@ -19,8 +19,8 @@ public class User {
         username = name;
         this.password = password;
         userType = type;
-        chatroom = new HashMap<String, String>();
-        activities = new HashMap<LocalDateTime[], String>();
+        chatroom = new HashMap<String, UUID>();
+        activities = new HashMap<LocalDateTime[], UUID>();
     }
 
     public String getUsername() {
@@ -35,11 +35,11 @@ public class User {
         return userType;
     }
 
-    public HashMap<String, String> getChatroom() {
+    public HashMap<String, UUID> getChatroom() {
         return chatroom;
     }
 
-    public HashMap<LocalDateTime[], String> getActivities() {
+    public HashMap<LocalDateTime[], UUID> getActivities() {
         return activities;
     }
 
