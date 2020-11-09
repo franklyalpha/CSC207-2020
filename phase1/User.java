@@ -8,6 +8,10 @@ public class User {
     private String userType;
     private HashMap<String, UUID> chatroom;
     private HashMap<LocalDateTime[], UUID> activities;
+    // in phase 2, UUID of activity will be replaced by ArrayList<UUID>,
+    // to deal with conflicts of time;
+
+
     // need setter;
     // including ArrayList.remove()
 
