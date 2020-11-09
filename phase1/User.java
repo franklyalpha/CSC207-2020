@@ -13,8 +13,8 @@ public class User {
     private String username;
     private String password;
     private String userType;
-    private HashMap<String, String> chatroom;
-    private HashMap<LocalDateTime[], String> activities;
+    private HashMap<String, UUID> chatroom;
+    private HashMap<LocalDateTime[], UUID> activities;
     // need setter;
     // including ArrayList.remove()
 
@@ -30,14 +30,14 @@ public class User {
      *
      * @param name the valid (?unique) name of this user, which help to identify.
      * @param password the valid password of this user.
-     * @param type the type of this user: Atendee, Orgnizer, Speakers.
+     * @param type the type of this user: Attendee, Organizer, Speakers.
      */
     public User(String name, String password, String type) {
         username = name;
         this.password = password;
         userType = type;
-        chatroom = new HashMap<String, String>();
-        activities = new HashMap<LocalDateTime[], String>();
+        chatroom = new HashMap<String, UUID>();
+        activities = new HashMap<LocalDateTime[], UUID>();
     }
 
     /**
@@ -59,37 +59,37 @@ public class User {
     }
 
     /**
-     * Gets the type wich this user belong to.
+     * Gets the type of this user.
      *
-     * @return the user's type as orgnaizer, speaker, or atandee.
+     * @return the user's type as organizer, speaker, or attendee.
      */
     public String getUserType(){
         return userType;
     }
 
     /**
-     * Gets the chatroom wich this user belong to.
+     * Gets the chatroom which this user belong to.
      *
-     * @return the Map of a discription of the chatroom and the name of the chatroom.
+     * @return the Map of a description of the chatroom and the name of the chatroom.
      */
-    public HashMap<String, String> getChatroom() {
+    public HashMap<String, UUID> getChatroom() {
         return chatroom;
     }
 
 
     /**
-     * Gets the chatroom wich this user belong to.
+     * Gets the chatroom which this user belong to.
      *
-     * @return the Map of a discription of the chatroom and the name of the chatroom.
+     * @return the Map of a description of the chatroom and the name of the chatroom.
      */
-    public HashMap<LocalDateTime[], String> getActivities() {
+    public HashMap<LocalDateTime[], UUID> getActivities() {
         return activities;
     }
 
     /**
      * Changes the name of this user with the given new name.
      *
-     * @param  newname the newpassword of this user.
+     * @param  newname the new password of this user.
      */
     public void setUsername(String newname) {
         username = newname;
@@ -101,6 +101,7 @@ public class User {
      * @param  newpassword the new password of this user.
      */
     public void setPassword(String newpassword){ password = newpassword;}
+
 
     /**
      * will set arraylists and hashmaps in use-case class. however, when returning something outside use-case,
