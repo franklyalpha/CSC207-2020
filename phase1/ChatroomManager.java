@@ -85,12 +85,15 @@ public class ChatroomManager {
         }
     }
 
-    private Chatroom findPrivateChatroom(UUID chatID){
+    private Chatroom findChatroom(UUID chatID){
 
         //should move this method to use-case class;
         // (since this is a functionality only allowed in use-case)
         Chatroom returns = null;
-        for (Chatroom chatrooms : privateChats){
+        ArrayList<Chatroom> allChats = new ArrayList<Chatroom>(privateChats);
+        allChats.addAll(conferenceChats);
+        allChats.add(coopRoom);
+        for (Chatroom chatrooms : allChats){
             if (chatrooms.getId().equals(chatID)){
                 returns = chatrooms;
             }
@@ -99,7 +102,7 @@ public class ChatroomManager {
     }
 
     public ArrayList<String> getHistoricalChats(UUID chatID){
-        Chatroom targetedChat = findPrivateChatroom(chatID);
+        Chatroom targetedChat = findChatroom(chatID);
         return targetedChat.getHistoricalChats();
     }
 

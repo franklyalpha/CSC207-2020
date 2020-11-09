@@ -25,6 +25,20 @@ public class UserController {
 
     }
 
+    private void viewGroupMessage(){
+        // may add particular user for viewing;
+        // should call presenter to display; but will acquire data here;
+        HashMap<LocalDateTime[], UUID> act = userma.getActivities();
+        HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
+        for (LocalDateTime[] period : act.keySet()){
+            ArrayList<String> chatmessage = chatmana.getHistoricalChats(act.get(period));
+            String topic = actmanag.searchActivityByUUID(act.get(period).toString())[1];
+            historychat.put(topic, chatmessage);
+        }
+        // will call presenter with final historyChat;
+
+    }
+
     private void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
         // for inputs;

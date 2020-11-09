@@ -182,5 +182,9 @@ public class UserManager{
         return false;
     }
 
+    public HashMap<LocalDateTime[], UUID> getActivities() {
+        return userOnAir.getActivities();
+    }
+
 
 }

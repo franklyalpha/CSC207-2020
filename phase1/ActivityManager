@@ -71,6 +71,17 @@ public class ActivityManager{
         return results;
     }
 
+    public String[] searchActivityByUUID(String ID){
+        for(Activity i: this.upcomingActivities){
+            if(ID.equals(i.getIdentity().toString())){
+                return new String[]{i.getIdentity().toString(), i.getTopic(),
+                        i.getStartTime().toString(), i.getEndTime().toString()};
+
+            }
+        }
+        return null;
+    }
+
     private LocalDateTime[] timeProcessing(Activity act){
         LocalDateTime[] time = new LocalDateTime[2];
         time[0] = act.getStartTime();;
