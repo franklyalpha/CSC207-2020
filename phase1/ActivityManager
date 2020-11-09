@@ -59,10 +59,10 @@ public class ActivityManager{
         return results;
     }
 
-    public ArrayList<Activity> searchActivityByUUID(UUID ID){
+    public ArrayList<Activity> searchActivityByUUID(ArrayList<String> IDs){
         ArrayList<Activity> results = new ArrayList<Activity>();
         for(Activity i: this.upcomingActivities){
-            if(i.getIdentity().equals(ID)){
+            if(IDs.contains(i.getIdentity().toString())){
                 results.add(i);
             }
         }
