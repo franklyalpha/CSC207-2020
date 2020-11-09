@@ -152,33 +152,15 @@ public class UserManager{
         userOnAir.getActivities().put(time, act.getIdentity());
     }
 
-    public boolean addChatroom(Chatroom privateRoom){
-        if (privateRoom.getUsersInvolved().size() > 2){
-            return false;
-        }
-        for (String name: privateRoom.getUsersInvolved()){
-            if (!name.equals(userOnAir.getUsername())){
-                userOnAir.getChatroom().put(name,
-                        privateRoom.getId());
-            }
-        }
-        return true;
+    public void selfAddChatroom(String userName, UUID chatID){
+        userOnAir.getChatroom().put(userName, chatID);
     }
 
-    public boolean addChatroom(String userName, Chatroom privateRoom){
-        if (privateRoom.getUsersInvolved().size() > 2){
-            return false;
-        }
+    public void otherAddChatroom(String userName, UUID chatID){
         User targetedUser = findUser(userName);
-        for (String name: privateRoom.getUsersInvolved()){
-            if (!name.equals(userName)){
-                // following line may need modification;
-                assert targetedUser != null;
-                targetedUser.getChatroom().put(userOnAir.getUsername(),
-                        privateRoom.getId());
-            }
-        }
-        return true;
+        //require further modification;
+        assert targetedUser != null;
+        targetedUser.getChatroom().put(userOnAir.getUsername(), chatID);
     }
 
     private User findUser(String userName){
