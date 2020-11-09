@@ -20,15 +20,32 @@ public class ChatroomManager {
      *
      */
 
-
+    private Chatroom coopRoom;
     private ArrayList<Chatroom> conferenceChats;
     private ArrayList<Chatroom> privateChats;
 
+    public ChatroomManager(){
+        Chatroom coopRoom = new Chatroom();
+        conferenceChats = new ArrayList<>();
+        privateChats = new ArrayList<>();
+    }
 
     public ChatroomManager(ArrayList<String> organizerSpeakers) {
         Chatroom coopRoom = new Chatroom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
+    }
+
+    public Chatroom getCoopRoom() {
+        return coopRoom;
+    }
+
+    public ArrayList<Chatroom> getPrivateChats() {
+        return privateChats;
+    }
+
+    public ArrayList<Chatroom> getConferenceChats() {
+        return conferenceChats;
     }
 
     public void createChatroom(ArrayList<String> users){

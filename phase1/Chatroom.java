@@ -7,6 +7,12 @@ public class Chatroom {
     private ArrayList<String> usersInvolved;  // holds username of all Users in this Chatroom
     private ArrayList<String> historicalChats;  // holds previously sent messages from this Chatroom
 
+    public Chatroom(){
+        id = UUID.randomUUID();  // assign id
+        usersInvolved = new ArrayList<>();  // specify users in this Chatroom with given parameter
+        historicalChats = new ArrayList<String>();  // start with empty chatHistory
+    }
+
     public Chatroom(ArrayList<String> users){
         id = UUID.randomUUID();  // assign id
         usersInvolved = users;  // specify users in this Chatroom with given parameter

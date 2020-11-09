@@ -113,16 +113,20 @@ public class UserManager{
     }
 
     public boolean contactable(String username){
-        HashMap<String, String> contacts = userOnAir.getChatroom();
+        HashMap<String, UUID> contacts = userOnAir.getChatroom();
         return contacts.containsKey(username);
     }
 
-    public HashMap<LocalDateTime[], String> schedules(){
+    public HashMap<String, UUID> contacts(){
+        return userOnAir.getChatroom();
+    }
+
+    public HashMap<LocalDateTime[], UUID> schedules(){
         return userOnAir.getActivities();
     }
 
     public boolean isFree(LocalDateTime[] actinterv){
-        HashMap<LocalDateTime[], String> userSchedule = userOnAir.getActivities();
+        HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getActivities();
         for(LocalDateTime[] interv: userSchedule.keySet()){
             LocalDateTime start = interv[0].minusSeconds(150);
             LocalDateTime end = interv[1].plusSeconds(150);
@@ -141,7 +145,7 @@ public class UserManager{
 
     public void addSchedule(Activity act){
         LocalDateTime[] time = timeProcessing(act);
-        userOnAir.getActivities().put(time, act.getIdentity().toString());
+        userOnAir.getActivities().put(time, act.getIdentity());
     }
 
     public boolean addChatroom(Chatroom privateRoom){
@@ -151,15 +155,9 @@ public class UserManager{
         for (String name: privateRoom.getUsersInvolved()){
             if (!name.equals(userOnAir.getUsername())){
                 userOnAir.getChatroom().put(name,
-                        privateRoom.getId().toString());
+                        privateRoom.getId());
             }
         }
-        return true;
-    }
-
-    public boolean addChatroom(Activity act){
-        userOnAir.getChatroom().put(act.getIdentity().toString(),
-                act.getChatID().toString());
         return true;
     }
 
