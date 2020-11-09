@@ -48,7 +48,7 @@ public class ChatroomManager {
         return conferenceChats;
     }
 
-    public void createChatroom(ArrayList<String> users){
+    public UUID createChatroom(ArrayList<String> users){
         // precondition: length(users) > 1
 
         Chatroom newRoom= new Chatroom(users); // create new room with given list of users
@@ -58,6 +58,7 @@ public class ChatroomManager {
         else{
             conferenceChats.add(newRoom); // add chatroom to conferenceChats !!!!!!!      This is NOT how conferenceChats should be used but this is until we can guarantee we won't try to create private groupchats
         }
+        return newRoom.getId();
     }
 
     public void addUser(ArrayList<String> users, UUID chat) {
@@ -85,6 +86,14 @@ public class ChatroomManager {
             if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
+        }
+    }
+
+    public void sendPrivateMessage(String message, UUID chat){
+        for (Chatroom room : privateChats) {
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
+                room.getHistoricalChats().add(message);  // add message to historicalChats of room
+            }
         }
     }
 
