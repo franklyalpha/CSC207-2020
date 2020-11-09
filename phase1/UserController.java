@@ -23,17 +23,39 @@ public class UserController {
 
     }
 
-    private void send(){
+    private void sendPrivateMessage(){
         Scanner userScanner = new Scanner(System.in);
         System.out.println("please input the username of person " +
                 "you wish to contact");
         String userName = userScanner.nextLine();
 
+        Scanner messageScan = new Scanner(System.in);
+        System.out.println("please input the emssage you wanta send:");
+        String message = messageScan.nextLine();
+        if (userma.contactable(userName)){
+            HashMap<String, UUID> contacts = userma.contacts();
+            UUID chatID = contacts.get(userName);
+            chatmana.sendPrivateMessage(message, chatID);
+        }
+        else{
+            ArrayList<String> userInvolved = new ArrayList<String>();
+            userInvolved.add(userma.currentUsername());
+            userInvolved.add(userName);
+            UUID newChatroom = chatmana.createChatroom(userInvolved);
+            userma.selfAddChatroom(userName, newChatroom);
+            userma.otherAddChatroom(userName, newChatroom);
+            chatmana.sendPrivateMessage(message, newChatroom);
+        }
     }
 
 
 
+
+
     private Chatroom findPrivateChatroom(UUID chatID){
+
+        //should move this method to use-case class;
+        // (since this is a functionality only allowed in use-case)
         Chatroom returns = null;
         for (Chatroom chatrooms : chatmana.getPrivateChats()){
             if (chatrooms.getId().equals(chatID)){
