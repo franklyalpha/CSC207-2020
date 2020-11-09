@@ -15,11 +15,10 @@ public class UserController {
     private void viewPrivateMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
-        HashMap<String, UUID> contacts = userma.contacts();
+        HashMap<String, UUID> contact = userma.contacts();
         HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
-        for (String users : contacts.keySet()){
-            Chatroom targetedChat = findPrivateChatroom(contacts.get(users));
-            ArrayList<String> chatmessage = targetedChat.getHistoricalChats();
+        for (String users : contact.keySet()){
+            ArrayList<String> chatmessage = chatmana.getHistoricalChats(contact.get(users));
             historychat.put(users, chatmessage);
         }
         // will call presenter with final historyChat;
@@ -27,6 +26,8 @@ public class UserController {
     }
 
     private void sendPrivateMessage(){
+        // may consider putting into a private method mainly calling
+        // for inputs;
         Scanner userScanner = new Scanner(System.in);
         System.out.println("please input the username of person " +
                 "you wish to contact");
@@ -61,6 +62,7 @@ public class UserController {
             }
             else {
                 System.out.println("Invalid username or usertype! Try again later!");
+                //return to main menu;
             }
         }
     }
@@ -69,12 +71,14 @@ public class UserController {
     private void viewAllSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
         ArrayList<String> actIDs = UUIDlist(schedules);
-        ArrayList<Activity> allSchedule = actmanag.searchActivityByUUID(actIDs);
+        ArrayList<String[]> allSchedule = actmanag.searchActivityByUUID(actIDs);
+
 
 
         // will call presenter below
     }
 
+    // consider moving the functionality (most part of the code) to use-case
     private ArrayList<String> UUIDlist(HashMap<LocalDateTime[], UUID> schedule){
         ArrayList<UUID> IDs = (ArrayList<UUID>) schedule.values();
         ArrayList<String> stringIDs = new ArrayList<String>();
@@ -85,17 +89,5 @@ public class UserController {
     }
 
 
-    private Chatroom findPrivateChatroom(UUID chatID){
-
-        //should move this method to use-case class;
-        // (since this is a functionality only allowed in use-case)
-        Chatroom returns = null;
-        for (Chatroom chatrooms : chatmana.getPrivateChats()){
-            if (chatrooms.getId().equals(chatID)){
-                returns = chatrooms;
-            }
-        }
-        return returns;
-    }
 
 }
