@@ -117,8 +117,8 @@ public class UserManager{
         return contacts.containsKey(username);
     }
 
-    public String[] contacts(){
-        return userOnAir.getChatroom().keySet().toArray(String[]::new);
+    public HashMap<String, UUID> contacts(){
+        return userOnAir.getChatroom();
     }
 
     public HashMap<LocalDateTime[], UUID> schedules(){
