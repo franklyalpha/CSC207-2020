@@ -32,7 +32,8 @@ public class UserController {
         HashMap<LocalDateTime[], UUID> act = userma.getActivities();
         HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
         for (LocalDateTime[] period : act.keySet()){
-            ArrayList<String> chatmessage = chatmana.getHistoricalChats(act.get(period));
+            UUID chatID = actmanag.getConferenceChat(act.get(period));
+            ArrayList<String> chatmessage = chatmana.getHistoricalChats(chatID);
             String topic = actmanag.searchActivityByUUID(act.get(period).toString())[1];
             historychat.put(topic, chatmessage);
         }
