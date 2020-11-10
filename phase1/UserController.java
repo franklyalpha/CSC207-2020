@@ -84,7 +84,7 @@ public class UserController {
 
     private void viewAllSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
-        ArrayList<String> actIDs = UUIDlist(schedules);
+        ArrayList<String> actIDs = UUIDSchedulelist(schedules);
         ArrayList<String[]> allSchedule = actmanag.searchActivityByUUID(actIDs);
 
 
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     // consider moving the functionality (most part of the code) to use-case
-    private ArrayList<String> UUIDlist(HashMap<LocalDateTime[], UUID> schedule){
+    private ArrayList<String> UUIDSchedulelist(HashMap<LocalDateTime[], UUID> schedule){
         ArrayList<UUID> IDs = (ArrayList<UUID>) schedule.values();
         ArrayList<String> stringIDs = new ArrayList<String>();
         for (UUID id: IDs){
