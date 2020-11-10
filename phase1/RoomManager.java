@@ -44,7 +44,7 @@ public class RoomManager {
         }
     }
 
-    public boolean checkBooked(LocalDateTime[] targetPeriod){
+    public boolean bookingAvailable(LocalDateTime[] targetPeriod){
         HashMap<LocalDateTime[], UUID> roomBooked = room.getSchedule();
         for(LocalDateTime[] interv: roomBooked.keySet()){
             LocalDateTime start = interv[0];
@@ -60,6 +60,10 @@ public class RoomManager {
             }
         }
         return true;
+    }
+
+    public UUID getRoomID(){
+        return room.getId();
     }
 
 }

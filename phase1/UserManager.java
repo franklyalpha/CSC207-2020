@@ -147,8 +147,32 @@ public class UserManager{
         return true;
     }
 
-    public void addSchedule(LocalDateTime[] time, UUID actID){ ;
+    private boolean isFree(User speaker, LocalDateTime[] actinterv){
+        HashMap<LocalDateTime[], UUID> userSchedule = speaker.getActivities();
+        for(LocalDateTime[] interv: userSchedule.keySet()){
+            LocalDateTime start = interv[0];
+            LocalDateTime end = interv[1];
+            if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
+                return false;
+            }
+            if (start.isAfter(actinterv[0]) && start.isBefore(actinterv[1])){
+                return false;
+            }
+            if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void selfAddSchedule(LocalDateTime[] time, UUID actID){ ;
         userOnAir.getActivities().put(time, actID);
+    }
+
+    public void otherAddSchedule(String username, LocalDateTime[] time, UUID actID){
+        User targetUser =findUser(username);
+        assert targetUser != null;
+        targetUser.getActivities().put(time, actID);
     }
 
     public void selfAddChatroom(String userName, UUID chatID){
@@ -186,5 +210,14 @@ public class UserManager{
         return userOnAir.getActivities();
     }
 
+    public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
+        ArrayList<String> freeSpeaker = new ArrayList<String>();
+        for (User speaker : speakers){
+            if (isFree(speaker, targetTime)){
+                freeSpeaker.add(speaker.getUsername());
+            }
+        }
+        return freeSpeaker;
+    }
 
 }

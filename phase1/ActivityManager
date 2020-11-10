@@ -23,9 +23,11 @@ public class ActivityManager{
         this.archivedActivities = new ArrayList<Activity>();
     }
 
-    public void addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
+    public UUID addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
                                UUID conferenceRoomNum, String topic){
-        upcomingActivities.add(new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic));
+        Activity newAct = new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic);
+        upcomingActivities.add(newAct);
+        return newAct.getIdentity();
     }
 
     public boolean markActivityDone(Activity act){
@@ -75,7 +77,8 @@ public class ActivityManager{
         for(Activity i: this.upcomingActivities){
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
-                        i.getStartTime().toString(), i.getEndTime().toString()};
+                        i.getStartTime().toString(), i.getEndTime().toString(),
+                        i.getConferenceRoomNum().toString()};
 
             }
         }
@@ -87,6 +90,21 @@ public class ActivityManager{
         time[0] = act.getStartTime();;
         time[1] = act.getEndTime();
         return time;
+    }
+
+    public void addSpeaker(UUID actID, String speakerName){
+        Activity targetAct = findActivity(actID);
+        assert targetAct != null;
+        targetAct.addSpeakers(speakerName);
+    }
+
+    private Activity findActivity(UUID actID){
+        for (Activity act : upcomingActivities){
+            if (actID.equals(act.getIdentity())){
+                return act;
+            }
+        }
+        return null;
     }
 
     //speaker identity duration topic roomnum starttime
