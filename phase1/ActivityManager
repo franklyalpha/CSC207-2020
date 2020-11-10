@@ -61,26 +61,12 @@ public class ActivityManager{
         return results;
     }
 
-    public ArrayList<String[]> searchActivityByUUID(ArrayList<String> IDs){
-        ArrayList<String[]> results = new ArrayList<String[]>();
-        for(Activity i: this.upcomingActivities){
-            if(IDs.contains(i.getIdentity().toString())){
-                String[] info = {i.getIdentity().toString(), i.getTopic(),
-                        i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString()};
-                results.add(info);
-            }
-        }
-        return results;
-    }
-
     public String[] searchActivityByUUID(String ID){
         for(Activity i: this.upcomingActivities){
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
                         i.getConferenceRoomNum().toString()};
-
             }
         }
         return null;

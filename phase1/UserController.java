@@ -13,7 +13,7 @@ public class UserController {
     //just for occupying the space;
     public void run(){}
 
-    private void viewPrivateMessage(){
+    protected void viewPrivateMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
         HashMap<String, UUID> contact = userma.contacts();
@@ -26,7 +26,7 @@ public class UserController {
 
     }
 
-    private void viewGroupMessage(){
+    protected void viewGroupMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
         HashMap<LocalDateTime[], UUID> act = userma.getActivities();
@@ -41,7 +41,7 @@ public class UserController {
 
     }
 
-    private void sendPrivateMessage(){
+    protected void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
         // for inputs;
         Scanner userScanner = new Scanner(System.in);
@@ -84,24 +84,14 @@ public class UserController {
     }
 
 
-    private void viewAllSchedule(){
+    protected void viewAllSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
-        ArrayList<String> actIDs = UUIDSchedulelist(schedules);
-        ArrayList<String[]> allSchedule = actmanag.searchActivityByUUID(actIDs);
-
-
-
-        // will call presenter below
-    }
-
-    // consider moving the functionality (most part of the code) to use-case
-    private ArrayList<String> UUIDSchedulelist(HashMap<LocalDateTime[], UUID> schedule){
-        ArrayList<UUID> IDs = (ArrayList<UUID>) schedule.values();
-        ArrayList<String> stringIDs = new ArrayList<String>();
-        for (UUID id: IDs){
-            stringIDs.add(id.toString());
+        ArrayList<String[]> allSchedule = new ArrayList<String[]>();
+        for (LocalDateTime[] time : schedules.keySet()){
+            String[] partialInfo = actmanag.searchActivityByUUID(schedules.get(time).toString());
+            allSchedule.add(partialInfo);
         }
-        return stringIDs;
+        // will call presenter below
     }
 
 
