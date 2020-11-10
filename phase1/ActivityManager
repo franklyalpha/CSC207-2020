@@ -24,7 +24,7 @@ public class ActivityManager{
     }
 
     public void addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
-                               int conferenceRoomNum, String topic){
+                               UUID conferenceRoomNum, String topic){
         upcomingActivities.add(new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic));
     }
 
@@ -64,7 +64,7 @@ public class ActivityManager{
         for(Activity i: this.upcomingActivities){
             if(IDs.contains(i.getIdentity().toString())){
                 String[] info = {i.getIdentity().toString(), i.getTopic(),
-                        i.getStartTime().toString(), i.getEndTime().toString()};
+                        i.getStartTime().toString(), i.getEndTime().toString(), };
                 results.add(info);
             }
         }

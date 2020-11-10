@@ -20,13 +20,13 @@ public class Activity {
     private LocalDateTime endTime;
     private final UUID identity;
     private final UUID conferenceChat;
-    private int conferenceRoomNum; //will adjust accordingly when they actually implements it.
+    private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     //Maybe event tags for easier search?
 
     //TODO thinking of making multiple constructors later
     //basic constructor
-    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, int conferenceRoomNum,
+    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
                     String topic){
         this.speakers = new ArrayList<String>();
         this.attendants = new ArrayList<String>();
@@ -88,7 +88,7 @@ public class Activity {
 
     public void changeTopic(String topic){this.topic = topic;}
 
-    public void changeRoom(int conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
+    public void changeRoom(UUID conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
 
     public boolean changeStartTime(LocalDateTime startTime){
         if(startTime.isAfter(this.endTime)){
@@ -127,7 +127,7 @@ public class Activity {
 
     public UUID getIdentity(){return this.identity;}
 
-    public int getConferenceRoomNum(){return this.conferenceRoomNum;}
+    public UUID getConferenceRoomNum(){return this.conferenceRoomNum;}
 
     public String getTopic(){return this.topic;}
 
