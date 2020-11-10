@@ -5,9 +5,10 @@ import java.util.*;
 
 //public abstract class UserController
 public class UserController {
-    private UserManager userma = new UserManager();
-    private ChatroomManager chatmana = new ChatroomManager();
-    private ActivityManager actmanag = new ActivityManager();
+    protected UserManager userma = new UserManager();
+    protected ChatroomManager chatmana = new ChatroomManager();
+    protected ActivityManager actmanag = new ActivityManager();
+    protected RoomManager roomma = new RoomManager();
 
     //just for occupying the space;
     public void run(){}
@@ -101,7 +102,6 @@ public class UserController {
         }
         return stringIDs;
     }
-
 
 
 }
