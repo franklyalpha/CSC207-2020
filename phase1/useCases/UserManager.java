@@ -67,7 +67,7 @@ public class UserManager implements java.io.Serializable{
         return switch (usertype) {
             case "organizer" -> 0;
             case "speaker" -> 1;
-            case "attendee" -> 2;
+            case "attendant" -> 2;
             default -> -1;
         };
     }
