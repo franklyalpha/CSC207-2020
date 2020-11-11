@@ -17,8 +17,6 @@ public class ChatroomManager {
      * createChatroom: creates a new chatroom with specified list of Users, adds to privateChats if necessary
      * addUser: takes a list of Users and add them to chat
      * removeUser: takes a list of Users and removes them from a chat
-     * (?) modifyChatHistory: takes a chat specified by UUID to access historicalChats and do whatever
-     *          ^^ not sure how necessary this is ^^
      *
      * sendMessage: takes message string and UUID to specify which chat to put it in.  >>>>>>>>>>>>> How will we keep track of who sent what message?<<<<<<<<<
      *
@@ -91,7 +89,6 @@ public class ChatroomManager {
 
     private Chatroom findChatroom(UUID chatID){
 
-        //should move this method to use-case class;
         // (since this is a functionality only allowed in use-case)
         Chatroom returns = null;
         ArrayList<Chatroom> allChats = new ArrayList<Chatroom>(privateChats);
