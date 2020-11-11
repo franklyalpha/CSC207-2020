@@ -1,3 +1,5 @@
+package controllers;
+
 import useCases.ActivityManager;
 import useCases.ChatroomManager;
 import useCases.RoomManager;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
 
-//public abstract class UserController
+//public abstract class controllers.UserController
 public class UserController {
     protected UserManager userma;
     protected ChatroomManager chatmana;

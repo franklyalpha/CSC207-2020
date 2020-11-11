@@ -1,3 +1,5 @@
+package controllers;
+
 import useCases.UserManager;
 
 import java.util.Scanner;
