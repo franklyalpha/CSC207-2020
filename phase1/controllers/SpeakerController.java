@@ -1,3 +1,5 @@
+package controllers;
+
 import useCases.UserManager;
 
 public class SpeakerController extends UserController {
