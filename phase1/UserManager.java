@@ -28,7 +28,6 @@ public class UserManager{
      * will consider adding another type-indicator String[], stores all possible type names.
      * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
      */
-
     // call modification and reset
 
     private ArrayList<User> organizers;
@@ -189,5 +188,7 @@ public class UserManager{
         }
         return false;
     }
+
+    public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
 
 }
