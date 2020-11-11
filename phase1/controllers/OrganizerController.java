@@ -32,8 +32,8 @@ public class OrganizerController extends UserController {
 
         Scanner end = new Scanner(System.in);
         System.out.println("Please input year, month, day, hour, minute of end time IN ORDER: ");
-        LocalDateTime endDateTime = LocalDateTime.of(start.nextInt(),
-                start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt());
+        LocalDateTime endDateTime = LocalDateTime.of(end.nextInt(),
+                end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
         LocalDateTime[] targetPeriod = {startDateTime, endDateTime};
         // input time;
         ArrayList<String> freeSpeaker = userma.availableSpeakers(targetPeriod);
