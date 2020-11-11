@@ -1,3 +1,5 @@
+package entities;
+
 import java.time.*;
 import java.util.*;
 
@@ -8,7 +10,7 @@ public class Activity {
         String speakerName;
         Int duration
         Arraylist<Integer> participantID
-        Chatroom CorrespondingChatroom
+        entities.Chatroom CorrespondingChatroom
 
         Methods include:
         Getters and setters;
@@ -136,7 +138,7 @@ public class Activity {
 //        String description = "Topic: " + this.topic + "\n" +
 //                "Speakers: ";
 //        for(String i: this.speakers){description += (i + " ");}
-//        description += ("\nConference Room " + this.conferenceRoomNum);
+//        description += ("\nConference entities.Room " + this.conferenceRoomNum);
 //        description += ("\nFrom " + this.startTime + " to " + this.endTime);
 //        description += ("\nID: " + this.identity);
 //        description += ("\nChat ID: " + this.conferenceChat);
@@ -146,7 +148,7 @@ public String toString(){
     String description = "Topic: " + this.topic + "\n" +
             "Speakers: ";
     description += speakers;
-    description += ("\nConference Room " + this.conferenceRoomNum);
+    description += ("\nConference entities.Room " + this.conferenceRoomNum);
     description += ("\nFrom " + this.startTime + " to " + this.endTime);
     description += ("\nID: " + this.identity);
     description += ("\nChat ID: " + this.conferenceChat);

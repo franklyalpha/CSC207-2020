@@ -1,3 +1,7 @@
+package useCases;
+
+import entities.Room;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -5,7 +9,7 @@ import java.util.UUID;
 
 public class RoomManager {
     /**
-     * Contains instance of Room: room, a room for some activities;
+     * Contains instance of entities.Room: room, a room for some activities;
      *
      * Own constructor
      * CheckRoomFullness: Check the Fullness for the room;
@@ -43,7 +47,7 @@ public class RoomManager {
         return null;
     }
 
-    // Add an activity in the Room schedule
+    // Add an activity in the entities.Room schedule
     public void BookRoom(LocalDateTime[] time, UUID activityID, UUID roomID){
         Room room = findRoom(roomID);
         assert room != null;
@@ -52,7 +56,7 @@ public class RoomManager {
         }
     }
 
-    // Remove an activity in the Room schedule
+    // Remove an activity in the entities.Room schedule
     public void CancelRoomActivity(LocalDateTime[] time, UUID actID, UUID roomID){
         Room room = findRoom(roomID);
         assert room != null;

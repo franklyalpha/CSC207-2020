@@ -1,3 +1,5 @@
+import useCases.UserManager;
+
 public class AttendantController extends UserController {
 
     public AttendantController(UserManager manager){

@@ -1,10 +1,12 @@
+package entities;
+
 import java.sql.Array;
 import java.util.*;
 import java.time.*;
 
 public class User {
     /**
-     * A representation of User.
+     * A representation of entities.User.
      *
      * @author
      * @version
@@ -30,7 +32,7 @@ public class User {
      */
 
     /**
-     * Creates a new User with given name, password, and type.
+     * Creates a new entities.User with given name, password, and type.
      *
      * @param name the valid (?unique) name of this user, which help to identify.
      * @param password the valid password of this user.

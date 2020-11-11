@@ -1,3 +1,5 @@
+import useCases.UserManager;
+
 import java.util.Scanner;
 
 public class LoginController {

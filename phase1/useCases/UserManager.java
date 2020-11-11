@@ -1,9 +1,13 @@
+package useCases;
+
+import entities.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.time.*;
 
-//public class UserManager implements java.io.Serializable
+//public class use_cases.UserManager implements java.io.Serializable
 
 public class UserManager{
     /**
@@ -37,7 +41,7 @@ public class UserManager{
     private int num_user;
     private User userOnAir;
     private ArrayList<User>[] typeArray = new ArrayList[3];
-//    private ArrayList<User>[] typearray = [organi]
+//    private ArrayList<entities.User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
     // make sure organizers don't access speaker's controllers  !!!!! 
