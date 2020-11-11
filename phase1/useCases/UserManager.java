@@ -88,6 +88,9 @@ public class UserManager implements java.io.Serializable{
     public int isUser(String username, String type) {
         int returnindex = 0;
         int types = typeChoice(type);
+        if (types == -1){
+            return 0;
+        }
         returnindex = checkUserIndex(username, typeArray[types]);
         return returnindex;
     }
