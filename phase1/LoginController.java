@@ -25,6 +25,11 @@ public class LoginController {
      5: will continue running until being terminated (use while loop);
      */
 
+
+    /*
+    require implementation: logout system;
+     */
+
     public void run(){
         boolean notStop = true;
         while(notStop){
