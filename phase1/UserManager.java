@@ -68,7 +68,7 @@ public class UserManager{
         };
     }
 
-    public void CreateUser(String username, String password, String type) {
+    public void createUser(String username, String password, String type) {
         String name = username + num_user;
         int types = typeChoice(type);
         User org = new User(name, password, type);
