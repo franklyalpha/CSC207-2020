@@ -5,6 +5,10 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class OrganizerController extends UserController {
+    public OrganizerController(UserManager manager) {
+        super(manager);
+    }
+
     @Override
     public void run() {
         super.run();
