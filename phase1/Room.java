@@ -3,21 +3,28 @@ import java.util.*;
 
 public class Room {
 
-    private int id;
+    private UUID id;
     private int capacity;
-    private HashMap<LocalDateTime, String> schedule;
+    private HashMap<LocalDateTime[], UUID> schedule;
 
-    public Room(int id, int capacity){
-        this.id = id;
-        this.capacity = capacity;
-        this.schedule = new HashMap<LocalDateTime, String>();
+    public Room(int capacity){
+        this.id = UUID.randomUUID(); //assign Room id
+        this.capacity = capacity; //assign Room Capacity
+        this.schedule = new HashMap<LocalDateTime[], UUID>(); //holds all the schedule times for the Room
     }
 
-    public int getId() { return id; }
+    // getter for Room id
+    public UUID getId() { return id; }
 
+    // getter for Room Capacity
     public int getCapacity() { return capacity; }
 
-    public void setId(int id) { this.id = id; }
+    // setter for Room id
+    // public void setId(UUID id) { this.id = id; }
 
+    // setter for Room Capacity
     public void setCapacity(int capacity) { this.capacity = capacity; }
+
+    // getter for Room Schedule
+    public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 }

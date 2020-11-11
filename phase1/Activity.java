@@ -13,22 +13,23 @@ public class Activity {
         Methods include:
         Getters and setters;
     */
-    private final ArrayList<String> speakers;
+    //private final ArrayList<String> speakers;
+    private String speakers;
     private final ArrayList<String> attendants;
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private final UUID identity;
     private final UUID conferenceChat;
-    private int conferenceRoomNum; //will adjust accordingly when they actually implements it.
+    private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     //Maybe event tags for easier search?
 
     //TODO thinking of making multiple constructors later
     //basic constructor
-    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, int conferenceRoomNum,
+    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
                     String topic){
-        this.speakers = new ArrayList<String>();
+        this.speakers = null;
         this.attendants = new ArrayList<String>();
         this.startTime = startTime;
         this.endTime = endTime;
@@ -65,30 +66,30 @@ public class Activity {
 
     public boolean addSpeakers(String speaker){
         if(speakers.contains(speaker)){
-            this.speakers.add(speaker);
+            this.speakers = speaker;
             return true;
         }else{
             return false;
         }
     }
 
-    public boolean addSpeakers(ArrayList<String> speakers){
-        boolean addedAll = true;
-        for(String i: speakers){
-            if(this.speakers.contains(i)) {
-                this.speakers.add(i);
-            }else{
-                addedAll = false;
-            }
-        }
-        return addedAll;
-    }
+//    public boolean addSpeakers(ArrayList<String> speakers){
+//        boolean addedAll = true;
+//        for(String i: speakers){
+//            if(this.speakers.contains(i)) {
+//                this.speakers.add(i);
+//            }else{
+//                addedAll = false;
+//            }
+//        }
+//        return addedAll;
+//    }
 
-    public boolean removeSpeaker(String speaker){return this.speakers.remove(speaker);}
+//    public boolean removeSpeaker(String speaker){return this.speakers.remove(speaker);}
 
     public void changeTopic(String topic){this.topic = topic;}
 
-    public void changeRoom(int conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
+    public void changeRoom(UUID conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
 
     public boolean changeStartTime(LocalDateTime startTime){
         if(startTime.isAfter(this.endTime)){
@@ -115,7 +116,7 @@ public class Activity {
 
     public ArrayList<String> getAttendantsList(){return this.attendants;}
 
-    public ArrayList<String> getSpeakersList(){return this.speakers;}
+    public String getSpeakersList(){return this.speakers;}
 
     public LocalDateTime getStartTime(){return this.startTime;}
 
@@ -127,19 +128,29 @@ public class Activity {
 
     public UUID getIdentity(){return this.identity;}
 
-    public int getConferenceRoomNum(){return this.conferenceRoomNum;}
+    public UUID getConferenceRoomNum(){return this.conferenceRoomNum;}
 
     public String getTopic(){return this.topic;}
 
-    public String toString(){
-        String description = "Topic: " + this.topic + "\n" +
-                "Speakers: ";
-        for(String i: this.speakers){description += (i + " ");}
-        description += ("\nConference Room " + this.conferenceRoomNum);
-        description += ("\nFrom " + this.startTime + " to " + this.endTime);
-        description += ("\nID: " + this.identity);
-        description += ("\nChat ID: " + this.conferenceChat);
-        return description;
-    }
+//    public String toString(){
+//        String description = "Topic: " + this.topic + "\n" +
+//                "Speakers: ";
+//        for(String i: this.speakers){description += (i + " ");}
+//        description += ("\nConference Room " + this.conferenceRoomNum);
+//        description += ("\nFrom " + this.startTime + " to " + this.endTime);
+//        description += ("\nID: " + this.identity);
+//        description += ("\nChat ID: " + this.conferenceChat);
+//        return description;
+//    }
+public String toString(){
+    String description = "Topic: " + this.topic + "\n" +
+            "Speakers: ";
+    description += speakers;
+    description += ("\nConference Room " + this.conferenceRoomNum);
+    description += ("\nFrom " + this.startTime + " to " + this.endTime);
+    description += ("\nID: " + this.identity);
+    description += ("\nChat ID: " + this.conferenceChat);
+    return description;
+}
 
 }

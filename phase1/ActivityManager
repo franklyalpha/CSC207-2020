@@ -23,9 +23,11 @@ public class ActivityManager{
         this.archivedActivities = new ArrayList<Activity>();
     }
 
-    public void addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
-                               int conferenceRoomNum, String topic){
-        upcomingActivities.add(new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic));
+    public UUID addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
+                               UUID conferenceRoomNum, String topic){
+        Activity newAct = new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic);
+        upcomingActivities.add(newAct);
+        return newAct.getIdentity();
     }
 
     public boolean markActivityDone(Activity act){
@@ -57,6 +59,45 @@ public class ActivityManager{
             }
         }
         return results;
+    }
+
+    public String[] searchActivityByUUID(String ID){
+        for(Activity i: this.upcomingActivities){
+            if(ID.equals(i.getIdentity().toString())){
+                return new String[]{i.getIdentity().toString(), i.getTopic(),
+                        i.getStartTime().toString(), i.getEndTime().toString(),
+                        i.getConferenceRoomNum().toString()};
+            }
+        }
+        return null;
+    }
+
+    private LocalDateTime[] timeProcessing(Activity act){
+        LocalDateTime[] time = new LocalDateTime[2];
+        time[0] = act.getStartTime();;
+        time[1] = act.getEndTime();
+        return time;
+    }
+
+    public void addSpeaker(UUID actID, String speakerName){
+        Activity targetAct = findActivity(actID);
+        assert targetAct != null;
+        targetAct.addSpeakers(speakerName);
+    }
+
+    private Activity findActivity(UUID actID){
+        for (Activity act : upcomingActivities){
+            if (actID.equals(act.getIdentity())){
+                return act;
+            }
+        }
+        return null;
+    }
+
+    public UUID getConferenceChat(UUID actID){
+        Activity targetAct = findActivity(actID);
+        assert targetAct != null;
+        return targetAct.getChatID();
     }
 
     //speaker identity duration topic roomnum starttime

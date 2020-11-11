@@ -36,18 +36,6 @@ public class ChatroomManager {
         privateChats = new ArrayList<>();
     }
 
-    public Chatroom getCoopRoom() {
-        return coopRoom;
-    }
-
-    public ArrayList<Chatroom> getPrivateChats() {
-        return privateChats;
-    }
-
-    public ArrayList<Chatroom> getConferenceChats() {
-        return conferenceChats;
-    }
-
     public UUID createChatroom(ArrayList<String> users){
         // precondition: length(users) > 1
 
@@ -95,6 +83,27 @@ public class ChatroomManager {
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
             }
         }
+    }
+
+    private Chatroom findChatroom(UUID chatID){
+
+        //should move this method to use-case class;
+        // (since this is a functionality only allowed in use-case)
+        Chatroom returns = null;
+        ArrayList<Chatroom> allChats = new ArrayList<Chatroom>(privateChats);
+        allChats.addAll(conferenceChats);
+        allChats.add(coopRoom);
+        for (Chatroom chatrooms : allChats){
+            if (chatrooms.getId().equals(chatID)){
+                returns = chatrooms;
+            }
+        }
+        return returns;
+    }
+
+    public ArrayList<String> getHistoricalChats(UUID chatID){
+        Chatroom targetedChat = findChatroom(chatID);
+        return targetedChat.getHistoricalChats();
     }
 
 

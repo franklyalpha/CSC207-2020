@@ -15,6 +15,10 @@ public class User {
     private String userType;
     private HashMap<String, UUID> chatroom;
     private HashMap<LocalDateTime[], UUID> activities;
+    // in phase 2, will create a clone corresponding activities for
+    // new modified schedules;  will be a shallow copy
+
+
     // need setter;
     // including ArrayList.remove()
 

@@ -146,33 +146,58 @@ public class UserManager{
         return true;
     }
 
-    public void addSchedule(Activity act){
-        LocalDateTime[] time = timeProcessing(act);
-        userOnAir.getActivities().put(time, act.getIdentity());
-    }
-
-    public boolean addChatroom(Chatroom privateRoom){
-        if (privateRoom.getUsersInvolved().size() > 2){
-            return false;
-        }
-        for (String name: privateRoom.getUsersInvolved()){
-            if (!name.equals(userOnAir.getUsername())){
-                userOnAir.getChatroom().put(name,
-                        privateRoom.getId());
+    private boolean isFree(User speaker, LocalDateTime[] actinterv){
+        HashMap<LocalDateTime[], UUID> userSchedule = speaker.getActivities();
+        for(LocalDateTime[] interv: userSchedule.keySet()){
+            LocalDateTime start = interv[0];
+            LocalDateTime end = interv[1];
+            if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
+                return false;
+            }
+            if (start.isAfter(actinterv[0]) && start.isBefore(actinterv[1])){
+                return false;
+            }
+            if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
+                return false;
             }
         }
         return true;
     }
 
-    private LocalDateTime[] timeProcessing(Activity act){
-        LocalDateTime[] time = new LocalDateTime[2];
-        time[0] = act.getStartTime();;
-        time[1] = act.getEndTime();
-        return time;
+    public void selfAddSchedule(LocalDateTime[] time, UUID actID){ ;
+        userOnAir.getActivities().put(time, actID);
     }
 
-    public boolean deleteActivity(Activity act){
-        LocalDateTime[] time = timeProcessing(act);
+    public void otherAddSchedule(String username, LocalDateTime[] time, UUID actID){
+        User targetUser =findUser(username);
+        assert targetUser != null;
+        targetUser.getActivities().put(time, actID);
+    }
+
+    public void selfAddChatroom(String userName, UUID chatID){
+        userOnAir.getChatroom().put(userName, chatID);
+    }
+
+    public void otherAddChatroom(String userName, UUID chatID){
+        User targetedUser = findUser(userName);
+        //require further modification;
+        assert targetedUser != null;
+        targetedUser.getChatroom().put(userOnAir.getUsername(), chatID);
+    }
+
+    private User findUser(String userName){
+        ArrayList<User> allUser = new ArrayList<User>(organizers);
+        allUser.addAll(speakers);
+        allUser.addAll(attendee);
+        for (User users: allUser){
+            if (users.getUsername().equals(userName)){
+                return users;
+            }
+        }
+        return null;
+    }
+
+    public boolean deleteActivity(LocalDateTime[] time){
         if (userOnAir.getActivities().containsKey(time)){
             userOnAir.getActivities().remove(time);
             return true;
@@ -180,13 +205,18 @@ public class UserManager{
         return false;
     }
 
-    public boolean deleteChat(Activity act){
-        String roomID = act.getChatID().toString();
-        if (userOnAir.getChatroom().containsKey(roomID)){
-            userOnAir.getChatroom().remove(roomID);
-            return true;
+    public HashMap<LocalDateTime[], UUID> getActivities() {
+        return userOnAir.getActivities();
+    }
+
+    public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
+        ArrayList<String> freeSpeaker = new ArrayList<String>();
+        for (User speaker : speakers){
+            if (isFree(speaker, targetTime)){
+                freeSpeaker.add(speaker.getUsername());
+            }
         }
-        return false;
+        return freeSpeaker;
     }
 
     public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
