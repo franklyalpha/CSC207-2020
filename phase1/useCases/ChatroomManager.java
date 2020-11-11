@@ -27,7 +27,7 @@ public class ChatroomManager implements java.io.Serializable{
     private ArrayList<Chatroom> privateChats;
 
     public ChatroomManager(){
-        Chatroom coopRoom = new Chatroom();
+        coopRoom = new Chatroom();
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
     }
