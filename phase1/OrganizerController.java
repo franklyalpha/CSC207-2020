@@ -12,6 +12,7 @@ public class OrganizerController extends UserController {
 
     /*
     require implementation:
+
     create room, create speaker account, modify speaker,
      */
 
