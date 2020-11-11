@@ -1,3 +1,7 @@
+package useCases;
+
+import entities.Activity;
+
 import java.time.*;
 import java.util.*;
 
@@ -5,7 +9,7 @@ public class ActivityManager{
 
     /**
      * modifications:
-     * modify the way of storing activity lists as Hashmap<Hashtable<LocalDateTime[], String>,Activity>;
+     * modify the way of storing activity lists as Hashmap<Hashtable<LocalDateTime[], String>,entities.Activity>;
      * Hashtable is similar to 'tuple' in python;  LocalDateTime[] is scheduled period; String is Speaker's name
      *
      * missing functioning:
@@ -101,5 +105,5 @@ public class ActivityManager{
     }
 
     //speaker identity duration topic roomnum starttime
-    //public ArrayList<Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
+    //public ArrayList<entities.Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
 }

@@ -1,3 +1,5 @@
+package entities;
+
 import java.time.*;
 import java.util.*;
 
@@ -8,23 +10,23 @@ public class Room {
     private HashMap<LocalDateTime[], UUID> schedule;
 
     public Room(int capacity){
-        this.id = UUID.randomUUID(); //assign Room id
-        this.capacity = capacity; //assign Room Capacity
-        this.schedule = new HashMap<LocalDateTime[], UUID>(); //holds all the schedule times for the Room
+        this.id = UUID.randomUUID(); //assign entities.Room id
+        this.capacity = capacity; //assign entities.Room Capacity
+        this.schedule = new HashMap<LocalDateTime[], UUID>(); //holds all the schedule times for the entities.Room
     }
 
-    // getter for Room id
+    // getter for entities.Room id
     public UUID getId() { return id; }
 
-    // getter for Room Capacity
+    // getter for entities.Room Capacity
     public int getCapacity() { return capacity; }
 
-    // setter for Room id
+    // setter for entities.Room id
     // public void setId(UUID id) { this.id = id; }
 
-    // setter for Room Capacity
+    // setter for entities.Room Capacity
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
-    // getter for Room Schedule
+    // getter for entities.Room Schedule
     public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 }

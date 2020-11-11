@@ -1,3 +1,8 @@
+import useCases.ActivityManager;
+import useCases.ChatroomManager;
+import useCases.RoomManager;
+import useCases.UserManager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -5,12 +10,19 @@ import java.util.*;
 
 //public abstract class UserController
 public class UserController {
-    protected UserManager userma = new UserManager();
-    protected ChatroomManager chatmana = new ChatroomManager();
-    protected ActivityManager actmanag = new ActivityManager();
-    protected RoomManager roomma = new RoomManager();
+    protected UserManager userma;
+    protected ChatroomManager chatmana;
+    protected ActivityManager actmanag;
+    protected RoomManager roomma;
 
     //just for occupying the space;
+    public UserController(UserManager manager) {
+        userma =manager;
+        chatmana = new ChatroomManager();
+        actmanag = new ActivityManager();
+        roomma = new RoomManager();
+    }
+
     public void run(){}
 
     protected void viewPrivateMessage(){

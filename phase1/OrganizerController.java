@@ -1,3 +1,5 @@
+import useCases.UserManager;
+
 import java.time.*;
 
 import java.util.ArrayList;
@@ -5,6 +7,10 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class OrganizerController extends UserController {
+    public OrganizerController(UserManager manager) {
+        super(manager);
+    }
+
     @Override
     public void run() {
         super.run();
@@ -12,6 +18,7 @@ public class OrganizerController extends UserController {
 
     /*
     require implementation:
+
     create room, create speaker account, modify speaker,
      */
 

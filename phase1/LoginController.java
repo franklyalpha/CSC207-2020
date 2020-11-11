@@ -1,3 +1,5 @@
+import useCases.UserManager;
+
 import java.util.Scanner;
 
 public class LoginController {
@@ -30,6 +32,7 @@ public class LoginController {
     require implementation: logout system;
      */
 
+
     public void run(){
         boolean notStop = true;
         while(notStop){
@@ -51,13 +54,13 @@ public class LoginController {
                     //factory design pattern (see more on code-smell website)
                     switch(typeName){
                         case "organizer":
-                            OrganizerController org = new OrganizerController();
+                            OrganizerController org = new OrganizerController(usermanage);
                             org.run();
                         case "speaker":
-                            SpeakerController spe = new SpeakerController();
+                            SpeakerController spe = new SpeakerController(usermanage);
                             spe.run();
                         case "attendant":
-                            AttendantController att = new AttendantController();
+                            AttendantController att = new AttendantController(usermanage);
                             att.run();
                     }
                 }

@@ -1,3 +1,7 @@
+package useCases;
+
+import entities.Chatroom;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -5,9 +9,9 @@ import java.util.UUID;
 
 public class ChatroomManager {
     /**
-     * Contains instance of Chatroom: coopRoom, a Chatroom between all organizers and speakers;
-     * Arraylist<Chatroom> conferenceChats, a list of all Chatrooms associated with activities happening;
-     * Arraylist<Chatroom> privateChats, list of private Chatrooms between 2 Users
+     * Contains instance of entities.Chatroom: coopRoom, a entities.Chatroom between all organizers and speakers;
+     * Arraylist<entities.Chatroom> conferenceChats, a list of all Chatrooms associated with activities happening;
+     * Arraylist<entities.Chatroom> privateChats, list of private Chatrooms between 2 Users
      *
      * Own constructor
      * createChatroom: creates a new chatroom with specified list of Users, adds to privateChats if necessary
@@ -49,7 +53,7 @@ public class ChatroomManager {
 
     public void addUser(ArrayList<String> users, UUID chat) {
         for (Chatroom room : conferenceChats){
-            if (room.getId() == chat){               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
                 for(String userID : users){
                     room.getUsersInvolved().add(userID);  // add users to the usersInvolved in this chat
                 }
@@ -59,7 +63,7 @@ public class ChatroomManager {
 
     public void removeUser(ArrayList<String> users, UUID chat) {
         for (Chatroom room : conferenceChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
                 for (String userID : users) {
                     room.getUsersInvolved().add(userID);  // remove users to the usersInvolved in this chat
                 }
@@ -69,7 +73,7 @@ public class ChatroomManager {
 
     public void sendMessage(String message, UUID chat){
         for (Chatroom room : conferenceChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
         }
@@ -77,7 +81,7 @@ public class ChatroomManager {
 
     public void sendPrivateMessage(String message, UUID chat){
         for (Chatroom room : privateChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right Chatroom
+            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
             }
         }

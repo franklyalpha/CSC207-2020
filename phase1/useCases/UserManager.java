@@ -1,9 +1,13 @@
+package useCases;
+
+import entities.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.time.*;
 
-//public class UserManager implements java.io.Serializable
+//public class use_cases.UserManager implements java.io.Serializable
 
 public class UserManager{
     /**
@@ -28,7 +32,6 @@ public class UserManager{
      * will consider adding another type-indicator String[], stores all possible type names.
      * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
      */
-
     // call modification and reset
 
     private ArrayList<User> organizers;
@@ -38,7 +41,7 @@ public class UserManager{
     private int num_user;
     private User userOnAir;
     private ArrayList<User>[] typeArray = new ArrayList[3];
-//    private ArrayList<User>[] typearray = [organi]
+//    private ArrayList<entities.User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
     // make sure organizers don't access speaker's controllers  !!!!! 
@@ -69,7 +72,7 @@ public class UserManager{
         };
     }
 
-    public void CreateUser(String username, String password, String type) {
+    public void createUser(String username, String password, String type) {
         String name = username + num_user;
         int types = typeChoice(type);
         User org = new User(name, password, type);
@@ -219,5 +222,7 @@ public class UserManager{
         }
         return freeSpeaker;
     }
+
+    public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
 
 }
