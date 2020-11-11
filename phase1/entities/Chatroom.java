@@ -3,35 +3,70 @@ package entities;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Represents a <code>Chatroom</code>.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Chatroom {
 
+    /**
+     * Unique identifier for each <code>Chatroom</code>.
+     */
     private UUID id;  // unique identifier for each entities.Chatroom
+
+    /**
+     * Holds the username of all Users in this <code>Chatroom</code>.
+     */
     private ArrayList<String> usersInvolved;  // holds username of all Users in this entities.Chatroom
+
+    /**
+     * Holds all messages sent in this <code>Chatroom</code>.
+     */
     private ArrayList<String> historicalChats;  // holds previously sent messages from this entities.Chatroom
 
+    /**
+     * Creates <code>Chatroom</code> with a randomly generated UUID, blank chat history, and empty list of chat participants.
+     */
     public Chatroom(){
         id = UUID.randomUUID();  // assign id
-        usersInvolved = new ArrayList<>();  // specify users in this entities.Chatroom with given parameter
+        usersInvolved = new ArrayList<>();  // If no given users, empty by default
         historicalChats = new ArrayList<String>();  // start with empty chatHistory
     }
 
+    /**
+     * Creates <code>Chatroom</code> with a randomly generated UUID, blank chat history, and specified chat participants.
+     * @param users ArrayList of usernames of <code>Users</code> participating in this <code>Chatroom</code>.
+     */
     public Chatroom(ArrayList<String> users){
         id = UUID.randomUUID();  // assign id
-        usersInvolved = users;  // specify users in this entities.Chatroom with given parameter
+        usersInvolved = users;  // specify users in this Chatroom by parameter
         historicalChats = new ArrayList<String>();  // start with empty chatHistory
     }
 
-    // getter for id
+    /**
+     * Gets the unique identifier for this <code>Chatroom</code>.
+     * @return The UUID corresponding to this <code>Chatroom</code>.
+     */
     public UUID getId(){
         return this.id;
     }
 
-    // getter for usersInvolved
+    /**
+     * Gets a list of Users in this <code>Chatroom</code>.
+     * @return A list of strings corresponding to the usernames of <code>Users</code> in this <code>Chatroom</code>.
+     */
     public ArrayList<String> getUsersInvolved(){
         return this.usersInvolved;
     }
 
-    // getter for historicalChats
+    /**
+     * Gets a list of messages sent in this <code>Chatroom</code>.
+     * @return A list of strings corresponding to messages sent in this <code>Chatroom</code>.
+     */
     public ArrayList<String> getHistoricalChats(){
         return this.historicalChats;
     }
