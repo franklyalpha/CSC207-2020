@@ -7,7 +7,7 @@ import java.util.UUID;
 
 //work in progress
 
-public class ChatroomManager {
+public class ChatroomManager implements java.io.Serializable{
     /**
      * Contains instance of entities.Chatroom: coopRoom, a entities.Chatroom between all organizers and speakers;
      * Arraylist<entities.Chatroom> conferenceChats, a list of all Chatrooms associated with activities happening;
