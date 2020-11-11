@@ -3,7 +3,7 @@ package entities;
 import java.time.*;
 import java.util.*;
 
-public class Activity {
+public class Activity implements java.io.Serializable {
     /*
         Variables include:
         String/Date(require importing) time;

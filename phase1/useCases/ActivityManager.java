@@ -5,7 +5,7 @@ import entities.Activity;
 import java.time.*;
 import java.util.*;
 
-public class ActivityManager{
+public class ActivityManager implements java.io.Serializable{
 
     /**
      * modifications:

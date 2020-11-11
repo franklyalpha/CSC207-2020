@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class RoomManager {
+public class RoomManager implements java.io.Serializable {
     /**
      * Contains instance of entities.Room: room, a room for some activities;
      *

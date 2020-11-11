@@ -4,7 +4,7 @@ import java.sql.Array;
 import java.util.*;
 import java.time.*;
 
-public class User {
+public class User implements java.io.Serializable {
     /**
      * A representation of entities.User.
      *

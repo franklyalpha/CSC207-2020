@@ -11,7 +11,7 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class Chatroom {
+public class Chatroom implements java.io.Serializable{
 
     /**
      * Unique identifier for each <code>Chatroom</code>.

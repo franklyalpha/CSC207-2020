@@ -3,7 +3,7 @@ package entities;
 import java.time.*;
 import java.util.*;
 
-public class Room {
+public class Room implements java.io.Serializable {
 
     private UUID id;
     private int capacity;

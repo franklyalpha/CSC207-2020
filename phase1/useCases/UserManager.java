@@ -9,7 +9,7 @@ import java.time.*;
 
 //public class use_cases.UserManager implements java.io.Serializable
 
-public class UserManager{
+public class UserManager implements java.io.Serializable{
     /**
      * features should include:
      * its own constructor
