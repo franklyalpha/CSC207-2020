@@ -81,7 +81,7 @@ public class ChatroomManager implements java.io.Serializable{
 
     public void sendPrivateMessage(String message, UUID chat){
         for (Chatroom room : privateChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
             }
         }
