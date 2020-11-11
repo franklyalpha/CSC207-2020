@@ -1,3 +1,5 @@
+package gateways;
+
 import useCases.ActivityManager;
 
 import java.io.*;

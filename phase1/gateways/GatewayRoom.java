@@ -1,12 +1,14 @@
-import useCases.ChatroomManager;
+package gateways;
+
+import useCases.RoomManager;
 
 import java.io.*;
 
-public class GatewayChat {
+public class GatewayRoom {
 
-    public void ser(ChatroomManager tester){
+    public void ser(RoomManager tester){
         try{
-            File f = new File("chats.txt");
+            File f = new File("rooms.txt");
             ObjectOutputStream oos = null;
             OutputStream out = new FileOutputStream(f);
             oos = new ObjectOutputStream(out);
@@ -18,20 +20,20 @@ public class GatewayChat {
 
     }
 
-    public ChatroomManager deser(){
-        ChatroomManager seri;
+    public RoomManager deser(){
+        RoomManager seri;
         try{
-            File f = new File("chats.txt");
+            File f = new File("rooms.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            seri = (ChatroomManager) oid.readObject();
+            seri = (RoomManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            seri = new ChatroomManager();
+            seri = new RoomManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find original file. Will reset all settings. ");
-            seri = new ChatroomManager();
+            seri = new RoomManager();
         }
         return seri;
 
