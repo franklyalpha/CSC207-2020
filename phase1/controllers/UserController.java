@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
+import gateways.*;
 
 //public abstract class controllers.UserController
 public class UserController {
@@ -19,10 +20,10 @@ public class UserController {
 
     //just for occupying the space;
     public UserController(UserManager manager) {
-        userma =manager;
-        chatmana = new ChatroomManager();
-        actmanag = new ActivityManager();
-        roomma = new RoomManager();
+        userma = manager;
+        chatmana = new GatewayChat().deser();
+        actmanag = new GatewayActivity().deser();
+        roomma = new GatewayRoom().deser();
     }
 
     public void run(){}

@@ -1,11 +1,11 @@
 package controllers;
 
 import useCases.UserManager;
-
+import gateways.*;
 import java.util.Scanner;
 
 public class LoginController {
-    private UserManager usermanage = new UserManager();
+    private UserManager usermanage = new GatewayUser().deser();
 
     // will consider instantiating presenters here
     /**

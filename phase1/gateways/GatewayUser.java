@@ -1,12 +1,14 @@
-import useCases.RoomManager;
+package gateways;
+
+import useCases.UserManager;
 
 import java.io.*;
 
-public class GatewayRoom {
+public class GatewayUser {
 
-    public void ser(RoomManager tester){
+    public void ser(UserManager tester){
         try{
-            File f = new File("rooms.txt");
+            File f = new File("users.txt");
             ObjectOutputStream oos = null;
             OutputStream out = new FileOutputStream(f);
             oos = new ObjectOutputStream(out);
@@ -18,20 +20,20 @@ public class GatewayRoom {
 
     }
 
-    public RoomManager deser(){
-        RoomManager seri;
+    public UserManager deser(){
+        UserManager seri;
         try{
-            File f = new File("rooms.txt");
+            File f = new File("users.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            seri = (RoomManager) oid.readObject();
+            seri = (UserManager)oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            seri = new RoomManager();
+            seri = new UserManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find original file. Will reset all settings. ");
-            seri = new RoomManager();
+            seri = new UserManager();
         }
         return seri;
 
