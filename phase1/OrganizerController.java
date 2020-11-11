@@ -10,6 +10,11 @@ public class OrganizerController extends UserController {
         super.run();
     }
 
+    /*
+    require implementation:
+    create room, create speaker account, modify speaker,
+     */
+
     private boolean addSchedule(){
         Scanner start = new Scanner(System.in);
         System.out.println("Please input year, month, day, hour, minute of start time IN ORDER: ");

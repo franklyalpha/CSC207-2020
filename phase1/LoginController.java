@@ -26,8 +26,8 @@ public class LoginController {
      */
 
     public void run(){
-        boolean stop = false;
-        while(stop){
+        boolean notStop = true;
+        while(notStop){
             // will call file reading methods here, if not implementing serializable
             // will call serialized file reading, if being serialized
 
@@ -64,7 +64,7 @@ public class LoginController {
                 System.out.println("Continue running or not? (type \"true\" or \"false\")");
                 Scanner nextChoice = new Scanner(System.in);
                 if (nextChoice.hasNextBoolean()){
-                    stop = nextChoice.nextBoolean();
+                    notStop = nextChoice.nextBoolean();
                     validinput = true;
                 }
                 else{

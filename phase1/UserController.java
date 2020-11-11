@@ -84,7 +84,7 @@ public class UserController {
     }
 
 
-    protected void viewAllSchedule(){
+    protected void viewEnrolledSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
         ArrayList<String[]> allSchedule = new ArrayList<String[]>();
         for (LocalDateTime[] time : schedules.keySet()){
