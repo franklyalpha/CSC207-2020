@@ -89,21 +89,22 @@ public class ChatroomManager implements java.io.Serializable{
 
     private Chatroom findChatroom(UUID chatID){
 
+        //should move this method to use-case class;
         // (since this is a functionality only allowed in use-case)
-        Chatroom returns = null;
         ArrayList<Chatroom> allChats = new ArrayList<Chatroom>(privateChats);
         allChats.addAll(conferenceChats);
         allChats.add(coopRoom);
         for (Chatroom chatrooms : allChats){
-            if (chatrooms.getId().equals(chatID)){
-                returns = chatrooms;
+            if (chatrooms != null && chatrooms.getId().equals(chatID)){
+                return chatrooms;
             }
         }
-        return returns;
+        return null;
     }
 
     public ArrayList<String> getHistoricalChats(UUID chatID){
         Chatroom targetedChat = findChatroom(chatID);
+        assert targetedChat != null;
         return targetedChat.getHistoricalChats();
     }
 
