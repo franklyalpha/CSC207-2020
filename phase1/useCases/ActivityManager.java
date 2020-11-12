@@ -16,6 +16,7 @@ public class ActivityManager implements java.io.Serializable{
      * 1: being able to check whether there's a scheduled activity during assigned time period;
      * 2: being able to search activities by available time period;
      * 3: being able to modify a scheduled period by time and speaker. (phase 2)
+     * 4: being able to get all upcommingActivities.
      */
 
     private final ArrayList<Activity> upcomingActivities;
@@ -103,6 +104,20 @@ public class ActivityManager implements java.io.Serializable{
         assert targetAct != null;
         return targetAct.getChatID();
     }
+
+    // method that get all upcomming Activites.
+    public ArrayList<String[]> viewUpcommingActivites(){
+        ArrayList<String[]> result = new ArrayList<String[]>();
+        for(Activity i: this.upcomingActivities){
+            String[] temp = {i.getIdentity().toString(), i.getTopic(),
+                        i.getStartTime().toString(), i.getEndTime().toString(),
+                        i.getConferenceRoomNum().toString()};
+            result.add(temp);
+        }
+        return result;
+    }
+
+
 
     //speaker identity duration topic roomnum starttime
     //public ArrayList<entities.Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
