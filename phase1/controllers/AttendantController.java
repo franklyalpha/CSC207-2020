@@ -33,7 +33,7 @@ public class AttendantController extends UserController{
         schedules.removeAll(temp2);
         //activity that is full and user is not free.
         for(String[]d: schedules){
-            if (!roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0]))+1, UUID.fromString(d[0]))){
+            if (roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[0]))){
                 temp.add(actmanag.searchActivityByUUID(d[0]));
             }
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -83,9 +83,15 @@ public class AttendantController extends UserController{
         String activityID = scan.nextLine();
         HashMap<LocalDateTime[], UUID> temp = userma.getActivities();
         //check whether this activity user has enrolled.
-        if(temp.containsValue(UUID.fromString(activityID))){
-            actmanag.removeAttendant(UUID.fromString(activityID), userma.currentUsername());
-            chatmana.removeUser(userName,actmanag.getConferenceChat(UUID.fromString(activityID)));
+        UUID actID = UUID.fromString(activityID);
+        if(temp.containsValue(actID)){
+            actmanag.removeAttendant(actID, userma.currentUsername());
+            chatmana.removeUser(userName,actmanag.getConferenceChat(actID));
+            String[] actInfo = actmanag.searchActivityByUUID(activityID);
+            // update user's enrollment in User-manager
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime[] time = {LocalDateTime.parse(actInfo[2], df), LocalDateTime.parse(actInfo[3], df)};
+            userma.deleteActivity(time);
         }
         else{
             System.out.println("Invalid activity ID.");
