@@ -110,11 +110,21 @@ public class ActivityManager implements java.io.Serializable{
         ArrayList<String[]> result = new ArrayList<String[]>();
         for(Activity i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
-                        i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString()};
+                    i.getStartTime().toString(), i.getEndTime().toString(),
+                    i.getConferenceRoomNum().toString()};
             result.add(temp);
         }
         return result;
+    }
+    //method that add attendees
+    public boolean addAttendant(UUID activity,String attendant){
+        Activity a = findActivity(activity);
+        return a.AddAttendants(attendant);
+    }
+    //method that get the num of attendees in certain activities
+    public int numAttendant(UUID activity){
+        Activity a = findActivity(activity);
+        return a.getAttendantsList().size();
     }
 
 
