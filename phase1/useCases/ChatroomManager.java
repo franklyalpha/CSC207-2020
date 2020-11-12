@@ -89,7 +89,9 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to add the specified users to.
      */
     public void addUser(ArrayList<String> users, UUID chat) {
-        for (Chatroom room : conferenceChats){
+        ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
+        tmp.add(coopRoom);
+        for (Chatroom room : tmp){
             if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
                 for(String userID : users){
                     room.getUsersInvolved().add(userID);  // add users to the usersInvolved in this chat
@@ -105,7 +107,9 @@ public class ChatroomManager implements java.io.Serializable{
      */
 
     public void addUser(String username, UUID chat) {
-        for (Chatroom room : conferenceChats){
+        ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
+        tmp.add(coopRoom);
+        for (Chatroom room : tmp){
             if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
                     room.getUsersInvolved().add(username);  // add users to the usersInvolved in this chat
 
