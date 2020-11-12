@@ -99,6 +99,21 @@ public class ChatroomManager {
     }
 
     /**
+     * Adds the specified users to an existing <code>Chatroom</code> as participants.
+     * @param username  username of a single user to be added to the specified <code>Chatroom</code>.
+     * @param chat UUID of the <code>Chatroom</code> we want to add the specified users to.
+     */
+
+    public void addUser(String username, UUID chat) {
+        for (Chatroom room : conferenceChats){
+            if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
+                    room.getUsersInvolved().add(username);  // add users to the usersInvolved in this chat
+
+            }
+        }
+    }
+
+    /**
      * Removes the specified users from an existing <code>Chatroom</code>.
      *
      * @param users ArrayList of usernames of users to be removed from the specified <code>Chatroom</code>.

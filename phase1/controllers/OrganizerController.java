@@ -100,6 +100,7 @@ public class OrganizerController extends UserController {
             System.out.println("Enter the password of this Speaker");
             String password = input1.next();
             userma.createUser(name, password, "Speaker");
+            chatmana.addUser(name, chatmana.getCoopId());
             return true;
         }
         else{
