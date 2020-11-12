@@ -18,18 +18,42 @@ public class AttendantController extends UserController{
     view all available schedules they can enroll
     enroll into one conference, cancel enrollment
      */
-    private void viewSchedules(){
+
+    //check whether the room is full, and whether this user is currently enroll.
+    private ArrayList<String[]> availableSchedules(){
         ArrayList<String[]> schedules = actmanag.viewUpcommingActivites();
-        HashMap<LocalDateTime[], UUID> enrolledActivities = new HashMap<LocalDateTime[], UUID>();
         ArrayList<String[]> temp = new ArrayList<String[]>();
-        for(UUID c: enrolledActivities.values()){
-            temp.add(actmanag.searchActivityByUUID(c.toString()));
+        //activity that user currently enroll.
+        HashMap<LocalDateTime[], UUID> enrolledSchedules = userma.getActivities();
+        ArrayList<String[]> temp2 = new ArrayList<String[]>();
+        for (LocalDateTime[] time : enrolledSchedules.keySet()){
+            String[] partialInfo = actmanag.searchActivityByUUID(enrolledSchedules.get(time).toString());
+            temp2.add(partialInfo);
         }
+        schedules.removeAll(temp2);
+        //activity that is full and user is not free.
+        for(String[]d: schedules){
+            if (!roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0]))+1, UUID.fromString(d[0]))){
+                temp.add(actmanag.searchActivityByUUID(d[0]));
+            }
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime[] time = {LocalDateTime.parse(d[2], df), LocalDateTime.parse(d[3], df)};
+            if(!userma.isFree(time)){
+                temp.add(actmanag.searchActivityByUUID(d[0]));
+            }
+        }
+
         schedules.removeAll(temp);
-        //presenter
+        return schedules;
     }
 
-    //add a new activity to this user, and add this user to the corresponding conference room.
+    public void viewSchedules(){
+        ArrayList<String[]> result = this.availableSchedules();
+        System.out.println(result);
+        // presenter
+    }
+
+    //add a new activity to this user, and add this user to the corresponding conference chat.
     public void enrollConference(){
         ArrayList<String> userName = new ArrayList<String>();
         userName.add(userma.currentUsername());
@@ -38,23 +62,30 @@ public class AttendantController extends UserController{
                 "you wish to enroll");
         String activityID = scan.nextLine();
         String[] temp = actmanag.searchActivityByUUID(activityID);
-        if (temp != null){
-            if (userma.schedules().containsValue(UUID.fromString(activityID))){
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime[] time = {LocalDateTime.parse(temp[2], df), LocalDateTime.parse(temp[3], df)};
-                userma.selfAddSchedule(time, UUID.fromString(temp[0]));
-                chatmana.addUser(userName, UUID.fromString(temp[4]));
-            }
-            else{
-
-                System.out.println("You have already enroll in this activity");
-            }
+        if (this.availableSchedules().contains(temp)){
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime[] time = {LocalDateTime.parse(temp[2], df), LocalDateTime.parse(temp[3], df)};
+            userma.selfAddSchedule(time, actmanag.getConferenceChat(UUID.fromString(temp[0])));
+            chatmana.addUser(userName, UUID.fromString(temp[4]));
+            actmanag.addAttendant(UUID.fromString(activityID), userma.currentUsername());
         }
         else{
             System.out.println("Invalid activity ID.");
         }
     }
-    public void cancelEnrollment(){
 
+    public void cancelEnrollment(){
+        ArrayList<String> userName = new ArrayList<String>();
+        userName.add(userma.currentUsername());
+        Scanner scan = new Scanner(System.in);
+        System.out.println("please input the activity's ID " +
+                "you wish to cancel");
+        String activityID = scan.nextLine();
+        HashMap<LocalDateTime[], UUID> temp = userma.getActivities();
+        //check whether this activity user has enrolled.
+        if(temp.containsValue(UUID.fromString(activityID))){
+            actmanag.removeAttendant(UUID.fromString(activityID), userma.currentUsername());
+            chatmana.removeUser(userName,actmanag.getConferenceChat(UUID.fromString(activityID)));
+        }
     }
 }
