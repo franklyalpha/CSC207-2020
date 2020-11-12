@@ -121,10 +121,16 @@ public class ActivityManager implements java.io.Serializable{
         Activity a = findActivity(activity);
         return a.AddAttendants(attendant);
     }
-    //method that get the num of attendees in certain activities
+    //method that get the num of attendees in certain activity.
     public int numAttendant(UUID activity){
         Activity a = findActivity(activity);
         return a.getAttendantsList().size();
+    }
+    //method that remove the attendee from certain activity.
+    public boolean removeAttendant(UUID activity,String attendant) {
+        Activity a = findActivity(activity);
+        return a.removeAttendant(attendant);
+
     }
 
 
