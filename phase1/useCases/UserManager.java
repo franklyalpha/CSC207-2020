@@ -228,4 +228,8 @@ public class UserManager implements java.io.Serializable{
 
     public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
 
+    public void logout(){
+        userOnAir = null;
+    }
+
 }
