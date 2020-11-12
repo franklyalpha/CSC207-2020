@@ -48,7 +48,7 @@ public class ChatroomManager implements java.io.Serializable{
      * @param organizerSpeakers ArrayList of usernames of organizers and speakers to be put into the coopRoom <code>Chatroom</code>.
      */
     public ChatroomManager(ArrayList<String> organizerSpeakers) {
-        Chatroom coopRoom = new Chatroom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
+        coopRoom = new Chatroom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
     }
