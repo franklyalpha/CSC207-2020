@@ -36,7 +36,7 @@ public class User implements java.io.Serializable {
      *
      * @param name the valid (?unique) name of this user, which help to identify.
      * @param password the valid password of this user.
-     * @param type the type of this user: Attendee, Organizer, Speakers.
+     * @param type the type of this user: Attendee, Organizer, Speaker.
      */
     public User(String name, String password, String type) {
         username = name;
