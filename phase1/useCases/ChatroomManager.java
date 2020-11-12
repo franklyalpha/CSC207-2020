@@ -16,7 +16,7 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class ChatroomManager {
+public class ChatroomManager implements java.io.Serializable{
 
     /**
      * A <code>Chatroom</code> with all speakers and organizers at a conference.
