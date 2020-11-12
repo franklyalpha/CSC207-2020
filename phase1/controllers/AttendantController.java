@@ -87,5 +87,8 @@ public class AttendantController extends UserController{
             actmanag.removeAttendant(UUID.fromString(activityID), userma.currentUsername());
             chatmana.removeUser(userName,actmanag.getConferenceChat(UUID.fromString(activityID)));
         }
+        else{
+            System.out.println("Invalid activity ID.");
+        }
     }
 }
