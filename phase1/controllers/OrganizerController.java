@@ -2,6 +2,8 @@ package controllers;
 
 import useCases.UserManager;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.*;
 
 import java.util.ArrayList;
@@ -66,6 +68,47 @@ public class OrganizerController extends UserController {
         }
         return false;
     }
+    //check speaker, positive number.
 
+
+    public boolean createRoom() {
+        int a = 0;
+        boolean b = false;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the capacity of this room");
+        try {
+                a = input.nextInt();
+                if (a > 0){
+                    roomma.addRoom(a);
+                    System.out.println("This new room capacity is" + a);
+                    return true;
+                }
+                else{
+                    System.out.println("Invalid capacity.");
+                    return false;
+                }
+
+        }catch(Exception e) {
+                System.out.println("Invalid capacity.");
+                return false;
+        }
+    }
+
+    public boolean createSpeaker(){
+        Scanner input0 = new Scanner(System.in);
+        System.out.println("Enter the name of this Speaker");
+        String name = input0.next();
+        if(userma.isUser(name, "Speaker") == 0){
+            Scanner input1 = new Scanner(System.in);
+            System.out.println("Enter the password of this Speaker");
+            String password = input1.next();
+            userma.createUser(name, password, "Speaker");
+            return true;
+        }
+        else{
+            System.out.println("The speaker is already exist.");
+            return false;
+        }
+    }
 
 }
