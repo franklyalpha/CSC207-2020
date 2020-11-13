@@ -67,12 +67,8 @@ public class Activity implements java.io.Serializable {
     public boolean removeAttendant(String attendant){return this.attendants.remove(attendant);}
 
     public boolean addSpeakers(String speaker){
-        if(speakers.contains(speaker)){
-            this.speakers = speaker;
-            return true;
-        }else{
-            return false;
-        }
+        this.speakers = speaker;
+        return true;
     }
 
 //    public boolean addSpeakers(ArrayList<String> speakers){
