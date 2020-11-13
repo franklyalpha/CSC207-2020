@@ -12,14 +12,14 @@ import java.time.*;
 
 public class UserManager implements java.io.Serializable{
     /**
-     * features should include:
+     * Represents a <code>USerManager</code> that is responsible for any interactions with <code>User</code> entities.
      * its own constructor
      * store different list of users;(will return getter of organizer and speakers)
      * store the user who is currently using the system;
-     * being able to instantiate a user and store in proper list(with unique id, using UUID);
+     * being able to instantiate a user and store in proper list;
      * being able to check whether someone is a user (i.e, is in one of the lists);
      * being able to check whether the password is correct(return true)
-     * able to check whether a given user/activity is in another's contact list;
+     * able to check whether a given user/activity is in another user's contact list;
      * being able to return scheduled activities of the user
      * being able to add a new activity to schedule
      * being able to add a new chatroom the person is in
@@ -35,18 +35,44 @@ public class UserManager implements java.io.Serializable{
      */
     // call modification and reset
 
+
+    /**
+     * A list contains all organizer type <code>User</code>
+     * */
     private ArrayList<User> organizers;
+
+    /**
+     * A list contains all speaker type <code>User</code>
+     * */
     private ArrayList<User> speakers;
+
+    /**
+     * A list contains all attendee type <code>User</code>
+     * */
     private ArrayList<User> attendee;
     // regex
+
+    /**
+     * A integer representing the number of users who are currently using the system.
+     * */
     private int num_user;
+
+    /**
+     *
+     * */
     private User userOnAir;
+
+
     private ArrayList<User>[] typeArray = new ArrayList[3];
 //    private ArrayList<entities.User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
     // make sure organizers don't access speaker's controllers  !!!!! 
 
+
+    /**
+     * Creates a <code>UserManager</code> with blank list of organizers, speakers, attendee.
+     */
     public UserManager() {
         organizers = new ArrayList<>();
         speakers = new ArrayList<>();

@@ -3,12 +3,35 @@ package entities;
 import java.time.*;
 import java.util.*;
 
+/**
+ * Represents a Room where <code>Activity</code> can take place.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Room implements java.io.Serializable {
 
+    /**
+     * Unique identifier for each <code>Chatroom</code>.
+     */
     private UUID id;
+
+    /**
+     * maximum number of <code>User</code> this room can fit in.
+     */
     private int capacity;
+
+    /**
+     * Holds all <code>Activity</code> this room will take place and its scheduled time.
+     */
     private HashMap<LocalDateTime[], UUID> schedule;
 
+    /**
+     * Creates <code>Room</code> with a randomly generated id, blank schedule, and a capacity we give it.
+     * @param capacity is maximum number of <code>User</code> this room can fit in.
+     */
     public Room(int capacity){
         this.id = UUID.randomUUID(); //assign entities.Room id
         this.capacity = capacity; //assign entities.Room Capacity
@@ -16,9 +39,18 @@ public class Room implements java.io.Serializable {
     }
 
     // getter for entities.Room id
+    /**
+     * Gets the unique identifier for this <code>Room</code>.
+     * @return The UUID corresponding to this <code>Rroom</code>.
+     */
     public UUID getId() { return id; }
 
     // getter for entities.Room Capacity
+
+    /**
+     * Gets the capacity for this <code>Room</code>
+     * @return a integer corresponding to the maximum number of <code>User</code> this room can fit in.
+     */
     public int getCapacity() { return capacity; }
 
     // setter for entities.Room id
@@ -28,5 +60,9 @@ public class Room implements java.io.Serializable {
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
     // getter for entities.Room Schedule
+    /**
+     * Gets the schedule for this <code>Room</code>
+     * @return a Hashmap corresponding to the activities take place in this room indexed by their scheduled time.
+     */
     public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 }
