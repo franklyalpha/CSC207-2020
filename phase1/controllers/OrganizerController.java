@@ -45,10 +45,16 @@ public class OrganizerController extends UserController {
             Scanner moreInfo = new Scanner(System.in);
             System.out.println(freeRooms);
             System.out.println("Please input topic, speaker and ith room (e.g, 1st room: input 1) for this activity" +
-                    " IN ORDER and in different lines: ");
+                    " IN ORDER and in different lines: (if there are invalid inputs, will use the first one as default)");
             String topic = moreInfo.nextLine();
             String speaker = moreInfo.nextLine();
             int roomIndex = moreInfo.nextInt() - 1;
+            if (!freeSpeaker.contains(speaker)){
+                speaker = freeSpeaker.get(0);
+            }
+            if (roomIndex < 0 || roomIndex >= freeRooms.size()){
+                roomIndex = 0;
+            }
             UUID assignedChat = chatmana.createChatroom(new ArrayList<>());
             // above arraylist has size zero, which will be assigned to conference chat automatically;
             UUID assignedroom = freeRooms.get(roomIndex);
