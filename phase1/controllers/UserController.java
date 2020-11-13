@@ -99,7 +99,7 @@ public class UserController {
     }
 
 
-    protected void viewEnrolledSchedule(){
+    protected ArrayList<String[]> viewEnrolledSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
         ArrayList<String[]> allSchedule = new ArrayList<String[]>();
         for (LocalDateTime[] time : schedules.keySet()){
@@ -107,6 +107,7 @@ public class UserController {
             allSchedule.add(partialInfo);
         }
         // will call presenter below
+        return allSchedule;
     }
 
 

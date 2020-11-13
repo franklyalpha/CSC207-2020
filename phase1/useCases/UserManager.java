@@ -4,6 +4,7 @@ import entities.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.UUID;
 import java.time.*;
 
@@ -205,9 +206,12 @@ public class UserManager implements java.io.Serializable{
     }
 
     public boolean deleteActivity(LocalDateTime[] time){
-        if (userOnAir.getActivities().containsKey(time)){
-            userOnAir.getActivities().remove(time);
-            return true;
+        Set<LocalDateTime[]> period = userOnAir.getActivities().keySet();
+        for (LocalDateTime[] target : period){
+            if (target[0].equals(time[0]) && target[1].equals(time[1])){
+                userOnAir.getActivities().remove(target);
+                return true;
+            }
         }
         return false;
     }

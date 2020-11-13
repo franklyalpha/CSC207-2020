@@ -87,6 +87,14 @@ public class AttendantController extends UserController{
         ArrayList<String> userName = new ArrayList<String>();
         userName.add(userma.currentUsername());
         Scanner scan = new Scanner(System.in);
+
+        ArrayList<String[]> enrolled = viewEnrolledSchedule();
+        ArrayList<String> actIDs = new ArrayList<String>();
+        for (String[] schedule: enrolled){
+            actIDs.add(schedule[0]);
+            System.out.println(schedule[0]);
+        }
+
         System.out.println("please input the activity's ID " +
                 "you wish to cancel");
         String activityID = scan.nextLine();
@@ -98,7 +106,7 @@ public class AttendantController extends UserController{
             chatmana.removeUser(userName,actmanag.getConferenceChat(actID));
             String[] actInfo = actmanag.searchActivityByUUID(activityID);
             // update user's enrollment in User-manager
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime[] time = {LocalDateTime.parse(actInfo[2], df), LocalDateTime.parse(actInfo[3], df)};
             userma.deleteActivity(time);
         }

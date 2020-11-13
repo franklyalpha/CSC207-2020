@@ -127,7 +127,7 @@ public class ChatroomManager implements java.io.Serializable{
         for (Chatroom room : conferenceChats) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 for (String userID : users) {
-                    room.getUsersInvolved().add(userID);  // remove users to the usersInvolved in this chat
+                    room.getUsersInvolved().remove(userID);  // remove users to the usersInvolved in this chat
                 }
             }
         }
