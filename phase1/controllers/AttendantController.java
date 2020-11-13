@@ -33,10 +33,10 @@ public class AttendantController extends UserController{
         schedules.removeAll(temp2);
         //activity that is full and user is not free.
         for(String[]d: schedules){
-            if (roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[0]))){
+            if (!roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[4]))){
                 temp.add(actmanag.searchActivityByUUID(d[0]));
             }
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime[] time = {LocalDateTime.parse(d[2], df), LocalDateTime.parse(d[3], df)};
             if(!userma.isFree(time)){
                 temp.add(actmanag.searchActivityByUUID(d[0]));
