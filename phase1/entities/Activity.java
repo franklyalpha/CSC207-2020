@@ -44,7 +44,7 @@ public class Activity implements java.io.Serializable {
     }
 
     public boolean AddAttendants(String attendant){
-        if(this.attendants.contains(attendant)){
+        if(!this.attendants.contains(attendant)){
             this.attendants.add(attendant);
             return true;
         }else{

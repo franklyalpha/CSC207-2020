@@ -58,15 +58,24 @@ public class AttendantController extends UserController{
         ArrayList<String> userName = new ArrayList<String>();
         userName.add(userma.currentUsername());
         Scanner scan = new Scanner(System.in);
+
+        ArrayList<String[]> available = availableSchedules();
+        ArrayList<String> actIDs = new ArrayList<String>();
+        for (String[] schedule: available){
+            actIDs.add(schedule[0]);
+            System.out.println(schedule[0]);
+        }
+
         System.out.println("please input the activity's ID " +
                 "you wish to enroll");
         String activityID = scan.nextLine();
         String[] temp = actmanag.searchActivityByUUID(activityID);
-        if (this.availableSchedules().contains(temp)){
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (actIDs.contains(activityID)){
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime[] time = {LocalDateTime.parse(temp[2], df), LocalDateTime.parse(temp[3], df)};
-            userma.selfAddSchedule(time, actmanag.getConferenceChat(UUID.fromString(temp[0])));
-            chatmana.addUser(userName, UUID.fromString(temp[4]));
+            userma.selfAddSchedule(time, UUID.fromString(activityID));
+            UUID conferenceChat = actmanag.getConferenceChat(UUID.fromString(temp[0]));
+            chatmana.addUser(userName, conferenceChat);
             actmanag.addAttendant(UUID.fromString(activityID), userma.currentUsername());
         }
         else{

@@ -92,7 +92,7 @@ public class ChatroomManager implements java.io.Serializable{
         ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
         tmp.add(coopRoom);
         for (Chatroom room : tmp){
-            if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
                 for(String userID : users){
                     room.getUsersInvolved().add(userID);  // add users to the usersInvolved in this chat
                 }
@@ -110,7 +110,7 @@ public class ChatroomManager implements java.io.Serializable{
         ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
         tmp.add(coopRoom);
         for (Chatroom room : tmp){
-            if (room.getId() == chat){               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
                     room.getUsersInvolved().add(username);  // add users to the usersInvolved in this chat
 
             }
@@ -125,7 +125,7 @@ public class ChatroomManager implements java.io.Serializable{
      */
     public void removeUser(ArrayList<String> users, UUID chat) {
         for (Chatroom room : conferenceChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 for (String userID : users) {
                     room.getUsersInvolved().add(userID);  // remove users to the usersInvolved in this chat
                 }
@@ -141,7 +141,7 @@ public class ChatroomManager implements java.io.Serializable{
      */
     public void sendMessage(String message, UUID chat){
         for (Chatroom room : conferenceChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
         }
@@ -155,7 +155,7 @@ public class ChatroomManager implements java.io.Serializable{
      */
     public void sendPrivateMessage(String message, UUID chat){
         for (Chatroom room : privateChats) {
-            if (room.getId() == chat) {               // check the UUID to make sure we have the right entities.Chatroom
+            if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
             }
         }
