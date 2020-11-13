@@ -22,28 +22,21 @@ public class AttendantController extends UserController{
     //check whether the room is full, and whether this user is currently enroll.
     private ArrayList<String[]> availableSchedules(){
         ArrayList<String[]> schedules = actmanag.viewUpcommingActivites();
-        ArrayList<String[]> temp = new ArrayList<String[]>();
-        //activity that user currently enroll.
-        HashMap<LocalDateTime[], UUID> enrolledSchedules = userma.getActivities();
-        ArrayList<String[]> temp2 = new ArrayList<String[]>();
-        for (LocalDateTime[] time : enrolledSchedules.keySet()){
-            String[] partialInfo = actmanag.searchActivityByUUID(enrolledSchedules.get(time).toString());
-            temp2.add(partialInfo);
-        }
-        schedules.removeAll(temp2);
+        ArrayList<String> temp = new ArrayList<String>();
+
         //activity that is full and user is not free.
-        for(String[]d: schedules){
+        for(String[] d: schedules){
             if (!roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[4]))){
-                temp.add(actmanag.searchActivityByUUID(d[0]));
+                temp.add(actmanag.searchActivityByUUID(d[0])[0]);
             }
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime[] time = {LocalDateTime.parse(d[2], df), LocalDateTime.parse(d[3], df)};
             if(!userma.isFree(time)){
-                temp.add(actmanag.searchActivityByUUID(d[0]));
+                temp.add(actmanag.searchActivityByUUID(d[0])[0]);
             }
         }
 
-        schedules.removeAll(temp);
+        schedules.removeIf(info -> temp.contains(info[0]));
         return schedules;
     }
 
