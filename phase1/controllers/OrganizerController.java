@@ -56,6 +56,7 @@ public class OrganizerController extends UserController {
             actmanag.addSpeaker(actID, speaker);
             roomma.BookRoom(targetPeriod, actID, assignedroom);
             userma.otherAddSchedule(speaker, targetPeriod, actID);
+            chatmana.addUser(speaker, assignedChat);
             // then choose a room;
             // then program creates schedule automatically, and update both activity, speaker and room.
             // saving file???
