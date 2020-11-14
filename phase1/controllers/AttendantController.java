@@ -1,9 +1,5 @@
 package controllers;
 
-import gateways.GatewayActivity;
-import gateways.GatewayChat;
-import gateways.GatewayRoom;
-import gateways.GatewayUser;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
@@ -33,7 +29,8 @@ public class AttendantController extends UserController{
         availableAction.add("View groups' messages");
         availableAction.add("log out");
         int action = 0;
-        while(true){
+        boolean enterAction = true;
+        while(enterAction){
             Scanner scan = new Scanner(System.in);
             System.out.println("Services apply\n");
             for(String a: availableAction){
@@ -49,12 +46,19 @@ public class AttendantController extends UserController{
                 case 5 : sendPrivateMessage();
                 case 6 : viewPrivateMessage();
                 case 7 : viewGroupMessage();
+                case 8 :
+                    logout();
+                    enterAction = false;
+                    break;
                 default: System.out.println("invalid action.");
             }
-            boolean whetherContinue = continuing();
-            if (!whetherContinue){
-                logout();
-                break;
+            if (!enterAction){
+                boolean whetherContinue = continuing();
+                if (!whetherContinue){
+                    logout();
+                    enterAction = false;
+                }
+
             }
         }
     }
