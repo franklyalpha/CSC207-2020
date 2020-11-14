@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.Chatroom;
 import useCases.UserManager;
 
 import java.time.*;
@@ -75,8 +76,7 @@ public class OrganizerController extends UserController {
     }
     //check speaker, positive number.
 
-
-    public boolean createRoom() {
+    private boolean createRoom() {
         int a;
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the capacity of this room");
@@ -84,7 +84,7 @@ public class OrganizerController extends UserController {
                 a = input.nextInt();
                 if (a > 0){
                     roomma.addRoom(a);
-                    System.out.println("This new room capacity is" + a);
+                    System.out.println("This new room capacity is " + a);
                     return true;
                 }
                 else{
@@ -98,7 +98,7 @@ public class OrganizerController extends UserController {
         }
     }
 
-    public boolean createSpeaker(){
+    private boolean createSpeaker(){
         Scanner input0 = new Scanner(System.in);
         System.out.println("Enter the name of this Speaker");
         String name = input0.next();
@@ -114,6 +114,20 @@ public class OrganizerController extends UserController {
             System.out.println("The speaker is already exist.");
             return false;
         }
+    }
+
+    protected void viewCoopChat(){
+        UUID coopChatID = chatmana.getCoopId();
+        ArrayList<String> message = chatmana.getHistoricalChats(coopChatID);
+        // presenter
+    }
+
+    protected void sendCoopMessage(){
+        UUID coopChatID = chatmana.getCoopId();
+        Scanner messager = new Scanner(System.in);
+        System.out.println("Please input your message below: ");
+        String message = messager.nextLine();
+        chatmana.sendMessage(message, coopChatID);
     }
 
 }

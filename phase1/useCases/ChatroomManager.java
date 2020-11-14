@@ -140,7 +140,9 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to send the message to.
      */
     public void sendMessage(String message, UUID chat){
-        for (Chatroom room : conferenceChats) {
+        ArrayList<Chatroom> groupChat = new ArrayList<>(conferenceChats);
+        groupChat.add(coopRoom);
+        for (Chatroom room : groupChat) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
