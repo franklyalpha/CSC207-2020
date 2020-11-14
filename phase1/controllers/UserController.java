@@ -22,9 +22,9 @@ public class UserController {
     //just for occupying the space;
     public UserController(UserManager manager) {
         userManager = manager;
-        chatroomManager = new GatewayChat().deser();
-        activityManager = new GatewayActivity().deser();
-        roomManager = new GatewayRoom().deser();
+        chatroomManager = new GatewayChat().deserialize();
+        activityManager = new GatewayActivity().deserialize();
+        roomManager = new GatewayRoom().deserialize();
     }
 
     public void run(){}

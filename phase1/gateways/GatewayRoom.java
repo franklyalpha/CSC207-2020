@@ -20,22 +20,22 @@ public class GatewayRoom {
 
     }
 
-    public RoomManager deser(){
-        RoomManager seri;
+    public RoomManager deserialize(){
+        RoomManager serialize;
         try{
             File f = new File("rooms.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            seri = (RoomManager) oid.readObject();
+            serialize = (RoomManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            seri = new RoomManager();
+            serialize = new RoomManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find original file. Will reset all settings. ");
-            seri = new RoomManager();
+            serialize = new RoomManager();
         }
-        return seri;
+        return serialize;
 
     }
 }

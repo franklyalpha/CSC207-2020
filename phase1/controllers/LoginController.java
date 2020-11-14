@@ -5,7 +5,7 @@ import gateways.*;
 import java.util.Scanner;
 
 public class LoginController {
-    private final UserManager userManager = new GatewayUser().deser();
+    private final UserManager userManager = new GatewayUser().deserialize();
 
     // will consider instantiating presenters here
     /**
