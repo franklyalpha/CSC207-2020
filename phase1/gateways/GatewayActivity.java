@@ -20,22 +20,22 @@ public class GatewayActivity {
 
     }
 
-    public ActivityManager deser(){
-        ActivityManager seri;
+    public ActivityManager deserialize(){
+        ActivityManager serialize;
         try{
             File f = new File("activities.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            seri = (ActivityManager) oid.readObject();
+            serialize = (ActivityManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            seri = new ActivityManager();
+            serialize = new ActivityManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find activity file. Will reset all settings. ");
-            seri = new ActivityManager();
+            serialize = new ActivityManager();
         }
-        return seri;
+        return serialize;
 
     }
 }
