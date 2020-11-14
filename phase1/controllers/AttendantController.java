@@ -1,7 +1,5 @@
 package controllers;
 
-import entities.Activity;
-import jdk.vm.ci.meta.Local;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
