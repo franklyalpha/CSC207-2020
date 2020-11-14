@@ -16,6 +16,7 @@ public class GatewayUser {
             oos.close();
         }catch (IOException io){
             io.printStackTrace();
+            
         }
 
     }

@@ -91,12 +91,12 @@ public class UserManager implements java.io.Serializable{
      */
 
     public int typeChoice(String usertype){
-        return switch (usertype) {
-            case "organizer" -> 0;
-            case "speaker" -> 1;
-            case "attendant" -> 2;
-            default -> -1;
-        };
+         switch (usertype) {
+             case "organizer": return 0;
+             case "speaker": return 1;
+             case "attendant" : return 2;
+             default: return -1;
+        }
     }
 
     public String createUser(String username, String password, String type) {
@@ -114,13 +114,13 @@ public class UserManager implements java.io.Serializable{
     }
 
     public int isUser(String username, String type) {
-        int returnindex = 0;
+        int return_index = 0;
         int types = typeChoice(type);
         if (types == -1){
             return 0;
         }
-        returnindex = checkUserIndex(username, typeArray[types]);
-        return returnindex;
+        return_index = checkUserIndex(username, typeArray[types]);
+        return return_index;
     }
 
     private int checkUserIndex(String username, ArrayList<User> type){

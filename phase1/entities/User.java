@@ -1,6 +1,5 @@
 package entities;
 
-import java.sql.Array;
 import java.util.*;
 import java.time.*;
 
@@ -52,8 +51,8 @@ public class User implements java.io.Serializable {
         username = name;
         this.password = password;
         userType = type;
-        chatroom = new HashMap<String, UUID>();
-        activities = new HashMap<LocalDateTime[], UUID>();
+        chatroom = new HashMap<>();
+        activities = new HashMap<>();
     }
 
     /**
@@ -99,17 +98,17 @@ public class User implements java.io.Serializable {
 
     /**
      * Changes the name of this user with the given new name.
-     * @param  newname the new name of this user.
+     * @param  newName the new name of this user.
      */
-    public void setUsername(String newname) {
-        username = newname;
+    public void setUsername(String newName) {
+        username = newName;
     }
 
     /**
      * Changes the password of this user with the given new password.
-     * @param  newpassword the new password of this user.
+     * @param  newPassword the new password of this user.
      */
-    public void setPassword(String newpassword){ password = newpassword;}
+    public void setPassword(String newPassword){ password = newPassword;}
 
 
     /**
