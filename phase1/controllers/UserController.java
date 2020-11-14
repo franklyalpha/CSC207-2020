@@ -130,5 +130,15 @@ public class UserController {
         return time;
     }
 
+    protected void logout(){
+        userma.logout();
+        new GatewayUser().ser(userma);
+        new GatewayRoom().ser(roomma);
+        new GatewayChat().ser(chatmana);
+        new GatewayActivity().ser(actmanag);
+    }
+
+
+
 
 }
