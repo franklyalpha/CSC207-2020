@@ -6,6 +6,7 @@ import useCases.RoomManager;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
@@ -65,13 +66,17 @@ public class UserController {
         String userName = userScanner.nextLine();
 
         Scanner typeScan = new Scanner(System.in);
-        System.out.println("please input the type of this user:");
+        System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
         String typeName = userScanner.nextLine();
 
         Scanner messageScan = new Scanner(System.in);
-        System.out.println("please input the emssage you wanta send:");
+        System.out.println("please input the message you wanta send:");
         String message = messageScan.nextLine();
+        send(userName, message, typeName);
 
+    }
+
+    protected void send(String userName, String message, String typeName){
         if (userma.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userma.contacts();
@@ -108,6 +113,21 @@ public class UserController {
         }
         // will call presenter below
         return allSchedule;
+    }
+
+    protected ArrayList<String> extractActIDHelper (ArrayList<String[]> available){
+        ArrayList<String> actIDs = new ArrayList<String>();
+        for (String[] schedule: available){
+            actIDs.add(schedule[0]);
+        }
+        return actIDs;
+    }
+
+    protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
+                LocalDateTime.parse(scheduleInfo[3], df)};
+        return time;
     }
 
 

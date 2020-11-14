@@ -82,8 +82,7 @@ public class AttendantController extends UserController{
             if (!roomma.CheckRoomFullness(actmanag.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[4]))){
                 temp.add(actmanag.searchActivityByUUID(d[0])[0]);
             }
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime[] time = {LocalDateTime.parse(d[2], df), LocalDateTime.parse(d[3], df)};
+            LocalDateTime[] time = getTimeHelper(d);
             if(!userma.isFree(time)){
                 temp.add(actmanag.searchActivityByUUID(d[0])[0]);
             }
@@ -106,19 +105,14 @@ public class AttendantController extends UserController{
         Scanner scan = new Scanner(System.in);
 
         ArrayList<String[]> available = availableSchedules();
-        ArrayList<String> actIDs = new ArrayList<String>();
-        for (String[] schedule: available){
-            actIDs.add(schedule[0]);
-            System.out.println(schedule[0]);
-        }
-
+        ArrayList<String> actIDs = extractActIDHelper(available);
+        System.out.println("here are available activities you can enroll: " + actIDs);
         System.out.println("please input the activity's ID " +
                 "you wish to enroll");
         String activityID = scan.nextLine();
         String[] temp = actmanag.searchActivityByUUID(activityID);
         if (actIDs.contains(activityID)){
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime[] time = {LocalDateTime.parse(temp[2], df), LocalDateTime.parse(temp[3], df)};
+            LocalDateTime[] time = getTimeHelper(temp);
             userma.selfAddSchedule(time, UUID.fromString(activityID));
             UUID conferenceChat = actmanag.getConferenceChat(UUID.fromString(temp[0]));
             chatmana.addUser(userName, conferenceChat);
@@ -135,12 +129,8 @@ public class AttendantController extends UserController{
         Scanner scan = new Scanner(System.in);
 
         ArrayList<String[]> enrolled = viewEnrolledSchedule();
-        ArrayList<String> actIDs = new ArrayList<String>();
-        for (String[] schedule: enrolled){
-            actIDs.add(schedule[0]);
-            System.out.println(schedule[0]);
-        }
-
+        ArrayList<String> actIDs = extractActIDHelper(enrolled);
+        System.out.println("here are activities you've enrolled: "+actIDs);
         System.out.println("please input the activity's ID " +
                 "you wish to cancel");
         String activityID = scan.nextLine();
@@ -152,8 +142,7 @@ public class AttendantController extends UserController{
             chatmana.removeUser(userName,actmanag.getConferenceChat(actID));
             String[] actInfo = actmanag.searchActivityByUUID(activityID);
             // update user's enrollment in User-manager
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime[] time = {LocalDateTime.parse(actInfo[2], df), LocalDateTime.parse(actInfo[3], df)};
+            LocalDateTime[] time = getTimeHelper(actInfo);
             userma.deleteActivity(time);
         }
         else{

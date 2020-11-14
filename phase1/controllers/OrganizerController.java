@@ -1,6 +1,5 @@
 package controllers;
 
-import entities.Chatroom;
 import useCases.UserManager;
 
 import java.time.*;
@@ -16,39 +15,7 @@ public class OrganizerController extends UserController {
 
     @Override
     public void run() {
-        ArrayList<String> avaiableAction = new ArrayList<String>();
-        avaiableAction.add("create conference room");
-        avaiableAction.add("create speaker account");
-        avaiableAction.add("schedule conference");
-        String action = "";
-        boolean enteraction = true;
-        while(enteraction){
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Service apply\n");
-            for(String a: avaiableAction){
-                System.out.println(a);
-
-            }
-            action = scan.nextLine();
-            if (avaiableAction.contains(action)){
-                if(action.equals(avaiableAction.get(0))){
-                    this.createRoom();
-                    enteraction = this.continuing();
-
-                }
-                if(action.equals(avaiableAction.get(1))){
-                    this.createSpeaker();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(2))){
-                    this.addSchedule();
-                    enteraction = this.continuing();
-                }
-            }
-            else{
-                System.out.println("Invalid service, please enter again.");
-            }
-        }
+        super.run();
     }
 
     /*
@@ -71,12 +38,14 @@ public class OrganizerController extends UserController {
         // input time;
         ArrayList<String> freeSpeaker = userma.availableSpeakers(targetPeriod);
         ArrayList<UUID> freeRooms = roomma.bookingAvailable(targetPeriod);
+
         if (freeRooms.size() != 0 &&
                 freeSpeaker.size() != 0){
             // check whether there are rooms available during that time; (use UUID, and int for capacity)
             // if that is, allow organizer to input info of conference (code below);
             Scanner moreInfo = new Scanner(System.in);
-            System.out.println(freeRooms);
+            System.out.println("Here are available speaker names: " + freeSpeaker + "\n Here are available rooms ID: " +
+                    "" + freeRooms);
             System.out.println("Please input topic, speaker and ith room (e.g, 1st room: input 1) for this activity" +
                     " IN ORDER and in different lines: (if there are invalid inputs, will use the first one as default)");
             String topic = moreInfo.nextLine();
@@ -162,14 +131,46 @@ public class OrganizerController extends UserController {
         chatmana.sendMessage(message, coopChatID);
     }
 
-    private boolean continuing(){
-        boolean enteraction = true;
-        System.out.println("Continue for other services? Please enter yes or no");
-        Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("yes")){
-            enteraction = false;
+    protected void rescheduleSpeaker(){
+        ArrayList<String[]> allActivities = actmanag.viewUpcommingActivites();
+        // presenter
+        System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
+
+        Scanner actIDgetter = new Scanner(System.in);
+        System.out.println("Please input the ID of activity you wish to change speaker: ");
+        String actID = actIDgetter.nextLine();
+        if (! extractActIDHelper(allActivities).contains(actID)){
+            System.out.println("invalid activity ID! try again later");
+            return;
         }
-        return enteraction;
+        String[] actInfo = actmanag.searchActivityByUUID(actID);
+        LocalDateTime[] actTime = getTimeHelper(actInfo);
+        ArrayList<String> freeSpeakers = userma.availableSpeakers(actTime);
+        freeSpeakers.add(actInfo[5]);
+        System.out.println("here are available speakers : "+ freeSpeakers);
+        Scanner speakerScanner = new Scanner(System.in);
+
+        System.out.println("Please input the speaker you wish to assign");
+        String speaker = speakerScanner.nextLine();
+        if (! freeSpeakers.contains(speaker)){
+            System.out.println("invalid speaker! try again later");
+            return;
+        }
+        actmanag.addSpeaker(UUID.fromString(actInfo[0]), speaker);
+        userma.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
+        userma.deleteActivity(actInfo[5], actTime);
     }
+
+    protected void messageAllAttendee(){
+        ArrayList<String> attendeeName = userma.allAttendee();
+        Scanner messageScanner = new Scanner(System.in);
+        System.out.println("please input message: ");
+        String message = messageScanner.nextLine();
+        for (String attendee : attendeeName){
+            send(attendee, message, "attendant");
+        }
+    }
+
+
 
 }

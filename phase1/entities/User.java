@@ -25,17 +25,17 @@ public class User implements java.io.Serializable {
     /**
      * a string representing the type of the <code>User</code>.
      */
-    private String userType;
+    private final String userType;
 
     /**
      * a HashMap which holds the id of the <code>Chatroom</code> this user attended and their description.
      */
-    private HashMap<String, UUID> chatroom;
+    private final HashMap<String, UUID> chatroom;
 
     /**
      * a HashMap which holds the id of the <code>Activity</code> this user signed in and their description.
      */
-    private HashMap<LocalDateTime[], UUID> activities;
+    private final HashMap<LocalDateTime[], UUID> activities;
     // in phase 2, will create a clone corresponding activities for
     // new modified schedules;  will be a shallow copy
 
@@ -99,7 +99,7 @@ public class User implements java.io.Serializable {
 
     /**
      * Changes the name of this user with the given new name.
-     * @param  newname the new password of this user.
+     * @param  newname the new name of this user.
      */
     public void setUsername(String newname) {
         username = newname;
