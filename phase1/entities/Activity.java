@@ -66,7 +66,8 @@ public class Activity implements java.io.Serializable {
         }
     }
 
-    public boolean addAttendants(ArrayList<String> attendants){
+    //phase 2 may use this method.
+    public boolean AddAttendants(ArrayList<String> attendants){
         boolean addedAll = true;
         for(String i: attendants){
             if(this.attendants.contains(i)) {
