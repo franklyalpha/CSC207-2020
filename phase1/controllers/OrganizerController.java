@@ -37,7 +37,7 @@ public class OrganizerController extends UserController {
             Scanner scan = new Scanner(System.in);
             System.out.println("Services apply\n");
             for(String a: availableAction){
-                System.out.println(availableAction.indexOf(a)+1 + " " + a);
+                System.out.println(availableAction.indexOf(a)+1 + ": " + a);
 
             }
             action = scan.nextInt();
@@ -217,22 +217,12 @@ public class OrganizerController extends UserController {
     }
     private boolean continuing(){
         boolean enteraction = true;
-        System.out.println("Continue for other services? Please enter yes or no");
+        System.out.println("Continue for other services? Please enter true or false. (false for log out)");
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("yes")){
+        if(!scan2.nextLine().equals("true")){
             enteraction = false;
         }
         return enteraction;
     }
-    protected void logout(){
-        userma.logout();
-        new GatewayUser().ser(userma);
-        new GatewayRoom().ser(roomma);
-        new GatewayChat().ser(chatmana);
-        new GatewayActivity().ser(actmanag);
-    }
-
-
-
 
 }
