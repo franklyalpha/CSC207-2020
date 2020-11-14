@@ -1,5 +1,9 @@
 package controllers;
 
+import gateways.GatewayActivity;
+import gateways.GatewayChat;
+import gateways.GatewayRoom;
+import gateways.GatewayUser;
 import useCases.UserManager;
 
 import java.time.*;
@@ -19,11 +23,20 @@ public class OrganizerController extends UserController {
         avaiableAction.add("create conference room");
         avaiableAction.add("create speaker account");
         avaiableAction.add("schedule conference");
+        avaiableAction.add("reschedule speaker");
+        avaiableAction.add("send private message");
+        avaiableAction.add("view private messages");
+        avaiableAction.add("view group messages");
+        avaiableAction.add("send messages in coopchatroom");
+        avaiableAction.add("view messages from coopchatroom");
+        avaiableAction.add("message all attendees");
+        avaiableAction.add("view singed conferences");
+        avaiableAction.add("log out");
         String action = "";
         boolean enteraction = true;
         while(enteraction){
             Scanner scan = new Scanner(System.in);
-            System.out.println("Service apply\n");
+            System.out.println("Services apply\n");
             for(String a: avaiableAction){
                 System.out.println(a);
 
@@ -33,7 +46,6 @@ public class OrganizerController extends UserController {
                 if(action.equals(avaiableAction.get(0))){
                     this.createRoom();
                     enteraction = this.continuing();
-
                 }
                 if(action.equals(avaiableAction.get(1))){
                     this.createSpeaker();
@@ -42,6 +54,42 @@ public class OrganizerController extends UserController {
                 if(action.equals(avaiableAction.get(2))){
                     this.addSchedule();
                     enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(3))){
+                    this.rescheduleSpeaker();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(4))){
+                    this.sendPrivateMessage();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(5))){
+                    this.viewPrivateMessage();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(6))){
+                    this.viewGroupMessage();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(7))){
+                    this.sendCoopMessage();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(8))){
+                    this.viewCoopChat();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(9))){
+                    this.messageAllAttendee();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(10))){
+                    this.viewEnrolledSchedule();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(11))){
+                    this.logout();
+                    enteraction = false;
                 }
             }
             else{
@@ -210,6 +258,13 @@ public class OrganizerController extends UserController {
             enteraction = false;
         }
         return enteraction;
+    }
+    protected void logout(){
+        userma.logout();
+        new GatewayUser().ser(userma);
+        new GatewayRoom().ser(roomma);
+        new GatewayChat().ser(chatmana);
+        new GatewayActivity().ser(actmanag);
     }
 
 
