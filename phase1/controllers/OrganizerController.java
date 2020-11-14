@@ -16,7 +16,35 @@ public class OrganizerController extends UserController {
 
     @Override
     public void run() {
-        super.run();
+        ArrayList<String> avaiableAction = new ArrayList<String>();
+        avaiableAction.add("create conference room");
+        avaiableAction.add("create speaker account");
+        avaiableAction.add("schedule conference");
+        String action = "";
+        boolean enteraction = true;
+        while(enteraction){
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Service apply\n" + "create conference room " + "create speaker account " + "schedule conference " );
+            action = scan.nextLine();
+            if (avaiableAction.contains(action)){
+                if(action.equals(avaiableAction.get(0))){
+                    this.createRoom();
+                    this.continuing();
+
+                }
+                if(action.equals(avaiableAction.get(1))){
+                    this.createSpeaker();
+                    this.continuing();
+                }
+                if(action.equals(avaiableAction.get(2))){
+                    this.addSchedule();
+                    this.continuing();
+                }
+            }
+            else{
+                System.out.println("Invalid service, please enter again.");
+            }
+        }
     }
 
     /*
@@ -128,6 +156,16 @@ public class OrganizerController extends UserController {
         System.out.println("Please input your message below: ");
         String message = messager.nextLine();
         chatmana.sendMessage(message, coopChatID);
+    }
+
+    private boolean continuing(){
+        boolean enteraction = true;
+        System.out.println("Continue for other services? Please enter yes or no");
+        Scanner scan2 = new Scanner(System.in);
+        if(!scan2.nextLine().equals("yes")){
+            enteraction = false;
+        }
+        return enteraction;
     }
 
 }
