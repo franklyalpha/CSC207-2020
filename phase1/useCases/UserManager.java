@@ -278,4 +278,12 @@ public class UserManager implements java.io.Serializable{
         userOnAir = null;
     }
 
+    public ArrayList<String> allAttendee(){
+        ArrayList<String> attendees = new ArrayList<String>();
+        for (User attendant : attendee){
+            attendees.add(attendant.getUsername());
+        }
+        return attendees;
+    }
+
 }

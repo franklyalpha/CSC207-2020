@@ -72,7 +72,11 @@ public class UserController {
         Scanner messageScan = new Scanner(System.in);
         System.out.println("please input the emssage you wanta send:");
         String message = messageScan.nextLine();
+        send(userName, message, typeName);
 
+    }
+
+    protected void send(String userName, String message, String typeName){
         if (userma.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userma.contacts();

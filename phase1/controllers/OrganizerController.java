@@ -155,4 +155,16 @@ public class OrganizerController extends UserController {
         userma.deleteActivity(actInfo[5], actTime);
     }
 
+    protected void messageAllAttendee(){
+        ArrayList<String> attendeeName = userma.allAttendee();
+        Scanner messageScanner = new Scanner(System.in);
+        System.out.println("please input message: ");
+        String message = messageScanner.nextLine();
+        for (String attendee : attendeeName){
+            send(attendee, message, "attendant");
+        }
+    }
+
+
+
 }
