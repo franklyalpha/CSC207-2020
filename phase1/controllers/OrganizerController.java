@@ -24,7 +24,11 @@ public class OrganizerController extends UserController {
         boolean enteraction = true;
         while(enteraction){
             Scanner scan = new Scanner(System.in);
-            System.out.println("Service apply\n" + avaiableAction.get(0)+ " " + avaiableAction.get(1) + " "  + avaiableAction.get(2));
+            System.out.println("Service apply\n");
+            for(String a: avaiableAction){
+                System.out.println(a);
+
+            }
             action = scan.nextLine();
             if (avaiableAction.contains(action)){
                 if(action.equals(avaiableAction.get(0))){
