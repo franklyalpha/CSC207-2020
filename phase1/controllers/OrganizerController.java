@@ -15,7 +15,39 @@ public class OrganizerController extends UserController {
 
     @Override
     public void run() {
-        super.run();
+        ArrayList<String> avaiableAction = new ArrayList<String>();
+        avaiableAction.add("create conference room");
+        avaiableAction.add("create speaker account");
+        avaiableAction.add("schedule conference");
+        String action = "";
+        boolean enteraction = true;
+        while(enteraction){
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Service apply\n");
+            for(String a: avaiableAction){
+                System.out.println(a);
+
+            }
+            action = scan.nextLine();
+            if (avaiableAction.contains(action)){
+                if(action.equals(avaiableAction.get(0))){
+                    this.createRoom();
+                    enteraction = this.continuing();
+
+                }
+                if(action.equals(avaiableAction.get(1))){
+                    this.createSpeaker();
+                    enteraction = this.continuing();
+                }
+                if(action.equals(avaiableAction.get(2))){
+                    this.addSchedule();
+                    enteraction = this.continuing();
+                }
+            }
+            else{
+                System.out.println("Invalid service, please enter again.");
+            }
+        }
     }
 
     /*
@@ -170,6 +202,16 @@ public class OrganizerController extends UserController {
             send(attendee, message, "attendant");
         }
     }
+    private boolean continuing(){
+        boolean enteraction = true;
+        System.out.println("Continue for other services? Please enter yes or no");
+        Scanner scan2 = new Scanner(System.in);
+        if(!scan2.nextLine().equals("yes")){
+            enteraction = false;
+        }
+        return enteraction;
+    }
+
 
 
 

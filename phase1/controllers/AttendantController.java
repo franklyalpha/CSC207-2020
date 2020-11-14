@@ -17,6 +17,61 @@ public class AttendantController extends UserController{
     enroll into one conference, cancel enrollment
      */
 
+    @Override
+    public void run() {
+            ArrayList<String> avaiableAction = new ArrayList<>();
+            avaiableAction.add("Avaiable conferences provided");
+            avaiableAction.add("View Signed conferences");
+            avaiableAction.add("Sign up for a conference");
+            avaiableAction.add("Cancel conference");
+            avaiableAction.add("Send messages to a person");
+            avaiableAction.add("view messages from others");
+            avaiableAction.add("View groups' messages");
+            String action = "";
+            boolean enteraction = true;
+            while(enteraction){
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Service apply\n");
+                for(String a: avaiableAction){
+                    System.out.println(a);
+                }
+                action = scan.nextLine();
+                if (avaiableAction.contains(action)){
+                    if(action.equals(avaiableAction.get(0))){
+                        this.viewSchedules();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(1))){
+                        this.viewEnrolledSchedule();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(2))){
+                        this.enrollConference();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(3))){
+                        this.cancelEnrollment();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(4))){
+                        this.sendPrivateMessage();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(5))){
+                        this.viewPrivateMessage();
+                        enteraction = this.continuing();
+                    }
+                    if(action.equals(avaiableAction.get(6))){
+                        this.viewGroupMessage();
+                        enteraction = this.continuing();
+                    }
+                }
+                else{
+                    System.out.println("Invalid service, please enter again.");
+                }
+            }
+        }
+
     //check whether the room is full, and whether this user is currently enroll.
     private ArrayList<String[]> availableSchedules(){
         ArrayList<String[]> schedules = actmanag.viewUpcommingActivites();
@@ -93,5 +148,15 @@ public class AttendantController extends UserController{
         else{
             System.out.println("Invalid activity ID.");
         }
+    }
+
+    private boolean continuing(){
+        boolean enteraction = true;
+        System.out.println("Continue for other services? Please enter yes or no");
+        Scanner scan2 = new Scanner(System.in);
+        if(!scan2.nextLine().equals("yes")){
+            enteraction = false;
+        }
+        return enteraction;
     }
 }
