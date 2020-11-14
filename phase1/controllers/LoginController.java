@@ -69,6 +69,9 @@ public class LoginController {
                             break;
                     }
                 }
+                else{
+                    System.out.println("Invalid password or Username");
+                }
             }
             // following code determine whether the program will continue running;
             // may consider putting into a separate private method;
