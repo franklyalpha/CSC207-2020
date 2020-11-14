@@ -20,10 +20,10 @@ public class SpeakerController extends OrganizerController {
      */
 
     private void sendActivityMessage(){
-        HashMap<LocalDateTime[], UUID> schedulesEnrolled = userma.schedules();
-        ArrayList<String[]> info = new ArrayList<String[]>();
+        HashMap<LocalDateTime[], UUID> schedulesEnrolled = userManager.schedules();
+        ArrayList<String[]> info = new ArrayList<>();
         for (UUID actID: schedulesEnrolled.values()){
-            info.add(actmanag.searchActivityByUUID(actID.toString()));
+            info.add(activityManager.searchActivityByUUID(actID.toString()));
         }
         // presenter
         System.out.println("here are activities you've been assigned: "
@@ -36,11 +36,11 @@ public class SpeakerController extends OrganizerController {
         if (actID < 1 || actID > info.size()){
             System.out.println("invalid input!!! try again later. ");
         }
-        UUID chatID = actmanag.getConferenceChat(UUID.fromString(info.get(actID - 1)[0]));
+        UUID chatID = activityManager.getConferenceChat(UUID.fromString(info.get(actID - 1)[0]));
         Scanner messageScanner = new Scanner(System.in);
         System.out.println("Please input the message you wish to send:");
         String message = messageScanner.nextLine();
-        chatmana.sendMessage(message, chatID);
+        chatroomManager.sendMessage(message, chatID);
     }
 
     public void run() {

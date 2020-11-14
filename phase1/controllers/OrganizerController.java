@@ -85,8 +85,8 @@ public class OrganizerController extends UserController {
                 end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
         LocalDateTime[] targetPeriod = {startDateTime, endDateTime};
         // input time;
-        ArrayList<String> freeSpeaker = userma.availableSpeakers(targetPeriod);
-        ArrayList<UUID> freeRooms = roomma.bookingAvailable(targetPeriod);
+        ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
+        ArrayList<UUID> freeRooms = roomManager.bookingAvailable(targetPeriod);
 
         if (freeRooms.size() != 0 &&
                 freeSpeaker.size() != 0){
@@ -106,14 +106,14 @@ public class OrganizerController extends UserController {
             if (roomIndex < 0 || roomIndex >= freeRooms.size()){
                 roomIndex = 0;
             }
-            UUID assignedChat = chatmana.createChatroom(new ArrayList<>());
+            UUID assignedChat = chatroomManager.createChatroom(new ArrayList<>());
             // above arraylist has size zero, which will be assigned to conference chat automatically;
             UUID assignedroom = freeRooms.get(roomIndex);
-            UUID actID = actmanag.addNewActivity(targetPeriod[0], targetPeriod[1], assignedChat, assignedroom, topic);
-            actmanag.addSpeaker(actID, speaker);
-            roomma.BookRoom(targetPeriod, actID, assignedroom);
-            userma.otherAddSchedule(speaker, targetPeriod, actID);
-            chatmana.addUser(speaker, assignedChat);
+            UUID actID = activityManager.addNewActivity(targetPeriod[0], targetPeriod[1], assignedChat, assignedroom, topic);
+            activityManager.addSpeaker(actID, speaker);
+            roomManager.BookRoom(targetPeriod, actID, assignedroom);
+            userManager.otherAddSchedule(speaker, targetPeriod, actID);
+            chatroomManager.addUser(speaker, assignedChat);
             // then choose a room;
             // then program creates schedule automatically, and update both activity, speaker and room.
             // saving file???
@@ -133,7 +133,7 @@ public class OrganizerController extends UserController {
         try {
                 a = input.nextInt();
                 if (a > 0){
-                    roomma.addRoom(a);
+                    roomManager.addRoom(a);
                     System.out.println("This new room capacity is " + a);
                     return true;
                 }
@@ -152,12 +152,12 @@ public class OrganizerController extends UserController {
         Scanner input0 = new Scanner(System.in);
         System.out.println("Enter the name of this Speaker");
         String name = input0.next();
-        if(userma.isUser(name, "Speaker") == 0){
+        if(userManager.isUser(name, "Speaker") == 0){
             Scanner input1 = new Scanner(System.in);
             System.out.println("Enter the password of this Speaker");
             String password = input1.next();
-            userma.createUser(name, password, "speaker");
-            chatmana.addUser(name, chatmana.getCoopId());
+            userManager.createUser(name, password, "speaker");
+            chatroomManager.addUser(name, chatroomManager.getCoopId());
             return true;
         }
         else{
@@ -167,21 +167,21 @@ public class OrganizerController extends UserController {
     }
 
     protected void viewCoopChat(){
-        UUID coopChatID = chatmana.getCoopId();
-        ArrayList<String> message = chatmana.getHistoricalChats(coopChatID);
+        UUID coopChatID = chatroomManager.getCoopId();
+        ArrayList<String> message = chatroomManager.getHistoricalChats(coopChatID);
         // presenter
     }
 
     protected void sendCoopMessage(){
-        UUID coopChatID = chatmana.getCoopId();
+        UUID coopChatID = chatroomManager.getCoopId();
         Scanner messager = new Scanner(System.in);
         System.out.println("Please input your message below: ");
         String message = messager.nextLine();
-        chatmana.sendMessage(message, coopChatID);
+        chatroomManager.sendMessage(message, coopChatID);
     }
 
     protected void rescheduleSpeaker(){
-        ArrayList<String[]> allActivities = actmanag.viewUpcommingActivites();
+        ArrayList<String[]> allActivities = activityManager.viewUpcommingActivites();
         // presenter
         System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
 
@@ -192,9 +192,9 @@ public class OrganizerController extends UserController {
             System.out.println("invalid activity ID! try again later");
             return;
         }
-        String[] actInfo = actmanag.searchActivityByUUID(actID);
+        String[] actInfo = activityManager.searchActivityByUUID(actID);
         LocalDateTime[] actTime = getTimeHelper(actInfo);
-        ArrayList<String> freeSpeakers = userma.availableSpeakers(actTime);
+        ArrayList<String> freeSpeakers = userManager.availableSpeakers(actTime);
         freeSpeakers.add(actInfo[5]);
         System.out.println("here are available speakers : "+ freeSpeakers);
         Scanner speakerScanner = new Scanner(System.in);
@@ -205,13 +205,13 @@ public class OrganizerController extends UserController {
             System.out.println("invalid speaker! try again later");
             return;
         }
-        actmanag.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        userma.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
-        userma.deleteActivity(actInfo[5], actTime);
+        activityManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
+        userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
+        userManager.deleteActivity(actInfo[5], actTime);
     }
 
     protected void messageAllAttendee(){
-        ArrayList<String> attendeeName = userma.allAttendee();
+        ArrayList<String> attendeeName = userManager.allAttendee();
         Scanner messageScanner = new Scanner(System.in);
         System.out.println("please input message: ");
         String message = messageScanner.nextLine();

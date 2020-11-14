@@ -5,7 +5,7 @@ import gateways.*;
 import java.util.Scanner;
 
 public class LoginController {
-    private UserManager usermanage = new GatewayUser().deser();
+    private final UserManager userManager = new GatewayUser().deser();
 
     // will consider instantiating presenters here
     /**
@@ -21,10 +21,10 @@ public class LoginController {
      and fill in managers.
      4: will allow users to login. process as follows:
         a. allow user input: usertype, username, passcode;
-        b. check with usernamager on whether the inputted user name is in the
+        b. check with userManager on whether the inputted user name is in the
             usertype arraylist;
         c. check whether the password matches with corresponding password (call method in use-case);
-        d. will distribute the user to corresponding usercontroller;
+        d. will distribute the user to corresponding userController;
         e. will allow user to log out (need to figure out a way to save file);
      5: will continue running until being terminated (use while loop);
      */
@@ -47,7 +47,7 @@ public class LoginController {
             String typeName = type.nextLine();
             String userName = type.nextLine();
             String password = type.nextLine();
-            if (usermanage.typeChoice(typeName) == -1){
+            if (userManager.typeChoice(typeName) == -1){
                 System.out.println("Wrong user type!!!\n");
             }
             else{
@@ -56,15 +56,15 @@ public class LoginController {
                     //factory design pattern (see more on code-smell website)
                     switch(typeName){
                         case "organizer":
-                            OrganizerController org = new OrganizerController(usermanage);
+                            OrganizerController org = new OrganizerController(userManager);
                             org.run();
                             break;
                         case "speaker":
-                            SpeakerController spe = new SpeakerController(usermanage);
+                            SpeakerController spe = new SpeakerController(userManager);
                             spe.run();
                             break;
                         case "attendant":
-                            AttendantController att = new AttendantController(usermanage);
+                            AttendantController att = new AttendantController(userManager);
                             att.run();
                             break;
                     }
@@ -75,13 +75,13 @@ public class LoginController {
             }
             // following code determine whether the program will continue running;
             // may consider putting into a separate private method;
-            boolean validinput = false;
-            while(!validinput){
+            boolean validInput = false;
+            while(!validInput){
                 System.out.println("Continue running or not? (type \"true\" or \"false\")");
                 Scanner nextChoice = new Scanner(System.in);
                 if (nextChoice.hasNextBoolean()){
                     notStop = nextChoice.nextBoolean();
-                    validinput = true;
+                    validInput = true;
                 }
                 else{
                     System.out.println("invalid input! try again; \n");
@@ -91,9 +91,9 @@ public class LoginController {
     }
 
     private boolean checkLoginCondition(String type, String username, String password){
-        int userindex = usermanage.isUser(username, type);
-        if (userindex != 0){
-            if(usermanage.loginCheck(userindex, type, password)){
+        int userIndex = userManager.isUser(username, type);
+        if (userIndex != 0){
+            if(userManager.loginCheck(userIndex, type, password)){
                 return true;
             }
             System.out.println("Wrong password!!!");

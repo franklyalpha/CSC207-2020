@@ -16,7 +16,7 @@ public class Room implements java.io.Serializable {
     /**
      * Unique identifier for each <code>Chatroom</code>.
      */
-    private UUID id;
+    private final UUID id;
 
     /**
      * maximum number of <code>User</code> this room can fit in.
@@ -26,7 +26,7 @@ public class Room implements java.io.Serializable {
     /**
      * Holds all <code>Activity</code> this room will take place and its scheduled time.
      */
-    private HashMap<LocalDateTime[], UUID> schedule;
+    private final HashMap<LocalDateTime[], UUID> schedule;
 
     /**
      * Creates <code>Room</code> with a randomly generated id, blank schedule, and a capacity we give it.
@@ -35,13 +35,13 @@ public class Room implements java.io.Serializable {
     public Room(int capacity){
         this.id = UUID.randomUUID(); //assign entities.Room id
         this.capacity = capacity; //assign entities.Room Capacity
-        this.schedule = new HashMap<LocalDateTime[], UUID>(); //holds all the schedule times for the entities.Room
+        this.schedule = new HashMap<>(); //holds all the schedule times for the entities.Room
     }
 
     // getter for entities.Room id
     /**
      * Gets the unique identifier for this <code>Room</code>.
-     * @return The UUID corresponding to this <code>Rroom</code>.
+     * @return The UUID corresponding to this <code>Room</code>.
      */
     public UUID getId() { return id; }
 

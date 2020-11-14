@@ -111,7 +111,7 @@ public class User implements java.io.Serializable {
     public void setPassword(String newPassword){ password = newPassword;}
 
 
-    /**
+    /*
      * will set arraylists and hashmaps in use-case class. however, when returning something outside use-case,
      * it would be safer to make a DEEP copy of variable so that any possible modifications won't affect original data.
      */

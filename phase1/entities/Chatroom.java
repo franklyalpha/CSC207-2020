@@ -16,17 +16,17 @@ public class Chatroom implements java.io.Serializable{
     /**
      * Unique identifier for each <code>Chatroom</code>.
      */
-    private UUID id;  // unique identifier for each entities.Chatroom
+    private final UUID id;  // unique identifier for each entities.Chatroom
 
     /**
      * Holds the username of all Users in this <code>Chatroom</code>.
      */
-    private ArrayList<String> usersInvolved;  // holds username of all Users in this entities.Chatroom
+    private final ArrayList<String> usersInvolved;  // holds username of all Users in this entities.Chatroom
 
     /**
      * Holds all messages sent in this <code>Chatroom</code>.
      */
-    private ArrayList<String> historicalChats;  // holds previously sent messages from this entities.Chatroom
+    private final ArrayList<String> historicalChats;  // holds previously sent messages from this entities.Chatroom
 
     /**
      * Creates <code>Chatroom</code> with a randomly generated UUID, blank chat history, and empty list of chat participants.
@@ -34,7 +34,7 @@ public class Chatroom implements java.io.Serializable{
     public Chatroom(){
         id = UUID.randomUUID();  // assign id
         usersInvolved = new ArrayList<>();  // If no given users, empty by default
-        historicalChats = new ArrayList<String>();  // start with empty chatHistory
+        historicalChats = new ArrayList<>();  // start with empty chatHistory
     }
 
     /**
@@ -44,7 +44,7 @@ public class Chatroom implements java.io.Serializable{
     public Chatroom(ArrayList<String> users){
         id = UUID.randomUUID();  // assign id
         usersInvolved = users;  // specify users in this Chatroom by parameter
-        historicalChats = new ArrayList<String>();  // start with empty chatHistory
+        historicalChats = new ArrayList<>();  // start with empty chatHistory
     }
 
     /**

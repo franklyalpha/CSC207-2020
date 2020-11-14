@@ -32,7 +32,7 @@ public class Activity implements java.io.Serializable {
     public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
                     String topic){
         this.speakers = null;
-        this.attendants = new ArrayList<String>();
+        this.attendants = new ArrayList<>();
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = Duration.between(startTime, endTime);

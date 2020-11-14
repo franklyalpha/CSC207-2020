@@ -14,17 +14,17 @@ import gateways.*;
 
 //public abstract class controllers.UserController
 public class UserController {
-    protected UserManager userma;
-    protected ChatroomManager chatmana;
-    protected ActivityManager actmanag;
-    protected RoomManager roomma;
+    protected UserManager userManager;
+    protected ChatroomManager chatroomManager;
+    protected ActivityManager activityManager;
+    protected RoomManager roomManager;
 
     //just for occupying the space;
     public UserController(UserManager manager) {
-        userma = manager;
-        chatmana = new GatewayChat().deser();
-        actmanag = new GatewayActivity().deser();
-        roomma = new GatewayRoom().deser();
+        userManager = manager;
+        chatroomManager = new GatewayChat().deser();
+        activityManager = new GatewayActivity().deser();
+        roomManager = new GatewayRoom().deser();
     }
 
     public void run(){}
@@ -32,11 +32,11 @@ public class UserController {
     protected void viewPrivateMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
-        HashMap<String, UUID> contact = userma.contacts();
-        HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
+        HashMap<String, UUID> contact = userManager.contacts();
+        HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (String users : contact.keySet()){
-            ArrayList<String> chatmessage = chatmana.getHistoricalChats(contact.get(users));
-            historychat.put(users, chatmessage);
+            ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(contact.get(users));
+            historyChat.put(users, chatMessage);
         }
         // will call presenter with final historyChat;
 
@@ -45,13 +45,13 @@ public class UserController {
     protected void viewGroupMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
-        HashMap<LocalDateTime[], UUID> act = userma.getActivities();
-        HashMap<String, ArrayList<String>> historychat = new HashMap<String, ArrayList<String>>();
+        HashMap<LocalDateTime[], UUID> act = userManager.getActivities();
+        HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (LocalDateTime[] period : act.keySet()){
-            UUID chatID = actmanag.getConferenceChat(act.get(period));
-            ArrayList<String> chatmessage = chatmana.getHistoricalChats(chatID);
-            String topic = actmanag.searchActivityByUUID(act.get(period).toString())[1];
-            historychat.put(topic, chatmessage);
+            UUID chatID = activityManager.getConferenceChat(act.get(period));
+            ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(chatID);
+            String topic = activityManager.searchActivityByUUID(act.get(period).toString())[1];
+            historyChat.put(topic, chatMessage);
         }
         // will call presenter with final historyChat;
 
@@ -70,31 +70,31 @@ public class UserController {
         String typeName = userScanner.nextLine();
 
         Scanner messageScan = new Scanner(System.in);
-        System.out.println("please input the message you wanta send:");
+        System.out.println("please input the message you wanna send:");
         String message = messageScan.nextLine();
         send(userName, message, typeName);
 
     }
 
     protected void send(String userName, String message, String typeName){
-        if (userma.contactable(userName)){
+        if (userManager.contactable(userName)){
             // may consider putting first two lines in use-case;
-            HashMap<String, UUID> contacts = userma.contacts();
+            HashMap<String, UUID> contacts = userManager.contacts();
             UUID chatID = contacts.get(userName);
-            chatmana.sendPrivateMessage(message, chatID);
+            chatroomManager.sendPrivateMessage(message, chatID);
         }
         else{
             // may consider putting into another private method;
-            if (userma.isUser(userName, typeName) != 0){
-                ArrayList<String> userInvolved = new ArrayList<String>();
-                userInvolved.add(userma.currentUsername());
+            if (userManager.isUser(userName, typeName) != 0){
+                ArrayList<String> userInvolved = new ArrayList<>();
+                userInvolved.add(userManager.currentUsername());
                 userInvolved.add(userName);
 
-                UUID newChatroom = chatmana.createChatroom(userInvolved);
-                userma.selfAddChatroom(userName, newChatroom);
-                userma.otherAddChatroom(userName, newChatroom);
+                UUID newChatroom = chatroomManager.createChatroom(userInvolved);
+                userManager.selfAddChatroom(userName, newChatroom);
+                userManager.otherAddChatroom(userName, newChatroom);
 
-                chatmana.sendPrivateMessage(message, newChatroom);
+                chatroomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
                 System.out.println("Invalid username or usertype! Try again later!");
@@ -105,10 +105,10 @@ public class UserController {
 
 
     protected ArrayList<String[]> viewEnrolledSchedule(){
-        HashMap<LocalDateTime[], UUID> schedules = userma.schedules();
-        ArrayList<String[]> allSchedule = new ArrayList<String[]>();
+        HashMap<LocalDateTime[], UUID> schedules = userManager.schedules();
+        ArrayList<String[]> allSchedule = new ArrayList<>();
         for (LocalDateTime[] time : schedules.keySet()){
-            String[] partialInfo = actmanag.searchActivityByUUID(schedules.get(time).toString());
+            String[] partialInfo = activityManager.searchActivityByUUID(schedules.get(time).toString());
             allSchedule.add(partialInfo);
         }
         // will call presenter below
@@ -116,7 +116,7 @@ public class UserController {
     }
 
     protected ArrayList<String> extractActIDHelper (ArrayList<String[]> available){
-        ArrayList<String> actIDs = new ArrayList<String>();
+        ArrayList<String> actIDs = new ArrayList<>();
         for (String[] schedule: available){
             actIDs.add(schedule[0]);
         }
@@ -131,11 +131,11 @@ public class UserController {
     }
 
     protected void logout(){
-        userma.logout();
-        new GatewayUser().ser(userma);
-        new GatewayRoom().ser(roomma);
-        new GatewayChat().ser(chatmana);
-        new GatewayActivity().ser(actmanag);
+        userManager.logout();
+        new GatewayUser().ser(userManager);
+        new GatewayRoom().ser(roomManager);
+        new GatewayChat().ser(chatroomManager);
+        new GatewayActivity().ser(activityManager);
     }
 
 
