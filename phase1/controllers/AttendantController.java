@@ -1,5 +1,9 @@
 package controllers;
 
+import gateways.GatewayActivity;
+import gateways.GatewayChat;
+import gateways.GatewayRoom;
+import gateways.GatewayUser;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
@@ -19,58 +23,42 @@ public class AttendantController extends UserController{
 
     @Override
     public void run() {
-            ArrayList<String> avaiableAction = new ArrayList<>();
-            avaiableAction.add("Avaiable conferences provided");
-            avaiableAction.add("View Signed conferences");
-            avaiableAction.add("Sign up for a conference");
-            avaiableAction.add("Cancel conference");
-            avaiableAction.add("Send messages to a person");
-            avaiableAction.add("view messages from others");
-            avaiableAction.add("View groups' messages");
-            String action = "";
-            boolean enteraction = true;
-            while(enteraction){
-                Scanner scan = new Scanner(System.in);
-                System.out.println("Service apply\n");
-                for(String a: avaiableAction){
-                    System.out.println(a);
-                }
-                action = scan.nextLine();
-                if (avaiableAction.contains(action)){
-                    if(action.equals(avaiableAction.get(0))){
-                        this.viewSchedules();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(1))){
-                        this.viewEnrolledSchedule();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(2))){
-                        this.enrollConference();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(3))){
-                        this.cancelEnrollment();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(4))){
-                        this.sendPrivateMessage();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(5))){
-                        this.viewPrivateMessage();
-                        enteraction = this.continuing();
-                    }
-                    if(action.equals(avaiableAction.get(6))){
-                        this.viewGroupMessage();
-                        enteraction = this.continuing();
-                    }
-                }
-                else{
-                    System.out.println("Invalid service, please enter again.");
-                }
+        ArrayList<String> availableAction = new ArrayList<String>();
+        availableAction.add("Avaiable conferences provided");
+        availableAction.add("View Signed conferences");
+        availableAction.add("Sign up for a conference");
+        availableAction.add("Cancel conference");
+        availableAction.add("Send messages to a person");
+        availableAction.add("view messages from others");
+        availableAction.add("View groups' messages");
+        availableAction.add("log out");
+        int action = 0;
+        while(true){
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Services apply\n");
+            for(String a: availableAction){
+                System.out.println(availableAction.indexOf(a)+1 + " " + a);
+
+            }
+            action = scan.nextInt();
+            switch (action){
+                case 1 : viewSchedules();
+                case 2: viewEnrolledSchedule();
+                case 3 : enrollConference();
+                case 4 : cancelEnrollment();
+                case 5 : sendPrivateMessage();
+                case 6 : viewPrivateMessage();
+                case 7 : viewGroupMessage();
+                default: System.out.println("invalid action.");
+            }
+            boolean whetherContinue = continuing();
+            if (!whetherContinue){
+                logout();
+                break;
             }
         }
+    }
+
 
     //check whether the room is full, and whether this user is currently enroll.
     private ArrayList<String[]> availableSchedules(){
@@ -152,11 +140,12 @@ public class AttendantController extends UserController{
 
     private boolean continuing(){
         boolean enteraction = true;
-        System.out.println("Continue for other services? Please enter yes or no");
+        System.out.println("Continue for other services? Please enter true or false. (false for log out)");
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("yes")){
+        if(!scan2.nextLine().equals("true")){
             enteraction = false;
         }
         return enteraction;
     }
+
 }
