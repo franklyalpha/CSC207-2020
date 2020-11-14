@@ -6,6 +6,7 @@ import useCases.RoomManager;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
@@ -108,6 +109,21 @@ public class UserController {
         }
         // will call presenter below
         return allSchedule;
+    }
+
+    protected ArrayList<String> extractActIDHelper (ArrayList<String[]> available){
+        ArrayList<String> actIDs = new ArrayList<String>();
+        for (String[] schedule: available){
+            actIDs.add(schedule[0]);
+        }
+        return actIDs;
+    }
+
+    protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
+                LocalDateTime.parse(scheduleInfo[3], df)};
+        return time;
     }
 
 

@@ -245,6 +245,19 @@ public class UserManager implements java.io.Serializable{
         return false;
     }
 
+    public boolean deleteActivity(String username, LocalDateTime[] time){
+        User target = findUser(username);
+        assert target != null;
+        Set<LocalDateTime[]> period = target.getActivities().keySet();
+        for (LocalDateTime[] enrolled : period){
+            if (enrolled[0].equals(time[0]) && enrolled[1].equals(time[1])){
+                target.getActivities().remove(enrolled);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public HashMap<LocalDateTime[], UUID> getActivities() {
         return userOnAir.getActivities();
     }

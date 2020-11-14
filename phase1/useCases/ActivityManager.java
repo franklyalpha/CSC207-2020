@@ -71,7 +71,7 @@ public class ActivityManager implements java.io.Serializable{
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString()};
+                        i.getConferenceRoomNum().toString(), i.getSpeakersList()};
             }
         }
         return null;

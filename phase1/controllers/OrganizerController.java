@@ -1,6 +1,5 @@
 package controllers;
 
-import entities.Chatroom;
 import useCases.UserManager;
 
 import java.time.*;
@@ -128,6 +127,32 @@ public class OrganizerController extends UserController {
         System.out.println("Please input your message below: ");
         String message = messager.nextLine();
         chatmana.sendMessage(message, coopChatID);
+    }
+
+    protected void rescheduleSpeaker(){
+        ArrayList<String[]> allActivities = actmanag.viewUpcommingActivites();
+        // presenter
+        Scanner actIDgetter = new Scanner(System.in);
+        System.out.println("Please input the ID of activity you wish to change speaker: ");
+        String actID = actIDgetter.nextLine();
+        if (! extractActIDHelper(allActivities).contains(actID)){
+            System.out.println("invalid activity ID! try again later");
+            return;
+        }
+        String[] actInfo = actmanag.searchActivityByUUID(actID);
+        LocalDateTime[] actTime = getTimeHelper(actInfo);
+        ArrayList<String> freeSpeakers = userma.availableSpeakers(actTime);
+        freeSpeakers.add(actInfo[5]);
+        Scanner speakerScanner = new Scanner(System.in);
+        System.out.println("Please input the speaker you wish to assign");
+        String speaker = speakerScanner.nextLine();
+        if (! freeSpeakers.contains(speaker)){
+            System.out.println("invalid speaker! try again later");
+            return;
+        }
+        actmanag.addSpeaker(UUID.fromString(actInfo[0]), speaker);
+        userma.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
+        userma.deleteActivity(actInfo[5], actTime);
     }
 
 }
