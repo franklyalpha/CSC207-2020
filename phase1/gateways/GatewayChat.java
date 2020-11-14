@@ -32,7 +32,7 @@ public class GatewayChat {
         } catch(EOFException eof) {
             seri = new ChatroomManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
+            System.out.println("Cannot find chat file. Will reset all settings. ");
             seri = new ChatroomManager();
         }
         return seri;

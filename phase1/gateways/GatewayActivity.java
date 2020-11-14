@@ -32,7 +32,7 @@ public class GatewayActivity {
         } catch(EOFException eof) {
             seri = new ActivityManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
+            System.out.println("Cannot find activity file. Will reset all settings. ");
             seri = new ActivityManager();
         }
         return seri;

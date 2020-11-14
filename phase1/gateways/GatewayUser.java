@@ -33,7 +33,7 @@ public class GatewayUser {
         } catch(EOFException eof) {
             seri = new UserManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
+            System.out.println("Cannot find user file. Will reset all settings. ");
             seri = new UserManager();
         }
         return seri;

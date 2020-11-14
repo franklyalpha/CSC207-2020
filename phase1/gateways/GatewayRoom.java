@@ -32,7 +32,7 @@ public class GatewayRoom {
         } catch(EOFException eof) {
             seri = new RoomManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
+            System.out.println("Cannot find room file. Will reset all settings. ");
             seri = new RoomManager();
         }
         return seri;
