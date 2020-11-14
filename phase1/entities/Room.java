@@ -16,7 +16,7 @@ public class Room implements java.io.Serializable {
     /**
      * Unique identifier for each <code>Chatroom</code>.
      */
-    private final UUID id;
+    private UUID id;
 
     /**
      * maximum number of <code>User</code> this room can fit in.
@@ -54,9 +54,17 @@ public class Room implements java.io.Serializable {
     public int getCapacity() { return capacity; }
 
     // setter for entities.Room id
-    // public void setId(UUID id) { this.id = id; }
+    /**
+     * Changes the id of this room with the given new id.
+     * @param  id the new name of this room.
+     */
+    public void setId(UUID id) { this.id = id; }
 
     // setter for entities.Room Capacity
+    /**
+     * Changes the capacity of this room with the given new capacity.
+     * @param  capacity the new capacity of this room.
+     */
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
     // getter for entities.Room Schedule
