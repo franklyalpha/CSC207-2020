@@ -66,11 +66,11 @@ public class UserController {
         String userName = userScanner.nextLine();
 
         Scanner typeScan = new Scanner(System.in);
-        System.out.println("please input the type of this user:");
+        System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
         String typeName = userScanner.nextLine();
 
         Scanner messageScan = new Scanner(System.in);
-        System.out.println("please input the emssage you wanta send:");
+        System.out.println("please input the message you wanta send:");
         String message = messageScan.nextLine();
         send(userName, message, typeName);
 

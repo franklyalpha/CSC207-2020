@@ -26,7 +26,8 @@ public class SpeakerController extends OrganizerController {
             info.add(actmanag.searchActivityByUUID(actID.toString()));
         }
         // presenter
-        System.out.println(info);
+        System.out.println("here are activities you've been assigned: "
+                + extractActIDHelper(info));
         //
         Scanner actIDScanner = new Scanner(System.in);
         System.out.println("please input the ith activity you wish to send " +

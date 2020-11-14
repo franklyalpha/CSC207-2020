@@ -38,12 +38,14 @@ public class OrganizerController extends UserController {
         // input time;
         ArrayList<String> freeSpeaker = userma.availableSpeakers(targetPeriod);
         ArrayList<UUID> freeRooms = roomma.bookingAvailable(targetPeriod);
+
         if (freeRooms.size() != 0 &&
                 freeSpeaker.size() != 0){
             // check whether there are rooms available during that time; (use UUID, and int for capacity)
             // if that is, allow organizer to input info of conference (code below);
             Scanner moreInfo = new Scanner(System.in);
-            System.out.println(freeRooms);
+            System.out.println("Here are available speaker names: " + freeSpeaker + "\n Here are available rooms ID: " +
+                    "" + freeRooms);
             System.out.println("Please input topic, speaker and ith room (e.g, 1st room: input 1) for this activity" +
                     " IN ORDER and in different lines: (if there are invalid inputs, will use the first one as default)");
             String topic = moreInfo.nextLine();
@@ -132,6 +134,8 @@ public class OrganizerController extends UserController {
     protected void rescheduleSpeaker(){
         ArrayList<String[]> allActivities = actmanag.viewUpcommingActivites();
         // presenter
+        System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
+
         Scanner actIDgetter = new Scanner(System.in);
         System.out.println("Please input the ID of activity you wish to change speaker: ");
         String actID = actIDgetter.nextLine();
@@ -143,7 +147,9 @@ public class OrganizerController extends UserController {
         LocalDateTime[] actTime = getTimeHelper(actInfo);
         ArrayList<String> freeSpeakers = userma.availableSpeakers(actTime);
         freeSpeakers.add(actInfo[5]);
+        System.out.println("here are available speakers : "+ freeSpeakers);
         Scanner speakerScanner = new Scanner(System.in);
+
         System.out.println("Please input the speaker you wish to assign");
         String speaker = speakerScanner.nextLine();
         if (! freeSpeakers.contains(speaker)){

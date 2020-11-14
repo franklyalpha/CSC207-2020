@@ -51,7 +51,7 @@ public class AttendantController extends UserController{
 
         ArrayList<String[]> available = availableSchedules();
         ArrayList<String> actIDs = extractActIDHelper(available);
-        System.out.println(actIDs);
+        System.out.println("here are available activities you can enroll: " + actIDs);
         System.out.println("please input the activity's ID " +
                 "you wish to enroll");
         String activityID = scan.nextLine();
@@ -75,7 +75,7 @@ public class AttendantController extends UserController{
 
         ArrayList<String[]> enrolled = viewEnrolledSchedule();
         ArrayList<String> actIDs = extractActIDHelper(enrolled);
-        System.out.println(actIDs);
+        System.out.println("here are activities you've enrolled: "+actIDs);
         System.out.println("please input the activity's ID " +
                 "you wish to cancel");
         String activityID = scan.nextLine();

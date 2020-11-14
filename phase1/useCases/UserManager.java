@@ -99,11 +99,12 @@ public class UserManager implements java.io.Serializable{
         };
     }
 
-    public void createUser(String username, String password, String type) {
+    public String createUser(String username, String password, String type) {
         String name = username + num_user;
         int types = typeChoice(type);
         User org = new User(name, password, type);
         addUser(org, typeArray[types]);
+        return name;
         // return name: just in case to notify users about their exact username;
     }
 
