@@ -29,16 +29,16 @@ public class OrganizerController extends UserController {
             if (avaiableAction.contains(action)){
                 if(action.equals(avaiableAction.get(0))){
                     this.createRoom();
-                    this.continuing();
+                    enteraction = this.continuing();
 
                 }
                 if(action.equals(avaiableAction.get(1))){
                     this.createSpeaker();
-                    this.continuing();
+                    enteraction = this.continuing();
                 }
                 if(action.equals(avaiableAction.get(2))){
                     this.addSchedule();
-                    this.continuing();
+                    enteraction = this.continuing();
                 }
             }
             else{
