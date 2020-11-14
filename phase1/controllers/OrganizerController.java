@@ -19,81 +19,46 @@ public class OrganizerController extends UserController {
 
     @Override
     public void run() {
-        ArrayList<String> avaiableAction = new ArrayList<String>();
-        avaiableAction.add("create conference room");
-        avaiableAction.add("create speaker account");
-        avaiableAction.add("schedule conference");
-        avaiableAction.add("reschedule speaker");
-        avaiableAction.add("send private message");
-        avaiableAction.add("view private messages");
-        avaiableAction.add("view group messages");
-        avaiableAction.add("send messages in coopchatroom");
-        avaiableAction.add("view messages from coopchatroom");
-        avaiableAction.add("message all attendees");
-        avaiableAction.add("view singed conferences");
-        avaiableAction.add("log out");
-        String action = "";
-        boolean enteraction = true;
-        while(enteraction){
+        ArrayList<String> availableAction = new ArrayList<String>();
+        availableAction.add("create conference room");
+        availableAction.add("create speaker account");
+        availableAction.add("schedule conference");
+        availableAction.add("reschedule speaker");
+        availableAction.add("send private message");
+        availableAction.add("view private messages");
+        availableAction.add("view group messages");
+        availableAction.add("send messages in coopchatroom");
+        availableAction.add("view messages from coopchatroom");
+        availableAction.add("message all attendees");
+        availableAction.add("view singed conferences");
+        availableAction.add("log out");
+        int action = 0;
+        while(true){
             Scanner scan = new Scanner(System.in);
             System.out.println("Services apply\n");
-            for(String a: avaiableAction){
-                System.out.println(a);
+            for(String a: availableAction){
+                System.out.println(availableAction.indexOf(a)+1 + " " + a);
 
             }
-            action = scan.nextLine();
-            if (avaiableAction.contains(action)){
-                if(action.equals(avaiableAction.get(0))){
-                    this.createRoom();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(1))){
-                    this.createSpeaker();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(2))){
-                    this.addSchedule();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(3))){
-                    this.rescheduleSpeaker();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(4))){
-                    this.sendPrivateMessage();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(5))){
-                    this.viewPrivateMessage();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(6))){
-                    this.viewGroupMessage();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(7))){
-                    this.sendCoopMessage();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(8))){
-                    this.viewCoopChat();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(9))){
-                    this.messageAllAttendee();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(10))){
-                    this.viewEnrolledSchedule();
-                    enteraction = this.continuing();
-                }
-                if(action.equals(avaiableAction.get(11))){
-                    this.logout();
-                    enteraction = false;
-                }
+            action = scan.nextInt();
+            switch (action){
+                    case 1 : createRoom();
+                    case 2 : createSpeaker();
+                    case 3 : addSchedule();
+                    case 4 : rescheduleSpeaker();
+                    case 5 : sendPrivateMessage();
+                    case 6 : viewPrivateMessage();
+                    case 7 : viewGroupMessage();
+                    case 8 : sendCoopMessage();
+                    case 9 : viewCoopChat();
+                    case 10: messageAllAttendee();
+                    case 11: viewEnrolledSchedule();
+                    default: System.out.println("invalid action.");
             }
-            else{
-                System.out.println("Invalid service, please enter again.");
+            boolean whetherContinue = continuing();
+            if (!whetherContinue){
+                logout();
+                break;
             }
         }
     }
