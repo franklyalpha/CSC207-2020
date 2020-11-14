@@ -43,5 +43,36 @@ public class SpeakerController extends OrganizerController {
         chatmana.sendMessage(message, chatID);
     }
 
+    public void run() {
+        boolean stop = false;
+        while (!stop){
+            Scanner choice = new Scanner(System.in);
+            System.out.println("Actions available: 1: view private message; 2: send private message; 3: " +
+                    "view coop message; 4: send coop message; 5: send activity message; 6: view enrolled schedules" +
+                    "; 7: view activity message; ");
+            int action = choice.nextInt();
+            switch (action){
+                case 1 : viewPrivateMessage();
+                case 2 : sendPrivateMessage();
+                case 3 : viewCoopChat();
+                case 4 : sendCoopMessage();
+                case 5 : sendActivityMessage();
+                case 6 : viewEnrolledSchedule();
+                case 7 : viewGroupMessage();
+            }
+
+            Scanner stopScanner = new Scanner(System.in);
+            System.out.println("logout?");
+            if (stopScanner.hasNextBoolean()){
+                stop = stopScanner.nextBoolean();
+            }
+        }
+        logout();
+
+    }
+
+
+}
+
 
 }
