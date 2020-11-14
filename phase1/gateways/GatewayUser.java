@@ -21,22 +21,22 @@ public class GatewayUser {
 
     }
 
-    public UserManager deserialize(){
-        UserManager serialize;
+    public UserManager deser(){
+        UserManager seri;
         try{
             File f = new File("users.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            serialize = (UserManager)oid.readObject();
+            seri = (UserManager)oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            serialize = new UserManager();
+            seri = new UserManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
-            serialize = new UserManager();
+            System.out.println("Cannot find user file. Will reset all settings. ");
+            seri = new UserManager();
         }
-        return serialize;
+        return seri;
 
     }
 }

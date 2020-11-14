@@ -20,22 +20,22 @@ public class GatewayChat {
 
     }
 
-    public ChatroomManager deserialize(){
-        ChatroomManager serialize;
+    public ChatroomManager deser(){
+        ChatroomManager seri;
         try{
             File f = new File("chats.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            serialize = (ChatroomManager) oid.readObject();
+            seri = (ChatroomManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            serialize = new ChatroomManager();
+            seri = new ChatroomManager();
         } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find original file. Will reset all settings. ");
-            serialize = new ChatroomManager();
+            System.out.println("Cannot find chat file. Will reset all settings. ");
+            seri = new ChatroomManager();
         }
-        return serialize;
+        return seri;
 
     }
 }
