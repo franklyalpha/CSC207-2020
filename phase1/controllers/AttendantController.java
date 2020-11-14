@@ -27,7 +27,7 @@ public class AttendantController extends UserController{
         availableAction.add("view messages from others");
         availableAction.add("View groups' messages");
         availableAction.add("log out");
-        int action = 0;
+        int action;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);

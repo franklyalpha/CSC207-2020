@@ -16,7 +16,7 @@ public class OrganizerController extends UserController {
 
     @Override
     public void run() {
-        ArrayList<String> availableAction = new ArrayList<String>();
+        ArrayList<String> availableAction = new ArrayList<>();
         availableAction.add("create conference room");
         availableAction.add("create speaker account");
         availableAction.add("schedule conference");
@@ -24,12 +24,12 @@ public class OrganizerController extends UserController {
         availableAction.add("send private message");
         availableAction.add("view private messages");
         availableAction.add("view group messages");
-        availableAction.add("send messages in coopchatroom");
-        availableAction.add("view messages from coopchatroom");
+        availableAction.add("send messages in coopChatroom");
+        availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
         availableAction.add("view singed conferences");
         availableAction.add("log out");
-        int action = 0;
+        int action;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
@@ -108,10 +108,10 @@ public class OrganizerController extends UserController {
             }
             UUID assignedChat = chatroomManager.createChatroom(new ArrayList<>());
             // above arraylist has size zero, which will be assigned to conference chat automatically;
-            UUID assignedroom = freeRooms.get(roomIndex);
-            UUID actID = activityManager.addNewActivity(targetPeriod[0], targetPeriod[1], assignedChat, assignedroom, topic);
+            UUID assignedRoom = freeRooms.get(roomIndex);
+            UUID actID = activityManager.addNewActivity(targetPeriod[0], targetPeriod[1], assignedChat, assignedRoom, topic);
             activityManager.addSpeaker(actID, speaker);
-            roomManager.BookRoom(targetPeriod, actID, assignedroom);
+            roomManager.BookRoom(targetPeriod, actID, assignedRoom);
             userManager.otherAddSchedule(speaker, targetPeriod, actID);
             chatroomManager.addUser(speaker, assignedChat);
             // then choose a room;
@@ -174,9 +174,9 @@ public class OrganizerController extends UserController {
 
     protected void sendCoopMessage(){
         UUID coopChatID = chatroomManager.getCoopId();
-        Scanner messager = new Scanner(System.in);
+        Scanner messenger = new Scanner(System.in);
         System.out.println("Please input your message below: ");
-        String message = messager.nextLine();
+        String message = messenger.nextLine();
         chatroomManager.sendMessage(message, coopChatID);
     }
 
@@ -185,9 +185,9 @@ public class OrganizerController extends UserController {
         // presenter
         System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
 
-        Scanner actIDgetter = new Scanner(System.in);
+        Scanner actIDGetter = new Scanner(System.in);
         System.out.println("Please input the ID of activity you wish to change speaker: ");
-        String actID = actIDgetter.nextLine();
+        String actID = actIDGetter.nextLine();
         if (! extractActIDHelper(allActivities).contains(actID)){
             System.out.println("invalid activity ID! try again later");
             return;
