@@ -1,9 +1,6 @@
 package controllers;
 
-import gateways.GatewayActivity;
-import gateways.GatewayChat;
-import gateways.GatewayRoom;
-import gateways.GatewayUser;
+
 import useCases.UserManager;
 
 import java.time.*;
@@ -33,7 +30,8 @@ public class OrganizerController extends UserController {
         availableAction.add("view singed conferences");
         availableAction.add("log out");
         int action = 0;
-        while(true){
+        boolean enterAction = true;
+        while(enterAction){
             Scanner scan = new Scanner(System.in);
             System.out.println("Services apply\n");
             for(String a: availableAction){
@@ -53,12 +51,18 @@ public class OrganizerController extends UserController {
                     case 9 : viewCoopChat();
                     case 10: messageAllAttendee();
                     case 11: viewEnrolledSchedule();
+                    case 12:
+                        logout();
+                        enterAction = false;
+                        break;
                     default: System.out.println("invalid action.");
             }
-            boolean whetherContinue = continuing();
-            if (!whetherContinue){
-                logout();
-                break;
+            if (!enterAction){
+                boolean whetherContinue = continuing();
+                if (!whetherContinue){
+                    logout();
+                    enterAction = false;
+                }
             }
         }
     }
