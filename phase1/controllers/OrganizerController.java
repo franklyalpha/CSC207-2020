@@ -4,6 +4,8 @@ package controllers;
 import presenter.Presenter;
 import useCases.UserManager;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.*;
 
 import java.util.ArrayList;
@@ -30,6 +32,18 @@ public class OrganizerController extends UserController {
         availableAction.add("message all attendees");
         availableAction.add("view singed conferences");
         availableAction.add("log out");
+        ArrayList<String> availableMethod = new ArrayList<>();
+        availableMethod.add("createRoom");
+        availableMethod.add("createSpeaker");
+        availableMethod.add("addSchedule");
+        availableMethod.add("rescheduleSpeaker");
+        availableMethod.add("sendPrivateMessage");
+        availableMethod.add("viewPrivateMessage");
+        availableMethod.add("viewGroupMessage");
+        availableMethod.add("sendCoopMessage");
+        availableMethod.add("viewCoopChat");
+        availableMethod.add("messageAllAttendee");
+        availableMethod.add("viewEnrolledSchedule");
         int action;
         boolean enterAction = true;
         while(enterAction){
@@ -41,43 +55,22 @@ public class OrganizerController extends UserController {
             }*/
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
-            switch (action){
-                    case 1 : createRoom();
-                    break;
-                    case 2 : createSpeaker();
-                    break;
-                    case 3 : addSchedule();
-                    break;
-                    case 4 : rescheduleSpeaker();
-                    break;
-                    case 5 : sendPrivateMessage();
-                    break;
-                    case 6 : viewPrivateMessage();
-                    break;
-                    case 7 : viewGroupMessage();
-                    break;
-                    case 8 : sendCoopMessage();
-                    break;
-                    case 9 : viewCoopChat();
-                    break;
-                    case 10: messageAllAttendee();
-                    break;
-                    case 11: viewEnrolledSchedule();
-                    break;
-                    case 12:
-                        logout();
-                        enterAction = false;
-                        break;
-                    default: Presenter.printInvalid("action");
-                    break; //System.out.println("invalid action.");
-            }
-            if (!enterAction){
-                boolean whetherContinue = continuing();
-                if (!whetherContinue){
-                    logout();
-                    enterAction = false;
+            if (0 < action && action <= availableMethod.size()) {
+                try {
+                    Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+                    try {
+                        method.invoke(this);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
                 }
             }
+            else{
+                Presenter.printInvalid("input");
+            }
+            enterAction = continuing();
         }
     }
 
