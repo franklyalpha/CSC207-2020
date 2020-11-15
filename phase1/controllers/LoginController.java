@@ -40,14 +40,17 @@ public class LoginController {
             // will call file reading methods here, if not implementing serializable
             // will call serialized file reading, if being serialized
             Scanner singUPORLogin = new Scanner(System.in);
-            System.out.println("Enter your choice:\n[0] SignUp\n[1] Login");
-            String choice = singUPORLogin.next();
+            System.out.println("Enter your choice:\n[0] SignUp\n[1] Login\n[Q] uit");
+            String choice = singUPORLogin.nextLine();
             switch (choice){
                 case "0":
-                    signUp();
+                    handleSignUp();
                     break;
                 case "1":
-                    login();
+                    handleLogin();
+                    break;
+                case "Q":
+                    notStop = false;
                     break;
                 default:
                     handleWrongInput();
@@ -92,21 +95,40 @@ public class LoginController {
             }
     }}
 
-    private void signUp() {
+    private void handleSignUp() {
         Scanner signUpScanner = new Scanner(System.in);
         System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Speaker [2] Attendant");
-        String name = signUpScanner.next();
+        String type = signUpScanner.nextLine();
+        switch (type) {
+            case "0":
+                handleCreateNewUser(type);
+                System.out.println("New Organizer Created!");
+                break;
+            case "1":
+                handleCreateNewUser(type);
+                System.out.println("New Speaker Created!");
+                break;
+            case "2":
+                handleCreateNewUser(type);
+                System.out.println("New Attendant Created!");
+                break;
+            default:
+                handleWrongInput();
+
+        }
     }
 
-    private void login(){
+    private void handleLogin(){
         Scanner type = new Scanner(System.in);
-        System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant at first line,\n" +
-                "your Username at second line \nand Passcode at third line:");
+        System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
         String typeName = type.nextLine();
+        System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
         String userName = type.nextLine();
+        System.out.println("Please enter your password:");
         String password = type.nextLine();
         if (userManager.typeChoice(typeName) == -1){
             System.out.println("Wrong user type!!!\n");
+            handleWrongInput();
         }
         else{
             if (checkLoginCondition(typeName, userName, password)){
@@ -135,4 +157,15 @@ public class LoginController {
             }
         }
     }
+
+    private void handleCreateNewUser(String type) {
+        Scanner newUser = new Scanner(System.in);
+        System.out.println("Enter your name:");
+        String username = newUser.nextLine();
+        System.out.println("Enter Password:");
+        String password = newUser.nextLine();
+
+        System.out.println("Your username is " + userManager.createUser(username, password, type));
+    }
+
 }
