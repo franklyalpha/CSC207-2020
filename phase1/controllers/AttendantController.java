@@ -2,9 +2,11 @@ package controllers;
 
 import useCases.UserManager;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 import presenter.*;
+import java.lang.reflect.Method;
 
 public class AttendantController extends UserController{
 
@@ -27,7 +29,14 @@ public class AttendantController extends UserController{
         availableAction.add("Send messages to a person");
         availableAction.add("View messages from others");
         availableAction.add("View groups' messages");
-        availableAction.add("Log out");
+        ArrayList<String> availableMethod = new ArrayList<>();
+        availableMethod.add("viewSchedules");
+        availableMethod.add("viewEnrolledSchedule");
+        availableMethod.add("enrollConference");
+        availableMethod.add("cancelEnrollment");
+        availableMethod.add("sendPrivateMessage");
+        availableMethod.add("viewPrivateMessage");
+        availableMethod.add("viewGroupMessage");
         int action;
         boolean enterAction = true;
         while(enterAction){
@@ -39,36 +48,23 @@ public class AttendantController extends UserController{
             }*/
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
-            switch (action){
-                case 1 : viewSchedules();
-                break;
-                case 2: viewEnrolledSchedule();
-                break;
-                case 3 : enrollConference();
-                break;
-                case 4 : cancelEnrollment();
-                break;
-                case 5 : sendPrivateMessage();
-                break;
-                case 6 : viewPrivateMessage();
-                break;
-                case 7 : viewGroupMessage();
-                break;
-                case 8 :
-                    logout();
-                    enterAction = false;
-                    break;
-                default: Presenter.printInvalid("action");
-                break;//System.out.println("invalid action.");
-            }
-            if (!enterAction){
-                boolean whetherContinue = continuing();
-                if (!whetherContinue){
-                    logout();
-                    enterAction = false;
-                }
+            if (0 < action && action <= availableMethod.size()) {
 
+                try {
+                    Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+                    try {
+                        method.invoke(this);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
             }
+            else{
+                Presenter.printInvalid("input");
+            }
+            enterAction = continuing();
         }
     }
 
