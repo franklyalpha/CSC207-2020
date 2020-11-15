@@ -80,7 +80,7 @@ public class LoginController {
             }
             //System.out.println("Wrong password!!!");
             Presenter.printInvalid("password");
-            return loginCondition;
+            return "invalid";
         }
         //System.out.println("Username not found!!!");
         Presenter.printInvalid("username");
@@ -175,6 +175,8 @@ public class LoginController {
                         att.run();
                         break;
                     }
+                    default:
+                        break;
                 }
             }
             else{
