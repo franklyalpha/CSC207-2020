@@ -3,6 +3,8 @@ package controllers;
 import presenter.Presenter;
 import useCases.UserManager;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,8 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class SpeakerController extends OrganizerController {
+    private ArrayList<String> availableAction = new ArrayList<>();
+    private ArrayList<String> availableMethod = new ArrayList<>();
 
     public SpeakerController(UserManager manager){
         super(manager);
@@ -19,6 +23,75 @@ public class SpeakerController extends OrganizerController {
     (view enrolled schedule is implemented in general userController)
     send group message
      */
+
+    public void run() {
+        addActions();
+        addMenu();
+
+        int action;
+        boolean enterAction = true;
+        while(enterAction){
+            Scanner scan = new Scanner(System.in);
+            /*System.out.println("Services apply\n");
+            for(String a: availableAction){
+                System.out.println(availableAction.indexOf(a)+1 + ": " + a);
+
+            }*/
+            Presenter.printAvailableActions(availableAction);
+            action = scan.nextInt();
+            if (0 < action && action <= availableMethod.size()) {
+                runMethod(action);
+            }
+            else{
+                Presenter.printInvalid("input");
+            }
+            enterAction = continuing();
+        }
+    }
+
+    private void runMethod (int action){
+        try {
+            Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+            try {
+                method.invoke(this);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addMenu(){
+        availableAction.add("create conference room");
+        availableAction.add("create speaker account");
+        availableAction.add("schedule conference");
+        availableAction.add("reschedule speaker");
+        availableAction.add("send private message");
+        availableAction.add("view private messages");
+        availableAction.add("view group messages");
+        availableAction.add("send messages in coopChatroom");
+        availableAction.add("view messages from coopChatroom");
+        availableAction.add("message all attendees");
+        availableAction.add("view singed conferences");
+        availableAction.add("log out");
+
+    }
+
+    private void addActions(){
+        availableMethod.add("createRoom");
+        availableMethod.add("createSpeaker");
+        availableMethod.add("addSchedule");
+        availableMethod.add("rescheduleSpeaker");
+        availableMethod.add("sendPrivateMessage");
+        availableMethod.add("viewPrivateMessage");
+        availableMethod.add("viewGroupMessage");
+        availableMethod.add("sendCoopMessage");
+        availableMethod.add("viewCoopChat");
+        availableMethod.add("messageAllAttendee");
+        availableMethod.add("viewEnrolledSchedule");
+    }
+
 
     protected void sendActivityMessage(){
         ArrayList<String[]> info = showEnrolledSchedule();
@@ -52,42 +125,19 @@ public class SpeakerController extends OrganizerController {
         return chatID;
     }
 
-    public void run() {
-        boolean stop = false;
-        while (!stop){
-            Scanner choice = new Scanner(System.in);
-            //System.out.println("Actions available: 1: view private message; 2: send private message; 3: " +
-            //        "view coop message; 4: send coop message; 5: send activity message; 6: view enrolled schedules" +
-            //        "; 7: view activity message; ");
-            Presenter.printSpeakerActions();
-            int action = choice.nextInt();
-            switch (action){
-                case 1 : viewPrivateMessage();
-                break;
-                case 2 : sendPrivateMessage();
-                break;
-                case 3 : viewCoopChat();
-                break;
-                case 4 : sendCoopMessage();
-                break;
-                case 5 : sendActivityMessage();
-                break;
-                case 6 : viewEnrolledSchedule();
-                break;
-                case 7 : viewGroupMessage();
-                break;
-            }
 
-            Scanner stopScanner = new Scanner(System.in);
-            //System.out.println("logout?");
-            Presenter.printLogoutPrompt();
-            if (stopScanner.hasNextBoolean()){
-                stop = stopScanner.nextBoolean();
-            }
+    private boolean continuing(){
+        boolean enterAction = true;
+        //System.out.println("Continue for other services? Please enter true or false. (false for log out)");
+        Presenter.printContinueServicePrompt();
+        Scanner scan2 = new Scanner(System.in);
+        if(!scan2.nextLine().equals("true")){
+            enterAction = false;
         }
-        logout();
-
+        return enterAction;
     }
+
+
 
 
 }

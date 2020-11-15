@@ -81,9 +81,8 @@ public class UserController {
         String userName = userScanner.nextLine();
 
         Scanner typeScan = new Scanner(System.in);
-        //System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
         Presenter.printTypeToContactPrompt();
-        String typeName = userScanner.nextLine();
+        String typeName = typeScan.nextLine();
 
         Scanner messageScan = new Scanner(System.in);
         //System.out.println("please input the message you wanna send:");
