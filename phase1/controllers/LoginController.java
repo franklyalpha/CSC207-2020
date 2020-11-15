@@ -33,9 +33,8 @@ public class LoginController {
     /*
     require implementation: logout system;
      */
-    static boolean notStop = true;
     public void run(){
-
+        boolean notStop = true;
         while(notStop){
             // will call file reading methods here, if not implementing serializable
             // will call serialized file reading, if being serialized
@@ -50,14 +49,13 @@ public class LoginController {
                     handleLogin();
                     break;
                 case "Q":
-                    notStop = false;
-                    break;
+                    return;
                 default:
-                    handleWrongInput();
                     break;
             }
-            }
+            notStop = handleWrongInput();
         }
+    }
 
 
     private boolean checkLoginCondition(String type, String username, String password){
@@ -73,12 +71,13 @@ public class LoginController {
         return false;
     }
 
-    private void handleWrongInput() {
+    private boolean handleWrongInput() {
         // following code determine whether the program will continue running;
         // may consider putting into a separate private method;
+        boolean notStop = false;
         boolean validInput = false;
         while(!validInput){
-            System.out.println("Wrong input!");
+            //System.out.println("Wrong input!");
             System.out.println("Continue running or not? (type \"(Y)es\" or \"(N)o\")");
             Scanner nextChoice = new Scanner(System.in);
             String choice = nextChoice.nextLine();
@@ -87,34 +86,33 @@ public class LoginController {
                 validInput = true;
             }
             else if (choice.equals("N") || choice.equals("No")){
-                notStop = false;
                 validInput = true;
             }
             else{
                 System.out.println("invalid input! try again; \n");
             }
-    }}
+        }
+        return notStop;
+    }
 
     private void handleSignUp() {
         Scanner signUpScanner = new Scanner(System.in);
-        System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Speaker [2] Attendant");
+        System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
         String type = signUpScanner.nextLine();
         switch (type) {
-            case "0":
+            case "0" -> {
                 handleCreateNewUser(type);
                 System.out.println("New Organizer Created!");
-                break;
-            case "1":
-                handleCreateNewUser(type);
-                System.out.println("New Speaker Created!");
-                break;
-            case "2":
+            }
+            case "1" -> {
+//                handleCreateNewUser(type);
+//                System.out.println("New Speaker Created!");
+//            }
+//            case "2" -> {
                 handleCreateNewUser(type);
                 System.out.println("New Attendant Created!");
-                break;
-            default:
-                handleWrongInput();
-
+            }
+            default -> System.out.println("Wrong input!!! Try again later. ");
         }
     }
 
@@ -128,28 +126,27 @@ public class LoginController {
         String password = type.nextLine();
         if (userManager.typeChoice(typeName) == -1){
             System.out.println("Wrong user type!!!\n");
-            handleWrongInput();
         }
         else{
             if (checkLoginCondition(typeName, userName, password)){
                 //note that switch can be used here, for implementing
                 //factory design pattern (see more on code-smell website)
-                switch(typeName){
-                    case "0":
+                switch (typeName) {
+                    case "0" -> {
                         // Organizer
                         OrganizerController org = new OrganizerController(userManager);
                         org.run();
-                        break;
-                    case "1":
+                    }
+                    case "1" -> {
                         // Speaker
                         SpeakerController spe = new SpeakerController(userManager);
                         spe.run();
-                        break;
-                    case "2":
+                    }
+                    case "2" -> {
                         // Attendant
                         AttendantController att = new AttendantController(userManager);
                         att.run();
-                        break;
+                    }
                 }
             }
             else{
@@ -164,7 +161,6 @@ public class LoginController {
         String username = newUser.nextLine();
         System.out.println("Enter Password:");
         String password = newUser.nextLine();
-
         System.out.println("Your username is " + userManager.createUser(username, password, type));
     }
 
