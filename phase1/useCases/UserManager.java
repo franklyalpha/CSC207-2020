@@ -72,12 +72,12 @@ public class UserManager implements java.io.Serializable{
      */
 
     public int typeChoice(String usertype){
-        return switch (usertype) {
-            case "0" -> 0;
-            case "1" -> 1;
-            case "2" -> 2;
-            default -> -1;
-        };
+         switch (usertype) {
+             case "0" : return 0;
+             case "1" : return 1;
+             case "2" : return 2;
+             default : return -1;
+        }
     }
 
     public String createUser(String username, String password, String type) {
