@@ -87,8 +87,8 @@ public class Presenter {
     }
 
     //side note: this kinda sounds redundant
-    public static void printList(HashMap<String, UUID> contact){
-        for(String i: contact.keySet()){
+    public static void printList(Object[] list){
+        for(Object i: list){
             System.out.println(i);
         }
     }
@@ -99,6 +99,10 @@ public class Presenter {
         for(int i=Messages.size()-num1; i>=Messages.size()-num2; i--){
             System.out.println(Messages.get(i));
         }
+    }
+
+    public static void printContactPrompt(String item){
+        System.out.println("Please select a " + item + ": ");
     }
 
     public static void printTypeToContactPrompt(){
