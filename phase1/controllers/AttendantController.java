@@ -2,11 +2,15 @@ package controllers;
 
 import useCases.UserManager;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 import presenter.*;
+import java.lang.reflect.Method;
 
 public class AttendantController extends UserController{
+    ArrayList<String> availableAction = new ArrayList<>();
+    ArrayList<String> availableMethod = new ArrayList<>();
 
     public AttendantController(UserManager manager){
         super(manager);
@@ -19,15 +23,8 @@ public class AttendantController extends UserController{
 
     @Override
     public void run() {
-        ArrayList<String> availableAction = new ArrayList<>();
-        availableAction.add("Available conferences provided");
-        availableAction.add("View Signed conferences");
-        availableAction.add("Sign up for a conference");
-        availableAction.add("Cancel conference");
-        availableAction.add("Send messages to a person");
-        availableAction.add("View messages from others");
-        availableAction.add("View groups' messages");
-        availableAction.add("Log out");
+        addMenu();
+        addActions();
         int action;
         boolean enterAction = true;
         while(enterAction){
@@ -39,116 +36,144 @@ public class AttendantController extends UserController{
             }*/
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
-            switch (action){
-                case 1 : viewSchedules();
-                case 2: viewEnrolledSchedule();
-                case 3 : enrollConference();
-                case 4 : cancelEnrollment();
-                case 5 : sendPrivateMessage();
-                case 6 : viewPrivateMessage();
-                case 7 : viewGroupMessage();
-                case 8 :
-                    logout();
-                    enterAction = false;
-                    break;
-                default: Presenter.printInvalid("action"); //System.out.println("invalid action.");
+            if (0 < action && action <= availableMethod.size()) {
+                runMethod(action);
             }
-            if (!enterAction){
-                boolean whetherContinue = continuing();
-                if (!whetherContinue){
-                    logout();
-                    enterAction = false;
-                }
-
+            else{
+                Presenter.printInvalid("input");
             }
+            enterAction = continuing();
         }
+    }
+
+    private void runMethod(int action){
+        try {
+            Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+            try {
+                method.invoke(this);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void addMenu(){
+        availableAction.add("Available conferences provided");
+        availableAction.add("View Signed conferences");
+        availableAction.add("Sign up for a conference");
+        availableAction.add("Cancel conference");
+        availableAction.add("Send messages to a person");
+        availableAction.add("View messages from others");
+        availableAction.add("View groups' messages");
+
+    }
+
+    private void addActions(){
+        availableMethod.add("viewSchedules");
+        availableMethod.add("viewEnrolledSchedule");
+        availableMethod.add("enrollConference");
+        availableMethod.add("cancelEnrollment");
+        availableMethod.add("sendPrivateMessage");
+        availableMethod.add("viewPrivateMessage");
+        availableMethod.add("viewGroupMessage");
     }
 
 
     //check whether the room is full, and whether this user is currently enroll.
-    private ArrayList<String[]> availableSchedules(){
+    protected ArrayList<String[]> availableSchedules(){
         ArrayList<String[]> schedules = activityManager.viewUpcommingActivites();
         ArrayList<String> temp = new ArrayList<>();
 
         //activity that is full and user is not free.
-        for(String[] d: schedules){
-            if (!roomManager.CheckRoomFullness(activityManager.numAttendant(UUID.fromString(d[0])), UUID.fromString(d[4]))){
-                temp.add(activityManager.searchActivityByUUID(d[0])[0]);
-            }
-            LocalDateTime[] time = getTimeHelper(d);
-            if(!userManager.isFree(time)){
-                temp.add(activityManager.searchActivityByUUID(d[0])[0]);
+        for(String[] info: schedules){
+            if(checkIsConflict(info)){
+                temp.add(activityManager.searchActivityByUUID(info[0])[0]);
             }
         }
-
         schedules.removeIf(info -> temp.contains(info[0]));
         return schedules;
     }
 
-    public void viewSchedules(){
+    private boolean checkIsConflict(String[] info){
+        if (!roomManager.CheckRoomFullness(activityManager.numAttendant(UUID.fromString(info[0])),
+                UUID.fromString(info[4]))){
+            return true;
+        }
+        LocalDateTime[] time = getTimeHelper(info);
+        return !userManager.isFree(time);
+    }
+
+    protected void viewSchedules(){
         ArrayList<String[]> result = this.availableSchedules();
-        //System.out.println(result);
         Presenter.printSchedule(result);
     }
 
     //add a new activity to this user, and add this user to the corresponding conference chat.
-    public void enrollConference(){
+    protected void enrollConference(){
         ArrayList<String> userName = new ArrayList<>();
         userName.add(userManager.currentUsername());
-        Scanner scan = new Scanner(System.in);
-
         ArrayList<String[]> available = availableSchedules();
         ArrayList<String> actIDs = extractActIDHelper(available);
-        //System.out.println("here are available activities you can enroll: " + actIDs);
-        Presenter.printDescription("available activities you can enroll");
-        Presenter.printSchedule(available);
-        //System.out.println("please input the activity's ID " +
-        //        "you wish to enroll");
-        Presenter.printActivityIDPrompt("enroll");
-        String activityID = scan.nextLine();
+
+        String activityID = findActivityID(available, "enroll");
         String[] temp = activityManager.searchActivityByUUID(activityID);
         if (actIDs.contains(activityID)){
-            LocalDateTime[] time = getTimeHelper(temp);
-            userManager.selfAddSchedule(time, UUID.fromString(activityID));
-            UUID conferenceChat = activityManager.getConferenceChat(UUID.fromString(temp[0]));
-            chatroomManager.addUser(userName, conferenceChat);
-            activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
+            addEnrollment(temp, activityID, userName);
         }
         else{
-            //System.out.println("Invalid activity ID.");
             Presenter.printInvalid("activity ID");
         }
     }
 
-    public void cancelEnrollment(){
-        ArrayList<String> userName = new ArrayList<>();
-        userName.add(userManager.currentUsername());
+    private String findActivityID(ArrayList<String[]> available, String action){
         Scanner scan = new Scanner(System.in);
-
-        ArrayList<String[]> enrolled = viewEnrolledSchedule();
-        ArrayList<String> actIDs = extractActIDHelper(enrolled);
-        //System.out.println("here are activities you've enrolled: "+actIDs);
-        Presenter.printDescription("activities you've enrolled");
-        Presenter.printSchedule(enrolled);
-        //System.out.println("please input the activity's ID " +
-        //        "you wish to cancel");
-        Presenter.printActivityIDPrompt("cancel");
-        String activityID = scan.nextLine();
-        HashMap<LocalDateTime[], UUID> temp = userManager.getActivities();
-        //check whether this activity user has enrolled.
-        UUID actID = UUID.fromString(activityID);
-        if(temp.containsValue(actID)){
-            activityManager.removeAttendant(actID, userManager.currentUsername());
-            chatroomManager.removeUser(userName,activityManager.getConferenceChat(actID));
-            String[] actInfo = activityManager.searchActivityByUUID(activityID);
-            // update user's enrollment in User-manager
-            LocalDateTime[] time = getTimeHelper(actInfo);
-            userManager.deleteActivity(time);
+        if (action.equals("enroll")){
+            Presenter.printDescription("available activities you can enroll");
+            Presenter.printSchedule(available);
+            Presenter.printActivityIDPrompt("enroll");
         }
         else{
-            //System.out.println("Invalid activity ID.");
+            Presenter.printDescription("available activities you can cancel");
+            Presenter.printSchedule(available);
+            Presenter.printActivityIDPrompt("cancel");
+        }
+
+        return scan.nextLine();
+    }
+
+    private void addEnrollment(String[] temp, String activityID, ArrayList<String> userName){
+        LocalDateTime[] time = getTimeHelper(temp);
+        userManager.selfAddSchedule(time, UUID.fromString(activityID));
+        UUID conferenceChat = activityManager.getConferenceChat(UUID.fromString(temp[0]));
+        chatroomManager.addUser(userName, conferenceChat);
+        activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
+    }
+
+    protected void cancelEnrollment(){
+        ArrayList<String> userName = new ArrayList<>();
+        userName.add(userManager.currentUsername());
+        ArrayList<String[]> enrolled = viewEnrolledSchedule();
+        ArrayList<String> actIDs = extractActIDHelper(enrolled);
+        String activityID = findActivityID(enrolled, "cancel");
+
+        if(actIDs.contains(activityID)){
+            cancelEnrollment(userName, activityID);
+        }
+        else{
             Presenter.printInvalid("activity ID");
         }
+    }
+
+    private void cancelEnrollment(ArrayList<String> userName, String activityID){
+        UUID actID = UUID.fromString(activityID);
+        activityManager.removeAttendant(actID, userManager.currentUsername());
+        chatroomManager.removeUser(userName,activityManager.getConferenceChat(actID));
+        String[] actInfo = activityManager.searchActivityByUUID(activityID);
+        LocalDateTime[] time = getTimeHelper(actInfo);
+        userManager.deleteActivity(time);
     }
 
     private boolean continuing(){

@@ -2,6 +2,8 @@ package controllers;
 
 import useCases.UserManager;
 import gateways.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import presenter.*;
 
@@ -60,19 +62,29 @@ public class LoginController {
     }
 
 
-    private boolean checkLoginCondition(String type, String username, String password){
-        int userIndex = userManager.isUser(username, type);
+    private String checkLoginCondition(String username, String password){
+
+        String[] typeChoice = {"0", "1", "2"};
+        int userIndex = 0;
+        String type = "-1";
+        for (String tmp : typeChoice){
+            userIndex = userManager.isUser(username, tmp);
+            type = tmp;
+            if (userIndex != 0) break;
+        }
+
         if (userIndex != 0){
-            if(userManager.loginCheck(userIndex, type, password)){
-                return true;
+            String loginCondition = userManager.loginCheck(userIndex, type, password);
+            if (!loginCondition.equals("invalid")){
+                return loginCondition;
             }
             //System.out.println("Wrong password!!!");
             Presenter.printInvalid("password");
-            return false;
+            return "invalid";
         }
         //System.out.println("Username not found!!!");
         Presenter.printInvalid("username");
-        return false;
+        return "invalid";
     }
 
     private boolean handleWrongInput() {
@@ -126,38 +138,45 @@ public class LoginController {
     private void handleLogin(){
         Scanner type = new Scanner(System.in);
         //System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
-        Presenter.printHandleLoginMenu();
-        String typeName = type.nextLine();
+//        Presenter.printHandleLoginMenu();
+//        String typeName = type.nextLine();
         //System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
         Presenter.printUsernamePrompt();
         String userName = type.nextLine();
         //System.out.println("Please enter your password:");
         Presenter.printPasswordPrompt();
         String password = type.nextLine();
-        if (userManager.typeChoice(typeName) == -1){
-            //System.out.println("Wrong user type!!!\n");
-            Presenter.printInvalid("usertype");
-        }
-        else{
-            if (checkLoginCondition(typeName, userName, password)){
+//        if (userManager.typeChoice(typeName) == -1){
+//            //System.out.println("Wrong user type!!!\n");
+//            Presenter.printInvalid("usertype");
+//        }
+
+            String loginCondition = checkLoginCondition(userName, password);
+
+            if (!loginCondition.equals("invalid")){
                 //note that switch can be used here, for implementing
                 //factory design pattern (see more on code-smell website)
-                switch (typeName) {
+                switch (loginCondition) {
                     case "0": {
                         // Organizer
                         OrganizerController org = new OrganizerController(userManager);
                         org.run();
+                        break;
                     }
                     case "1": {
                         // Speaker
                         SpeakerController spe = new SpeakerController(userManager);
                         spe.run();
+                        break;
                     }
                     case "2": {
                         // Attendant
                         AttendantController att = new AttendantController(userManager);
                         att.run();
+                        break;
                     }
+                    default:
+                        break;
                 }
             }
             else{
@@ -165,7 +184,6 @@ public class LoginController {
                 Presenter.printInvalid("password or username");
             }
         }
-    }
 
     private void handleCreateNewUser(String type) {
         Scanner newUser = new Scanner(System.in);

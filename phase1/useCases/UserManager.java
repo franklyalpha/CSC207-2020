@@ -37,20 +37,9 @@ public class UserManager implements java.io.Serializable{
 
 
     /**
-     * A list contains all organizer type <code>User</code>
+     * A list contains all Users with all types <code>User</code>
      * */
-    private ArrayList<User> organizers;
-
-    /**
-     * A list contains all speaker type <code>User</code>
-     * */
-    private ArrayList<User> speakers;
-
-    /**
-     * A list contains all attendee type <code>User</code>
-     * */
-    private ArrayList<User> attendee;
-    // regex
+    private ArrayList<User> allUsers;
 
     /**
      * A integer representing the number of users who are currently using the system.
@@ -61,27 +50,19 @@ public class UserManager implements java.io.Serializable{
      *
      * */
     private User userOnAir;
-
-
-    private ArrayList<User>[] typeArray = new ArrayList[3];
 //    private ArrayList<entities.User>[] typearray = [organi]
 
     // may consider simple factory design pattern in controller layer;
-    // make sure organizers don't access speaker's controllers  !!!!! 
+    // make sure organizers don't access speaker's controllers  !!!!!
 
 
     /**
      * Creates a <code>UserManager</code> with blank list of organizers, speakers, attendee.
      */
     public UserManager() {
-        organizers = new ArrayList<>();
-        speakers = new ArrayList<>();
-        attendee = new ArrayList<>();
+        allUsers = new ArrayList<>();
         num_user = 1;
         userOnAir = null;
-        typeArray[0] = organizers;
-        typeArray[1] = speakers;
-        typeArray[2] = attendee;
     }
 
     /**
@@ -92,24 +73,23 @@ public class UserManager implements java.io.Serializable{
 
     public int typeChoice(String usertype){
          switch (usertype) {
-             case "0": return 0;
-             case "1": return 1;
-             case "2": return 2;
-             default: return -1;
+             case "0" : return 0;
+             case "1" : return 1;
+             case "2" : return 2;
+             default : return -1;
         }
     }
 
     public String createUser(String username, String password, String type) {
         String name = username + num_user;
-        int types = typeChoice(type);
         User org = new User(name, password, type);
-        addUser(org, typeArray[types]);
+        addUser(org);
         return name;
         // return name: just in case to notify users about their exact username;
     }
 
-    private void addUser(User users, ArrayList<User> type){
-        type.add(users);
+    private void addUser(User users){
+        allUsers.add(users);
         num_user += 1;
     }
 
@@ -119,14 +99,24 @@ public class UserManager implements java.io.Serializable{
         if (types == -1){
             return 0;
         }
-        return_index = checkUserIndex(username, typeArray[types]);
+        return_index = checkUserIndex(username);
         return return_index;
     }
 
-    private int checkUserIndex(String username, ArrayList<User> type){
-        for (User users : type){
+
+    public int isUser(String username){
+        for (User users : allUsers){
+            if(users.getUsername().equals(username)){
+                return allUsers.indexOf(users) + 1;
+            }
+        }
+        return 0;
+    }
+
+    private int checkUserIndex(String username){
+        for (User users : allUsers){
             if (users.getUsername().equals(username)){
-                return type.indexOf(users) + 1;
+                return allUsers.indexOf(users) + 1;
             }
         }
         return 0;
@@ -137,13 +127,14 @@ public class UserManager implements java.io.Serializable{
      @return true if password is correct, false otherwise.
      */
 
-    public boolean loginCheck(int index, String type, String passcode){
-        int types = typeChoice(type);
-        if(typeArray[types].get(index - 1).getPassword().equals(passcode)) {
-            userOnAir = typeArray[types].get(index - 1);
-            return true;
+    public String loginCheck(int index, String type, String passcode){
+        //int types = typeChoice(type);
+        User currUser = allUsers.get(index - 1);
+        if(currUser.getPassword().equals(passcode)) {
+            userOnAir = allUsers.get(index - 1);
+            return currUser.getUserType();
         }
-        return false;
+        return "invalid";
     }
 
     public boolean contactable(String username){
@@ -198,6 +189,9 @@ public class UserManager implements java.io.Serializable{
             if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
                 return false;
             }
+            if (start.isEqual(actinterv[0]) && end.isEqual(actinterv[1])){
+                return false;
+            }
         }
         return true;
     }
@@ -224,10 +218,7 @@ public class UserManager implements java.io.Serializable{
     }
 
     private User findUser(String userName){
-        ArrayList<User> allUser = new ArrayList<User>(organizers);
-        allUser.addAll(speakers);
-        allUser.addAll(attendee);
-        for (User users: allUser){
+        for (User users: allUsers){
             if (users.getUsername().equals(userName)){
                 return users;
             }
@@ -265,9 +256,9 @@ public class UserManager implements java.io.Serializable{
 
     public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
         ArrayList<String> freeSpeaker = new ArrayList<String>();
-        for (User speaker : speakers){
-            if (isFree(speaker, targetTime)){
-                freeSpeaker.add(speaker.getUsername());
+        for (User users: allUsers){
+            if (users.getUserType().equals("speaker") && isFree(users, targetTime)){
+                freeSpeaker.add(users.getUsername());
             }
         }
         return freeSpeaker;
@@ -281,8 +272,10 @@ public class UserManager implements java.io.Serializable{
 
     public ArrayList<String> allAttendee(){
         ArrayList<String> attendees = new ArrayList<String>();
-        for (User attendant : attendee){
-            attendees.add(attendant.getUsername());
+        for (User users : allUsers){
+            if (users.getUserType().equals("attendant")){
+                attendees.add(users.getUsername());
+            }
         }
         return attendees;
     }
