@@ -147,16 +147,19 @@ public class LoginController {
                         // Organizer
                         OrganizerController org = new OrganizerController(userManager);
                         org.run();
+                        break;
                     }
                     case "1": {
                         // Speaker
                         SpeakerController spe = new SpeakerController(userManager);
                         spe.run();
+                        break;
                     }
                     case "2": {
                         // Attendant
                         AttendantController att = new AttendantController(userManager);
                         att.run();
+                        break;
                     }
                 }
             }
