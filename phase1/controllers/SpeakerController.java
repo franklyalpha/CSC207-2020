@@ -35,6 +35,7 @@ public class SpeakerController extends OrganizerController {
         for (UUID actID: schedulesEnrolled.values()){
             info.add(activityManager.searchActivityByUUID(actID.toString()));
         }
+        Presenter.printDescription("activities you've enrolled");
         Presenter.printSchedule(info);
         return info;
     }

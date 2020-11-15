@@ -128,7 +128,7 @@ public class UserManager implements java.io.Serializable{
      */
 
     public String loginCheck(int index, String type, String passcode){
-        int types = typeChoice(type);
+        //int types = typeChoice(type);
         User currUser = allUsers.get(index - 1);
         if(currUser.getPassword().equals(passcode)) {
             userOnAir = allUsers.get(index - 1);
