@@ -55,7 +55,7 @@ public class Activity implements java.io.Serializable {
      * @return <CODE>true</CODE> if this attendant not in the Arraylist of attendants,
      * <CODE>false</CODE> otherwise
      */
-    public boolean AddAttendants(String attendant){
+    public boolean addAttendantsToList(String attendant){
         if(!this.attendantList.contains(attendant)){
             this.attendantList.add(attendant);
             return true;
@@ -65,9 +65,9 @@ public class Activity implements java.io.Serializable {
     }
 
     //phase 2 may use this method.
-    public boolean AddAttendants(ArrayList<String> attendants){
+    public boolean addAttendantsToList(ArrayList<String> attendantList){
         boolean addedAll = true;
-        for(String i: attendants){
+        for(String i: attendantList){
             if(this.attendantList.contains(i)) {
                 this.attendantList.add(i);
             }else{
@@ -166,7 +166,7 @@ public class Activity implements java.io.Serializable {
      * @return A list of strings corresponding to the attendants of <code>attendants</code> in this
      * <code>Activity</code>.
      */
-    public ArrayList<String> getAttendantsList(){return this.attendantList;}
+    public ArrayList<String> getAttendantList(){return this.attendantList;}
 
     /**
      * Gets an speakers list in this <code>Activity</code>.
