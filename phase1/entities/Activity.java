@@ -17,7 +17,7 @@ public class Activity implements java.io.Serializable {
     */
     //private final ArrayList<String> speakers;
     private String speakers;
-    private final ArrayList<String> attendants;
+    private final ArrayList<String> attendantList;
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -41,7 +41,7 @@ public class Activity implements java.io.Serializable {
     public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
                     String topic){
         this.speakers = null;
-        this.attendants = new ArrayList<>();
+        this.attendantList = new ArrayList<>();
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = Duration.between(startTime, endTime);
@@ -58,8 +58,8 @@ public class Activity implements java.io.Serializable {
      * <CODE>false</CODE> otherwise
      */
     public boolean AddAttendants(String attendant){
-        if(!this.attendants.contains(attendant)){
-            this.attendants.add(attendant);
+        if(!this.attendantList.contains(attendant)){
+            this.attendantList.add(attendant);
             return true;
         }else{
             return false;
@@ -70,8 +70,8 @@ public class Activity implements java.io.Serializable {
     public boolean AddAttendants(ArrayList<String> attendants){
         boolean addedAll = true;
         for(String i: attendants){
-            if(this.attendants.contains(i)) {
-                this.attendants.add(i);
+            if(this.attendantList.contains(i)) {
+                this.attendantList.add(i);
             }else{
                 addedAll = false;
             }
@@ -84,7 +84,7 @@ public class Activity implements java.io.Serializable {
      * @return <CODE>true</CODE> if this attendant has been removed form the Arraylist of attendants.
      * <CODE>false</CODE> otherwise
      */
-    public boolean removeAttendant(String attendant){return this.attendants.remove(attendant);}
+    public boolean removeAttendant(String attendant){return this.attendantList.remove(attendant);}
 
     /**
      * Determine whether this speaker has been added.
@@ -168,7 +168,7 @@ public class Activity implements java.io.Serializable {
      * @return A list of strings corresponding to the attendants of <code>attendants</code> in this
      * <code>Activity</code>.
      */
-    public ArrayList<String> getAttendantsList(){return this.attendants;}
+    public ArrayList<String> getAttendantsList(){return this.attendantList;}
 
     /**
      * Gets an speakers list in this <code>Activity</code>.

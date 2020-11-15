@@ -198,6 +198,9 @@ public class UserManager implements java.io.Serializable{
             if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
                 return false;
             }
+            if (start.isEqual(actinterv[0]) && end.isEqual(actinterv[1])){
+                return false;
+            }
         }
         return true;
     }
