@@ -92,9 +92,9 @@ public class UserManager implements java.io.Serializable{
 
     public int typeChoice(String usertype){
          switch (usertype) {
-             case "organizer": return 0;
-             case "speaker": return 1;
-             case "attendant" : return 2;
+             case "0": return 0;
+             case "1": return 1;
+             case "2": return 2;
              default: return -1;
         }
     }

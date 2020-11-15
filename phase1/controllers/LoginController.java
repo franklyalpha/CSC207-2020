@@ -33,62 +33,29 @@ public class LoginController {
     /*
     require implementation: logout system;
      */
-
-
+    static boolean notStop = true;
     public void run(){
-        boolean notStop = true;
+
         while(notStop){
             // will call file reading methods here, if not implementing serializable
             // will call serialized file reading, if being serialized
-
-            Scanner type = new Scanner(System.in);
-            System.out.println("please enter your usertype (organizer, speaker, attendant) at first line,\n" +
-                    " your username at second line \n and passcode at third line: \n");
-            String typeName = type.nextLine();
-            String userName = type.nextLine();
-            String password = type.nextLine();
-            if (userManager.typeChoice(typeName) == -1){
-                System.out.println("Wrong user type!!!\n");
+            Scanner singUPORLogin = new Scanner(System.in);
+            System.out.println("Enter your choice:\n[0] SignUp\n[1] Login");
+            String choice = singUPORLogin.next();
+            switch (choice){
+                case "0":
+                    signUp();
+                    break;
+                case "1":
+                    login();
+                    break;
+                default:
+                    handleWrongInput();
+                    break;
             }
-            else{
-                if (checkLoginCondition(typeName, userName, password)){
-                    //note that switch can be used here, for implementing
-                    //factory design pattern (see more on code-smell website)
-                    switch(typeName){
-                        case "organizer":
-                            OrganizerController org = new OrganizerController(userManager);
-                            org.run();
-                            break;
-                        case "speaker":
-                            SpeakerController spe = new SpeakerController(userManager);
-                            spe.run();
-                            break;
-                        case "attendant":
-                            AttendantController att = new AttendantController(userManager);
-                            att.run();
-                            break;
-                    }
-                }
-                else{
-                    System.out.println("Invalid password or Username");
-                }
-            }
-            // following code determine whether the program will continue running;
-            // may consider putting into a separate private method;
-            boolean validInput = false;
-            while(!validInput){
-                System.out.println("Continue running or not? (type \"true\" or \"false\")");
-                Scanner nextChoice = new Scanner(System.in);
-                if (nextChoice.hasNextBoolean()){
-                    notStop = nextChoice.nextBoolean();
-                    validInput = true;
-                }
-                else{
-                    System.out.println("invalid input! try again; \n");
-                }
             }
         }
-    }
+
 
     private boolean checkLoginCondition(String type, String username, String password){
         int userIndex = userManager.isUser(username, type);
@@ -101,5 +68,71 @@ public class LoginController {
         }
         System.out.println("Username not found!!!");
         return false;
+    }
+
+    private void handleWrongInput() {
+        // following code determine whether the program will continue running;
+        // may consider putting into a separate private method;
+        boolean validInput = false;
+        while(!validInput){
+            System.out.println("Wrong input!");
+            System.out.println("Continue running or not? (type \"(Y)es\" or \"(N)o\")");
+            Scanner nextChoice = new Scanner(System.in);
+            String choice = nextChoice.nextLine();
+            if (choice.equals("Y") || choice.equals("Yes")){
+                notStop = true;
+                validInput = true;
+            }
+            else if (choice.equals("N") || choice.equals("No")){
+                notStop = false;
+                validInput = true;
+            }
+            else{
+                System.out.println("invalid input! try again; \n");
+            }
+    }}
+
+    private void signUp() {
+        Scanner signUpScanner = new Scanner(System.in);
+        System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Speaker [2] Attendant");
+        String name = signUpScanner.next();
+    }
+
+    private void login(){
+        Scanner type = new Scanner(System.in);
+        System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant at first line,\n" +
+                "your Username at second line \nand Passcode at third line:");
+        String typeName = type.nextLine();
+        String userName = type.nextLine();
+        String password = type.nextLine();
+        if (userManager.typeChoice(typeName) == -1){
+            System.out.println("Wrong user type!!!\n");
+        }
+        else{
+            if (checkLoginCondition(typeName, userName, password)){
+                //note that switch can be used here, for implementing
+                //factory design pattern (see more on code-smell website)
+                switch(typeName){
+                    case "0":
+                        // Organizer
+                        OrganizerController org = new OrganizerController(userManager);
+                        org.run();
+                        break;
+                    case "1":
+                        // Speaker
+                        SpeakerController spe = new SpeakerController(userManager);
+                        spe.run();
+                        break;
+                    case "2":
+                        // Attendant
+                        AttendantController att = new AttendantController(userManager);
+                        att.run();
+                        break;
+                }
+            }
+            else{
+                System.out.println("Invalid password or Username");
+            }
+        }
     }
 }
