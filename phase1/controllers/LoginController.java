@@ -103,14 +103,12 @@ public class LoginController {
             case "0": {
                 handleCreateNewUser(type);
                 System.out.println("New Organizer Created!");
+                break;
             }
             case "1": {
-//                handleCreateNewUser(type);
-//                System.out.println("New Speaker Created!");
-//            }
-//            case "2" : {
                 handleCreateNewUser(type);
                 System.out.println("New Attendant Created!");
+                break;
             }
             default: System.out.println("Wrong input!!! Try again later. ");
         }
