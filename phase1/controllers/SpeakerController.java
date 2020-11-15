@@ -47,11 +47,12 @@ public class SpeakerController extends OrganizerController {
             }
             enterAction = continuing();
         }
+        logout();
     }
 
     private void runMethod (int action){
         try {
-            Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+            Method method = this.getClass().getDeclaredMethod(availableMethod.get(action - 1));
             try {
                 method.invoke(this);
             } catch (IllegalAccessException | InvocationTargetException e) {
@@ -74,7 +75,6 @@ public class SpeakerController extends OrganizerController {
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
         availableAction.add("view singed conferences");
-        availableAction.add("log out");
 
     }
 

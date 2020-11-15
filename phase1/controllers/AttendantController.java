@@ -44,11 +44,12 @@ public class AttendantController extends UserController{
             }
             enterAction = continuing();
         }
+        logout();
     }
 
     private void runMethod(int action){
         try {
-            Method method = this.getClass().getMethod(availableMethod.get(action - 1));
+            Method method = this.getClass().getDeclaredMethod(availableMethod.get(action - 1));
             try {
                 method.invoke(this);
             } catch (IllegalAccessException | InvocationTargetException e) {
