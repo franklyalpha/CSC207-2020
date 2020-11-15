@@ -107,22 +107,19 @@ public class LoginController {
         Presenter.printSighUpMenu();
         String type = signUpScanner.nextLine();
         switch (type) {
-            case "0" -> {
+            case "0": {
                 handleCreateNewUser(type);
                 //System.out.println("New Organizer Created!");
                 Presenter.printNewUserCreated("Organizer");
+                break;
             }
-            case "1" -> {
-//                handleCreateNewUser(type);
-//                System.out.println("New Speaker Created!");
-//            }
-//            case "2" -> {
+            case "1": {
                 handleCreateNewUser(type);
                 //System.out.println("New Attendant Created!");
                 Presenter.printNewUserCreated("Attendant");
+                break;
             }
-            //System.out.println("Wrong input!!! Try again later. ");
-            default -> Presenter.printInvalid("input");
+            default: Presenter.printInvalid("input"); //System.out.println("Wrong input!!! Try again later. ");
         }
     }
 
@@ -146,17 +143,17 @@ public class LoginController {
                 //note that switch can be used here, for implementing
                 //factory design pattern (see more on code-smell website)
                 switch (typeName) {
-                    case "0" -> {
+                    case "0": {
                         // Organizer
                         OrganizerController org = new OrganizerController(userManager);
                         org.run();
                     }
-                    case "1" -> {
+                    case "1": {
                         // Speaker
                         SpeakerController spe = new SpeakerController(userManager);
                         spe.run();
                     }
-                    case "2" -> {
+                    case "2": {
                         // Attendant
                         AttendantController att = new AttendantController(userManager);
                         att.run();
