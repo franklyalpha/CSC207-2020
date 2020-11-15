@@ -20,31 +20,35 @@ public class SpeakerController extends OrganizerController {
     send group message
      */
 
-    private void sendActivityMessage(){
+    protected void sendActivityMessage(){
+        ArrayList<String[]> info = showEnrolledSchedule();
+        UUID chatID = findRightChat(info);
+        Scanner messageScanner = new Scanner(System.in);
+        Presenter.printMessagePrompt();
+        String message = messageScanner.nextLine();
+        chatroomManager.sendMessage(message, chatID);
+    }
+
+    private ArrayList<String[]> showEnrolledSchedule(){
         HashMap<LocalDateTime[], UUID> schedulesEnrolled = userManager.schedules();
         ArrayList<String[]> info = new ArrayList<>();
         for (UUID actID: schedulesEnrolled.values()){
             info.add(activityManager.searchActivityByUUID(actID.toString()));
         }
-        // presenter: printSchedule
-        System.out.println("here are activities you've been assigned: "
-                + extractActIDHelper(info));
-        //
+        Presenter.printSchedule(info);
+        return info;
+    }
+
+    private UUID findRightChat(ArrayList<String[]> info){
         Scanner actIDScanner = new Scanner(System.in);
-        //System.out.println("please input the ith activity you wish to send " +
-        //        "a message (e.g: the 1st in the list, then type 1):");
         Presenter.printActivityMessagePrompt();
         int actID = actIDScanner.nextInt();
         if (actID < 1 || actID > info.size()){
-            //System.out.println("invalid input!!! try again later. ");
             Presenter.printInvalid("input");
         }
-        UUID chatID = activityManager.getConferenceChat(UUID.fromString(info.get(actID - 1)[0]));
-        Scanner messageScanner = new Scanner(System.in);
-        //System.out.println("Please input the message you wish to send:");
-        Presenter.printMessagePrompt();
-        String message = messageScanner.nextLine();
-        chatroomManager.sendMessage(message, chatID);
+        UUID chatID = activityManager.getConferenceChat(
+                UUID.fromString(info.get(actID - 1)[0]));
+        return chatID;
     }
 
     public void run() {

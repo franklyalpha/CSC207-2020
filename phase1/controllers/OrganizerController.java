@@ -112,7 +112,7 @@ public class OrganizerController extends UserController {
     }
 
 
-    private boolean addSchedule(){
+    protected boolean addSchedule(){
         LocalDateTime[] targetPeriod = periodProcessor();
         // input time;
         ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
@@ -166,7 +166,7 @@ public class OrganizerController extends UserController {
         chatroomManager.addUser(speaker, assignedChat);
     }
 
-    private boolean createRoom() {
+    protected boolean createRoom() {
         int a;
         Scanner input = new Scanner(System.in);
         //System.out.println("Enter the capacity of this room");
@@ -192,7 +192,7 @@ public class OrganizerController extends UserController {
         }
     }
 
-    private boolean createSpeaker(){
+    protected boolean createSpeaker(){
         Scanner input0 = new Scanner(System.in);
         //System.out.println("Enter the name of this Speaker");
         Presenter.printSpeakerNamePrompt();
@@ -208,7 +208,7 @@ public class OrganizerController extends UserController {
         }
     }
 
-    private void createNewSpeaker(String name){
+    protected void createNewSpeaker(String name){
         Scanner input1 = new Scanner(System.in);
         //System.out.println("Enter the password of this Speaker");
         Presenter.printPasswordPrompt();
