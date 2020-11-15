@@ -220,13 +220,13 @@ public class OrganizerController extends UserController {
         }
     }
     private boolean continuing(){
-        boolean enteraction = true;
+        boolean enterAction = true;
         System.out.println("Continue for other services? Please enter true or false. (false for log out)");
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
-            enteraction = false;
+            enterAction = false;
         }
-        return enteraction;
+        return enterAction;
     }
 
 }
