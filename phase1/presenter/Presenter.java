@@ -14,7 +14,7 @@ public class Presenter {
 
     //Universal presenters
     public static void printInvalid(String obj){
-        System.out.println("Invalid " + obj + "!!! \n");
+        System.out.println("Invalid " + obj + "!!!");
     }
     /*Replace:
     -System.out.println("invalid input! try again; \n");
@@ -87,20 +87,26 @@ public class Presenter {
     }
 
     //side note: this kinda sounds redundant
-    public static void printTypeToContactPrompt(){
-        System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
+    public static void printList(HashMap<String, UUID> contact){
+        for(String i: contact.keySet()){
+            System.out.println(i);
+        }
     }
 
     //Prints the last 10 messages, the view message method in UserController need to prompt the user to choose a specific private user/group to pass the ArrayList of messages to this method
     //Also might want to implement User tag and time stamps
-    public static void printLastNumMessages(ArrayList<String> Messages, Integer num){
-        for(int i=Messages.size()-1; i>=Messages.size()-num; i--){
+    public static void printMessagesInInterval(ArrayList<String> Messages, Integer num1, Integer num2){
+        for(int i=Messages.size()-num1; i>=Messages.size()-num2; i--){
             System.out.println(Messages.get(i));
         }
     }
 
+    public static void printTypeToContactPrompt(){
+        System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
+    }
+
     //Shared between Attendant, Organizer, and Speaker Controllers too
-    public static void printAvaliableActions(ArrayList<String> availableAction){
+    public static void printAvailableActions(ArrayList<String> availableAction){
         System.out.println("Services apply\n");
         for(String a: availableAction){
             System.out.println(availableAction.indexOf(a)+1 + " " + a);
@@ -110,7 +116,7 @@ public class Presenter {
     public static void printSchedule(ArrayList<String[]> schedule){
         for(String[] i: schedule){
             System.out.println("Topic: " + i[1] + ", Start Time: " + i[2] + ", End Time: " + i[3] + ", Room: " + i[4]
-                                + ", Speakers: " + i[5] + "\n");
+                                + ", Speakers: " + i[5] + ", ID: " + i[0] + "\n");
         }
     }
 
@@ -142,8 +148,8 @@ public class Presenter {
     enroll, cancel
     */
 
-    public static void printAllActivityIDs(ArrayList<String> actIDs,String des){
-        System.out.println("here are " + des + ": " + actIDs);
+    public static void printDescription(String des){
+        System.out.println("here are " + des + ": ");
     }
     /* Replace:
     System.out.println("here are activities you can enroll: " + actIDs);
@@ -162,6 +168,13 @@ public class Presenter {
     System.out.println("Please input year, month, day, hour, minute of end time IN ORDER: ");
     start, end
     */
+
+    public static void printSpeakers(ArrayList<String> freeSpeakers){
+        System.out.println("here are the available speakers:");
+        for(String i: freeSpeakers){
+            System.out.println(i);
+        }
+    }
 
     public static void printSpeakerRoomPrompt(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms){
         System.out.println("Here are available speaker names: " + freeSpeaker + "\n Here are available rooms ID: " +

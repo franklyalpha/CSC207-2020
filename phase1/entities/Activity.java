@@ -131,6 +131,7 @@ public class Activity implements java.io.Serializable {
             return false;
         }else{
             this.startTime = startTime;
+            changeDuration(Duration.between(this.startTime, this.endTime));
             return true;
         }
     }
@@ -144,6 +145,7 @@ public class Activity implements java.io.Serializable {
             return false;
         }else{
             this.endTime = endTime;
+            changeDuration(Duration.between(this.startTime, this.endTime));
             return true;
         }
     }
@@ -153,8 +155,12 @@ public class Activity implements java.io.Serializable {
      * @param  duration the new duration of this activity.
      */
     public void setDuration(Duration duration){
-        this.duration = duration;
+        changeDuration(duration);
         this.endTime = this.startTime.plus(duration);
+    }
+
+    private void changeDuration(Duration duration){
+        this.duration = duration;
     }
 
     /**
@@ -225,14 +231,14 @@ public class Activity implements java.io.Serializable {
 //    }
 
     public String toString(){
-    String description = "Topic: " + this.topic + "\n" +
-            "Speakers: ";
-    description += speakers;
-    description += ("\nConference entities.Room " + this.conferenceRoomNum);
-    description += ("\nFrom " + this.startTime + " to " + this.endTime);
-    description += ("\nID: " + this.identity);
-    description += ("\nChat ID: " + this.conferenceChat);
-    return description;
-}
+        String description = "Topic: " + this.topic + "\n" +
+                "Speakers: ";
+        description += speakers;
+        description += ("\nConference entities.Room " + this.conferenceRoomNum);
+        description += ("\nFrom " + this.startTime + " to " + this.endTime);
+        description += ("\nID: " + this.identity);
+        description += ("\nChat ID: " + this.conferenceChat);
+        return description;
+    }
 
 }

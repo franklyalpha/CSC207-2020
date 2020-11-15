@@ -37,7 +37,7 @@ public class AttendantController extends UserController{
                 System.out.println(availableAction.indexOf(a)+1 + " " + a);
 
             }*/
-            Presenter.printAvaliableActions(availableAction);
+            Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
             switch (action){
                 case 1 : viewSchedules();
@@ -87,8 +87,8 @@ public class AttendantController extends UserController{
 
     public void viewSchedules(){
         ArrayList<String[]> result = this.availableSchedules();
-        System.out.println(result);
-        // presenter: printSchedule
+        //System.out.println(result);
+        Presenter.printSchedule(result);
     }
 
     //add a new activity to this user, and add this user to the corresponding conference chat.
@@ -100,7 +100,8 @@ public class AttendantController extends UserController{
         ArrayList<String[]> available = availableSchedules();
         ArrayList<String> actIDs = extractActIDHelper(available);
         //System.out.println("here are available activities you can enroll: " + actIDs);
-        Presenter.printAllActivityIDs(actIDs, "available activities you can enroll");
+        Presenter.printDescription("available activities you can enroll");
+        Presenter.printSchedule(available);
         //System.out.println("please input the activity's ID " +
         //        "you wish to enroll");
         Presenter.printActivityIDPrompt("enroll");
@@ -127,7 +128,8 @@ public class AttendantController extends UserController{
         ArrayList<String[]> enrolled = viewEnrolledSchedule();
         ArrayList<String> actIDs = extractActIDHelper(enrolled);
         //System.out.println("here are activities you've enrolled: "+actIDs);
-        Presenter.printAllActivityIDs(actIDs, "activities you've enrolled");
+        Presenter.printDescription("activities you've enrolled");
+        Presenter.printSchedule(enrolled);
         //System.out.println("please input the activity's ID " +
         //        "you wish to cancel");
         Presenter.printActivityIDPrompt("cancel");

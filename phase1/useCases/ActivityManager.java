@@ -46,7 +46,7 @@ public class ActivityManager implements java.io.Serializable{
     }
 
     //TODO full and condensed search system
-    public ArrayList<Activity> searchActivityByTopic(String topic){
+    /*public ArrayList<Activity> searchActivityByTopic(String topic){
         ArrayList<Activity> results = new ArrayList<Activity>();
         for(Activity i: this.upcomingActivities){
             if(i.getTopic().equals(topic)){
@@ -64,7 +64,7 @@ public class ActivityManager implements java.io.Serializable{
             }
         }
         return results;
-    }
+    }*/
 
     public String[] searchActivityByUUID(String ID){
         for(Activity i: this.upcomingActivities){

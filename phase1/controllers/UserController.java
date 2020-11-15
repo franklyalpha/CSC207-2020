@@ -43,7 +43,11 @@ public class UserController {
             ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(contact.get(users));
             historyChat.put(users, chatMessage);
         }
-        // will call presenter with final historyChat: printLastNumMessages
+        Presenter.printList(contact);
+        Scanner scan = new Scanner(System.in);
+        String ContactUser = scan.nextLine();
+        // will call presenter with final historyChat
+        Presenter.printMessagesInInterval(historyChat.get(ContactUser), 1, historyChat.size());
 
     }
 
@@ -58,7 +62,8 @@ public class UserController {
             String topic = activityManager.searchActivityByUUID(act.get(period).toString())[1];
             historyChat.put(topic, chatMessage);
         }
-        // will call presenter with final historyChat: printLastNumMessages
+        // will call presenter with final historyChat
+        //Ok this is kinda hard to implement, we will have to print out the topic of each activity
 
     }
 

@@ -39,7 +39,7 @@ public class OrganizerController extends UserController {
                 System.out.println(availableAction.indexOf(a)+1 + ": " + a);
 
             }*/
-            Presenter.printAvaliableActions(availableAction);
+            Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
             switch (action){
                     case 1 : createRoom();
@@ -182,7 +182,7 @@ public class OrganizerController extends UserController {
     protected void viewCoopChat(){
         UUID coopChatID = chatroomManager.getCoopId();
         ArrayList<String> message = chatroomManager.getHistoricalChats(coopChatID);
-        // presenter: printLastNumMessages
+        Presenter.printMessagesInInterval(message, 1, message.size());
     }
 
     protected void sendCoopMessage(){
@@ -197,7 +197,9 @@ public class OrganizerController extends UserController {
     protected void rescheduleSpeaker(){
         ArrayList<String[]> allActivities = activityManager.viewUpcommingActivites();
         // presenter: printSchedule
-        System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
+        //System.out.println("here are all activity IDs: " + extractActIDHelper(allActivities));
+        Presenter.printDescription("all activities");
+        Presenter.printSchedule(allActivities);
 
         Scanner actIDGetter = new Scanner(System.in);
         //System.out.println("Please input the ID of activity you wish to change speaker: ");
@@ -213,7 +215,7 @@ public class OrganizerController extends UserController {
         ArrayList<String> freeSpeakers = userManager.availableSpeakers(actTime);
         freeSpeakers.add(actInfo[5]);
         //System.out.println("here are available speakers : "+ freeSpeakers);
-        Presenter.printAllActivityIDs(freeSpeakers, "available speakers");
+        Presenter.printSpeakers(freeSpeakers);
         Scanner speakerScanner = new Scanner(System.in);
 
         //System.out.println("Please input the speaker you wish to assign");
