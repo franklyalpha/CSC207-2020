@@ -197,7 +197,7 @@ public class OrganizerController extends UserController {
         //System.out.println("Enter the name of this Speaker");
         Presenter.printSpeakerNamePrompt();
         String name = input0.next();
-        if(userManager.isUser(name) == 0){
+        if(userManager.isUser(name, "speaker") == 0){
             createNewSpeaker(name);
             return true;
         }

@@ -2,6 +2,7 @@ package useCases;
 
 import entities.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -85,6 +86,10 @@ public class UserManager implements java.io.Serializable{
     }
 
     private void addUser(User users, String type){
+        if (!allUsers.containsKey(type)){
+            allUsers.put(type, new ArrayList<>());
+        }
+
         allUsers.get(type).add(users);
         num_user += 1;
     }
@@ -118,19 +123,31 @@ public class UserManager implements java.io.Serializable{
     }
 
     /** check whether the password is correct
-     @param index >= 0.
-     @return true if password is correct, false otherwise.
+     @param username the name of user currently logging in.
+     @param passcode the password user has input to login.
+     @return type of user if password is correct, "invalid" otherwise.
      */
-
-    public String loginCheck(int index, String type, String passcode){
-        //int types = typeChoice(type);
-        User currUser = allUsers.get(type).get(index - 1);
-        if(currUser.getPassword().equals(passcode)) {
-            userOnAir = currUser;
-            return currUser.getUserType();
+    public String loginCheck(String username, String passcode){
+        ArrayList<User> allExistingUser = getAllUsers();
+        for (User currUser : allExistingUser){
+            if(currUser.getUsername().equals(username) &&
+                    currUser.getPassword().equals(passcode)) {
+                userOnAir = currUser;
+                return currUser.getUserType();
+            }
         }
         return "invalid";
     }
+
+//    public String loginCheck(int index, String type, String passcode){
+//        //int types = typeChoice(type);
+//        User currUser = allUsers.get(type).get(index - 1);
+//        if(currUser.getPassword().equals(passcode)) {
+//            userOnAir = currUser;
+//            return currUser.getUserType();
+//        }
+//        return "invalid";
+//    }
 
     public boolean contactable(String username){
         HashMap<String, UUID> contacts = userOnAir.getChatroom();
