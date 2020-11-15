@@ -106,6 +106,7 @@ public class ActivityManager implements java.io.Serializable{
     }
 
     // method that get all upcomming Activites.
+    //TODO remove the typo in all instance of this method
     public ArrayList<String[]> viewUpcommingActivites(){
         ArrayList<String[]> result = new ArrayList<String[]>();
         for(Activity i: this.upcomingActivities){

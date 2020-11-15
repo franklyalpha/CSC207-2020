@@ -1,5 +1,10 @@
 package controllers;
 
+import gateways.GatewayActivity;
+import gateways.GatewayChat;
+import gateways.GatewayRoom;
+import gateways.GatewayUser;
+import presenter.Presenter;
 import useCases.ActivityManager;
 import useCases.ChatroomManager;
 import useCases.RoomManager;
@@ -9,8 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.*;
-import gateways.*;
+import java.util.Scanner;
+import java.util.UUID;
 
 //public abstract class controllers.UserController
 public class UserController {
@@ -38,7 +43,7 @@ public class UserController {
             ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(contact.get(users));
             historyChat.put(users, chatMessage);
         }
-        // will call presenter with final historyChat;
+        // will call presenter with final historyChat: printLastNumMessages
 
     }
 
@@ -53,7 +58,7 @@ public class UserController {
             String topic = activityManager.searchActivityByUUID(act.get(period).toString())[1];
             historyChat.put(topic, chatMessage);
         }
-        // will call presenter with final historyChat;
+        // will call presenter with final historyChat: printLastNumMessages
 
     }
 
@@ -61,16 +66,18 @@ public class UserController {
         // may consider putting into a private method mainly calling
         // for inputs;
         Scanner userScanner = new Scanner(System.in);
-        System.out.println("please input the username of person " +
-                "you wish to contact");
+        //System.out.println("please input the username of person " + "you wish to contact");
+        Presenter.printUserToContactPrompt();
         String userName = userScanner.nextLine();
 
         Scanner typeScan = new Scanner(System.in);
-        System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
+        //System.out.println("please input the type of this user, either organizer, speaker or attendant: ");
+        Presenter.printTypeToContactPrompt();
         String typeName = userScanner.nextLine();
 
         Scanner messageScan = new Scanner(System.in);
-        System.out.println("please input the message you wanna send:");
+        //System.out.println("please input the message you wanna send:");
+        Presenter.printMessagePrompt();
         String message = messageScan.nextLine();
         send(userName, message, typeName);
 
@@ -97,7 +104,8 @@ public class UserController {
                 chatroomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
-                System.out.println("Invalid username or usertype! Try again later!");
+                //System.out.println("Invalid username or usertype! Try again later!");
+                Presenter.printInvalid("username or usertype");
                 //return to main menu;
             }
         }
@@ -111,7 +119,7 @@ public class UserController {
             String[] partialInfo = activityManager.searchActivityByUUID(schedules.get(time).toString());
             allSchedule.add(partialInfo);
         }
-        // will call presenter below
+        // will call presenter below: printSchedule
         return allSchedule;
     }
 

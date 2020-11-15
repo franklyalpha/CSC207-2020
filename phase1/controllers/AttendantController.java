@@ -4,6 +4,7 @@ import useCases.UserManager;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import presenter.*;
 
 public class AttendantController extends UserController{
 
@@ -24,18 +25,19 @@ public class AttendantController extends UserController{
         availableAction.add("Sign up for a conference");
         availableAction.add("Cancel conference");
         availableAction.add("Send messages to a person");
-        availableAction.add("view messages from others");
+        availableAction.add("View messages from others");
         availableAction.add("View groups' messages");
-        availableAction.add("log out");
+        availableAction.add("Log out");
         int action;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
-            System.out.println("Services apply\n");
+            /*System.out.println("Services apply\n");
             for(String a: availableAction){
                 System.out.println(availableAction.indexOf(a)+1 + " " + a);
 
-            }
+            }*/
+            Presenter.printAvaliableActions(availableAction);
             action = scan.nextInt();
             switch (action){
                 case 1 : viewSchedules();
@@ -49,7 +51,7 @@ public class AttendantController extends UserController{
                     logout();
                     enterAction = false;
                     break;
-                default: System.out.println("invalid action.");
+                default: Presenter.printInvalid("action"); //System.out.println("invalid action.");
             }
             if (!enterAction){
                 boolean whetherContinue = continuing();
@@ -86,7 +88,7 @@ public class AttendantController extends UserController{
     public void viewSchedules(){
         ArrayList<String[]> result = this.availableSchedules();
         System.out.println(result);
-        // presenter
+        // presenter: printSchedule
     }
 
     //add a new activity to this user, and add this user to the corresponding conference chat.
@@ -97,9 +99,11 @@ public class AttendantController extends UserController{
 
         ArrayList<String[]> available = availableSchedules();
         ArrayList<String> actIDs = extractActIDHelper(available);
-        System.out.println("here are available activities you can enroll: " + actIDs);
-        System.out.println("please input the activity's ID " +
-                "you wish to enroll");
+        //System.out.println("here are available activities you can enroll: " + actIDs);
+        Presenter.printAllActivityIDs(actIDs, "available activities you can enroll");
+        //System.out.println("please input the activity's ID " +
+        //        "you wish to enroll");
+        Presenter.printActivityIDPrompt("enroll");
         String activityID = scan.nextLine();
         String[] temp = activityManager.searchActivityByUUID(activityID);
         if (actIDs.contains(activityID)){
@@ -110,7 +114,8 @@ public class AttendantController extends UserController{
             activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
         }
         else{
-            System.out.println("Invalid activity ID.");
+            //System.out.println("Invalid activity ID.");
+            Presenter.printInvalid("activity ID");
         }
     }
 
@@ -121,9 +126,11 @@ public class AttendantController extends UserController{
 
         ArrayList<String[]> enrolled = viewEnrolledSchedule();
         ArrayList<String> actIDs = extractActIDHelper(enrolled);
-        System.out.println("here are activities you've enrolled: "+actIDs);
-        System.out.println("please input the activity's ID " +
-                "you wish to cancel");
+        //System.out.println("here are activities you've enrolled: "+actIDs);
+        Presenter.printAllActivityIDs(actIDs, "activities you've enrolled");
+        //System.out.println("please input the activity's ID " +
+        //        "you wish to cancel");
+        Presenter.printActivityIDPrompt("cancel");
         String activityID = scan.nextLine();
         HashMap<LocalDateTime[], UUID> temp = userManager.getActivities();
         //check whether this activity user has enrolled.
@@ -137,13 +144,15 @@ public class AttendantController extends UserController{
             userManager.deleteActivity(time);
         }
         else{
-            System.out.println("Invalid activity ID.");
+            //System.out.println("Invalid activity ID.");
+            Presenter.printInvalid("activity ID");
         }
     }
 
     private boolean continuing(){
         boolean enteraction = true;
-        System.out.println("Continue for other services? Please enter true or false. (false for log out)");
+        //System.out.println("Continue for other services? Please enter true or false. (false for log out)");
+        Presenter.printContinueServicePrompt();
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
             enteraction = false;
