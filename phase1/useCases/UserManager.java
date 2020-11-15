@@ -246,7 +246,7 @@ public class UserManager implements java.io.Serializable{
     public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
         ArrayList<String> freeSpeaker = new ArrayList<String>();
         for (User users: allUsers){
-            if (isFree(users, targetTime) && users.getUserType().equals("speaker")){
+            if (users.getUserType().equals("speaker") && isFree(users, targetTime)){
                 freeSpeaker.add(users.getUsername());
             }
         }
