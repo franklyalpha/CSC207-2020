@@ -103,6 +103,16 @@ public class UserManager implements java.io.Serializable{
         return return_index;
     }
 
+
+    public int isUser(String username){
+        for (User users : allUsers){
+            if(users.getUsername().equals(username)){
+                return allUsers.indexOf(users) + 1;
+            }
+        }
+        return 0;
+    }
+
     private int checkUserIndex(String username){
         for (User users : allUsers){
             if (users.getUsername().equals(username)){

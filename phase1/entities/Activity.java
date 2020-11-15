@@ -32,22 +32,20 @@ public class Activity implements java.io.Serializable {
     /**
      * Creates <code>Activity</code> with specified start time, end time, conference chat id, conference room number
      * and topic.
-     * @param startTime LocalDateTime of start time in <code>Activity</code>.
-     * @param endTime LocalDateTime of end time in  <code>Activity</code>.
-     * @param conferenceChat the id of the conference chat in <code>Activity</code>.
-     * @param conferenceRoomNum the number of the conference room in <code>Activity</code>.
+     * @param period LocalDateTime of start & end time in <code>Activity</code>.
+     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
      * @param topic the topic of the activity in <code>Activity</code>.
      */
-    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
+    public Activity(LocalDateTime[] period, UUID[] chatRoomID,
                     String topic){
         this.speakers = null;
         this.attendantList = new ArrayList<>();
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = period[0];
+        this.endTime = period[1];
         this.duration = Duration.between(startTime, endTime);
-        this.conferenceChat = conferenceChat;
+        this.conferenceChat = chatRoomID[0];
         this.identity = UUID.randomUUID();
-        this.conferenceRoomNum = conferenceRoomNum;
+        this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
         // consider order of creating activity and corresponding chatroom
     }

@@ -28,9 +28,8 @@ public class ActivityManager implements java.io.Serializable{
         this.archivedActivities = new ArrayList<Activity>();
     }
 
-    public UUID addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
-                               UUID conferenceRoomNum, String topic){
-        Activity newAct = new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic);
+    public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic){
+        Activity newAct = new Activity(period, chatRoomID, topic);
         upcomingActivities.add(newAct);
         return newAct.getIdentity();
     }
