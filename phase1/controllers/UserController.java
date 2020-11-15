@@ -103,14 +103,7 @@ public class UserController {
         else{
             // may consider putting into another private method;
             if (userManager.isUser(userName, typeName) != 0){
-                ArrayList<String> userInvolved = new ArrayList<>();
-                userInvolved.add(userManager.currentUsername());
-                userInvolved.add(userName);
-
-                UUID newChatroom = chatroomManager.createChatroom(userInvolved);
-                userManager.selfAddChatroom(userName, newChatroom);
-                userManager.otherAddChatroom(userName, newChatroom);
-
+                UUID newChatroom = newPrivateChatroomCreator(userName);
                 chatroomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
@@ -119,6 +112,17 @@ public class UserController {
                 //return to main menu;
             }
         }
+    }
+
+    private UUID newPrivateChatroomCreator(String userName){
+        ArrayList<String> userInvolved = new ArrayList<>();
+        userInvolved.add(userManager.currentUsername());
+        userInvolved.add(userName);
+
+        UUID newChatroom = chatroomManager.createChatroom(userInvolved);
+        userManager.selfAddChatroom(userName, newChatroom);
+        userManager.otherAddChatroom(userName, newChatroom);
+        return newChatroom;
     }
 
 

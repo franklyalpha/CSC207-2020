@@ -28,9 +28,8 @@ public class ActivityManager implements java.io.Serializable{
         this.archivedActivities = new ArrayList<Activity>();
     }
 
-    public UUID addNewActivity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat,
-                               UUID conferenceRoomNum, String topic){
-        Activity newAct = new Activity(startTime, endTime, conferenceChat, conferenceRoomNum, topic);
+    public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic){
+        Activity newAct = new Activity(period, chatRoomID, topic);
         upcomingActivities.add(newAct);
         return newAct.getIdentity();
     }
@@ -125,7 +124,7 @@ public class ActivityManager implements java.io.Serializable{
     //method that get the num of attendees in certain activity.
     public int numAttendant(UUID activity){
         Activity a = findActivity(activity);
-        return a.getAttendantsList().size();
+        return a.getAttendantList().size();
     }
     //method that remove the attendee from certain activity.
     public boolean removeAttendant(UUID activity,String attendant) {

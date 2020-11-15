@@ -17,7 +17,7 @@ public class Activity implements java.io.Serializable {
     */
     //private final ArrayList<String> speakers;
     private String speakers;
-    private final ArrayList<String> attendantsList;
+    private final ArrayList<String> attendantList;
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -32,22 +32,20 @@ public class Activity implements java.io.Serializable {
     /**
      * Creates <code>Activity</code> with specified start time, end time, conference chat id, conference room number
      * and topic.
-     * @param startTime LocalDateTime of start time in <code>Activity</code>.
-     * @param endTime LocalDateTime of end time in  <code>Activity</code>.
-     * @param conferenceChat the id of the conference chat in <code>Activity</code>.
-     * @param conferenceRoomNum the number of the conference room in <code>Activity</code>.
+     * @param period LocalDateTime of start & end time in <code>Activity</code>.
+     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
      * @param topic the topic of the activity in <code>Activity</code>.
      */
-    public Activity(LocalDateTime startTime, LocalDateTime endTime, UUID conferenceChat, UUID conferenceRoomNum,
+    public Activity(LocalDateTime[] period, UUID[] chatRoomID,
                     String topic){
         this.speakers = null;
-        this.attendantsList = new ArrayList<>();
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.attendantList = new ArrayList<>();
+        this.startTime = period[0];
+        this.endTime = period[1];
         this.duration = Duration.between(startTime, endTime);
-        this.conferenceChat = conferenceChat;
+        this.conferenceChat = chatRoomID[0];
         this.identity = UUID.randomUUID();
-        this.conferenceRoomNum = conferenceRoomNum;
+        this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
         // consider order of creating activity and corresponding chatroom
     }
@@ -58,8 +56,8 @@ public class Activity implements java.io.Serializable {
      * <CODE>false</CODE> otherwise
      */
     public boolean addAttendantsToList(String attendant){
-        if(!this.attendantsList.contains(attendant)){
-            this.attendantsList.add(attendant);
+        if(!this.attendantList.contains(attendant)){
+            this.attendantList.add(attendant);
             return true;
         }else{
             return false;
@@ -67,11 +65,11 @@ public class Activity implements java.io.Serializable {
     }
 
     //phase 2 may use this method.
-    public boolean addAttendantsToList(ArrayList<String> attendantsList){
+    public boolean addAttendantsToList(ArrayList<String> attendantList){
         boolean addedAll = true;
-        for(String i: attendantsList){
-            if(this.attendantsList.contains(i)) {
-                this.attendantsList.add(i);
+        for(String i: attendantList){
+            if(this.attendantList.contains(i)) {
+                this.attendantList.add(i);
             }else{
                 addedAll = false;
             }
@@ -84,7 +82,7 @@ public class Activity implements java.io.Serializable {
      * @return <CODE>true</CODE> if this attendant has been removed form the Arraylist of attendants.
      * <CODE>false</CODE> otherwise
      */
-    public boolean removeAttendant(String attendant){return this.attendantsList.remove(attendant);}
+    public boolean removeAttendant(String attendant){return this.attendantList.remove(attendant);}
 
     /**
      * Determine whether this speaker has been added.
@@ -168,7 +166,7 @@ public class Activity implements java.io.Serializable {
      * @return A list of strings corresponding to the attendants of <code>attendants</code> in this
      * <code>Activity</code>.
      */
-    public ArrayList<String> getAttendantsList(){return this.attendantsList;}
+    public ArrayList<String> getAttendantList(){return this.attendantList;}
 
     /**
      * Gets an speakers list in this <code>Activity</code>.

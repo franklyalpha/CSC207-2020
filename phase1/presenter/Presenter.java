@@ -119,8 +119,8 @@ public class Presenter {
 
     public static void printSchedule(ArrayList<String[]> schedule){
         for(String[] i: schedule){
-            System.out.println("Topic: " + i[1] + ", Start Time: " + i[2] + ", End Time: " + i[3] + ", Room: " + i[4]
-                                + ", Speakers: " + i[5] + ", ID: " + i[0] + "\n");
+            System.out.println("Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " + i[4]
+                                + ", \nSpeakers: " + i[5] + ", \nActivityID: " + i[0] + "\n\n");
         }
     }
 
