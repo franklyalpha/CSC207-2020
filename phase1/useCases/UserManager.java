@@ -117,13 +117,14 @@ public class UserManager implements java.io.Serializable{
      @return true if password is correct, false otherwise.
      */
 
-    public boolean loginCheck(int index, String type, String passcode){
+    public String loginCheck(int index, String type, String passcode){
         int types = typeChoice(type);
-        if(allUsers.get(index - 1).getPassword().equals(passcode)) {
+        User currUser = allUsers.get(index - 1);
+        if(currUser.getPassword().equals(passcode)) {
             userOnAir = allUsers.get(index - 1);
-            return true;
+            return currUser.getUserType();
         }
-        return false;
+        return "invalid";
     }
 
     public boolean contactable(String username){
