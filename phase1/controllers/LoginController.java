@@ -100,19 +100,19 @@ public class LoginController {
         System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
         String type = signUpScanner.nextLine();
         switch (type) {
-            case "0" -> {
+            case "0": {
                 handleCreateNewUser(type);
                 System.out.println("New Organizer Created!");
             }
-            case "1" -> {
+            case "1": {
 //                handleCreateNewUser(type);
 //                System.out.println("New Speaker Created!");
 //            }
-//            case "2" -> {
+//            case "2" : {
                 handleCreateNewUser(type);
                 System.out.println("New Attendant Created!");
             }
-            default -> System.out.println("Wrong input!!! Try again later. ");
+            default: System.out.println("Wrong input!!! Try again later. ");
         }
     }
 
@@ -132,17 +132,17 @@ public class LoginController {
                 //note that switch can be used here, for implementing
                 //factory design pattern (see more on code-smell website)
                 switch (typeName) {
-                    case "0" -> {
+                    case "0": {
                         // Organizer
                         OrganizerController org = new OrganizerController(userManager);
                         org.run();
                     }
-                    case "1" -> {
+                    case "1": {
                         // Speaker
                         SpeakerController spe = new SpeakerController(userManager);
                         spe.run();
                     }
-                    case "2" -> {
+                    case "2": {
                         // Attendant
                         AttendantController att = new AttendantController(userManager);
                         att.run();
