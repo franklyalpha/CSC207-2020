@@ -40,18 +40,26 @@ public class AttendantController extends UserController{
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
             switch (action){
-                case 1 : viewSchedules(); break;
-                case 2: viewEnrolledSchedule(); break;
-                case 3 : enrollConference(); break;
-                case 4 : cancelEnrollment(); break;
-                case 5 : sendPrivateMessage(); break;
-                case 6 : viewPrivateMessage(); break;
-                case 7 : viewGroupMessage(); break;
+                case 1 : viewSchedules();
+                break;
+                case 2: viewEnrolledSchedule();
+                break;
+                case 3 : enrollConference();
+                break;
+                case 4 : cancelEnrollment();
+                break;
+                case 5 : sendPrivateMessage();
+                break;
+                case 6 : viewPrivateMessage();
+                break;
+                case 7 : viewGroupMessage();
+                break;
                 case 8 :
                     logout();
                     enterAction = false;
                     break;
-                default: Presenter.printInvalid("action"); break;//System.out.println("invalid action.");
+                default: Presenter.printInvalid("action");
+                break;//System.out.println("invalid action.");
             }
             if (!enterAction){
                 boolean whetherContinue = continuing();

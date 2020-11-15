@@ -57,13 +57,20 @@ public class SpeakerController extends OrganizerController {
             Presenter.printSpeakerActions();
             int action = choice.nextInt();
             switch (action){
-                case 1 : viewPrivateMessage(); break;
-                case 2 : sendPrivateMessage(); break;
-                case 3 : viewCoopChat(); break;
-                case 4 : sendCoopMessage(); break;
-                case 5 : sendActivityMessage(); break;
-                case 6 : viewEnrolledSchedule(); break;
-                case 7 : viewGroupMessage(); break;
+                case 1 : viewPrivateMessage();
+                break;
+                case 2 : sendPrivateMessage();
+                break;
+                case 3 : viewCoopChat();
+                break;
+                case 4 : sendCoopMessage();
+                break;
+                case 5 : sendActivityMessage();
+                break;
+                case 6 : viewEnrolledSchedule();
+                break;
+                case 7 : viewGroupMessage();
+                break;
             }
 
             Scanner stopScanner = new Scanner(System.in);

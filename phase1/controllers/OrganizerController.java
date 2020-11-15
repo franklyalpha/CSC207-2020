@@ -42,22 +42,34 @@ public class OrganizerController extends UserController {
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
             switch (action){
-                    case 1 : createRoom(); break;
-                    case 2 : createSpeaker(); break;
-                    case 3 : addSchedule(); break;
-                    case 4 : rescheduleSpeaker(); break;
-                    case 5 : sendPrivateMessage(); break;
-                    case 6 : viewPrivateMessage(); break;
-                    case 7 : viewGroupMessage(); break;
-                    case 8 : sendCoopMessage(); break;
-                    case 9 : viewCoopChat(); break;
-                    case 10: messageAllAttendee(); break;
-                    case 11: viewEnrolledSchedule(); break;
+                    case 1 : createRoom();
+                    break;
+                    case 2 : createSpeaker();
+                    break;
+                    case 3 : addSchedule();
+                    break;
+                    case 4 : rescheduleSpeaker();
+                    break;
+                    case 5 : sendPrivateMessage();
+                    break;
+                    case 6 : viewPrivateMessage();
+                    break;
+                    case 7 : viewGroupMessage();
+                    break;
+                    case 8 : sendCoopMessage();
+                    break;
+                    case 9 : viewCoopChat();
+                    break;
+                    case 10: messageAllAttendee();
+                    break;
+                    case 11: viewEnrolledSchedule();
+                    break;
                     case 12:
                         logout();
                         enterAction = false;
                         break;
-                    default: Presenter.printInvalid("action"); break; //System.out.println("invalid action.");
+                    default: Presenter.printInvalid("action");
+                    break; //System.out.println("invalid action.");
             }
             if (!enterAction){
                 boolean whetherContinue = continuing();
