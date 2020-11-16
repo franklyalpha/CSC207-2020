@@ -49,15 +49,18 @@ public class OrganizerController extends UserController {
     }
 
     private void runMethod (int action){
-        try {
-            Method method = this.getClass().getDeclaredMethod(availableMethod.get(action - 1));
-            try {
-                method.invoke(this);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+        switch(action){
+            case 1: createRoom(); break;
+            case 2: createSpeaker(); break;
+            case 3: addSchedule(); break;
+            case 4: rescheduleSpeaker(); break;
+            case 5: sendPrivateMessage(); break;
+            case 6: viewPrivateMessage(); break;
+            case 7: viewGroupMessage(); break;
+            case 8: sendCoopMessage(); break;
+            case 9: viewCoopChat(); break;
+            case 10: messageAllAttendee(); break;
+            case 11: viewEnrolledSchedule(); break;
         }
     }
 
@@ -73,7 +76,6 @@ public class OrganizerController extends UserController {
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
         availableAction.add("view singed conferences");
-
     }
 
     private void addActions(){
@@ -171,23 +173,23 @@ public class OrganizerController extends UserController {
         //System.out.println("Enter the capacity of this room");
         Presenter.printRoomCapacityPrompt();
         try {
-                a = input.nextInt();
-                if (a > 0){
-                    roomManager.addRoom(a);
-                    //System.out.println("This new room capacity is " + a);
-                    Presenter.printRoomCapacityConfirmation(a);
-                    return true;
-                }
-                else{
-                    //System.out.println("Invalid capacity.");
-                    Presenter.printInvalid("capacity");
-                    return false;
-                }
-
-        }catch(Exception e) {
+            a = input.nextInt();
+            if (a > 0){
+                roomManager.addRoom(a);
+                //System.out.println("This new room capacity is " + a);
+                Presenter.printRoomCapacityConfirmation(a);
+                return true;
+            }
+            else{
                 //System.out.println("Invalid capacity.");
                 Presenter.printInvalid("capacity");
                 return false;
+            }
+
+        }catch(Exception e) {
+            //System.out.println("Invalid capacity.");
+            Presenter.printInvalid("capacity");
+            return false;
         }
     }
 
@@ -234,6 +236,9 @@ public class OrganizerController extends UserController {
 
     private String activitySelect(){
         ArrayList<String[]> allActivities = activityManager.viewUpcommingActivites();
+        if (allActivities.size() == 0){
+            return "";
+        }
         Presenter.printDescription("all activities");
         Presenter.printSchedule(allActivities);
         Scanner actIDGetter = new Scanner(System.in);
@@ -277,8 +282,8 @@ public class OrganizerController extends UserController {
 
     private void updateRescheduledSpeaker(String[] actInfo, LocalDateTime[] actTime, String speaker){
         activityManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
         userManager.deleteActivity(actInfo[5], actTime);
+        userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
     }
 
     protected void messageAllAttendee(){
