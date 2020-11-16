@@ -235,4 +235,8 @@ public class Presenter {
     public static void printLogoutPrompt(){
         System.out.println("logout?");
     }
+
+    public static void printNotEnrolled(){
+        System.out.println("You are not enrolled in any activities. ");
+    }
 }

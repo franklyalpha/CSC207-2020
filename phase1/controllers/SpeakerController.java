@@ -85,6 +85,10 @@ public class SpeakerController extends OrganizerController {
 
     protected void sendActivityMessage(){
         ArrayList<String[]> info = showEnrolledSchedule();
+        if (info.size() == 0){
+            Presenter.printNotEnrolled();
+            return;
+        }
         UUID chatID = findRightChat(info);
         Scanner messageScanner = new Scanner(System.in);
         Presenter.printMessagePrompt();
