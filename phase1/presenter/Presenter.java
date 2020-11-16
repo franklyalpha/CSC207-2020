@@ -102,7 +102,7 @@ public class Presenter {
     }
 
     public static void printContactPrompt(String item){
-        System.out.println("Please select a " + item + ": ");
+        System.out.println("Please select a " + item + ": (just copy and paste the line)");
     }
 
     public static void printTypeToContactPrompt(){

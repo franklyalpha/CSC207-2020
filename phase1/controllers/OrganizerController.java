@@ -56,11 +56,9 @@ public class OrganizerController extends UserController {
             case 4: rescheduleSpeaker(); break;
             case 5: sendPrivateMessage(); break;
             case 6: viewPrivateMessage(); break;
-            case 7: viewGroupMessage(); break;
-            case 8: sendCoopMessage(); break;
-            case 9: viewCoopChat(); break;
-            case 10: messageAllAttendee(); break;
-            case 11: viewEnrolledSchedule(); break;
+            case 7: sendCoopMessage(); break;
+            case 8: viewCoopChat(); break;
+            case 9: messageAllAttendee(); break;
         }
     }
 
@@ -71,11 +69,9 @@ public class OrganizerController extends UserController {
         availableAction.add("reschedule speaker");
         availableAction.add("send private message");
         availableAction.add("view private messages");
-        availableAction.add("view group messages");
         availableAction.add("send messages in coopChatroom");
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
-        availableAction.add("view singed conferences");
     }
 
     private void addActions(){
@@ -85,11 +81,9 @@ public class OrganizerController extends UserController {
         availableMethod.add("rescheduleSpeaker");
         availableMethod.add("sendPrivateMessage");
         availableMethod.add("viewPrivateMessage");
-        availableMethod.add("viewGroupMessage");
         availableMethod.add("sendCoopMessage");
         availableMethod.add("viewCoopChat");
         availableMethod.add("messageAllAttendee");
-        availableMethod.add("viewEnrolledSchedule");
     }
 
     /*

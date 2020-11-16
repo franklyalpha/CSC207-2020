@@ -111,7 +111,7 @@ public class ActivityManager implements java.io.Serializable{
         for(Activity i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
-                    i.getConferenceRoomNum().toString()};
+                    i.getConferenceRoomNum().toString(), i.getSpeakersList()};
             result.add(temp);
         }
         return result;

@@ -38,24 +38,38 @@ public class UserController {
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
         HashMap<String, UUID> contact = userManager.contacts();
+        if (contact.size() == 0){
+            return;
+        }
         HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (String users : contact.keySet()){
             ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(contact.get(users));
             historyChat.put(users, chatMessage);
         }
+        privatePrinting(historyChat, contact);
+
+    }
+
+    private void privatePrinting(HashMap<String, ArrayList<String>> historyChat, HashMap<String, UUID> contact){
         Presenter.printContactPrompt("contact");
         Presenter.printList(contact.keySet().toArray());
         Scanner scan = new Scanner(System.in);
         String contactUser = scan.nextLine();
+        if (!contact.containsKey(contactUser)){
+            Presenter.printInvalid("user name");
+            return;
+        }
         // will call presenter with final historyChat
         Presenter.printMessagesInInterval(historyChat.get(contactUser), 1, historyChat.get(contactUser).size());
-
     }
 
     protected void viewGroupMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
         HashMap<LocalDateTime[], UUID> act = userManager.getActivities();
+        if (act.size() == 0){
+            return;
+        }
         HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (LocalDateTime[] period : act.keySet()){
             UUID chatID = activityManager.getConferenceChat(act.get(period));
@@ -63,13 +77,21 @@ public class UserController {
             String topic = activityManager.searchActivityByUUID(act.get(period).toString())[1];
             historyChat.put(topic, chatMessage);
         }
+        groupPrinting(historyChat);
+
+    }
+
+    private void groupPrinting(HashMap<String, ArrayList<String>> historyChat){
         Presenter.printContactPrompt("event");
         Presenter.printList(historyChat.keySet().toArray());
         Scanner scan = new Scanner(System.in);
         String selectedEvent = scan.nextLine();
+        if (!historyChat.containsKey(selectedEvent)){
+            Presenter.printInvalid("activity name");
+            return;
+        }
         // will call presenter with final historyChat
         Presenter.printMessagesInInterval(historyChat.get(selectedEvent), 1, historyChat.get(selectedEvent).size());
-
     }
 
     protected void sendPrivateMessage(){
@@ -132,7 +154,7 @@ public class UserController {
             String[] partialInfo = activityManager.searchActivityByUUID(schedules.get(time).toString());
             allSchedule.add(partialInfo);
         }
-        // will call presenter below: printSchedule
+        Presenter.printSchedule(allSchedule);
         return allSchedule;
     }
 

@@ -1,12 +1,14 @@
 package controllers;
 
+import presenter.Presenter;
 import useCases.UserManager;
 
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
-import java.util.*;
-import presenter.*;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.UUID;
 
 public class AttendantController extends UserController{
     ArrayList<String> availableAction = new ArrayList<>();
@@ -48,15 +50,14 @@ public class AttendantController extends UserController{
     }
 
     private void runMethod(int action){
-        try {
-            Method method = this.getClass().getDeclaredMethod(availableMethod.get(action - 1));
-            try {
-                method.invoke(this);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+        switch(action){
+            case 1: viewSchedules(); break;
+            case 2: viewEnrolledSchedule(); break;
+            case 3: enrollConference(); break;
+            case 4: cancelEnrollment(); break;
+            case 5: sendPrivateMessage(); break;
+            case 6: viewPrivateMessage(); break;
+            case 7: viewGroupMessage(); break;
         }
     }
 
