@@ -42,7 +42,6 @@ public class ChatroomManager implements java.io.Serializable{
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
 
-        int test = 0; // test variable
     }
 
     /**
