@@ -51,44 +51,34 @@ public class SpeakerController extends OrganizerController {
     }
 
     private void runMethod (int action){
-        try {
-            Method method = this.getClass().getDeclaredMethod(availableMethod.get(action - 1));
-            try {
-                method.invoke(this);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+        switch(action){
+            case 1: sendPrivateMessage(); break;
+            case 2: viewPrivateMessage(); break;
+            case 3: viewGroupMessage(); break;
+            case 4: sendActivityMessage(); break;
+            case 5: sendCoopMessage(); break;
+            case 6: viewCoopChat(); break;
+            case 7: viewEnrolledSchedule(); break;
         }
     }
 
     private void addMenu(){
-        availableAction.add("create conference room");
-        availableAction.add("create speaker account");
-        availableAction.add("schedule conference");
-        availableAction.add("reschedule speaker");
         availableAction.add("send private message");
         availableAction.add("view private messages");
         availableAction.add("view group messages");
+        availableAction.add("send group messages");
         availableAction.add("send messages in coopChatroom");
         availableAction.add("view messages from coopChatroom");
-        availableAction.add("message all attendees");
-        availableAction.add("view singed conferences");
-
+        availableAction.add("view signed conferences");
     }
 
     private void addActions(){
-        availableMethod.add("createRoom");
-        availableMethod.add("createSpeaker");
-        availableMethod.add("addSchedule");
-        availableMethod.add("rescheduleSpeaker");
         availableMethod.add("sendPrivateMessage");
         availableMethod.add("viewPrivateMessage");
         availableMethod.add("viewGroupMessage");
+        availableMethod.add("sendActivityMessage");
         availableMethod.add("sendCoopMessage");
         availableMethod.add("viewCoopChat");
-        availableMethod.add("messageAllAttendee");
         availableMethod.add("viewEnrolledSchedule");
     }
 
