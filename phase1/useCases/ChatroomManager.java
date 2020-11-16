@@ -38,7 +38,7 @@ public class ChatroomManager implements java.io.Serializable{
      * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
      */
     public ChatroomManager(){
-        Chatroom coopRoom = new Chatroom();
+        coopRoom = new Chatroom();
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
     }
