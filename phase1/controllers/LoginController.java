@@ -54,6 +54,7 @@ public class LoginController {
                 case "Q":
                     return;
                 default:
+                    Presenter.printInvalid("input");
                     break;
             }
             notStop = handleWrongInput();
@@ -95,6 +96,10 @@ public class LoginController {
         Scanner signUpScanner = new Scanner(System.in);
         //System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
         Presenter.printSighUpMenu();
+        if(! signUpScanner.hasNextInt()){
+            Presenter.printInvalid("input");
+            return;
+        }
         int type = signUpScanner.nextInt();
         switch (type) {
             case 0: {
