@@ -13,6 +13,11 @@ public class Presenter {
      */
 
     //Universal presenters
+
+    /**
+     * Print out invalid messages for inputs. 'obj' is the specific type of invalidity of input received.
+     * @param obj the specific invalidity of input being received in <code>String</code>.
+     */
     public static void printInvalid(String obj){
         System.out.println("Invalid " + obj + "!!!");
     }
@@ -35,10 +40,17 @@ public class Presenter {
     */
 
     //LoginController presenters
+
+    /**
+     * Print out the instruction to ask for operations on sign up, login or quit the program.
+     */
     public static void printLoginMenu(){
         System.out.println("Enter your choice:\n[0] SignUp\n[1] Login\n[Q] uit");
     }
 
+    /**
+     * Print out the instruction to ask the user for passwords.
+     */
     public static void printPasswordPrompt(){
         System.out.println("Enter Password:");
     }
@@ -48,6 +60,10 @@ public class Presenter {
     System.out.println("Enter the password of this Speaker");
     */
 
+    /**
+     * Print out the message that a new type of user has been created.
+     * @param userType the type of user in <code>String</code>; possible types include 'organizer', 'attendant' and so on.
+     */
     public static void printNewUserCreated(String userType){
         System.out.println("New " + userType + " Created!");
     }
@@ -57,18 +73,31 @@ public class Presenter {
     Organizer, Attendant
      */
 
+    /**
+     * Print out instructions to ask the user whether to continue after completing a task or
+     * when a task is unexpectedly terminated.
+     */
     public static void printWrongInputMenu(){
         System.out.println("Continue running or not? (type \"(Y)es\" or \"(N)o\")");
     }
 
+    /**
+     * Print out instructions to ask the user the usertype the user wants to sign up for.
+     */
     public static void printSighUpMenu(){
         System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
     }
 
+    /**
+     * Print out instructions to ask the user to state user-type.
+     */
     public static void printHandleLoginMenu(){
         System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
     }
 
+    /**
+     * Print out instruction to ask the user inputting unique username.
+     */
     public static void printUsernamePrompt(){
         System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
     }
@@ -117,6 +146,13 @@ public class Presenter {
         }
     }
 
+    /**
+     * Print out formatted information of activities.
+     *
+     * @param schedule An array list of <code>String</code> array containing: the UUID of activity, the topic,
+     *                 the start time, end time of activity, the assigned room UUID and assigned speaker's name
+     *                 of this activity.
+     */
     public static void printSchedule(ArrayList<String[]> schedule){
         for(String[] i: schedule){
             System.out.println("Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " + i[4]
@@ -195,47 +231,70 @@ public class Presenter {
         System.out.println("This new room capacity is " + a);
     }
 
+    /**
+     * Print out instructions to ask user entering the username of speaker;
+     */
     public static void printSpeakerNamePrompt(){
         System.out.println("Enter the name of this Speaker");
     }
 
+    /**
+     * Print out message that there is a speaker with same username as user's input.
+     */
     public static void printSpeakerExist(){
         System.out.println("The speaker is already exist.");
     }
 
+    /**
+     * Print out instruction to ask the user the activity UUID, in whom the user wants to reassign another speaker.
+     */
     public static void printChangeSpeakerIDPrompt(){
         System.out.println("Please input the ID of activity you wish to change speaker: ");
     }
 
+    /**
+     * Print out instruction to ask the user input username of speaker, in whom the user wants to assign.
+     */
     public static void printSpeakerAssignPrompt(){
         System.out.println("Please input the speaker you wish to assign");
     }
 
+    /**
+     * Print out instruction to ask user whether to do other actions within this account or logout.
+     */
     public static void printContinueServicePrompt(){
         System.out.println("Continue for other services? Please enter true or false. (false for log out)");
     }
 
+    /**
+     * Print out information of UUIDs for activities in which the user has enrolled/assigned.
+     *
+     * @param infoIDs An array list storing UUIDs of activities in which the user is enrolled/assigned.
+     */
     //SpeakerController
     public static void printInfoIDs(ArrayList<String> infoIDs){
         System.out.println("here are activities you've been assigned: " + infoIDs);
     }
 
+    /**
+     * Print out instruction to ask the user which activity's enrolled users should receive the
+     * message the user is about to send.
+     */
     public static void printActivityMessagePrompt(){
         System.out.println("please input the ith activity you wish to send " +
                 "a message (e.g: the 1st in the list, then type 1):");
     }
 
-    //Modify this one before merging
-    public static void printSpeakerActions(){
-        System.out.println("Actions available: 1: view private message; 2: send private message; 3: " +
-                "view coop message; 4: send coop message; 5: send activity message; 6: view enrolled schedules" +
-                "; 7: view activity message; ");
-    }
-
+    /**
+     * Print out the instruction to ask whether to logout.
+     */
     public static void printLogoutPrompt(){
         System.out.println("logout?");
     }
 
+    /**
+     * Print out the message that the user is not enrolled/assigned to any activities.
+     */
     public static void printNotEnrolled(){
         System.out.println("You are not enrolled in any activities. ");
     }
