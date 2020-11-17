@@ -23,8 +23,8 @@ import java.util.UUID;
  */
 public class AttendantController extends UserController{
     /**
-     * a Arraylist of <code>availableAction</code>;
-     * a Arraylist of <code>availableMethod</code>;
+     * an Arraylist of <code>availableAction</code>;
+     * an Arraylist of <code>availableMethod</code>;
      */
     ArrayList<String> availableAction = new ArrayList<>();
     ArrayList<String> availableMethod = new ArrayList<>();
@@ -43,7 +43,7 @@ public class AttendantController extends UserController{
 
     @Override
     /**
-     * The main method allowing users to do actions corresponding to attendant's allowed actions.
+     * This method allows users to do actions corresponding to attendant's allowed actions.
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */
