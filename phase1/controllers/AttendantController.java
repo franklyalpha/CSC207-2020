@@ -10,10 +10,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+
+/**
+ * Represents a <code>AttendantController</code> extends from <code>UserController</code>.
+ * Is specific for <code>Attendant</code> type usage.
+ * Includes:
+ * Own constructor
+ * run: the method for receiving user's inputs for actions and call corresponding method.
+ * viewSchedules: responsible for gathering all available conferences the user can enroll and print out.
+ * enrollConference: responsible for enrolling the user into available conference after checking constraints.
+ * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
+ */
 public class AttendantController extends UserController{
+    /**
+     * a Arraylist of <code>availableAction</code>;
+     * a Arraylist of <code>availableMethod</code>;
+     */
     ArrayList<String> availableAction = new ArrayList<>();
     ArrayList<String> availableMethod = new ArrayList<>();
 
+    /**
+     * Creates <code>AttendantController</code> with all use-case classes being initialized.
+     */
     public AttendantController(UserManager manager){
         super(manager);
     }
@@ -24,6 +42,11 @@ public class AttendantController extends UserController{
      */
 
     @Override
+    /**
+     * The main method allowing users to do actions corresponding to attendant's allowed actions.
+     * Will print out a list of actions the user can implement, ask for choice of action the user
+     * want to do and call corresponding method.
+     */
     public void run() {
         addMenu();
         addActions();
@@ -34,7 +57,6 @@ public class AttendantController extends UserController{
             /*System.out.println("Services apply\n");
             for(String a: availableAction){
                 System.out.println(availableAction.indexOf(a)+1 + " " + a);
-
             }*/
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
@@ -70,7 +92,6 @@ public class AttendantController extends UserController{
         availableAction.add("Send messages to a person");
         availableAction.add("View messages from others");
         availableAction.add("View groups' messages");
-
     }
 
     private void addActions(){
@@ -85,7 +106,7 @@ public class AttendantController extends UserController{
 
 
     //check whether the room is full, and whether this user is currently enroll.
-    protected ArrayList<String[]> availableSchedules(){
+    private ArrayList<String[]> availableSchedules(){
         ArrayList<String[]> schedules = activityManager.viewUpcommingActivites();
         ArrayList<String> temp = new ArrayList<>();
 
@@ -108,12 +129,24 @@ public class AttendantController extends UserController{
         return !userManager.isFree(time);
     }
 
+    /**
+     * Print out the schedule of all activities this attendant can sign in.
+     * Information include: topic of activity, start time and end time, ID of assigned room,
+     * ID of this activity and name of speaker.
+     * Specific format will be determined in Presenter.
+     */
     protected void viewSchedules(){
         ArrayList<String[]> result = this.availableSchedules();
         Presenter.printSchedule(result);
     }
 
     //add a new activity to this user, and add this user to the corresponding conference chat.
+    /**
+     * Provides instructions to the user to enroll in conferences available. Available means having space
+     * and doesn't conflict with schedule of this user.
+     * Will print out available conferences the user can enroll, and ask user to input the UUID of
+     * conference the user wish to enroll.
+     */
     protected void enrollConference(){
         ArrayList<String> userName = new ArrayList<>();
         userName.add(userManager.currentUsername());
@@ -142,7 +175,6 @@ public class AttendantController extends UserController{
             Presenter.printSchedule(available);
             Presenter.printActivityIDPrompt("cancel");
         }
-
         return scan.nextLine();
     }
 
@@ -153,7 +185,11 @@ public class AttendantController extends UserController{
         chatroomManager.addUser(userName, conferenceChat);
         activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
     }
-
+    /**
+     * Provides instructions for user to cancel conferences this user enrolled.
+     * Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
+     * wish to cancel.
+     */
     protected void cancelEnrollment(){
         ArrayList<String> userName = new ArrayList<>();
         userName.add(userManager.currentUsername());
@@ -162,14 +198,14 @@ public class AttendantController extends UserController{
         String activityID = findActivityID(enrolled, "cancel");
 
         if(actIDs.contains(activityID)){
-            cancelEnrollment(userName, activityID);
+            cancelEnrollmentUpdate(userName, activityID);
         }
         else{
             Presenter.printInvalid("activity ID");
         }
     }
 
-    private void cancelEnrollment(ArrayList<String> userName, String activityID){
+    private void cancelEnrollmentUpdate(ArrayList<String> userName, String activityID){
         UUID actID = UUID.fromString(activityID);
         activityManager.removeAttendant(actID, userManager.currentUsername());
         chatroomManager.removeUser(userName,activityManager.getConferenceChat(actID));

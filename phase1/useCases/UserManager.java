@@ -11,29 +11,29 @@ import java.time.*;
 
 //public class use_cases.UserManager implements java.io.Serializable
 
+/**
+ * Represents a <code>USerManager</code> that is responsible for any interactions with <code>User</code> entities.
+ * its own constructor
+ * store different list of users;(will return getter of organizer and speakers)
+ * store the user who is currently using the system;
+ * being able to instantiate a user and store in proper list;
+ * being able to check whether someone is a user (i.e, is in one of the lists);
+ * being able to check whether the password is correct(return true)
+ * able to check whether a given user/activity is in another user's contact list;
+ * being able to return scheduled activities of the user
+ * being able to add a new activity to schedule
+ * being able to add a new chatroom the person is in
+ * being able to delete an activity participated, and being
+ * able to dissociate the specific chatroom the user is in;--done to this step
+ * a method to store data(either implements serializable or use a gateway interface for fileIO)
+ * (being able to reset userOnAir, in case the user wants to log out - phase 2)
+ */
 public class UserManager implements java.io.Serializable{
-    /**
-     * Represents a <code>USerManager</code> that is responsible for any interactions with <code>User</code> entities.
-     * its own constructor
-     * store different list of users;(will return getter of organizer and speakers)
-     * store the user who is currently using the system;
-     * being able to instantiate a user and store in proper list;
-     * being able to check whether someone is a user (i.e, is in one of the lists);
-     * being able to check whether the password is correct(return true)
-     * able to check whether a given user/activity is in another user's contact list;
-     * being able to return scheduled activities of the user
-     * being able to add a new activity to schedule
-     * being able to add a new chatroom the person is in
-     * being able to delete an activity participated, and being
-     * able to dissociate the specific chatroom the user is in;--done to this step
-     * a method to store data(either implements serializable or use a gateway interface for fileIO)
-     * (being able to reset userOnAir, in case the user wants to log out - phase 2)
-     */
 
-    /**
-     * will consider adding another type-indicator String[], stores all possible type names.
-     * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
-     */
+//    /**
+//     * will consider adding another type-indicator String[], stores all possible type names.
+//     * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
+//     */
     // call modification and reset
 
 
