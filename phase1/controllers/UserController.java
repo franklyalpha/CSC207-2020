@@ -175,6 +175,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Creates a new private <code>Chatroom</code> with the current user and the user specified by <code>userName</code>
+     * as the participants.
+     * @param userName String representing the username of the other participant of this new <code>Chatroom</code>.
+     * @return Returns the newly created <code>Chatroom</code> object.
+     */
     private UUID newPrivateChatroomCreator(String userName){
         ArrayList<String> userInvolved = new ArrayList<>();
         userInvolved.add(userManager.currentUsername());
@@ -186,7 +192,10 @@ public class UserController {
         return newChatroom;
     }
 
-
+    /**
+     * Outputs a schedule of all events the user is registered for.
+     * @return  Returns an ArrayList of Strings representing the events that this user is enrolled in.
+     */
     protected ArrayList<String[]> viewEnrolledSchedule(){
         HashMap<LocalDateTime[], UUID> schedules = userManager.schedules();
         ArrayList<String[]> allSchedule = new ArrayList<>();
@@ -198,6 +207,11 @@ public class UserController {
         return allSchedule;
     }
 
+    /**
+     * Helper function for getting the UUIDs of available activities.
+     * @param available ArrayList of Strings representing all available activities.
+     * @return Returns an ArrayList of Strings representing the UUIDs of all available activities.
+     */
     protected ArrayList<String> extractActIDHelper (ArrayList<String[]> available){
         ArrayList<String> actIDs = new ArrayList<>();
         for (String[] schedule: available){
@@ -206,6 +220,11 @@ public class UserController {
         return actIDs;
     }
 
+    /**
+     * Helper function for formatting user-inputted times.
+     * @param scheduleInfo String representing user-inputted time information, to be formatted.
+     * @return Returns the formatted time information in LocalDateTime format.
+     */
     protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
@@ -213,6 +232,9 @@ public class UserController {
         return time;
     }
 
+    /**
+     * Logs the current user out of the system.
+     */
     protected void logout(){
         userManager.logout();
         new GatewayUser().ser(userManager);
