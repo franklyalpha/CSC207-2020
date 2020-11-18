@@ -96,26 +96,42 @@ public class Presenter {
     }
 
     /**
-     * Print out instruction to ask the user inputting unique username.
+     * Print out instruction to ask the user to input a unique username.
      */
     public static void printUsernamePrompt(){
         System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
     }
 
+    /**
+     * Print out instruction to ask the user to enter their name.
+     */
     public static void printEnterName(){
         System.out.println("Enter your name:");
     }
 
+    /**
+     * Print out text confirming the chosen username.
+     * @param username String representing the username.
+     */
     public static void printUsernameIs(String username){
         System.out.println("Your username is " + username);
     }
 
     //UserController presenters
+
+    /**
+     * Print out instruction to ask the user to enter the username of the person they wish to contact.
+     */
     public static void printUserToContactPrompt(){
         System.out.println("please input the username of the person you wish to contact");
     }
 
     //side note: this kinda sounds redundant
+
+    /**
+     * Prints out each item in the input list.
+     * @param list The input list to be printed.
+     */
     public static void printList(Object[] list){
         for(Object i: list){
             System.out.println(i);
@@ -124,8 +140,15 @@ public class Presenter {
 
     //Prints the last 10 messages, the view message method in UserController need to prompt the user to choose a specific private user/group to pass the ArrayList of messages to this method
     //Also might want to implement User tag and time stamps
+
+    /**
+     * Prints messages from a chatHistory within the specified interval.
+     * @param Messages ArrayList representing the chatHistory from which to retrieve messages.
+     * @param num1 Integer representing the most recent message to output.
+     * @param num2 Integer representing the oldest message to output.
+     */
     public static void printMessagesInInterval(ArrayList<String> Messages, Integer num1, Integer num2){
-        for(int i=Messages.size()-num1; i>=Messages.size()-num2; i--){
+        for(int i=Messages.size()-num2; i>=Messages.size()-num1; i++){
             System.out.println(Messages.get(i));
         }
     }
@@ -226,7 +249,8 @@ public class Presenter {
     public static void printRoomCapacityPrompt(){
         System.out.println("Enter the capacity of this room");
     }
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void printRoomCapacityConfirmation(Integer a){
         System.out.println("This new room capacity is " + a);
     }
