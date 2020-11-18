@@ -35,6 +35,11 @@ public class LoginController {
     /*
     require implementation: logout system;
      */
+    /**
+     * This method allow people to do actions corresponding to allowed actions.
+     * Will print out a list of actions people can implement, ask for choice of action the people
+     * want to do and call corresponding method, such as sign up as a user, or log in or just quit.
+     */
     public void run(){
         boolean notStop = true;
         while(notStop){
@@ -61,11 +66,20 @@ public class LoginController {
         }
     }
 
-
+    /**
+     * Check whether the user account is correct to login in this <code>LoginController</code>.
+     * @param username the name of user currently logging in.
+     * @param password the password user has input to login.
+     * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
+     */
     private String checkLoginCondition(String username, String password){
         return userManager.loginCheck(username, password);
     }
-
+    /**
+     * Determine whether the input is wrong.
+     * @return <CODE>true</CODE> if the input is right:
+     * otherwise
+     */
     private boolean handleWrongInput() {
         // following code determine whether the program will continue running;
         // may consider putting into a separate private method;
@@ -92,6 +106,12 @@ public class LoginController {
         return notStop;
     }
 
+    /**
+     * handle the sigh up system for user to sign up.
+     * Information include: usertype want to signup, name, and password.
+     * Note that username is different from the name you put in.
+     * Specific format will be determined in Presenter.
+     */
     private void handleSignUp() {
         Scanner signUpScanner = new Scanner(System.in);
         //System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
@@ -118,6 +138,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * handle the login system for user to log in.
+     * Information include: username to login, and password to log in.
+     * Note that username is different from the name you put in.
+     * Specific format will be determined in Presenter.
+     */
     private void handleLogin(){
         Scanner type = new Scanner(System.in);
         //System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
@@ -168,6 +194,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * handle create new user.
+     * Information include: username to login, and usertype also created.
+     * Note that username is different from the name you put in.
+     * Specific format will be determined in Presenter.
+     */
     private void handleCreateNewUser(int type) {
         String[] typeArray = new String[]{"organizer", "attendant"};
         Scanner newUser = new Scanner(System.in);

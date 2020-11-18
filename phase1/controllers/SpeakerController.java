@@ -24,6 +24,7 @@ public class SpeakerController extends OrganizerController {
     send group message
      */
 
+
     public void run() {
         addActions();
         addMenu();
