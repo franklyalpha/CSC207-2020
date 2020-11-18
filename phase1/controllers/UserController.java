@@ -18,13 +18,24 @@ import java.util.Scanner;
 import java.util.UUID;
 
 //public abstract class controllers.UserController
+
+/**
+ * Controller for <code>User</code>-related functions, calling the appropriate methods.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
 public class UserController {
     protected UserManager userManager;
     protected ChatroomManager chatroomManager;
     protected ActivityManager activityManager;
     protected RoomManager roomManager;
 
-    //just for occupying the space;
+    /**
+     * Creates a <code>UserController</code> with a new chatroomManager, activityManager, and roomManager, and specified userManager.
+     * @param manager <code>UserManager</code> object to be stored.
+     */
     public UserController(UserManager manager) {
         userManager = manager;
         chatroomManager = new GatewayChat().deserialize();
@@ -32,8 +43,14 @@ public class UserController {
         roomManager = new GatewayRoom().deserialize();
     }
 
+    /**
+     * Abstract run method to be overridden.
+     */
     public void run(){}
 
+    /**
+     * Displays the user's private messages.
+     */
     protected void viewPrivateMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
@@ -50,6 +67,11 @@ public class UserController {
 
     }
 
+    /**
+     * Prints the private messages between the user and the specified contact, but only if they are connected.
+     * @param historyChat ArrayList of Strings representing the user's chats.
+     * @param contact UUID representing the contact whose messages we want to retrieve.
+     */
     private void privatePrinting(HashMap<String, ArrayList<String>> historyChat, HashMap<String, UUID> contact){
         Presenter.printContactPrompt("contact");
         Presenter.printList(contact.keySet().toArray());
@@ -63,6 +85,9 @@ public class UserController {
         Presenter.printMessagesInInterval(historyChat.get(contactUser), 1, historyChat.get(contactUser).size());
     }
 
+    /**
+     * Displays the user's group messages.
+     */
     protected void viewGroupMessage(){
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
@@ -81,6 +106,10 @@ public class UserController {
 
     }
 
+    /**
+     * Prints the group messages from the specified activity, if it is valid and exists.
+     * @param historyChat ArrayList of Strings representing the user's group chats.
+     */
     private void groupPrinting(HashMap<String, ArrayList<String>> historyChat){
         Presenter.printContactPrompt("event");
         Presenter.printList(historyChat.keySet().toArray());
@@ -94,6 +123,10 @@ public class UserController {
         Presenter.printMessagesInInterval(historyChat.get(selectedEvent), 1, historyChat.get(selectedEvent).size());
     }
 
+    /**
+     * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
+     * they want to send, then sends it.
+     */
     protected void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
         // for inputs;
@@ -114,6 +147,13 @@ public class UserController {
 
     }
 
+    /**
+     * Sends a private message to the user specified by <code>userName</code>. If there is no pre-existing conversation,
+     * a new <code>Chatroom</code> is created. If the specified user does not exist, an invalid input message appears.
+     * @param userName String representing the username of the user we wish to send the message to.
+     * @param message String representing the message we wish to send.
+     * @param typeName String representing the type of the user we want to contact.
+     */
     protected void send(String userName, String message, String typeName){
         if (userManager.contactable(userName)){
             // may consider putting first two lines in use-case;

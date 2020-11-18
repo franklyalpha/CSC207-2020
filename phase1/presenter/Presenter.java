@@ -5,6 +5,13 @@ import controllers.OrganizerController;
 
 import java.util.ArrayList;
 
+/**
+ * Presenter in charge of outputting menu options to the user.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
 public class Presenter {
     /*
     Present the menu options to the user
