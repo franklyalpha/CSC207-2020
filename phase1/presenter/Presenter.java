@@ -148,7 +148,7 @@ public class Presenter {
      * @param num2 Integer representing the oldest message to output.
      */
     public static void printMessagesInInterval(ArrayList<String> Messages, Integer num1, Integer num2){
-        for(int i=Messages.size()-num2; i>=Messages.size()-num1; i++){
+        for (int i = (Messages.size() - num2); i <= (Messages.size() - num1); i++){
             System.out.println(Messages.get(i));
         }
     }
