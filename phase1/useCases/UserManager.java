@@ -74,9 +74,14 @@ public class UserManager implements java.io.Serializable{
      * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
      * an independent account creator class would be implemented, and only the function
      * 'add user would be kept, and being made public'
+     *
+     *
+     * Creates a <code>createUser</code> and add it to the list of Users of the <code>UserManager</code>
+     * @param username is the username for the newly constructed <code>User</code>.
+     * @param password is the password for the newly constructed <code>User</code>.
+     * @param type is the UserType for the newly constructed <code>User</code>.
+     * @return the name of the newly constructed <code>User</code>.
      */
-
-
     public String createUser(String username, String password, String type) {
         String name = username + num_user;
         User org = new User(name, password, type);
@@ -85,6 +90,12 @@ public class UserManager implements java.io.Serializable{
         // return name: just in case to notify users about their exact username;
     }
 
+    /**
+     * Creates a <code>assUser</code> and add Users to the corresponding TypeList if the Users are not inside and
+     * update the num_user.
+     * @param users is the user that needs to be added in the list.
+     * @param type is the UserType for the user that needs to be added in the list.
+     */
     private void addUser(User users, String type){
         if (!allUsers.containsKey(type)){
             allUsers.put(type, new ArrayList<>());
@@ -94,6 +105,12 @@ public class UserManager implements java.io.Serializable{
         num_user += 1;
     }
 
+    /**
+     * Creates a <code>isUser</code> and check the index of the User, if not all Users contain key, return 0.
+     * @param username is the username of user that needs to be checked.
+     * @param type is the UserType for the user that needs to be checked.
+     * @return the index of the User, if not all Users contain key, return 0.
+     */
     public int isUser(String username, String type) {
         int return_index = 0;
         if (!allUsers.containsKey(type)){
@@ -113,6 +130,12 @@ public class UserManager implements java.io.Serializable{
 //        return 0;
 //    }
 
+    /**
+     * Creates a <code>checkUserIndex</code> and return the index of User.
+     * @param username is the username of user that needs to be checked.
+     * @param type is the UserType for the user that needs to be checked.
+     * @return the index of the User, if not all Users contain key, return 0.
+     */
     private int checkUserIndex(String username, String type){
         for (User users : allUsers.get(type)){
             if (users.getUsername().equals(username)){
@@ -149,23 +172,45 @@ public class UserManager implements java.io.Serializable{
 //        return "invalid";
 //    }
 
+    /**
+     * Creates a <code>contactable</code> and check whether the user can be contact.
+     * @param username is the username of user that needs to be checked.
+     * @return returns 1 if the user can be contact and returns 0 otherwise.
+     */
     public boolean contactable(String username){
         HashMap<String, UUID> contacts = userOnAir.getChatroom();
         return contacts.containsKey(username);
     }
 
+    /**
+     * Creates a <code>contacts</code> to contact to other user.
+     * @return returns the chatroom that can contact other users.
+     */
     public HashMap<String, UUID> contacts(){
         return userOnAir.getChatroom();
     }
 
+    /**
+     * Creates a <code>schedules</code> and get the users' schedule.
+     * @return the schedule that contains the users' all activities.
+     */
     public HashMap<LocalDateTime[], UUID> schedules(){
         return userOnAir.getActivities();
     }
 
+    /**
+     * Creates a <code>currentUsername</code> and get the users' current Username.
+     * @return current UserName of the user.
+     */
     public String currentUsername(){
         return userOnAir.getUsername();
     }
 
+    /**
+     * Creates a <code>isFree</code> and check whether the user is free during some time.
+     * @param actinterv is the time that needed to be checked.
+     * @return returns 1 if the user is free during the time and returns 0 otherwise.
+     */
     public boolean isFree(LocalDateTime[] actinterv){
         HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getActivities();
         for(LocalDateTime[] interv: userSchedule.keySet()){
@@ -187,6 +232,10 @@ public class UserManager implements java.io.Serializable{
         return true;
     }
 
+    /**
+     * Creates a <code>getAllUsers</code> and get all Users in all the UserType.
+     * @return returns all the users in all the UserTypes.
+     */
     private ArrayList<User> getAllUsers(){
         ArrayList<User> allUser = new ArrayList<>();
         for (String userType : allUsers.keySet()){
@@ -196,6 +245,12 @@ public class UserManager implements java.io.Serializable{
 
     }
 
+    /**
+     * Creates a <code>isFree</code> and check if the speaker is free during the time period.
+     * @param speaker is the speaker that needed to be checked.
+     * @param actinterv is the time that needed to be checked.
+     * @return returns 1 if the speaker is free during the time and returns 0 otherwise.
+     */
     private boolean isFree(User speaker, LocalDateTime[] actinterv){
         HashMap<LocalDateTime[], UUID> userSchedule = speaker.getActivities();
         for(LocalDateTime[] interv: userSchedule.keySet()){
@@ -217,20 +272,41 @@ public class UserManager implements java.io.Serializable{
         return true;
     }
 
+    /**
+     * Creates a <code>selfAddSchedule</code> and add the time of the activity to the user's schedule.
+     * @param time is the time that needed to be added.
+     * @param actID is the ID of the user.
+     */
     public void selfAddSchedule(LocalDateTime[] time, UUID actID){ ;
         userOnAir.getActivities().put(time, actID);
     }
 
+    /**
+     * Creates a <code>otherAddSchedule</code> and add the time of the activity to another user's schedule.
+     * @param username is the name of the other user that needed to add.
+     * @param time is the time that needed to be added.
+     * @param actID is the ID of the user.
+     */
     public void otherAddSchedule(String username, LocalDateTime[] time, UUID actID){
         User targetUser =findUser(username);
         assert targetUser != null;
         targetUser.getActivities().put(time, actID);
     }
 
+    /**
+     * Creates a <code>selfAddChatroom</code> and add the user in the chatroom.
+     * @param userName is the name of the user that needed to be added.
+     * @param chatID is the ID of the chat.
+     */
     public void selfAddChatroom(String userName, UUID chatID){
         userOnAir.getChatroom().put(userName, chatID);
     }
 
+    /**
+     * Creates a <code>otherAddChatroom</code> and add another user to the chatroom.
+     * @param userName is the name of the other user that needed to add.
+     * @param chatID is the ID of the chat.
+     */
     public void otherAddChatroom(String userName, UUID chatID){
         User targetedUser = findUser(userName);
         //require further modification;
@@ -238,6 +314,11 @@ public class UserManager implements java.io.Serializable{
         targetedUser.getChatroom().put(userOnAir.getUsername(), chatID);
     }
 
+    /**
+     * Creates a <code>findUser</code> and get the user.
+     * @param userName is the name of the other user that we want to find.
+     * @return the user that we want to find.
+     */
     private User findUser(String userName){
         for (User users: getAllUsers()){
             if (users.getUsername().equals(userName)){
@@ -247,6 +328,10 @@ public class UserManager implements java.io.Serializable{
         return null;
     }
 
+    /**
+     * Creates a <code>deleteActivity</code> and delete the activity.
+     * @param time is the time of the activity that needed to be delete.
+     */
     public boolean deleteActivity(LocalDateTime[] time){
         Set<LocalDateTime[]> period = userOnAir.getActivities().keySet();
         for (LocalDateTime[] target : period){
@@ -258,6 +343,11 @@ public class UserManager implements java.io.Serializable{
         return false;
     }
 
+    /**
+     * Creates a <code>deleteActivity</code> and delete the activity for the user.
+     * @param username is the name of user that we want to operate.
+     * @param time is the time of the activity that needed to be delete.
+     */
     public boolean deleteActivity(String username, LocalDateTime[] time){
         User target = findUser(username);
         assert target != null;
@@ -271,10 +361,19 @@ public class UserManager implements java.io.Serializable{
         return false;
     }
 
+    /**
+     * Creates a <code>getActivities</code> and get the activity that user have added.
+     * @return returns the activity that user have added.
+     */
     public HashMap<LocalDateTime[], UUID> getActivities() {
         return userOnAir.getActivities();
     }
 
+    /**
+     * Creates a <code>availableSpeakers</code> and get the speakers that are available during the time period.
+     * @param targetTime is the time period that we want to check.
+     * @return returns the ArrayList that contains all the speakers that are available.
+     */
     public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
         ArrayList<String> freeSpeaker = new ArrayList<String>();
         for (User users: allUsers.get("speaker")){
@@ -284,13 +383,23 @@ public class UserManager implements java.io.Serializable{
         }
         return freeSpeaker;
     }
-
+    /**
+     * Creates a <code>setpassword</code> and set the password of the user's account.
+     * @param newpassword is the new password the user want to set.
+     */
     public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
 
+    /**
+     * Creates a <code>logout</code> and set the status of user's account to be logout.
+     */
     public void logout(){
         userOnAir = null;
     }
 
+    /**
+     * Creates a <code>allAttendee</code> and get all the attendees.
+     * @return the ArrayList that contains all the attendees.
+     */
     public ArrayList<String> allAttendee(){
         ArrayList<String> attendees = new ArrayList<String>();
         for (User users : allUsers.get("attendant")){
