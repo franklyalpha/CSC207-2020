@@ -42,7 +42,7 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * This method allows users to do actions corresponding to attendant's allowed actions.
+     * This method allows users to do actions corresponding to organizer's allowed actions.
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */

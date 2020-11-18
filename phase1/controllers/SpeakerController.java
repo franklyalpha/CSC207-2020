@@ -11,7 +11,20 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * Represents a <code>SpeakerController</code> extends from <code>UserController</code>.
+ * Is specific for <code>Speaker</code> type usage.
+ *
+ * Includes:
+ * Own constructor
+ * sendActivityMessage: a method responsible for guiding the user to choose a conference
+ * and send message to all attendants enrolled.
+ */
 public class SpeakerController extends OrganizerController {
+    /**
+     * an Arraylist of <code>availableAction</code>;
+     * an Arraylist of <code>availableMethod</code>;
+     */
     private ArrayList<String> availableAction = new ArrayList<>();
     private ArrayList<String> availableMethod = new ArrayList<>();
 
@@ -24,6 +37,11 @@ public class SpeakerController extends OrganizerController {
     send group message
      */
 
+    /**
+     * This method allows users to do actions corresponding to speaker's allowed actions.
+     * Will print out a list of actions the user can implement, ask for choice of action the user
+     * want to do and call corresponding method.
+     */
     public void run() {
         addActions();
         addMenu();
@@ -83,6 +101,10 @@ public class SpeakerController extends OrganizerController {
     }
 
 
+    /**
+     * The method providing instructions for user to choose a conference they've assigned/enrolled
+     * and send a message to all other users participated in this activity.
+     */
     protected void sendActivityMessage(){
         ArrayList<String[]> info = showEnrolledSchedule();
         if (info.size() == 0){
