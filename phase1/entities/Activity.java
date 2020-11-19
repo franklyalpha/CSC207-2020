@@ -228,6 +228,11 @@ public class Activity implements java.io.Serializable {
 //        return description;
 //    }
 
+    /**
+     * This method show the info of activity in string.
+     * @return the string of the class Activity
+     */
+
     public String toString(){
         String description = "Topic: " + this.topic + "\n" +
                 "Speakers: ";

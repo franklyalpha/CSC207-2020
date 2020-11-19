@@ -68,6 +68,12 @@ public class SpeakerController extends OrganizerController {
         logout();
     }
 
+    /**
+     * This method takes user's intent(action) to let user choose from given actions, those
+     * actions are self-explained.
+     * @param action that user can choose from.
+     */
+
     private void runMethod (int action){
         switch(action){
             case 1: sendPrivateMessage(); break;
@@ -80,6 +86,10 @@ public class SpeakerController extends OrganizerController {
         }
     }
 
+    /**
+     * This method add actions to the class attribute availableAction.
+     */
+
     private void addMenu(){
         availableAction.add("send private message");
         availableAction.add("view private messages");
@@ -89,6 +99,10 @@ public class SpeakerController extends OrganizerController {
         availableAction.add("view messages from coopChatroom");
         availableAction.add("view signed conferences");
     }
+
+    /**
+     * This method add actions to the class attribute availableMethod.
+     */
 
     private void addActions(){
         availableMethod.add("sendPrivateMessage");
