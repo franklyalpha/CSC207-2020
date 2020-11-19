@@ -6,34 +6,28 @@ import gateways.*;
 import java.util.Scanner;
 import presenter.*;
 
+
+/**
+ *  this is the very beginning controller, for user login and sign up, and
+ *  distribute the correct user-controller to corresponding user type.
+ *  When a user logs out, will return to this controller.
+ *
+ *  functions include:
+ *  run: the main method for printing out instructions to guide user for login and sign up.
+ *
+ */
 public class LoginController {
+
+    /**
+     * @param userManager: an instance of UserManager being instantiated and used for checking
+     *                   login and sign up.
+     */
     private final UserManager userManager = new GatewayUser().deserialize();
 
-    // will consider instantiating presenters here
     /**
-    this is the very beginning controller, for user login, and
-     distribute the correct user-controller to corresponding user type.
-     When a user logs out, will return to this controller.
-
-     functions should include:
-     1: store all instances of presenters and controllers and instantiate when appropriate
-     2: will instantiate all use-cases; user-manager will instantiate at beginning, while others
-     will only be instantiated when the user has logged in successfully;
-     3: will call methods of reading and writing file (if not implement serializable),
-     and fill in managers.
-     4: will allow users to login. process as follows:
-        a. allow user input: usertype, username, passcode;
-        b. check with userManager on whether the inputted user name is in the
-            usertype arraylist;
-        c. check whether the password matches with corresponding password (call method in use-case);
-        d. will distribute the user to corresponding userController;
-        e. will allow user to log out (need to figure out a way to save file);
-     5: will continue running until being terminated (use while loop);
-     */
-
-
-    /*
-    require implementation: logout system;
+     * The method responsible for printing out instructions to guide user to log in or sign up,
+     * as well as calling appropriate helper methods to determine whether conditions of login are satisfied.
+     * When a user logs out, will return to this controller and determine to continue or to quit program.
      */
     /**
      * This method allow people to do actions corresponding to allowed actions.
