@@ -1,12 +1,12 @@
 package gateways;
 
-import useCases.ChatroomManager;
+import useCases.MessageRoomManager;
 
 import java.io.*;
 
 public class GatewayChat {
 
-    public void ser(ChatroomManager tester){
+    public void ser(MessageRoomManager tester){
         try{
             File f = new File("chats.txt");
             ObjectOutputStream oos = null;
@@ -20,20 +20,20 @@ public class GatewayChat {
 
     }
 
-    public ChatroomManager deserialize(){
-        ChatroomManager serialize;
+    public MessageRoomManager deserialize(){
+        MessageRoomManager serialize;
         try{
             File f = new File("chats.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            serialize = (ChatroomManager) oid.readObject();
+            serialize = (MessageRoomManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            serialize = new ChatroomManager();
+            serialize = new MessageRoomManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find chat file. Will reset all settings. ");
-            serialize = new ChatroomManager();
+            serialize = new MessageRoomManager();
         }
         return serialize;
 

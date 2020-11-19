@@ -3,8 +3,6 @@ package controllers;
 import presenter.Presenter;
 import useCases.UserManager;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,12 +39,12 @@ public class AttendantController extends UserController{
     enroll into one conference, cancel enrollment
      */
 
-    @Override
     /**
      * This method allows users to do actions corresponding to attendant's allowed actions.
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */
+    @Override
     public void run() {
         addMenu();
         addActions();
@@ -182,7 +180,7 @@ public class AttendantController extends UserController{
         LocalDateTime[] time = getTimeHelper(temp);
         userManager.selfAddSchedule(time, UUID.fromString(activityID));
         UUID conferenceChat = activityManager.getConferenceChat(UUID.fromString(temp[0]));
-        chatroomManager.addUser(userName, conferenceChat);
+        messageRoomManager.addUser(userName, conferenceChat);
         activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
     }
     /**
@@ -208,7 +206,7 @@ public class AttendantController extends UserController{
     private void cancelEnrollmentUpdate(ArrayList<String> userName, String activityID){
         UUID actID = UUID.fromString(activityID);
         activityManager.removeAttendant(actID, userManager.currentUsername());
-        chatroomManager.removeUser(userName,activityManager.getConferenceChat(actID));
+        messageRoomManager.removeUser(userName,activityManager.getConferenceChat(actID));
         String[] actInfo = activityManager.searchActivityByUUID(activityID);
         LocalDateTime[] time = getTimeHelper(actInfo);
         userManager.deleteActivity(time);

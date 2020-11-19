@@ -5,8 +5,6 @@ package controllers;
 import presenter.Presenter;
 import useCases.UserManager;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.*;
 
 import java.util.ArrayList;
@@ -183,7 +181,7 @@ public class OrganizerController extends UserController {
     }
 
     private void newActivitySetter(Object[] actSettings){
-        UUID assignedChat = chatroomManager.createChatroom(new ArrayList<>());
+        UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
         LocalDateTime[] targetPeriod = (LocalDateTime[]) actSettings[0];
         UUID assignedRoom = (UUID) actSettings[1];
         String topic = (String) actSettings[2];
@@ -193,7 +191,7 @@ public class OrganizerController extends UserController {
         activityManager.addSpeaker(actID, speaker);
         roomManager.BookRoom(targetPeriod, actID, assignedRoom);
         userManager.otherAddSchedule(speaker, targetPeriod, actID);
-        chatroomManager.addUser(speaker, assignedChat);
+        messageRoomManager.addUser(speaker, assignedChat);
     }
 
     /**
@@ -261,15 +259,15 @@ public class OrganizerController extends UserController {
         String password = input1.next();
         String username = userManager.createUser(name, password, "speaker");
         Presenter.printUsernameIs(username);
-        chatroomManager.addUser(name, chatroomManager.getCoopId());
+        messageRoomManager.addUser(name, messageRoomManager.getCoopId());
     }
 
     /**
      * Will printout messages being sent in chats involving only organizers and speakers.
      */
     protected void viewCoopChat(){
-        UUID coopChatID = chatroomManager.getCoopId();
-        ArrayList<String> message = chatroomManager.getHistoricalChats(coopChatID);
+        UUID coopChatID = messageRoomManager.getCoopId();
+        ArrayList<String> message = messageRoomManager.getHistoricalChats(coopChatID);
         Presenter.printMessagesInInterval(message, 1, message.size());
     }
 
@@ -279,12 +277,12 @@ public class OrganizerController extends UserController {
      * Will ask user to input the message want to send during running.
      */
     protected void sendCoopMessage(){
-        UUID coopChatID = chatroomManager.getCoopId();
+        UUID coopChatID = messageRoomManager.getCoopId();
         Scanner messenger = new Scanner(System.in);
         //System.out.println("Please input your message below: ");
         Presenter.printMessagePrompt();
         String message = messenger.nextLine();
-        chatroomManager.sendMessage(message, coopChatID);
+        messageRoomManager.sendMessage(message, coopChatID);
     }
 
     private String activitySelect(){

@@ -3,8 +3,6 @@ package controllers;
 import presenter.Presenter;
 import useCases.UserManager;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,7 +127,7 @@ public class SpeakerController extends OrganizerController {
         Scanner messageScanner = new Scanner(System.in);
         Presenter.printMessagePrompt();
         String message = messageScanner.nextLine();
-        chatroomManager.sendMessage(message, chatID);
+        messageRoomManager.sendMessage(message, chatID);
     }
 
     private ArrayList<String[]> showEnrolledSchedule(){

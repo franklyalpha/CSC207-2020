@@ -6,7 +6,7 @@ import gateways.GatewayRoom;
 import gateways.GatewayUser;
 import presenter.Presenter;
 import useCases.ActivityManager;
-import useCases.ChatroomManager;
+import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
 
@@ -28,7 +28,7 @@ import java.util.UUID;
  */
 public class UserController {
     protected UserManager userManager;
-    protected ChatroomManager chatroomManager;
+    protected MessageRoomManager messageRoomManager;
     protected ActivityManager activityManager;
     protected RoomManager roomManager;
 
@@ -38,7 +38,7 @@ public class UserController {
      */
     public UserController(UserManager manager) {
         userManager = manager;
-        chatroomManager = new GatewayChat().deserialize();
+        messageRoomManager = new GatewayChat().deserialize();
         activityManager = new GatewayActivity().deserialize();
         roomManager = new GatewayRoom().deserialize();
     }
@@ -60,7 +60,7 @@ public class UserController {
         }
         HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (String users : contact.keySet()){
-            ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(contact.get(users));
+            ArrayList<String> chatMessage = messageRoomManager.getHistoricalChats(contact.get(users));
             historyChat.put(users, chatMessage);
         }
         privatePrinting(historyChat, contact);
@@ -98,7 +98,7 @@ public class UserController {
         HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (LocalDateTime[] period : act.keySet()){
             UUID chatID = activityManager.getConferenceChat(act.get(period));
-            ArrayList<String> chatMessage = chatroomManager.getHistoricalChats(chatID);
+            ArrayList<String> chatMessage = messageRoomManager.getHistoricalChats(chatID);
             String topic = activityManager.searchActivityByUUID(act.get(period).toString())[1];
             historyChat.put(topic, chatMessage);
         }
@@ -159,13 +159,13 @@ public class UserController {
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userManager.contacts();
             UUID chatID = contacts.get(userName);
-            chatroomManager.sendPrivateMessage(message, chatID);
+            messageRoomManager.sendPrivateMessage(message, chatID);
         }
         else{
             // may consider putting into another private method;
             if (userManager.isUser(userName, typeName) != 0){
                 UUID newChatroom = newPrivateChatroomCreator(userName);
-                chatroomManager.sendPrivateMessage(message, newChatroom);
+                messageRoomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
                 //System.out.println("Invalid username or usertype! Try again later!");
@@ -186,7 +186,7 @@ public class UserController {
         userInvolved.add(userManager.currentUsername());
         userInvolved.add(userName);
 
-        UUID newChatroom = chatroomManager.createChatroom(userInvolved);
+        UUID newChatroom = messageRoomManager.createChatroom(userInvolved);
         userManager.selfAddChatroom(userName, newChatroom);
         userManager.otherAddChatroom(userName, newChatroom);
         return newChatroom;
@@ -239,7 +239,7 @@ public class UserController {
         userManager.logout();
         new GatewayUser().ser(userManager);
         new GatewayRoom().ser(roomManager);
-        new GatewayChat().ser(chatroomManager);
+        new GatewayChat().ser(messageRoomManager);
         new GatewayActivity().ser(activityManager);
     }
 

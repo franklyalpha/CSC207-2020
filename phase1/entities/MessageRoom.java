@@ -11,7 +11,7 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class Chatroom implements java.io.Serializable{
+public class MessageRoom implements java.io.Serializable{
 
     /**
      * Unique identifier for each <code>Chatroom</code>.
@@ -31,7 +31,7 @@ public class Chatroom implements java.io.Serializable{
     /**
      * Creates <code>Chatroom</code> with a randomly generated UUID, blank chat history, and empty list of chat participants.
      */
-    public Chatroom(){
+    public MessageRoom(){
         id = UUID.randomUUID();  // assign id
         usersInvolved = new ArrayList<>();  // If no given users, empty by default
         historicalChats = new ArrayList<>();  // start with empty chatHistory
@@ -41,7 +41,7 @@ public class Chatroom implements java.io.Serializable{
      * Creates <code>Chatroom</code> with a randomly generated UUID, blank chat history, and specified chat participants.
      * @param users ArrayList of usernames of <code>Users</code> participating in this <code>Chatroom</code>.
      */
-    public Chatroom(ArrayList<String> users){
+    public MessageRoom(ArrayList<String> users){
         id = UUID.randomUUID();  // assign id
         usersInvolved = users;  // specify users in this Chatroom by parameter
         historicalChats = new ArrayList<>();  // start with empty chatHistory

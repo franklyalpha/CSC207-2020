@@ -1,6 +1,6 @@
 package useCases;
 
-import entities.Chatroom;
+import entities.MessageRoom;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -16,29 +16,29 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class ChatroomManager implements java.io.Serializable{
+public class MessageRoomManager implements java.io.Serializable{
 
     /**
      * A <code>Chatroom</code> with all speakers and organizers at a conference.
      */
-    private Chatroom coopRoom;
+    private MessageRoom coopRoom;
 
     /**
      * ArrayList of all instances of <code>Chatroom</code> associated with activities happening.
      */
-    private ArrayList<Chatroom> conferenceChats;
+    private ArrayList<MessageRoom> conferenceChats;
 
     /**
      * ArrayList of all instances of private <code>Chatroom</code> (i.e. <code>Chatroom</code> with two participants).
      */
-    private ArrayList<Chatroom> privateChats;
+    private ArrayList<MessageRoom> privateChats;
 
 
     /**
      * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
      */
-    public ChatroomManager(){
-        coopRoom = new Chatroom();
+    public MessageRoomManager(){
+        coopRoom = new MessageRoom();
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
 
@@ -48,8 +48,8 @@ public class ChatroomManager implements java.io.Serializable{
      * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and a <code>Chatroom</code> with the specified organizers and speakers as participants.
      * @param organizerSpeakers ArrayList of usernames of organizers and speakers to be put into the coopRoom <code>Chatroom</code>.
      */
-    public ChatroomManager(ArrayList<String> organizerSpeakers) {
-        coopRoom = new Chatroom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
+    public MessageRoomManager(ArrayList<String> organizerSpeakers) {
+        coopRoom = new MessageRoom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
         conferenceChats = new ArrayList<>();
         privateChats = new ArrayList<>();
     }
@@ -66,7 +66,7 @@ public class ChatroomManager implements java.io.Serializable{
     public UUID createChatroom(ArrayList<String> users){
         // precondition: length(users) > 1
 
-        Chatroom newRoom= new Chatroom(users); // create new room with given list of users
+        MessageRoom newRoom= new MessageRoom(users); // create new room with given list of users
         if (users.size() == 2){
             privateChats.add(newRoom);  // add to privateChats list if there's only 2 users in the room (i.e. its private)
         }
@@ -90,9 +90,9 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to add the specified users to.
      */
     public void addUser(ArrayList<String> users, UUID chat) {
-        ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> tmp = new ArrayList<>(conferenceChats);
         tmp.add(coopRoom);
-        for (Chatroom room : tmp){
+        for (MessageRoom room : tmp){
             if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
                 for(String userID : users){
                     room.getUsersInvolved().add(userID);  // add users to the usersInvolved in this chat
@@ -108,9 +108,9 @@ public class ChatroomManager implements java.io.Serializable{
      */
 
     public void addUser(String username, UUID chat) {
-        ArrayList<Chatroom> tmp = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> tmp = new ArrayList<>(conferenceChats);
         tmp.add(coopRoom);
-        for (Chatroom room : tmp){
+        for (MessageRoom room : tmp){
             if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
                     room.getUsersInvolved().add(username);  // add users to the usersInvolved in this chat
 
@@ -125,7 +125,7 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to remove the specified users from.
      */
     public void removeUser(ArrayList<String> users, UUID chat) {
-        for (Chatroom room : conferenceChats) {
+        for (MessageRoom room : conferenceChats) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 for (String userID : users) {
                     room.getUsersInvolved().remove(userID);  // remove users to the usersInvolved in this chat
@@ -141,9 +141,9 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to send the message to.
      */
     public void sendMessage(String message, UUID chat){
-        ArrayList<Chatroom> groupChat = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> groupChat = new ArrayList<>(conferenceChats);
         groupChat.add(coopRoom);
-        for (Chatroom room : groupChat) {
+        for (MessageRoom room : groupChat) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
                 }
@@ -157,7 +157,7 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chat UUID of the <code>Chatroom</code> we want to send the message to.
      */
     public void sendPrivateMessage(String message, UUID chat){
-        for (Chatroom room : privateChats) {
+        for (MessageRoom room : privateChats) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 room.getHistoricalChats().add(message);  // add message to historicalChats of room
             }
@@ -170,12 +170,12 @@ public class ChatroomManager implements java.io.Serializable{
      * @param chatID UUID of the <code>Chatroom</code> we want to search for.
      * @return The <code>Chatroom</code> object with the specified UUID if it exists; returns <code>null</code> otherwise.
      */
-    private Chatroom findChatroom(UUID chatID){
-        Chatroom returns = null;
-        ArrayList<Chatroom> allChats = new ArrayList<Chatroom>(privateChats);
+    private MessageRoom findChatroom(UUID chatID){
+        MessageRoom returns = null;
+        ArrayList<MessageRoom> allChats = new ArrayList<MessageRoom>(privateChats);
         allChats.addAll(conferenceChats);
         allChats.add(coopRoom);
-        for (Chatroom chatrooms : allChats){
+        for (MessageRoom chatrooms : allChats){
             if (chatrooms.getId().equals(chatID)){
                 returns = chatrooms;
             }
@@ -189,7 +189,7 @@ public class ChatroomManager implements java.io.Serializable{
      * @return An ArrayList containing messages sent in the specified <code>Chatroom</code>.
      */
     public ArrayList<String> getHistoricalChats(UUID chatID){
-        Chatroom targetedChat = findChatroom(chatID);
+        MessageRoom targetedChat = findChatroom(chatID);
         return targetedChat.getHistoricalChats();
     }
 

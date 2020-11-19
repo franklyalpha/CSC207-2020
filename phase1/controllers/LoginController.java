@@ -19,16 +19,11 @@ import presenter.*;
 public class LoginController {
 
     /**
-     * @param userManager: an instance of UserManager being instantiated and used for checking
+     * userManager: an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
     private final UserManager userManager = new GatewayUser().deserialize();
 
-    /**
-     * The method responsible for printing out instructions to guide user to log in or sign up,
-     * as well as calling appropriate helper methods to determine whether conditions of login are satisfied.
-     * When a user logs out, will return to this controller and determine to continue or to quit program.
-     */
     /**
      * This method allow people to do actions corresponding to allowed actions.
      * Will print out a list of actions people can implement, ask for choice of action the people
