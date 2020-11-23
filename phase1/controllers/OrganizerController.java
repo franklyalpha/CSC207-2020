@@ -2,9 +2,8 @@ package controllers;
 
 
 
-import globalConstants.SpeakerAlreadyExistException;
-import globalConstants.UserNotFoundException;
-import globalConstants.UserType;
+import globalConstants.*;
+import org.jetbrains.annotations.NotNull;
 import presenter.Presenter;
 import useCases.UserManager;
 
@@ -144,35 +143,63 @@ public class OrganizerController extends UserController {
      * @return true iff the schedule is added successfully. 'false' otherwise.
      */
     protected boolean addSchedule(){
-        LocalDateTime[] targetPeriod = periodProcessor();
-        ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
-        ArrayList<UUID> freeRooms = roomManager.bookingAvailable(targetPeriod);
-        if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
-            activityCreator(freeSpeaker, freeRooms, targetPeriod);
-            return true;
+        while(true){
+            try{
+                LocalDateTime[] targetPeriod = periodProcessor();
+                ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
+                ArrayList<UUID> freeRooms = roomManager.bookingAvailable(targetPeriod);
+                if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
+                    activityCreator(freeSpeaker, freeRooms, targetPeriod);
+                    break;
+                }
+                else{
+                    throw new CannotCreateActivityException("Can't create activity");
+                }
+            }catch(CannotCreateActivityException e){
+                Presenter.printInvalid("time period");
+            }
         }
-        else{
-            Presenter.printInvalid("time period");
-        }
-        return false;
+        return true;
+
     }
     //check speaker, positive number.
 
-    private void activityCreator (ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms, LocalDateTime[] targetPeriod){
+    private void activityCreator (ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms, LocalDateTime[] targetPeriod) {
+        while(true){
+            try{
+                String[] speakerRoom = getSpeakerRoomTopic(freeSpeaker, freeRooms);
+                checkInfoValid(freeSpeaker, freeRooms, speakerRoom);
+                UUID assignedRoom = freeRooms.get(Integer.getInteger(speakerRoom[1]));
+                Object[] actSetting = new Object[]{targetPeriod, assignedRoom, speakerRoom[2], speakerRoom[0]};
+                newActivitySetter(actSetting);
+                break;
+            }catch(UserNotFoundException e){
+                Presenter.printInvalid("speaker");
+            }catch(IndexOutOfBoundsException e2){
+                Presenter.printInvalid("room index");
+            }
+        }
+
+    }
+
+    private void checkInfoValid(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms, String[] speakerRoom)
+            throws UserNotFoundException {
+        if (!freeSpeaker.contains(speakerRoom[0])){
+            throw new UserNotFoundException("");
+        }
+        if (Integer.getInteger(speakerRoom[1]) < 0 || Integer.getInteger(speakerRoom[1]) >= freeRooms.size()){
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    @NotNull
+    private String[] getSpeakerRoomTopic(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms) {
         Scanner moreInfo = new Scanner(System.in);
         Presenter.printSpeakerRoomPrompt(freeSpeaker, freeRooms);
         String topic = moreInfo.nextLine();
         String speaker = moreInfo.nextLine();
         int roomIndex = moreInfo.nextInt() - 1;
-        if (!freeSpeaker.contains(speaker)){
-            speaker = freeSpeaker.get(0);
-        }
-        if (roomIndex < 0 || roomIndex >= freeRooms.size()){
-            roomIndex = 0;
-        }
-        UUID assignedRoom = freeRooms.get(roomIndex);
-        Object[] actSetting = new Object[]{targetPeriod, assignedRoom, topic, speaker};
-        newActivitySetter(actSetting);
+        return new String[]{speaker, Integer.toString(roomIndex), topic};
     }
 
     private void newActivitySetter(Object[] actSettings){
@@ -181,7 +208,6 @@ public class OrganizerController extends UserController {
         UUID assignedRoom = (UUID) actSettings[1];
         String topic = (String) actSettings[2];
         String speaker = (String) actSettings[3];
-        // above arraylist has size zero, which will be assigned to conference chat automatically;
         UUID actID = activityManager.addNewActivity(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic);
         activityManager.addSpeaker(actID, speaker);
         roomManager.BookRoom(targetPeriod, actID, assignedRoom);
@@ -297,12 +323,22 @@ public class OrganizerController extends UserController {
         }
         Presenter.printDescription("all activities");
         Presenter.printSchedule(allActivities);
+        while(true){
+            try{
+                return checkingValidActivityID(allActivities);
+            }catch(ActivityNotFoundException e){
+                Presenter.printInvalid("activity ID");
+            }
+        }
+    }
+
+    private String checkingValidActivityID(ArrayList<String[]> allActivities)
+            throws ActivityNotFoundException {
         Scanner actIDGetter = new Scanner(System.in);
         Presenter.printChangeSpeakerIDPrompt();
         String actID = actIDGetter.nextLine();
         if (! extractActIDHelper(allActivities).contains(actID)){
-            Presenter.printInvalid("activity ID");
-            return "";
+            throw new ActivityNotFoundException("invalid activity ID");
         }
         return actID;
     }
@@ -311,14 +347,19 @@ public class OrganizerController extends UserController {
         ArrayList<String> freeSpeakers = userManager.availableSpeakers(actTime);
         freeSpeakers.add(actInfo[5]);
         Presenter.printSpeakers(freeSpeakers);
-        Scanner speakerScanner = new Scanner(System.in);
-        Presenter.printSpeakerAssignPrompt();
-        String speaker = speakerScanner.nextLine();
-        if (! freeSpeakers.contains(speaker)){
-            Presenter.printInvalid("speaker");
-            return "";
+        while(true){
+            try{
+                Scanner speakerScanner = new Scanner(System.in);
+                Presenter.printSpeakerAssignPrompt();
+                String speaker = speakerScanner.nextLine();
+                if (! freeSpeakers.contains(speaker)){
+                    throw new UserNotFoundException("No such user in list");
+                }
+                return speaker;
+            }catch(UserNotFoundException e){
+                Presenter.printInvalid("speaker's name");
+            }
         }
-        return speaker;
     }
 
     /**
