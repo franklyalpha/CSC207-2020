@@ -1,10 +1,14 @@
 package controllers;
 
+import entities.User;
 import useCases.UserManager;
 import gateways.*;
 
+import java.util.Optional;
 import java.util.Scanner;
 import presenter.*;
+
+import javax.security.auth.login.LoginException;
 
 
 /**
@@ -61,7 +65,7 @@ public class LoginController {
      * @param password the password user has input to login.
      * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
      */
-    private String checkLoginCondition(String username, String password){
+    private User.userType checkLoginCondition(String username, String password){
         return userManager.loginCheck(username, password);
     }
     /**
@@ -70,13 +74,9 @@ public class LoginController {
      * otherwise
      */
     private boolean handleWrongInput() {
-        // following code determine whether the program will continue running;
-        // may consider putting into a separate private method;
         boolean notStop = false;
         boolean validInput = false;
         while(!validInput){
-            //System.out.println("Wrong input!");
-            //System.out.println("Continue running or not? (type \"(Y)es\" or \"(N)o\")");
             Presenter.printWrongInputMenu();
             Scanner nextChoice = new Scanner(System.in);
             String choice = nextChoice.nextLine();
@@ -88,7 +88,6 @@ public class LoginController {
                 validInput = true;
             }
             else{
-                //System.out.println("invalid input! try again; \n");
                 Presenter.printInvalid("input");
             }
         }
@@ -113,13 +112,11 @@ public class LoginController {
         switch (type) {
             case 0: {
                 handleCreateNewUser(type);
-                //System.out.println("New Organizer Created!");
                 Presenter.printNewUserCreated("Organizer");
                 break;
             }
             case 1: {
                 handleCreateNewUser(type);
-                //System.out.println("New Attendant Created!");
                 Presenter.printNewUserCreated("Attendant");
                 break;
             }
@@ -135,51 +132,32 @@ public class LoginController {
      */
     private void handleLogin(){
         Scanner type = new Scanner(System.in);
-        //System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
-//        Presenter.printHandleLoginMenu();
-//        String typeName = type.nextLine();
-        //System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
         Presenter.printUsernamePrompt();
         String userName = type.nextLine();
-        //System.out.println("Please enter your password:");
         Presenter.printPasswordPrompt();
         String password = type.nextLine();
-//        if (userManager.typeChoice(typeName) == -1){
-//            //System.out.println("Wrong user type!!!\n");
-//            Presenter.printInvalid("usertype");
-//        }
 
-        String loginCondition = checkLoginCondition(userName, password);
+        User.userType loginCondition = checkLoginCondition(userName, password);
 
-        if (!loginCondition.equals("invalid")){
-            //note that switch can be used here, for implementing
-            //factory design pattern (see more on code-smell website)
-            switch (loginCondition) {
-                case "organizer": {
-                    // Organizer
-                    OrganizerController org = new OrganizerController(userManager);
-                    org.run();
-                    break;
-                }
-                case "speaker": {
-                    // Speaker
-                    SpeakerController spe = new SpeakerController(userManager);
-                    spe.run();
-                    break;
-                }
-                case "attendant": {
-                    // Attendant
-                    AttendantController att = new AttendantController(userManager);
-                    att.run();
-                    break;
-                }
-                default:
-                    break;
+        switch (loginCondition) {
+            case organizer: {
+                OrganizerController org = new OrganizerController(userManager);
+                org.run();
+                break;
             }
-        }
-        else{
-            //System.out.println("Invalid password or Username");
-            Presenter.printInvalid("password or username");
+            case speaker: {
+                SpeakerController spe = new SpeakerController(userManager);
+                spe.run();
+                break;
+            }
+            case attendee: {
+                AttendantController att = new AttendantController(userManager);
+                att.run();
+                break;
+            }
+            default:
+                Presenter.printInvalid("password or username");
+                break;
         }
     }
 
@@ -192,13 +170,10 @@ public class LoginController {
     private void handleCreateNewUser(int type) {
         String[] typeArray = new String[]{"organizer", "attendant"};
         Scanner newUser = new Scanner(System.in);
-        //System.out.println("Enter your name:");
         Presenter.printEnterName();
         String username = newUser.nextLine();
-        //System.out.println("Enter Password:");
         Presenter.printPasswordPrompt();
         String password = newUser.nextLine();
-        //System.out.println("Your username is " + userManager.createUser(username, password, type));
         Presenter.printUsernameIs(userManager.createUser(username, password, typeArray[type]));
     }
 

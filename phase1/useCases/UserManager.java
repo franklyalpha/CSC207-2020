@@ -84,7 +84,20 @@ public class UserManager implements java.io.Serializable{
      */
     public String createUser(String username, String password, String type) {
         String name = username + num_user;
-        User org = new User(name, password, type);
+        User.userType t;
+        switch (type){
+            case "organizer":
+                t = User.userType.organizer;
+                break;
+            case "attendee":
+                t = User.userType.attendee;
+                break;
+            default:
+                // This default should not be accessed, if accessed check
+                t = User.userType.speaker;
+                break;
+        }
+        User org = new User(name, password, t);
         addUser(org, type);
         return name;
         // return name: just in case to notify users about their exact username;
@@ -150,16 +163,16 @@ public class UserManager implements java.io.Serializable{
      @param passcode the password user has input to login.
      @return type of user if password is correct, "invalid" otherwise.
      */
-    public String loginCheck(String username, String passcode){
+    public User.userType loginCheck(String username, String passcode) {
         ArrayList<User> allExistingUser = getAllUsers();
-        for (User currUser : allExistingUser){
-            if(currUser.getUsername().equals(username) &&
+        for (User currUser : allExistingUser) {
+            if (currUser.getUsername().equals(username) &&
                     currUser.getPassword().equals(passcode)) {
                 userOnAir = currUser;
                 return currUser.getUserType();
             }
         }
-        return "invalid";
+        return User.userType.INVALID;
     }
 
 //    public String loginCheck(int index, String type, String passcode){
