@@ -2,12 +2,12 @@ package useCases;
 
 import entities.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.time.*;
+import globalConstants.UserTypeEnum;
 
 //public class use_cases.UserManager implements java.io.Serializable
 
@@ -84,17 +84,17 @@ public class UserManager implements java.io.Serializable{
      */
     public String createUser(String username, String password, String type) {
         String name = username + num_user;
-        User.userType t;
+        UserTypeEnum.userType t;
         switch (type){
             case "organizer":
-                t = User.userType.organizer;
+                t = UserTypeEnum.userType.organizer;
                 break;
             case "attendee":
-                t = User.userType.attendee;
+                t = UserTypeEnum.userType.attendee;
                 break;
             default:
                 // This default should not be accessed, if accessed check
-                t = User.userType.speaker;
+                t = UserTypeEnum.userType.speaker;
                 break;
         }
         User org = new User(name, password, t);
@@ -159,11 +159,11 @@ public class UserManager implements java.io.Serializable{
     }
 
     /** check whether the password is correct
-     @param username the name of user currently logging in.
-     @param passcode the password user has input to login.
      @return type of user if password is correct, "invalid" otherwise.
+      * @param username the name of user currently logging in.
+     * @param passcode the password user has input to login.
      */
-    public User.userType loginCheck(String username, String passcode) {
+    public UserTypeEnum.userType loginCheck(String username, String passcode) {
         ArrayList<User> allExistingUser = getAllUsers();
         for (User currUser : allExistingUser) {
             if (currUser.getUsername().equals(username) &&
@@ -172,7 +172,7 @@ public class UserManager implements java.io.Serializable{
                 return currUser.getUserType();
             }
         }
-        return User.userType.INVALID;
+        return UserTypeEnum.userType.INVALID;
     }
 
 //    public String loginCheck(int index, String type, String passcode){

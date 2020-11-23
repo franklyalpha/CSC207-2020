@@ -4,11 +4,9 @@ import entities.User;
 import useCases.UserManager;
 import gateways.*;
 
-import java.util.Optional;
 import java.util.Scanner;
 import presenter.*;
-
-import javax.security.auth.login.LoginException;
+import globalConstants.UserTypeEnum;
 
 
 /**
@@ -65,7 +63,7 @@ public class LoginController {
      * @param password the password user has input to login.
      * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
      */
-    private User.userType checkLoginCondition(String username, String password){
+    private UserTypeEnum.userType checkLoginCondition(String username, String password){
         return userManager.loginCheck(username, password);
     }
     /**
@@ -122,6 +120,8 @@ public class LoginController {
             }
             default: Presenter.printInvalid("input"); //System.out.println("Wrong input!!! Try again later. ");
         }
+        GatewayUser saver = new GatewayUser();
+        saver.ser(userManager);
     }
 
     /**
@@ -137,7 +137,7 @@ public class LoginController {
         Presenter.printPasswordPrompt();
         String password = type.nextLine();
 
-        User.userType loginCondition = checkLoginCondition(userName, password);
+        UserTypeEnum.userType loginCondition = checkLoginCondition(userName, password);
 
         switch (loginCondition) {
             case organizer: {

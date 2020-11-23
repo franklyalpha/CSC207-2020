@@ -2,6 +2,7 @@ package entities;
 
 import java.util.*;
 import java.time.*;
+import globalConstants.*;
 
 /**
  * A representation of entities.User.
@@ -24,13 +25,7 @@ public class User implements java.io.Serializable {
     /**
      * a string representing the type of the <code>User</code>.
      */
-    public enum userType {
-        organizer,
-        attendee,
-        speaker,
-        INVALID
-    }
-    private final userType type;
+    private final UserTypeEnum.userType type;
 
     /**
      * a HashMap which holds the id of the <code>Chatroom</code> this user attended and their description.
@@ -53,7 +48,7 @@ public class User implements java.io.Serializable {
      * @param password the valid password of this user.
      * @param type the type of this user: Attendee, Organizer, Speaker.
      */
-    public User(String name, String password, userType type) {
+    public User(String name, String password, UserTypeEnum.userType type) {
         username = name;
         this.type = type;
         this.password = password;
@@ -81,7 +76,7 @@ public class User implements java.io.Serializable {
      * Gets the type of this user。
      * @return the user's type as organizer, speaker, or attendee.
      */
-    public userType getUserType(){
+    public UserTypeEnum.userType getUserType(){
         return this.type;
     }
 
