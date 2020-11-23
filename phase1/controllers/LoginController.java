@@ -1,12 +1,12 @@
 package controllers;
 
 import entities.User;
+import globalConstants.UserType;
 import useCases.UserManager;
 import gateways.*;
 
 import java.util.Scanner;
 import presenter.*;
-import globalConstants.UserTypeEnum;
 
 
 /**
@@ -63,7 +63,7 @@ public class LoginController {
      * @param password the password user has input to login.
      * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
      */
-    private UserTypeEnum.userType checkLoginCondition(String username, String password){
+    private UserType checkLoginCondition(String username, String password){
         return userManager.loginCheck(username, password);
     }
     /**
@@ -100,28 +100,31 @@ public class LoginController {
      */
     private void handleSignUp() {
         Scanner signUpScanner = new Scanner(System.in);
-        //System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
         Presenter.printSighUpMenu();
         if(! signUpScanner.hasNextInt()){
             Presenter.printInvalid("input");
             return;
         }
         int type = signUpScanner.nextInt();
+        signUpDistributor(type);
+        GatewayUser saver = new GatewayUser();
+        saver.ser(userManager);
+    }
+
+    private void signUpDistributor(int type) {
         switch (type) {
             case 0: {
-                handleCreateNewUser(type);
+                handleCreateNewUser(UserType.ORGANIZER);
                 Presenter.printNewUserCreated("Organizer");
                 break;
             }
             case 1: {
-                handleCreateNewUser(type);
+                handleCreateNewUser(UserType.ATTENDEE);
                 Presenter.printNewUserCreated("Attendant");
                 break;
             }
-            default: Presenter.printInvalid("input"); //System.out.println("Wrong input!!! Try again later. ");
+            default: Presenter.printInvalid("input");
         }
-        GatewayUser saver = new GatewayUser();
-        saver.ser(userManager);
     }
 
     /**
@@ -137,20 +140,24 @@ public class LoginController {
         Presenter.printPasswordPrompt();
         String password = type.nextLine();
 
-        UserTypeEnum.userType loginCondition = checkLoginCondition(userName, password);
+        UserType loginCondition = checkLoginCondition(userName, password);
 
+        userControllDistributor(loginCondition);
+    }
+
+    private void userControllDistributor(UserType loginCondition) {
         switch (loginCondition) {
-            case organizer: {
+            case ORGANIZER: {
                 OrganizerController org = new OrganizerController(userManager);
                 org.run();
                 break;
             }
-            case speaker: {
+            case SPEAKER: {
                 SpeakerController spe = new SpeakerController(userManager);
                 spe.run();
                 break;
             }
-            case attendee: {
+            case ATTENDEE: {
                 AttendantController att = new AttendantController(userManager);
                 att.run();
                 break;
@@ -167,14 +174,13 @@ public class LoginController {
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
      */
-    private void handleCreateNewUser(int type) {
-        String[] typeArray = new String[]{"organizer", "attendant"};
+    private void handleCreateNewUser(UserType type) {
         Scanner newUser = new Scanner(System.in);
         Presenter.printEnterName();
         String username = newUser.nextLine();
         Presenter.printPasswordPrompt();
         String password = newUser.nextLine();
-        Presenter.printUsernameIs(userManager.createUser(username, password, typeArray[type]));
+        Presenter.printUsernameIs(userManager.createUser(username, password, type));
     }
 
 }

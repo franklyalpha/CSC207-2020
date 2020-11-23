@@ -2,6 +2,9 @@ package controllers;
 
 
 
+import globalConstants.SpeakerAlreadyExistException;
+import globalConstants.UserNotFoundException;
+import globalConstants.UserType;
 import presenter.Presenter;
 import useCases.UserManager;
 
@@ -142,21 +145,13 @@ public class OrganizerController extends UserController {
      */
     protected boolean addSchedule(){
         LocalDateTime[] targetPeriod = periodProcessor();
-        // input time;
         ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
         ArrayList<UUID> freeRooms = roomManager.bookingAvailable(targetPeriod);
-
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
-            // check whether there are rooms available during that time; (use UUID, and int for capacity)
-            // if that is, allow organizer to input info of conference (code below);
             activityCreator(freeSpeaker, freeRooms, targetPeriod);
-            // then choose a room;
-            // then program creates schedule automatically, and update both activity, speaker and room.
-            // saving file???
             return true;
         }
         else{
-            //System.out.println("Invalid time period! Please reconsider another time!!!");
             Presenter.printInvalid("time period");
         }
         return false;
@@ -203,28 +198,30 @@ public class OrganizerController extends UserController {
      * @return true iff the room is created (inputting appropriate capacity value). 'false' otherwise.
      */
     protected boolean createRoom() {
-        int a;
-        Scanner input = new Scanner(System.in);
-        //System.out.println("Enter the capacity of this room");
-        Presenter.printRoomCapacityPrompt();
-        try {
-            a = input.nextInt();
-            if (a > 0){
-                roomManager.addRoom(a);
-                //System.out.println("This new room capacity is " + a);
-                Presenter.printRoomCapacityConfirmation(a);
-                return true;
-            }
-            else{
+        while(true){
+            try {
+                createRoomWithCapacity();
+                break;
+            }catch(Exception e) {
                 //System.out.println("Invalid capacity.");
                 Presenter.printInvalid("capacity");
-                return false;
             }
+        }
+        return true;
+    }
 
-        }catch(Exception e) {
+    private void createRoomWithCapacity() throws Exception {
+        Scanner input = new Scanner(System.in);
+        Presenter.printRoomCapacityPrompt();
+        int a = input.nextInt();
+        if (a > 0){
+            roomManager.addRoom(a);
+            //System.out.println("This new room capacity is " + a);
+            Presenter.printRoomCapacityConfirmation(a);
+        }
+        else{
             //System.out.println("Invalid capacity.");
-            Presenter.printInvalid("capacity");
-            return false;
+            throw new Exception();
         }
     }
 
@@ -237,18 +234,26 @@ public class OrganizerController extends UserController {
      * @return true iff the speaker is created successfully (the speaker is new).
      */
     protected boolean createSpeaker(){
+        while(true){
+            try{
+                createSpeakerWithValidName();
+                break;
+            }catch (SpeakerAlreadyExistException e){
+                Presenter.printSpeakerExist();
+            }
+        }
+        return true;
+    }
+
+    private void createSpeakerWithValidName() throws SpeakerAlreadyExistException {
         Scanner input0 = new Scanner(System.in);
-        //System.out.println("Enter the name of this Speaker");
         Presenter.printSpeakerNamePrompt();
         String name = input0.next();
-        if(userManager.isUser(name, "speaker") == 0){
+        if(userManager.isUser(name) == 0){
             createNewSpeaker(name);
-            return true;
         }
         else{
-            //System.out.println("The speaker is already exist.");
-            Presenter.printSpeakerExist();
-            return false;
+            throw new SpeakerAlreadyExistException("Speaker already exist!");
         }
     }
 
@@ -257,7 +262,7 @@ public class OrganizerController extends UserController {
         //System.out.println("Enter the password of this Speaker");
         Presenter.printPasswordPrompt();
         String password = input1.next();
-        String username = userManager.createUser(name, password, "speaker");
+        String username = userManager.createUser(name, password, UserType.SPEAKER);
         Presenter.printUsernameIs(username);
         messageRoomManager.addUser(name, messageRoomManager.getCoopId());
     }
@@ -295,7 +300,6 @@ public class OrganizerController extends UserController {
         Scanner actIDGetter = new Scanner(System.in);
         Presenter.printChangeSpeakerIDPrompt();
         String actID = actIDGetter.nextLine();
-        //check whether ID is valid;
         if (! extractActIDHelper(allActivities).contains(actID)){
             Presenter.printInvalid("activity ID");
             return "";
@@ -350,15 +354,19 @@ public class OrganizerController extends UserController {
      *
      * Will ask for messages to send during running.
      */
-    protected void messageAllAttendee(){
-        ArrayList<String> attendeeName = userManager.allAttendee();
-        Scanner messageScanner = new Scanner(System.in);
-        //System.out.println("please input message: ");
-        Presenter.printMessagePrompt();
-        String message = messageScanner.nextLine();
-        for (String attendee : attendeeName){
-            send(attendee, message, "attendant");
+    protected void messageAllAttendee() {
+        try{
+            ArrayList<String> attendeeName = userManager.allAttendee();
+            Scanner messageScanner = new Scanner(System.in);
+            Presenter.printMessagePrompt();
+            String message = messageScanner.nextLine();
+            for (String attendee : attendeeName){
+                send(attendee, message);
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
         }
+
     }
     private boolean continuing(){
         boolean enterAction = true;

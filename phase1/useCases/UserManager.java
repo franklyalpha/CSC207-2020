@@ -120,16 +120,13 @@ public class UserManager implements java.io.Serializable{
     /**
      * Creates a <code>isUser</code> and check the index of the User, if not all Users contain key, return 0.
      * @param username is the username of user that needs to be checked.
-     * @param type is the UserType for the user that needs to be checked.
      * @return the index of the User, if not all Users contain key, return 0.
      */
-    public int isUser(String username, UserType type) {
-        int return_index = 0;
-        if (!allUsers.containsKey(type)){
+    public int isUser(String username) {
+        if (findUser(username) == null){
             return 0;
         }
-        return_index = checkUserIndex(username, type);
-        return return_index;
+        return 1;
     }
 
 
@@ -388,7 +385,7 @@ public class UserManager implements java.io.Serializable{
      */
     public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
         ArrayList<String> freeSpeaker = new ArrayList<String>();
-        for (User users: allUsers.get("speaker")){
+        for (User users: allUsers.get(UserType.SPEAKER)){
             if (isFree(users, targetTime)){
                 freeSpeaker.add(users.getUsername());
             }
@@ -414,7 +411,7 @@ public class UserManager implements java.io.Serializable{
      */
     public ArrayList<String> allAttendee(){
         ArrayList<String> attendees = new ArrayList<String>();
-        for (User users : allUsers.get("attendant")){
+        for (User users : allUsers.get(UserType.ATTENDEE)){
             attendees.add(users.getUsername());
         }
         return attendees;

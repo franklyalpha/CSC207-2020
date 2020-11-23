@@ -4,12 +4,13 @@ import gateways.GatewayActivity;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
 import gateways.GatewayUser;
+import globalConstants.UserNotFoundException;
+import globalConstants.UserType;
 import presenter.Presenter;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -127,23 +128,25 @@ public class UserController {
      * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
      * they want to send, then sends it.
      */
-    protected void sendPrivateMessage(){
+    protected void sendPrivateMessage() {
         // may consider putting into a private method mainly calling
         // for inputs;
-        Scanner userScanner = new Scanner(System.in);
-        //System.out.println("please input the username of person " + "you wish to contact");
-        Presenter.printUserToContactPrompt();
-        String userName = userScanner.nextLine();
+        while(true){
+            try{
+                Scanner userScanner = new Scanner(System.in);
+                Presenter.printUserToContactPrompt();
+                String userName = userScanner.nextLine();
+                Scanner messageScan = new Scanner(System.in);
+                Presenter.printMessagePrompt();
+                String message = messageScan.nextLine();
+                send(userName, message);
+                break;
+            }
+            catch(UserNotFoundException e){
+                Presenter.printInvalid("username");
+            }
+        }
 
-        Scanner typeScan = new Scanner(System.in);
-        Presenter.printTypeToContactPrompt();
-        String typeName = typeScan.nextLine();
-
-        Scanner messageScan = new Scanner(System.in);
-        //System.out.println("please input the message you wanna send:");
-        Presenter.printMessagePrompt();
-        String message = messageScan.nextLine();
-        send(userName, message, typeName);
 
     }
 
@@ -152,9 +155,8 @@ public class UserController {
      * a new <code>Chatroom</code> is created. If the specified user does not exist, an invalid input message appears.
      * @param userName String representing the username of the user we wish to send the message to.
      * @param message String representing the message we wish to send.
-     * @param typeName String representing the type of the user we want to contact.
      */
-    protected void send(String userName, String message, String typeName){
+    protected void send(String userName, String message) throws UserNotFoundException {
         if (userManager.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userManager.contacts();
@@ -163,14 +165,12 @@ public class UserController {
         }
         else{
             // may consider putting into another private method;
-            if (userManager.isUser(userName, typeName) != 0){
+            if (userManager.isUser(userName) != 0){
                 UUID newChatroom = newPrivateChatroomCreator(userName);
                 messageRoomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
-                //System.out.println("Invalid username or usertype! Try again later!");
-                Presenter.printInvalid("username or usertype");
-                //return to main menu;
+                throw new UserNotFoundException("User not found");
             }
         }
     }
