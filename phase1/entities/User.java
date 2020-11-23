@@ -25,7 +25,7 @@ public class User implements java.io.Serializable {
     /**
      * a string representing the type of the <code>User</code>.
      */
-    private final UserTypeEnum.userType type;
+    private final UserType type;
 
     /**
      * a HashMap which holds the id of the <code>Chatroom</code> this user attended and their description.
@@ -48,7 +48,7 @@ public class User implements java.io.Serializable {
      * @param password the valid password of this user.
      * @param type the type of this user: Attendee, Organizer, Speaker.
      */
-    public User(String name, String password, UserTypeEnum.userType type) {
+    public User(String name, String password, UserType type) {
         username = name;
         this.type = type;
         this.password = password;
@@ -76,7 +76,7 @@ public class User implements java.io.Serializable {
      * Gets the type of this user。
      * @return the user's type as organizer, speaker, or attendee.
      */
-    public UserTypeEnum.userType getUserType(){
+    public UserType getUserType(){
         return this.type;
     }
 

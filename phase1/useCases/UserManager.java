@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.time.*;
-import globalConstants.UserTypeEnum;
+
+import globalConstants.UserType;
 
 //public class use_cases.UserManager implements java.io.Serializable
 
@@ -40,7 +41,7 @@ public class UserManager implements java.io.Serializable{
     /**
      * A list contains all Users with all types <code>User</code>
      * */
-    private HashMap<String, ArrayList<User>> allUsers;
+    private HashMap<UserType, ArrayList<User>> allUsers;
 
     /**
      * A integer representing the number of users who are currently using the system.
@@ -52,9 +53,6 @@ public class UserManager implements java.io.Serializable{
      * */
     private User userOnAir;
 //    private ArrayList<entities.User>[] typearray = [organi]
-    private String[] typeArray;
-    // may consider simple factory design pattern in controller layer;
-    // make sure organizers don't access speaker's controllers  !!!!!
 
 
     /**
@@ -64,8 +62,7 @@ public class UserManager implements java.io.Serializable{
         allUsers = new HashMap<>();
         num_user = 1;
         userOnAir = null;
-        typeArray = new String[]{"organizer", "speaker", "attendant"};
-        for (String type : typeArray){
+        for (UserType type : UserType.values()){
             allUsers.put(type, new ArrayList<>());
         }
     }
@@ -82,20 +79,22 @@ public class UserManager implements java.io.Serializable{
      * @param type is the UserType for the newly constructed <code>User</code>.
      * @return the name of the newly constructed <code>User</code>.
      */
-    public String createUser(String username, String password, String type) {
+    public String createUser(String username, String password, UserType type) {
         String name = username + num_user;
-        UserTypeEnum.userType t;
+        UserType t;
         switch (type){
-            case "organizer":
-                t = UserTypeEnum.userType.organizer;
+            case ORGANIZER:
+                t = UserType.ORGANIZER;
                 break;
-            case "attendee":
-                t = UserTypeEnum.userType.attendee;
+            case ATTENDEE:
+                t = UserType.ATTENDEE;
+                break;
+            case SPEAKER:
+                // This default should not be accessed, if accessed check
+                t = UserType.SPEAKER;
                 break;
             default:
-                // This default should not be accessed, if accessed check
-                t = UserTypeEnum.userType.speaker;
-                break;
+                throw new IllegalStateException("Unexpected value: " + type);
         }
         User org = new User(name, password, t);
         addUser(org, type);
@@ -109,7 +108,7 @@ public class UserManager implements java.io.Serializable{
      * @param users is the user that needs to be added in the list.
      * @param type is the UserType for the user that needs to be added in the list.
      */
-    private void addUser(User users, String type){
+    private void addUser(User users, UserType type){
         if (!allUsers.containsKey(type)){
             allUsers.put(type, new ArrayList<>());
         }
@@ -124,7 +123,7 @@ public class UserManager implements java.io.Serializable{
      * @param type is the UserType for the user that needs to be checked.
      * @return the index of the User, if not all Users contain key, return 0.
      */
-    public int isUser(String username, String type) {
+    public int isUser(String username, UserType type) {
         int return_index = 0;
         if (!allUsers.containsKey(type)){
             return 0;
@@ -149,7 +148,7 @@ public class UserManager implements java.io.Serializable{
      * @param type is the UserType for the user that needs to be checked.
      * @return the index of the User, if not all Users contain key, return 0.
      */
-    private int checkUserIndex(String username, String type){
+    private int checkUserIndex(String username, UserType type){
         for (User users : allUsers.get(type)){
             if (users.getUsername().equals(username)){
                 return allUsers.get(type).indexOf(users) + 1;
@@ -163,7 +162,7 @@ public class UserManager implements java.io.Serializable{
       * @param username the name of user currently logging in.
      * @param passcode the password user has input to login.
      */
-    public UserTypeEnum.userType loginCheck(String username, String passcode) {
+    public UserType loginCheck(String username, String passcode) {
         ArrayList<User> allExistingUser = getAllUsers();
         for (User currUser : allExistingUser) {
             if (currUser.getUsername().equals(username) &&
@@ -172,7 +171,7 @@ public class UserManager implements java.io.Serializable{
                 return currUser.getUserType();
             }
         }
-        return UserTypeEnum.userType.INVALID;
+        return UserType.INVALID;
     }
 
 //    public String loginCheck(int index, String type, String passcode){
@@ -251,7 +250,7 @@ public class UserManager implements java.io.Serializable{
      */
     private ArrayList<User> getAllUsers(){
         ArrayList<User> allUser = new ArrayList<>();
-        for (String userType : allUsers.keySet()){
+        for (UserType userType : allUsers.keySet()){
             allUser.addAll(allUsers.get(userType));
         }
         return allUser;
