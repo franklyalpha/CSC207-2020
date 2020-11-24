@@ -4,6 +4,7 @@ package UserControllers;
 
 import ActivityControllers.OrganizerActivityController;
 import MessagingControllers.OrganizerMessagingController;
+import com.sun.istack.internal.NotNull;
 import globalConstants.*;
 import presenter.Presenter;
 import useCases.UserManager;
