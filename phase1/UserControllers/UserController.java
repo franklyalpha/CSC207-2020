@@ -107,30 +107,7 @@ public class UserController {
         return allSchedule;
     }
 
-    /**
-     * Helper function for getting the UUIDs of available activities.
-     * @param available ArrayList of Strings representing all available activities.
-     * @return Returns an ArrayList of Strings representing the UUIDs of all available activities.
-     */
-    protected ArrayList<String> extractActIDHelper (ArrayList<String[]> available){
-        ArrayList<String> actIDs = new ArrayList<>();
-        for (String[] schedule: available){
-            actIDs.add(schedule[0]);
-        }
-        return actIDs;
-    }
 
-    /**
-     * Helper function for formatting user-inputted times.
-     * @param scheduleInfo String representing user-inputted time information, to be formatted.
-     * @return Returns the formatted time information in LocalDateTime format.
-     */
-    protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
-                LocalDateTime.parse(scheduleInfo[3], df)};
-        return time;
-    }
 
     /**
      * Logs the current user out of the system.

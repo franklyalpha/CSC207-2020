@@ -1,9 +1,11 @@
 package MessagingControllers;
 
+import entities.Room;
 import globalConstants.UserNotFoundException;
 import presenter.Presenter;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
+import useCases.RoomManager;
 import useCases.UserManager;
 
 import java.time.LocalDateTime;
@@ -16,18 +18,18 @@ public class UserMessagingController implements IMessaging {
     protected UserManager userManager;
     protected ActivityManager activityManager;
     protected MessageRoomManager messageRoomManager;
+    protected RoomManager roomManager;
 
 
-    public UserMessagingController(Object[] managers){
-        userManager = (UserManager)managers[2];
+    public UserMessagingController(Object[] managers) {
+        userManager = (UserManager) managers[2];
         activityManager = (ActivityManager) managers[1];
         messageRoomManager = (MessageRoomManager) managers[0];
-
+        roomManager = (RoomManager) managers[3];
     }
 
-
     @Override
-    public void sendPrivateMessage() {
+    public void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
         // for inputs;
         while(true){

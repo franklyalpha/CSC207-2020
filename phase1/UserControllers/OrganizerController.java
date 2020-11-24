@@ -2,17 +2,14 @@ package UserControllers;
 
 
 
+import ActivityControllers.OrganizerActivityController;
 import MessagingControllers.OrganizerMessagingController;
 import globalConstants.*;
-import org.jetbrains.annotations.NotNull;
 import presenter.Presenter;
 import useCases.UserManager;
 
-import java.time.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.UUID;
 
 
 /**
@@ -38,11 +35,13 @@ public class OrganizerController extends UserController {
     private ArrayList<String> availableAction = new ArrayList<>();
     private ArrayList<String> availableMethod = new ArrayList<>();
     private OrganizerMessagingController messageController;
+    private OrganizerActivityController activityController;
 
     public OrganizerController(UserManager manager) {
         super(manager);
-        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager, roomManager};
         messageController = new OrganizerMessagingController(managers);
+        activityController = new OrganizerActivityController(managers);
     }
 
     /**
@@ -81,8 +80,8 @@ public class OrganizerController extends UserController {
         switch(action){
             case 1: createRoom(); break;
             case 2: createSpeaker(); break;
-            case 3: addSchedule(); break;
-            case 4: rescheduleSpeaker(); break;
+            case 3: activityController.addSchedule(); break;
+            case 4: activityController.rescheduleSpeaker(); break;
             case 5: messageController.sendPrivateMessage(); break;
             case 6: messageController.viewPrivateMessage(); break;
             case 7: messageController.sendCoopMessage(); break;
@@ -121,20 +120,7 @@ public class OrganizerController extends UserController {
     create room, create speaker account, modify speaker,
      */
 
-    private LocalDateTime[] periodProcessor(){
-        Scanner start = new Scanner(System.in);
-        //System.out.println("Please input year, month, day, hour, minute of start time IN ORDER: ");
-        Presenter.printTimePrompt("start");
-        LocalDateTime startDateTime = LocalDateTime.of(start.nextInt(),
-                start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt());
 
-        Scanner end = new Scanner(System.in);
-        //System.out.println("Please input year, month, day, hour, minute of end time IN ORDER: ");
-        Presenter.printTimePrompt("end");
-        LocalDateTime endDateTime = LocalDateTime.of(end.nextInt(),
-                end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
-        return new LocalDateTime[]{startDateTime, endDateTime};
-    }
 
 
     /**
@@ -146,78 +132,15 @@ public class OrganizerController extends UserController {
      *
      * @return true iff the schedule is added successfully. 'false' otherwise.
      */
-    protected boolean addSchedule(){
-        while(true){
-            try{
-                LocalDateTime[] targetPeriod = periodProcessor();
-                ArrayList<String> freeSpeaker = userManager.availableSpeakers(targetPeriod);
-                ArrayList<UUID> freeRooms = roomManager.bookingAvailable(targetPeriod);
-                if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
-                    activityCreator(freeSpeaker, freeRooms, targetPeriod);
-                    break;
-                }
-                else{
-                    throw new CannotCreateActivityException("Can't create activity");
-                }
-            }catch(CannotCreateActivityException e){
-                Presenter.printInvalid("time period");
-            }
-        }
-        return true;
+    protected void addSchedule(){
+
 
     }
     //check speaker, positive number.
 
-    private void activityCreator (ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms, LocalDateTime[] targetPeriod) {
-        while(true){
-            try{
-                String[] speakerRoom = getSpeakerRoomTopic(freeSpeaker, freeRooms);
-                checkInfoValid(freeSpeaker, freeRooms, speakerRoom);
-                UUID assignedRoom = freeRooms.get(Integer.getInteger(speakerRoom[1]));
-                Object[] actSetting = new Object[]{targetPeriod, assignedRoom, speakerRoom[2], speakerRoom[0]};
-                newActivitySetter(actSetting);
-                break;
-            }catch(UserNotFoundException e){
-                Presenter.printInvalid("speaker");
-            }catch(IndexOutOfBoundsException e2){
-                Presenter.printInvalid("room index");
-            }
-        }
 
-    }
 
-    private void checkInfoValid(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms, String[] speakerRoom)
-            throws UserNotFoundException {
-        if (!freeSpeaker.contains(speakerRoom[0])){
-            throw new UserNotFoundException("");
-        }
-        if (Integer.getInteger(speakerRoom[1]) < 0 || Integer.getInteger(speakerRoom[1]) >= freeRooms.size()){
-            throw new IndexOutOfBoundsException();
-        }
-    }
 
-    @NotNull
-    private String[] getSpeakerRoomTopic(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms) {
-        Scanner moreInfo = new Scanner(System.in);
-        Presenter.printSpeakerRoomPrompt(freeSpeaker, freeRooms);
-        String topic = moreInfo.nextLine();
-        String speaker = moreInfo.nextLine();
-        int roomIndex = moreInfo.nextInt() - 1;
-        return new String[]{speaker, Integer.toString(roomIndex), topic};
-    }
-
-    private void newActivitySetter(Object[] actSettings){
-        UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
-        LocalDateTime[] targetPeriod = (LocalDateTime[]) actSettings[0];
-        UUID assignedRoom = (UUID) actSettings[1];
-        String topic = (String) actSettings[2];
-        String speaker = (String) actSettings[3];
-        UUID actID = activityManager.addNewActivity(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic);
-        activityManager.addSpeaker(actID, speaker);
-        roomManager.BookRoom(targetPeriod, actID, assignedRoom);
-        userManager.otherAddSchedule(speaker, targetPeriod, actID);
-        messageRoomManager.addUser(speaker, assignedChat);
-    }
 
     /**
      * Providing instructions for user to add a new conference room to the system.
@@ -313,51 +236,11 @@ public class OrganizerController extends UserController {
 
     }
 
-    private String activitySelect(){
-        ArrayList<String[]> allActivities = activityManager.viewUpcommingActivites();
-        if (allActivities.size() == 0){
-            return "";
-        }
-        Presenter.printDescription("all activities");
-        Presenter.printSchedule(allActivities);
-        while(true){
-            try{
-                return checkingValidActivityID(allActivities);
-            }catch(ActivityNotFoundException e){
-                Presenter.printInvalid("activity ID");
-            }
-        }
-    }
 
-    private String checkingValidActivityID(ArrayList<String[]> allActivities)
-            throws ActivityNotFoundException {
-        Scanner actIDGetter = new Scanner(System.in);
-        Presenter.printChangeSpeakerIDPrompt();
-        String actID = actIDGetter.nextLine();
-        if (! extractActIDHelper(allActivities).contains(actID)){
-            throw new ActivityNotFoundException("invalid activity ID");
-        }
-        return actID;
-    }
 
-    private String chooseSpeaker(String[] actInfo, LocalDateTime[] actTime){
-        ArrayList<String> freeSpeakers = userManager.availableSpeakers(actTime);
-        freeSpeakers.add(actInfo[5]);
-        Presenter.printSpeakers(freeSpeakers);
-        while(true){
-            try{
-                Scanner speakerScanner = new Scanner(System.in);
-                Presenter.printSpeakerAssignPrompt();
-                String speaker = speakerScanner.nextLine();
-                if (! freeSpeakers.contains(speaker)){
-                    throw new UserNotFoundException("No such user in list");
-                }
-                return speaker;
-            }catch(UserNotFoundException e){
-                Presenter.printInvalid("speaker's name");
-            }
-        }
-    }
+
+
+
 
     /**
      * Provides instructions for user to reassign another speaker for a given conference.
@@ -368,24 +251,10 @@ public class OrganizerController extends UserController {
      * Finally will update all information.
      */
     protected void rescheduleSpeaker(){
-        String actID = activitySelect();
-        if(actID.equals("")){
-            return;
-        }
-        String[] actInfo = activityManager.searchActivityByUUID(actID);
-        LocalDateTime[] actTime = getTimeHelper(actInfo);
-        String speaker = chooseSpeaker(actInfo, actTime);
-        if (speaker.equals("")){
-            return;
-        }
-        updateRescheduledSpeaker(actInfo, actTime, speaker);
+
     }
 
-    private void updateRescheduledSpeaker(String[] actInfo, LocalDateTime[] actTime, String speaker){
-        activityManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        userManager.deleteActivity(actInfo[5], actTime);
-        userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
-    }
+
 
     /**
      * Provides instructions for sending message to all registered attendee.

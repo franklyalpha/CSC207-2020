@@ -1,5 +1,6 @@
 package UserControllers;
 
+import ActivityControllers.SpeakerActivityController;
 import MessagingControllers.SpeakerMessagingController;
 import presenter.Presenter;
 import useCases.UserManager;
@@ -24,11 +25,13 @@ public class SpeakerController extends OrganizerController {
     private ArrayList<String> availableAction = new ArrayList<>();
     private ArrayList<String> availableMethod = new ArrayList<>();
     private SpeakerMessagingController messagingController;
+    private SpeakerActivityController activityController;
 
     public SpeakerController(UserManager manager){
         super(manager);
         Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
         messagingController = new SpeakerMessagingController(managers);
+        activityController = new SpeakerActivityController(managers);
     }
     /*
     require implementation:
@@ -81,7 +84,7 @@ public class SpeakerController extends OrganizerController {
             case 4: messagingController.sendActivityMessage(); break;
             case 5: messagingController.sendCoopMessage(); break;
             case 6: messagingController.viewCoopChat(); break;
-            case 7: viewEnrolledSchedule(); break;
+            case 7: activityController.viewEnrolledSchedule(); break;
         }
     }
 
