@@ -4,5 +4,4 @@ public enum UserType {
     ORGANIZER,
     ATTENDEE,
     SPEAKER,
-    INVALID,
     }
