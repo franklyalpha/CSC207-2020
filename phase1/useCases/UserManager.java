@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.time.*;
 
+import globalConstants.UserNotFoundException;
 import globalConstants.UserType;
 
 //public class use_cases.UserManager implements java.io.Serializable
@@ -159,7 +160,7 @@ public class UserManager implements java.io.Serializable{
       * @param username the name of user currently logging in.
      * @param passcode the password user has input to login.
      */
-    public UserType loginCheck(String username, String passcode) {
+    public UserType loginCheck(String username, String passcode) throws UserNotFoundException {
         ArrayList<User> allExistingUser = getAllUsers();
         for (User currUser : allExistingUser) {
             if (currUser.getUsername().equals(username) &&
@@ -168,7 +169,7 @@ public class UserManager implements java.io.Serializable{
                 return currUser.getUserType();
             }
         }
-        return UserType.INVALID;
+        throw new UserNotFoundException("Wrong login info");
     }
 
 //    public String loginCheck(int index, String type, String passcode){

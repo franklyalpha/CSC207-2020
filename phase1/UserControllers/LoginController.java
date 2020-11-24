@@ -1,5 +1,6 @@
 package UserControllers;
 
+import globalConstants.UserNotFoundException;
 import globalConstants.UserType;
 import useCases.UserManager;
 import gateways.*;
@@ -63,7 +64,12 @@ public class LoginController {
      * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
      */
     private UserType checkLoginCondition(String username, String password){
-        return userManager.loginCheck(username, password);
+        try{
+            return userManager.loginCheck(username, password);
+        }catch(UserNotFoundException e){
+            e.printStackTrace();
+        }
+        return null;
     }
     /**
      * Determine whether the input is wrong.
