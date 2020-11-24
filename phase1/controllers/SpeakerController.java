@@ -25,9 +25,12 @@ public class SpeakerController extends OrganizerController {
      */
     private ArrayList<String> availableAction = new ArrayList<>();
     private ArrayList<String> availableMethod = new ArrayList<>();
+    private SpeakerMessagingController messagingController;
 
     public SpeakerController(UserManager manager){
         super(manager);
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        messagingController = new SpeakerMessagingController(managers);
     }
     /*
     require implementation:
@@ -74,12 +77,12 @@ public class SpeakerController extends OrganizerController {
 
     private void runMethod (int action){
         switch(action){
-            case 1: sendPrivateMessage(); break;
-            case 2: viewPrivateMessage(); break;
-            case 3: viewGroupMessage(); break;
-            case 4: sendActivityMessage(); break;
-            case 5: sendCoopMessage(); break;
-            case 6: viewCoopChat(); break;
+            case 1: messagingController.sendPrivateMessage(); break;
+            case 2: messagingController.viewPrivateMessage(); break;
+            case 3: messagingController.viewGroupMessage(); break;
+            case 4: messagingController.sendActivityMessage(); break;
+            case 5: messagingController.sendCoopMessage(); break;
+            case 6: messagingController.viewCoopChat(); break;
             case 7: viewEnrolledSchedule(); break;
         }
     }
@@ -118,59 +121,14 @@ public class SpeakerController extends OrganizerController {
      * and send a message to all other users participated in this activity.
      */
     protected void sendActivityMessage(){
-        ArrayList<String[]> info = showEnrolledSchedule();
-        if (info.size() == 0){
-            Presenter.printNotEnrolled();
-            return;
-        }
-        UUID chatID = findRightChat(info);
-        Scanner messageScanner = new Scanner(System.in);
-        Presenter.printMessagePrompt();
-        String message = messageScanner.nextLine();
-        messageRoomManager.sendMessage(message, chatID);
+
     }
 
-    private ArrayList<String[]> showEnrolledSchedule(){
-        HashMap<LocalDateTime[], UUID> schedulesEnrolled = userManager.schedules();
-        ArrayList<String[]> info = new ArrayList<>();
-        for (UUID actID: schedulesEnrolled.values()){
-            info.add(activityManager.searchActivityByUUID(actID.toString()));
-        }
-        Presenter.printDescription("activities you've enrolled");
-        Presenter.printSchedule(info);
-        return info;
-    }
 
-    private UUID findRightChat(ArrayList<String[]> info){
-        int actID;
-        actID = chatIDInput(info);
-        return activityManager.getConferenceChat(
-                UUID.fromString(info.get(actID - 1)[0]));
-    }
 
-    private int chatIDInput(ArrayList<String[]> info) {
-        int actID;
-        while(true){
-            try{
-                actID = determineChatIDValidity(info);
-                break;
-            }catch(IndexOutOfBoundsException e){
-                Presenter.printInvalid("index of chat list");
-            }
-        }
-        return actID;
-    }
 
-    private int determineChatIDValidity(ArrayList<String[]> info)
-            throws IndexOutOfBoundsException{
-        Scanner actIDScanner = new Scanner(System.in);
-        Presenter.printActivityMessagePrompt();
-        int actID = actIDScanner.nextInt();
-        if (actID < 1 || actID > info.size()){
-            throw new IndexOutOfBoundsException("invalid index for chat");
-        }
-        return actID;
-    }
+
+
 
 
     private boolean continuing(){

@@ -27,12 +27,15 @@ public class AttendantController extends UserController{
      */
     ArrayList<String> availableAction = new ArrayList<>();
     ArrayList<String> availableMethod = new ArrayList<>();
+    AttendantMessagingController messagingController;
 
     /**
      * Creates <code>AttendantController</code> with all use-case classes being initialized.
      */
     public AttendantController(UserManager manager){
         super(manager);
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        messagingController = new AttendantMessagingController(managers);
     }
     /*
     require implementation:
@@ -76,9 +79,9 @@ public class AttendantController extends UserController{
             case 2: viewEnrolledSchedule(); break;
             case 3: enrollConference(); break;
             case 4: cancelEnrollment(); break;
-            case 5: sendPrivateMessage(); break;
-            case 6: viewPrivateMessage(); break;
-            case 7: viewGroupMessage(); break;
+            case 5: messagingController.sendPrivateMessage(); break;
+            case 6: messagingController.viewPrivateMessage(); break;
+            case 7: messagingController.viewGroupMessage(); break;
         }
     }
 

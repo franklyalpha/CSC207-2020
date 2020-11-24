@@ -36,9 +36,12 @@ public class OrganizerController extends UserController {
      */
     private ArrayList<String> availableAction = new ArrayList<>();
     private ArrayList<String> availableMethod = new ArrayList<>();
+    private OrganizerMessagingController messageController;
 
     public OrganizerController(UserManager manager) {
         super(manager);
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        messageController = new OrganizerMessagingController(managers);
     }
 
     /**
@@ -79,11 +82,11 @@ public class OrganizerController extends UserController {
             case 2: createSpeaker(); break;
             case 3: addSchedule(); break;
             case 4: rescheduleSpeaker(); break;
-            case 5: sendPrivateMessage(); break;
-            case 6: viewPrivateMessage(); break;
-            case 7: sendCoopMessage(); break;
-            case 8: viewCoopChat(); break;
-            case 9: messageAllAttendee(); break;
+            case 5: messageController.sendPrivateMessage(); break;
+            case 6: messageController.viewPrivateMessage(); break;
+            case 7: messageController.sendCoopMessage(); break;
+            case 8: messageController.viewCoopChat(); break;
+            case 9: messageController.messageAllAttendee(); break;
         }
     }
 
@@ -297,9 +300,7 @@ public class OrganizerController extends UserController {
      * Will printout messages being sent in chats involving only organizers and speakers.
      */
     protected void viewCoopChat(){
-        UUID coopChatID = messageRoomManager.getCoopId();
-        ArrayList<String> message = messageRoomManager.getHistoricalChats(coopChatID);
-        Presenter.printMessagesInInterval(message, 1, message.size());
+
     }
 
     /**
@@ -308,12 +309,7 @@ public class OrganizerController extends UserController {
      * Will ask user to input the message want to send during running.
      */
     protected void sendCoopMessage(){
-        UUID coopChatID = messageRoomManager.getCoopId();
-        Scanner messenger = new Scanner(System.in);
-        //System.out.println("Please input your message below: ");
-        Presenter.printMessagePrompt();
-        String message = messenger.nextLine();
-        messageRoomManager.sendMessage(message, coopChatID);
+
     }
 
     private String activitySelect(){
@@ -396,17 +392,7 @@ public class OrganizerController extends UserController {
      * Will ask for messages to send during running.
      */
     protected void messageAllAttendee() {
-        try{
-            ArrayList<String> attendeeName = userManager.allAttendee();
-            Scanner messageScanner = new Scanner(System.in);
-            Presenter.printMessagePrompt();
-            String message = messageScanner.nextLine();
-            for (String attendee : attendeeName){
-                send(attendee, message);
-            }
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+
 
     }
     private boolean continuing(){
