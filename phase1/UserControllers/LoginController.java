@@ -67,7 +67,7 @@ public class LoginController {
         try{
             return userManager.loginCheck(username, password);
         }catch(UserNotFoundException e){
-            e.printStackTrace();
+            Presenter.printInvalid("password or username");
         }
         return null;
     }
@@ -144,9 +144,10 @@ public class LoginController {
         String userName = type.nextLine();
         Presenter.printPasswordPrompt();
         String password = type.nextLine();
-
         UserType loginCondition = checkLoginCondition(userName, password);
-
+        if (loginCondition == null){
+            return;
+        }
         userControllDistributor(loginCondition);
     }
 
@@ -168,7 +169,6 @@ public class LoginController {
                 break;
             }
             default:
-                Presenter.printInvalid("password or username");
                 break;
         }
     }
