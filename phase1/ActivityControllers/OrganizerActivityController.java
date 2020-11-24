@@ -2,7 +2,6 @@ package ActivityControllers;
 
 import globalConstants.CannotCreateActivityException;
 import globalConstants.UserNotFoundException;
-import org.jetbrains.annotations.NotNull;
 import presenter.Presenter;
 
 import java.time.LocalDateTime;
@@ -63,7 +62,6 @@ public class OrganizerActivityController extends AdministrativeActivityCOntrolle
         }
     }
 
-    @NotNull
     private String[] getSpeakerRoomTopic(ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms) {
         Scanner moreInfo = new Scanner(System.in);
         Presenter.printSpeakerRoomPrompt(freeSpeaker, freeRooms);

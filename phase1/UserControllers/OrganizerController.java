@@ -4,7 +4,6 @@ package UserControllers;
 
 import ActivityControllers.OrganizerActivityController;
 import MessagingControllers.OrganizerMessagingController;
-import com.sun.istack.internal.NotNull;
 import globalConstants.*;
 import presenter.Presenter;
 import useCases.UserManager;
@@ -170,11 +169,9 @@ public class OrganizerController extends UserController {
         int a = input.nextInt();
         if (a > 0){
             roomManager.addRoom(a);
-            //System.out.println("This new room capacity is " + a);
             Presenter.printRoomCapacityConfirmation(a);
         }
         else{
-            //System.out.println("Invalid capacity.");
             throw new Exception();
         }
     }
