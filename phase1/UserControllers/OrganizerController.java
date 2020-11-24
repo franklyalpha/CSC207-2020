@@ -3,8 +3,8 @@ package UserControllers;
 
 
 import MessagingControllers.OrganizerMessagingController;
+import com.sun.istack.internal.NotNull;
 import globalConstants.*;
-import org.jetbrains.annotations.NotNull;
 import presenter.Presenter;
 import useCases.UserManager;
 
