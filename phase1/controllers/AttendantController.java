@@ -1,5 +1,6 @@
 package controllers;
 
+import globalConstants.ActivityNotFoundException;
 import presenter.Presenter;
 import useCases.UserManager;
 
@@ -151,13 +152,25 @@ public class AttendantController extends UserController{
         ArrayList<String[]> available = availableSchedules();
         ArrayList<String> actIDs = extractActIDHelper(available);
 
-        String activityID = findActivityID(available, "enroll");
-        String[] temp = activityManager.searchActivityByUUID(activityID);
-        if (actIDs.contains(activityID)){
-            addEnrollment(temp, activityID, userName);
-        }
-        else{
-            Presenter.printInvalid("activity ID");
+        chooseActToEnroll(userName, available, actIDs);
+    }
+
+    private void chooseActToEnroll(ArrayList<String> userName, ArrayList<String[]> available,
+                                   ArrayList<String> actIDs) {
+        while(true){
+            try{
+                String activityID = findActivityID(available, "enroll");
+                String[] temp = activityManager.searchActivityByUUID(activityID);
+                if (actIDs.contains(activityID)){
+                    addEnrollment(temp, activityID, userName);
+                    break;
+                }
+                else{
+                    throw new ActivityNotFoundException("The ID of activity isn't right");
+                }
+            }catch(ActivityNotFoundException e){
+                Presenter.printInvalid("activity ID");
+            }
         }
     }
 
@@ -193,13 +206,25 @@ public class AttendantController extends UserController{
         userName.add(userManager.currentUsername());
         ArrayList<String[]> enrolled = viewEnrolledSchedule();
         ArrayList<String> actIDs = extractActIDHelper(enrolled);
-        String activityID = findActivityID(enrolled, "cancel");
 
-        if(actIDs.contains(activityID)){
-            cancelEnrollmentUpdate(userName, activityID);
-        }
-        else{
-            Presenter.printInvalid("activity ID");
+        chooseActToCancel(userName, enrolled, actIDs);
+    }
+
+    private void chooseActToCancel(ArrayList<String> userName, ArrayList<String[]> enrolled,
+                                   ArrayList<String> actIDs) {
+        while (true){
+            try{
+                String activityID = findActivityID(enrolled, "cancel");
+                if(actIDs.contains(activityID)){
+                    cancelEnrollmentUpdate(userName, activityID);
+                    break;
+                }
+                else{
+                    throw new ActivityNotFoundException("You aren't enrolled in this activity");
+                }
+            }catch(ActivityNotFoundException e){
+                Presenter.printInvalid("activity ID");
+            }
         }
     }
 
