@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class OrganizerActivityController extends AdministrativeActivityCOntroller implements IOrganizerActivity{
+public class OrganizerActivityController extends AdministrativeActivityController implements IOrganizerActivity{
 
     public OrganizerActivityController(Object[] managers) {
         super(managers);

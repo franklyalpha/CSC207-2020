@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class AdministrativeActivityCOntroller extends UserActivityController implements IAdministrativeActivity {
-    public AdministrativeActivityCOntroller(Object[] managers) {
+public class AdministrativeActivityController extends UserActivityController implements IAdministrativeActivity {
+    public AdministrativeActivityController(Object[] managers) {
         super(managers);
     }
 
