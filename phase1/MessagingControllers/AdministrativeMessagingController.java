@@ -1,6 +1,5 @@
-package controllers;
+package MessagingControllers;
 
-import entities.User;
 import presenter.Presenter;
 
 import java.util.ArrayList;

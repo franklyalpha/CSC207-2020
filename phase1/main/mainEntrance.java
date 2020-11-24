@@ -1,6 +1,6 @@
 package main;
 
-import controllers.LoginController;
+import UserControllers.LoginController;
 
 public class mainEntrance {
     public static void main(String[] args){

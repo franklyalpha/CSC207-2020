@@ -1,11 +1,9 @@
-package controllers;
+package UserControllers;
 
 import gateways.GatewayActivity;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
 import gateways.GatewayUser;
-import globalConstants.UserNotFoundException;
-import globalConstants.UserType;
 import presenter.Presenter;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
@@ -15,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.UUID;
 
 //public abstract class controllers.UserController

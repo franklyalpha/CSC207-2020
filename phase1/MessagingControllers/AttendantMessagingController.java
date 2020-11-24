@@ -1,4 +1,4 @@
-package controllers;
+package MessagingControllers;
 
 public class AttendantMessagingController extends UserMessagingController implements IAttendantMessaging{
 

@@ -1,4 +1,4 @@
-package controllers;
+package MessagingControllers;
 
 import globalConstants.UserNotFoundException;
 import presenter.Presenter;

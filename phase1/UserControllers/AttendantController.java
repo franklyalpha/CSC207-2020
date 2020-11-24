@@ -1,5 +1,6 @@
-package controllers;
+package UserControllers;
 
+import MessagingControllers.AttendantMessagingController;
 import globalConstants.ActivityNotFoundException;
 import presenter.Presenter;
 import useCases.UserManager;

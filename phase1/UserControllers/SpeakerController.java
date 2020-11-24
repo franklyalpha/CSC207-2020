@@ -1,13 +1,11 @@
-package controllers;
+package UserControllers;
 
+import MessagingControllers.SpeakerMessagingController;
 import presenter.Presenter;
 import useCases.UserManager;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.UUID;
 
 /**
  * Represents a <code>SpeakerController</code> extends from <code>UserController</code>.

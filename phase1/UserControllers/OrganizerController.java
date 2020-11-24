@@ -1,7 +1,8 @@
-package controllers;
+package UserControllers;
 
 
 
+import MessagingControllers.OrganizerMessagingController;
 import globalConstants.*;
 import org.jetbrains.annotations.NotNull;
 import presenter.Presenter;

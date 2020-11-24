@@ -8,7 +8,7 @@ There are two choices to create an account(organizer and attendant), with organi
 only be created by organizer). There are instructions provided for each step on console, simply follow them and test all
 functionalities of this program.
 
-When you want to quit the program, please first logout from user controllers. To logout first choose a task for user
+When you want to quit the program, please first logout from user UserControllers. To logout first choose a task for user
 controller to complete, then type 'false' when prompt "Continue for other services? Please enter true or false.
 (false for log out)" is printed. After logging out, type 'N' or 'No' when following prompt is printed:
 "Continue running or not? (type "(Y)es" or "(N)o")". Then the program will be terminated safely and four .txt files

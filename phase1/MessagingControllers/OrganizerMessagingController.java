@@ -1,11 +1,10 @@
-package controllers;
+package MessagingControllers;
 
 import globalConstants.UserNotFoundException;
 import presenter.Presenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class OrganizerMessagingController extends AdministrativeMessagingController
         implements IOrganizerMessaging {

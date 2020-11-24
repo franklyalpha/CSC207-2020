@@ -1,6 +1,5 @@
-package controllers;
+package UserControllers;
 
-import entities.User;
 import globalConstants.UserType;
 import useCases.UserManager;
 import gateways.*;

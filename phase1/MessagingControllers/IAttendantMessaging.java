@@ -1,4 +1,4 @@
-package controllers;
+package MessagingControllers;
 
 public interface IAttendantMessaging extends IMessaging{
 }

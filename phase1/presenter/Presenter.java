@@ -1,8 +1,6 @@
 package presenter;
 import java.util.*;
 
-import controllers.OrganizerController;
-
 import java.util.ArrayList;
 
 /**
