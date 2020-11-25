@@ -83,11 +83,11 @@ public class LoginController {
             Presenter.printWrongInputMenu();
             Scanner nextChoice = new Scanner(System.in);
             String choice = nextChoice.nextLine();
-            if (choice.equals("Y") || choice.equals("Yes")){
+            if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
                 notStop = true;
                 validInput = true;
             }
-            else if (choice.equals("N") || choice.equals("No")){
+            else if (choice.equals("N") || choice.equals("No") || choice.equals("n") || choice.equals("no")){
                 validInput = true;
             }
             else{
