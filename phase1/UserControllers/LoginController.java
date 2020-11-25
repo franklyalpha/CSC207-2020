@@ -48,6 +48,7 @@ public class LoginController {
                     handleLogin();
                     break;
                 case "Q":
+                case "q":
                     return;
                 default:
                     Presenter.printInvalid("input");
@@ -98,7 +99,7 @@ public class LoginController {
     }
 
     /**
-     * handle the sigh up system for user to sign up.
+     * Handle the sign up system for users to sign up.
      * Information include: usertype want to signup, name, and password.
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
@@ -148,10 +149,10 @@ public class LoginController {
         if (loginCondition == null){
             return;
         }
-        userControllDistributor(loginCondition);
+        userControlDistributor(loginCondition);
     }
 
-    private void userControllDistributor(UserType loginCondition) {
+    private void userControlDistributor(UserType loginCondition) {
         switch (loginCondition) {
             case ORGANIZER: {
                 OrganizerController org = new OrganizerController(userManager);

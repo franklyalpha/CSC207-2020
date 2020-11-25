@@ -33,7 +33,7 @@ public class Presenter {
      * Prints out the instruction to ask for operations on sign up, login or quit the program.
      */
     public static void printLoginMenu(){
-        System.out.println("Enter your choice:\n[0] SignUp\n[1] Login\n[Q] uit");
+        System.out.println("What would you like to do?\n[0] Sign Up\n[1] Log in\n[Q] Quit");
     }
 
     /**
@@ -48,7 +48,7 @@ public class Presenter {
      * @param userType the type of user in <code>String</code>; possible types include 'organizer', 'attendee' and so on.
      */
     public static void printNewUserCreated(String userType){
-        System.out.println("New " + userType + " Created!");
+        System.out.println("New " + userType + " account created!");
     }
 
     /**
@@ -77,7 +77,7 @@ public class Presenter {
      * Prints out instruction to ask the user to input a unique username.
      */
     public static void printUsernamePrompt(){
-        System.out.println("Please enter your username (NOTE: Your username is different from your signup name):");
+        System.out.println("Please enter your username (NOTE: Your username is different from your ACTUAL name):");
     }
 
     /**
@@ -92,7 +92,8 @@ public class Presenter {
      * @param username String representing the username.
      */
     public static void printUsernameIs(String username){
-        System.out.println("Your username is: " + username);
+        System.out.println("Your username is: " + username +
+                ". You will use this to log in, so remember it!");
     }
 
     //UserController presenters ****************************************************************************************
