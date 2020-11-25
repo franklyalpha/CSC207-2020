@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Includes:
  * Own constructor
  * sendActivityMessage: a method responsible for guiding the user to choose a conference
- * and send message to all attendants enrolled.
+ * and send message to all attendees enrolled.
  */
 public class SpeakerController extends OrganizerController {
     /**

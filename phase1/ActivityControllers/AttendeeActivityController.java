@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class AttendantActivityController extends UserActivityController implements IAttendantActivity{
-    public AttendantActivityController(Object[] managers) {
+public class AttendeeActivityController extends UserActivityController implements IAttendeeActivity{
+    public AttendeeActivityController(Object[] managers) {
         super(managers);
     }
 
@@ -62,7 +62,7 @@ public class AttendantActivityController extends UserActivityController implemen
         userManager.selfAddSchedule(time, UUID.fromString(activityID));
         UUID conferenceChat = activityManager.getConferenceChat(UUID.fromString(temp[0]));
         messageRoomManager.addUser(userName, conferenceChat);
-        activityManager.addAttendant(UUID.fromString(activityID), userManager.currentUsername());
+        activityManager.addAttendee(UUID.fromString(activityID), userManager.currentUsername());
     }
 
     @Override
@@ -95,7 +95,7 @@ public class AttendantActivityController extends UserActivityController implemen
 
     private void cancelEnrollmentUpdate(ArrayList<String> userName, String activityID){
         UUID actID = UUID.fromString(activityID);
-        activityManager.removeAttendant(actID, userManager.currentUsername());
+        activityManager.removeAttendee(actID, userManager.currentUsername());
         messageRoomManager.removeUser(userName,activityManager.getConferenceChat(actID));
         String[] actInfo = activityManager.searchActivityByUUID(activityID);
         LocalDateTime[] time = getTimeHelper(actInfo);

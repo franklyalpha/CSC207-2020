@@ -64,7 +64,7 @@ public class UserActivityController implements IActivity {
     }
 
     /**
-     * Print out the schedule of all activities this attendant can sign in.
+     * Print out the schedule of all activities this attendee can sign in.
      * Information include: topic of activity, start time and end time, ID of assigned room,
      * ID of this activity and name of speaker.
      * Specific format will be determined in Presenter.
@@ -89,7 +89,7 @@ public class UserActivityController implements IActivity {
     }
 
     private boolean checkIsConflict(String[] info){
-        if (!roomManager.CheckRoomFullness(activityManager.numAttendant(UUID.fromString(info[0])),
+        if (!roomManager.CheckRoomFullness(activityManager.numAttendee(UUID.fromString(info[0])),
                 UUID.fromString(info[4]))){
             return true;
         }

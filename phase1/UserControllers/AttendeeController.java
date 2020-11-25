@@ -1,7 +1,7 @@
 package UserControllers;
 
-import ActivityControllers.AttendantActivityController;
-import MessagingControllers.AttendantMessagingController;
+import ActivityControllers.AttendeeActivityController;
+import MessagingControllers.AttendeeMessagingController;
 import presenter.Presenter;
 import useCases.UserManager;
 
@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 
 /**
- * Represents a <code>AttendantController</code> extends from <code>UserController</code>.
- * Is specific for <code>Attendant</code> type usage.
+ * Represents a <code>AttendeeController</code> extends from <code>UserController</code>.
+ * Is specific for <code>Attendee</code> type usage.
  * Includes:
  * Own constructor
  * run: the method for receiving user's inputs for actions and call corresponding method.
@@ -19,24 +19,24 @@ import java.util.Scanner;
  * enrollConference: responsible for enrolling the user into available conference after checking constraints.
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
-public class AttendantController extends UserController{
+public class AttendeeController extends UserController{
     /**
      * an Arraylist of <code>availableAction</code>;
      * an Arraylist of <code>availableMethod</code>;
      */
     ArrayList<String> availableAction = new ArrayList<>();
     ArrayList<String> availableMethod = new ArrayList<>();
-    AttendantMessagingController messagingController;
-    AttendantActivityController activityController;
+    AttendeeMessagingController messagingController;
+    AttendeeActivityController activityController;
 
     /**
-     * Creates <code>AttendantController</code> with all use-case classes being initialized.
+     * Creates <code>AttendeeController</code> with all use-case classes being initialized.
      */
-    public AttendantController(UserManager manager){
+    public AttendeeController(UserManager manager){
         super(manager);
         Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
-        messagingController = new AttendantMessagingController(managers);
-        activityController = new AttendantActivityController(managers);
+        messagingController = new AttendeeMessagingController(managers);
+        activityController = new AttendeeActivityController(managers);
     }
     /*
     require implementation:
@@ -45,7 +45,7 @@ public class AttendantController extends UserController{
      */
 
     /**
-     * This method allows users to do actions corresponding to attendant's allowed actions.
+     * This method allows users to do actions corresponding to attendee's allowed actions.
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */

@@ -125,7 +125,7 @@ public class LoginController {
             }
             case 1: {
                 handleCreateNewUser(UserType.ATTENDEE);
-                Presenter.printNewUserCreated("Attendant");
+                Presenter.printNewUserCreated("Attendee");
                 break;
             }
             default: Presenter.printInvalid("input");
@@ -164,7 +164,7 @@ public class LoginController {
                 break;
             }
             case ATTENDEE: {
-                AttendantController att = new AttendantController(userManager);
+                AttendeeController att = new AttendeeController(userManager);
                 att.run();
                 break;
             }

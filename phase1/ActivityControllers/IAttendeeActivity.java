@@ -1,6 +1,6 @@
 package ActivityControllers;
 
-public interface IAttendantActivity extends IActivity{
+public interface IAttendeeActivity extends IActivity{
     void enrollConference();
     void cancelEnrollment();
 }

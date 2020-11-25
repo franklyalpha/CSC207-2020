@@ -56,7 +56,7 @@ public class Presenter {
      * when a task is unexpectedly terminated.
      */
     public static void printWrongInputMenu(){
-        System.out.println("Continue running or not? (type \"(Y)es\" or \"(N)o\")");
+        System.out.println("Would you like to continue? (type \"(Y)es\" or \"(N)o\")");
     }
 
     /**

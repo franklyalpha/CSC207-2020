@@ -17,7 +17,7 @@ public class Activity implements java.io.Serializable {
     */
     //private final ArrayList<String> speakers;
     private String speakers;
-    private final ArrayList<String> attendantList;
+    private final ArrayList<String> attendeeList;
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -39,7 +39,7 @@ public class Activity implements java.io.Serializable {
     public Activity(LocalDateTime[] period, UUID[] chatRoomID,
                     String topic){
         this.speakers = null;
-        this.attendantList = new ArrayList<>();
+        this.attendeeList = new ArrayList<>();
         this.startTime = period[0];
         this.endTime = period[1];
         this.duration = Duration.between(startTime, endTime);
@@ -51,13 +51,13 @@ public class Activity implements java.io.Serializable {
     }
 
     /**
-     * Determine whether this attendant should be added.
-     * @return <CODE>true</CODE> if this attendant not in the Arraylist of attendants,
+     * Determine whether this attendee should be added.
+     * @return <CODE>true</CODE> if this attendee not in the Arraylist of attendees,
      * <CODE>false</CODE> otherwise
      */
-    public boolean addAttendantsToList(String attendant){
-        if(!this.attendantList.contains(attendant)){
-            this.attendantList.add(attendant);
+    public boolean addAttendeesToList(String attendee){
+        if(!this.attendeeList.contains(attendee)){
+            this.attendeeList.add(attendee);
             return true;
         }else{
             return false;
@@ -65,11 +65,11 @@ public class Activity implements java.io.Serializable {
     }
 
     //phase 2 may use this method.
-    public boolean addAttendantsToList(ArrayList<String> attendantList){
+    public boolean addAttendeesToList(ArrayList<String> attendeeList){
         boolean addedAll = true;
-        for(String i: attendantList){
-            if(this.attendantList.contains(i)) {
-                this.attendantList.add(i);
+        for(String i: attendeeList){
+            if(this.attendeeList.contains(i)) {
+                this.attendeeList.add(i);
             }else{
                 addedAll = false;
             }
@@ -78,11 +78,11 @@ public class Activity implements java.io.Serializable {
     }
 
     /**
-     * Determine whether this attendant has been removed.
-     * @return <CODE>true</CODE> if this attendant has been removed form the Arraylist of attendants.
+     * Determine whether this attendee has been removed.
+     * @return <CODE>true</CODE> if this attendee has been removed form the Arraylist of attendees.
      * <CODE>false</CODE> otherwise
      */
-    public boolean removeAttendant(String attendant){return this.attendantList.remove(attendant);}
+    public boolean removeAttendee(String attendee){return this.attendeeList.remove(attendee);}
 
     /**
      * Determine whether this speaker has been added.
@@ -162,11 +162,11 @@ public class Activity implements java.io.Serializable {
     }
 
     /**
-     * Gets an attendants list in this <code>Activity</code>.
-     * @return A list of strings corresponding to the attendants of <code>attendants</code> in this
+     * Gets an attendees list in this <code>Activity</code>.
+     * @return A list of strings corresponding to the attendees of <code>attendees</code> in this
      * <code>Activity</code>.
      */
-    public ArrayList<String> getAttendantList(){return this.attendantList;}
+    public ArrayList<String> getAttendeeList(){return this.attendeeList;}
 
     /**
      * Gets an speakers list in this <code>Activity</code>.

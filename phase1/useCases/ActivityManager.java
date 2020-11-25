@@ -17,17 +17,20 @@ import java.util.*;
  * addSpeaker: will add/replace speakers of a conference.
  * getConferenceChat: will return the UUID of unique chat associated with this confernece.
  * viewUpcommingActivites: will provide info for all activities not yet begun.
- * addAttendant: will add an attendant towards participant list of this conference.
- * numAttendant: will return the number of participants currently have.
- * removeAttendant: will remove an attendant from participant list.
+ * addAttendee: will add an attendee towards participant list of this conference.
+ * numAttendee: will return the number of participants currently have.
+ * removeAttendee: will remove an attendee from participant list.
  */
 public class ActivityManager implements java.io.Serializable{
 
     /**
-     * @param upcomingActivities: activities that are currently not begin.
-     * @param archivedActivities: activities that have completed.
-     */
+     * Represents activities that have not yet begun.
+    */
     private final ArrayList<Activity> upcomingActivities;
+
+     /**
+     * Represents activities that have already been completed.
+     */
     private final ArrayList<Activity> archivedActivities;
     // consider modifying as Hashmaps
 
@@ -105,7 +108,7 @@ public class ActivityManager implements java.io.Serializable{
 
     private LocalDateTime[] timeProcessing(Activity act){
         LocalDateTime[] time = new LocalDateTime[2];
-        time[0] = act.getStartTime();;
+        time[0] = act.getStartTime();
         time[1] = act.getEndTime();
         return time;
     }
@@ -161,39 +164,39 @@ public class ActivityManager implements java.io.Serializable{
     }
 
     /**
-     * will add the given attendant's name into participant list.
-     * @param activity the UUID of activity requiring adding an attendant.
-     * @param attendant the username of attendant who is going to enroll into the given activity.
-     * @return true iff the attendant is added successfully. 'false' otherwise.
+     * will add the given attendee's name into participant list.
+     * @param activity the UUID of activity requiring adding an attendee.
+     * @param attendee the username of attendee who is going to enroll into the given activity.
+     * @return true iff the attendee is added successfully. 'false' otherwise.
      */
     //method that add attendees
-    public boolean addAttendant(UUID activity,String attendant){
+    public boolean addAttendee(UUID activity,String attendee){
         Activity a = findActivity(activity);
-        return a.addAttendantsToList(attendant);
+        return a.addAttendeesToList(attendee);
     }
 
     /**
-     * return the number of existing attendants participated in given activity.
+     * return the number of existing attendees participated in given activity.
      * @param activity the UUID of activity that the user wants to know about number of participants.
      * @return an <code>int</code> representing number of participants for this activity.
      */
     //method that get the num of attendees in certain activity.
-    public int numAttendant(UUID activity){
+    public int numAttendee(UUID activity){
         Activity a = findActivity(activity);
-        return a.getAttendantList().size();
+        return a.getAttendeeList().size();
     }
 
     /**
-     * Will remove the given attendant from given activity represented by UUID.
-     * @param activity: <code>UUID</code> of given activity requiring removing attendant.
-     * @param attendant: a <code>String</code> representing the username of attendant
+     * Will remove the given attendee from given activity represented by UUID.
+     * @param activity: <code>UUID</code> of given activity requiring removing attendee.
+     * @param attendee: a <code>String</code> representing the username of attendee
      *                 needed to be deleted.
-     * @return true iff the attendant is deleted successfully. (false otherwise)
+     * @return true iff the attendee is deleted successfully. (false otherwise)
      */
     //method that remove the attendee from certain activity.
-    public boolean removeAttendant(UUID activity,String attendant) {
+    public boolean removeAttendee(UUID activity,String attendee) {
         Activity a = findActivity(activity);
-        return a.removeAttendant(attendant);
+        return a.removeAttendee(attendee);
 
     }
 
