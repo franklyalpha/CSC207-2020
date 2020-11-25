@@ -26,25 +26,8 @@ public class Presenter {
     public static void printInvalid(String obj){
         System.out.println("Invalid " + obj + "!!!");
     }
-    /*Replace:
-    -System.out.println("invalid input! try again; \n");
-    -System.out.println("Invalid password or Username");
-    -System.out.println("Invalid username or usertype! Try again later!");
-    -System.out.println("invalid action.");
-    -System.out.println("Invalid activity ID.");
-    -System.out.println("Invalid time period! Please reconsider another time!!!");
-    -System.out.println("Invalid capacity.");
-    -System.out.println("invalid activity ID! try again later");
-    -System.out.println("invalid speaker! try again later");
-    -System.out.println("invalid input!!! try again later. ");
-    -System.out.println("Wrong input!!! Try again later. ");
-    -System.out.println("Wrong password!!!");
-    -System.out.println("Username not found!!!");
-    -System.out.println("Wrong user type!!!\n");
-    input, activity ID, username or password/usertype, action, time period, capacity, speaker, password, username
-    */
 
-    //LoginController presenters
+    //LoginController presenters ***************************************************************************************
 
     /**
      * Prints out the instruction to ask for operations on sign up, login or quit the program.
@@ -59,24 +42,14 @@ public class Presenter {
     public static void printPasswordPrompt(){
         System.out.println("Enter Password:");
     }
-    /* Replace:
-    System.out.println("Please enter your password:");
-    System.out.println("Enter Password:");
-    System.out.println("Enter the password of this Speaker");
-    */
 
     /**
      * Prints out the message that a new type of user has been created.
-     * @param userType the type of user in <code>String</code>; possible types include 'organizer', 'attendant' and so on.
+     * @param userType the type of user in <code>String</code>; possible types include 'organizer', 'attendee' and so on.
      */
     public static void printNewUserCreated(String userType){
         System.out.println("New " + userType + " Created!");
     }
-    /* Replace:
-    System.out.println("New Organizer Created!");
-    System.out.println("New Attendant Created!");
-    Organizer, Attendant
-     */
 
     /**
      * Prints out instructions to ask the user whether to continue after completing a task or
@@ -90,14 +63,14 @@ public class Presenter {
      * Prints out instructions to ask the user the usertype the user wants to sign up for.
      */
     public static void printSighUpMenu(){
-        System.out.println("Enter the usertype you want to sign up: [0] Organizer [1] Attendant");
+        System.out.println("Please enter the user-type you wish to sign up as: [0] Organizer [1] Attendee");
     }
 
     /**
      * Prints out instructions to ask the user to state user-type.
      */
     public static void printHandleLoginMenu(){
-        System.out.println("Please enter your usertype [0] Organizer [1] Speaker [2] Attendant");
+        System.out.println("Please enter your user-type: [0] Organizer [1] Speaker [2] Attendee");
     }
 
     /**
@@ -111,7 +84,7 @@ public class Presenter {
      * Prints out instruction to ask the user to enter their name.
      */
     public static void printEnterName(){
-        System.out.println("Enter your name:");
+        System.out.println("Please enter your name:");
     }
 
     /**
@@ -119,19 +92,17 @@ public class Presenter {
      * @param username String representing the username.
      */
     public static void printUsernameIs(String username){
-        System.out.println("Your username is " + username);
+        System.out.println("Your username is: " + username);
     }
 
-    //UserController presenters
+    //UserController presenters ****************************************************************************************
 
     /**
      * Prints out instruction to ask the user to enter the username of the person they wish to contact.
      */
     public static void printUserToContactPrompt(){
-        System.out.println("please input the username of the person you wish to contact");
+        System.out.println("Please input the username of the person you wish to contact: ");
     }
-
-    //side note: this kinda sounds redundant
 
     /**
      * Prints out each item in the input list.
@@ -163,23 +134,23 @@ public class Presenter {
      * @param item String representing item to ask user to select.
      */
     public static void printContactPrompt(String item){
-        System.out.println("Please select a " + item + ": (just copy and paste the line)");
+        System.out.println("Please select a " + item + " by copying and pasting the line: ");
     }
 
     /**
      * Prints out instruction to ask user what type of user they are trying to contact.
      */
     public static void printTypeToContactPrompt(){
-        System.out.println("Please input the type of this user (organizer; speaker; attendant): ");
+        System.out.println("Please input the type of the user you wish to contact (organizer; speaker; attendee): ");
     }
 
-    //Shared between Attendant, Organizer, and Speaker Controllers too
+    //Shared between Attendee, Organizer, and Speaker Controllers
     /**
      * Prints out a list of actions that can be currently be performed.
      * @param availableAction ArrayList of Strings representing the list of actions that can be performed.
      */
     public static void printAvailableActions(ArrayList<String> availableAction){
-        System.out.println("Services apply\n");
+        System.out.println("Applicable Services: \n");
         for(String a: availableAction){
             System.out.println(availableAction.indexOf(a)+1 + " " + a);
         }
@@ -195,7 +166,7 @@ public class Presenter {
     public static void printSchedule(ArrayList<String[]> schedule){
         for(String[] i: schedule){
             System.out.println("Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " + i[4]
-                                + ", \nSpeakers: " + i[5] + ", \nActivityID: " + i[0] + "\n\n");
+                                + ", \nSpeakers: " + i[5] + ", \nActivity ID: " + i[0] + "\n\n");
         }
     }
 
@@ -203,16 +174,10 @@ public class Presenter {
      * Prints out instruction to ask user to input their message.
      */
     public static void printMessagePrompt(){
-        System.out.println("Please input message: ");
+        System.out.println("Please input the message you wish to send: ");
     }
-    /* Replace:
-    System.out.println("please input the message you wanna send:");
-    System.out.println("Please input your message below: ");
-    System.out.println("please input message: ");
-    System.out.println("Please input the message you wish to send:");
-    */
 
-    //AttendantController presenters
+    //AttendeeController Presenters ***********************************************************************************
 
     /**
      * Prints out the list of results.
@@ -226,7 +191,7 @@ public class Presenter {
      * Prints out instruction asking user if they wish to continue or not.
      */
     public static void printContinuePrompt(){
-        System.out.println("Do you wish to continue for other services? (true or false; false will log you out");
+        System.out.println("Do you wish to continue and use other services? (true or false; false will log you out");
     }
 
     /**
@@ -234,13 +199,8 @@ public class Presenter {
      * @param des String representing the action to be performed with the activity ID.
      */
     public static void printActivityIDPrompt(String des){
-        System.out.println("Please input the activity's ID you wish to " + des + ": ");
+        System.out.println("Please input the ID of the activity that you wish to " + des + ": ");
     }
-    /* Replace:
-    System.out.println("please input the activity's ID you wish to enroll");
-    System.out.println("please input the activity's ID you wish to cancel");
-    enroll, cancel
-    */
 
     /**
      * Prints out a description for items being displayed.
@@ -249,15 +209,8 @@ public class Presenter {
     public static void printDescription(String des){
         System.out.println("Here are " + des + ": ");
     }
-    /* Replace:
-    System.out.println("here are activities you can enroll: " + actIDs);
-    System.out.println("here are activities you've enrolled: " + actIDs);
-    System.out.println("here are all activity IDs: " + actIDs);
-    System.out.println("here are available speakers : "+ freeSpeakers);
-    activities you can enroll, activities you've enrolled, all activity IDs, available speakers
-    */
 
-    //OrganizerController presenter
+    //OrganizerController presenter ************************************************************************************
 
     /**
      * Prints out instruction asking user for the input of a time.
@@ -266,11 +219,6 @@ public class Presenter {
     public static void printTimePrompt(String StartorEnd){
         System.out.println("Please input the year, month, day, hour, and minute of the " + StartorEnd + " time (IN THAT ORDER): ");
     }
-    /* Replace:
-    System.out.println("Please input year, month, day, hour, minute of start time IN ORDER: ");
-    System.out.println("Please input year, month, day, hour, minute of end time IN ORDER: ");
-    start, end
-    */
 
     /**
      * Prints out the list of available speakers.
@@ -314,45 +262,46 @@ public class Presenter {
      * Print out instructions to ask user entering the username of speaker;
      */
     public static void printSpeakerNamePrompt(){
-        System.out.println("Enter the name of this Speaker");
+        System.out.println("Enter the name of this speaker: ");
     }
 
     /**
      * Print out message that there is a speaker with same username as user's input.
      */
     public static void printSpeakerExist(){
-        System.out.println("The speaker is already exist.");
+        System.out.println("This speaker already exists.");
     }
 
     /**
      * Print out instruction to ask the user the activity UUID, in whom the user wants to reassign another speaker.
      */
     public static void printChangeSpeakerIDPrompt(){
-        System.out.println("Please input the ID of activity you wish to change speaker: ");
+        System.out.println("Please input the ID of the activity for which you wish to change the speaker of: ");
     }
 
     /**
      * Print out instruction to ask the user input username of speaker, in whom the user wants to assign.
      */
     public static void printSpeakerAssignPrompt(){
-        System.out.println("Please input the speaker you wish to assign");
+        System.out.println("Please input the speaker you wish to assign: ");
     }
 
     /**
      * Print out instruction to ask user whether to do other actions within this account or logout.
      */
     public static void printContinueServicePrompt(){
-        System.out.println("Continue for other services? Please enter true or false. (false for log out)");
+        System.out.println("Continue for other services? Please enter true or false. (false will log you out)");
     }
+
+    //SpeakerController ************************************************************************************************
 
     /**
      * Print out information of UUIDs for activities in which the user has enrolled/assigned.
      *
      * @param infoIDs An array list storing UUIDs of activities in which the user is enrolled/assigned.
      */
-    //SpeakerController
     public static void printInfoIDs(ArrayList<String> infoIDs){
-        System.out.println("here are activities you've been assigned: " + infoIDs);
+        System.out.println("Here are the activities you've been assigned: " + infoIDs);
     }
 
     /**
@@ -360,15 +309,15 @@ public class Presenter {
      * message the user is about to send.
      */
     public static void printActivityMessagePrompt(){
-        System.out.println("please input the ith activity you wish to send " +
-                "a message (e.g: the 1st in the list, then type 1):");
+        System.out.println("Please input the i-th activity to which you wish to send " +
+                "a message to (i.e., type 1 to send a message to the first in the list):");
     }
 
     /**
      * Print out the instruction to ask whether to logout.
      */
     public static void printLogoutPrompt(){
-        System.out.println("logout?");
+        System.out.println("Do you want to logout?");
     }
 
     /**
