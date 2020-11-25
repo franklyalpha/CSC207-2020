@@ -115,9 +115,7 @@ public class AttendeeController extends UserController{
         availableMethod.add("viewGroupMessage");
     }
 
-
     //check whether the room is full, and whether this user is currently enroll.
-
 
     //add a new activity to this user, and add this user to the corresponding conference chat.
     /**
@@ -130,7 +128,6 @@ public class AttendeeController extends UserController{
 
     }
 
-
     /**
      * Provides instructions for user to cancel conferences this user enrolled.
      * Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
@@ -139,7 +136,6 @@ public class AttendeeController extends UserController{
     protected void cancelEnrollment(){
 
     }
-
 
     private boolean continuing(){
         boolean enterAction = true;

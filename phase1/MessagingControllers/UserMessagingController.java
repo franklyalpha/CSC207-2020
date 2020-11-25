@@ -28,6 +28,10 @@ public class UserMessagingController implements IMessaging {
         roomManager = (RoomManager) managers[3];
     }
 
+    /**
+     * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
+     * they want to send, then sends it.
+     */
     @Override
     public void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
@@ -44,7 +48,7 @@ public class UserMessagingController implements IMessaging {
                 break;
             }
             catch(UserNotFoundException e){
-                Presenter.printInvalid("username");
+                Presenter.printInvalid("input. That user does not exist!");
             }
         }
     }
@@ -69,11 +73,17 @@ public class UserMessagingController implements IMessaging {
                 messageRoomManager.sendPrivateMessage(message, newChatroom);
             }
             else {
-                throw new UserNotFoundException("User not found");
+                throw new UserNotFoundException("User not found.");
             }
         }
     }
 
+    /**
+     * Creates a new private <code>Chatroom</code> with the current user and the user specified by <code>userName</code>
+     * as the participants.
+     * @param userName String representing the username of the other participant of this new <code>Chatroom</code>.
+     * @return Returns the newly created <code>Chatroom</code> object.
+     */
     private UUID newPrivateChatroomCreator(String userName){
         ArrayList<String> userInvolved = new ArrayList<>();
         userInvolved.add(userManager.currentUsername());
@@ -85,6 +95,9 @@ public class UserMessagingController implements IMessaging {
         return newChatroom;
     }
 
+    /**
+     * Displays the user's private messages.
+     */
     @Override
     public void viewPrivateMessage() {
         HashMap<String, UUID> contact = userManager.contacts();
@@ -117,6 +130,9 @@ public class UserMessagingController implements IMessaging {
         Presenter.printMessagesInInterval(historyChat.get(contactUser), 1, historyChat.get(contactUser).size());
     }
 
+    /**
+     * Displays the user's group messages.
+     */
     @Override
     public void viewGroupMessage() {
         // may add particular user for viewing;
@@ -135,6 +151,11 @@ public class UserMessagingController implements IMessaging {
         groupPrinting(historyChat);
     }
 
+
+    /**
+     * Prints the group messages from the specified activity, if it is valid and exists.
+     * @param historyChat ArrayList of Strings representing the user's group chats.
+     */
     private void groupPrinting(HashMap<String, ArrayList<String>> historyChat){
         Presenter.printContactPrompt("event");
         Presenter.printList(historyChat.keySet().toArray());

@@ -63,13 +63,7 @@ public class UserController {
      */
     protected void viewGroupMessage(){
 
-
     }
-
-    /**
-     * Prints the group messages from the specified activity, if it is valid and exists.
-     * @param historyChat ArrayList of Strings representing the user's group chats.
-     */
 
 
     /**
@@ -77,8 +71,6 @@ public class UserController {
      * they want to send, then sends it.
      */
     protected void sendPrivateMessage() {
-
-
 
     }
 

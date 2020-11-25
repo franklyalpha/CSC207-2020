@@ -68,7 +68,7 @@ public class LoginController {
         try{
             return userManager.loginCheck(username, password);
         }catch(UserNotFoundException e){
-            Presenter.printInvalid("password or username");
+            Presenter.printInvalid("username / password combination.");
         }
         return null;
     }
