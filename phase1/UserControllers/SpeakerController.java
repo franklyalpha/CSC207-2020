@@ -29,7 +29,7 @@ public class SpeakerController extends OrganizerController {
 
     public SpeakerController(UserManager manager){
         super(manager);
-        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager, roomManager};
         messagingController = new SpeakerMessagingController(managers);
         activityController = new SpeakerActivityController(managers);
     }
