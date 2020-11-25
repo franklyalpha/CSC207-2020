@@ -151,7 +151,8 @@ public class Presenter {
      * @param availableAction ArrayList of Strings representing the list of actions that can be performed.
      */
     public static void printAvailableActions(ArrayList<String> availableAction){
-        System.out.println("Applicable Services: \n");
+        System.out.println("\n  //-------------------------------------//\n" + " //          Available Actions:         //" +
+                "\n//-------------------------------------//\n");
         for(String a: availableAction){
             System.out.println(availableAction.indexOf(a)+1 + " " + a);
         }
@@ -291,7 +292,7 @@ public class Presenter {
      * Print out instruction to ask user whether to do other actions within this account or logout.
      */
     public static void printContinueServicePrompt(){
-        System.out.println("Continue for other services? Please enter true or false. (false will log you out)");
+        System.out.println("Do you wish to perform another action? Please enter 'true' or 'false' (false will log you out).");
     }
 
     //SpeakerController ************************************************************************************************

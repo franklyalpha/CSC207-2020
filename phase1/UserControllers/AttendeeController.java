@@ -34,7 +34,7 @@ public class AttendeeController extends UserController{
      */
     public AttendeeController(UserManager manager){
         super(manager);
-        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager};
+        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager, roomManager};
         messagingController = new AttendeeMessagingController(managers);
         activityController = new AttendeeActivityController(managers);
     }
@@ -62,12 +62,20 @@ public class AttendeeController extends UserController{
                 System.out.println(availableAction.indexOf(a)+1 + " " + a);
             }*/
             Presenter.printAvailableActions(availableAction);
-            action = scan.nextInt();
-            if (0 < action && action <= availableMethod.size()) {
-                runMethod(action);
+            if (scan.hasNextInt()){   //if the input is an integer
+                action = scan.nextInt();    //set input to action
+                if (0 < action && action <= availableMethod.size()) {   // if action is within possible actions
+                    runMethod(action);  // do the thing
+                }
+                else {
+                    Presenter.printInvalid("input");
+                    continue;
+                }
             }
             else{
                 Presenter.printInvalid("input");
+                scan.next();
+                continue;
             }
             enterAction = continuing();
         }
@@ -88,13 +96,13 @@ public class AttendeeController extends UserController{
 
 
     private void addMenu(){
-        availableAction.add("Available conferences provided");
-        availableAction.add("View Signed conferences");
-        availableAction.add("Sign up for a conference");
-        availableAction.add("Cancel conference");
-        availableAction.add("Send messages to a person");
-        availableAction.add("View messages from others");
-        availableAction.add("View groups' messages");
+        availableAction.add("- View available events");
+        availableAction.add("- View conferences you have signed up for");
+        availableAction.add("- Sign up for an event");
+        availableAction.add("- Cancel event registration");
+        availableAction.add("- Send a private message");
+        availableAction.add("- View private messages");
+        availableAction.add("- View group messages");
     }
 
     private void addActions(){
@@ -111,10 +119,6 @@ public class AttendeeController extends UserController{
     //check whether the room is full, and whether this user is currently enroll.
 
 
-
-
-
-
     //add a new activity to this user, and add this user to the corresponding conference chat.
     /**
      * Provides instructions to the user to enroll in conferences available. Available means having space
@@ -127,10 +131,6 @@ public class AttendeeController extends UserController{
     }
 
 
-
-
-
-
     /**
      * Provides instructions for user to cancel conferences this user enrolled.
      * Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
@@ -139,9 +139,6 @@ public class AttendeeController extends UserController{
     protected void cancelEnrollment(){
 
     }
-
-
-
 
 
     private boolean continuing(){
