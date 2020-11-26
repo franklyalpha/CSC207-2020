@@ -1,6 +1,6 @@
 package ActivityControllers;
 
-import globalConstants.ActivityNotFoundException;
+import globallyAccessible.ActivityNotFoundException;
 import presenter.Presenter;
 
 import java.time.LocalDateTime;

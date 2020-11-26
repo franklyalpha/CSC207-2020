@@ -4,7 +4,7 @@ package UserControllers;
 
 import ActivityControllers.OrganizerActivityController;
 import MessagingControllers.OrganizerMessagingController;
-import globalConstants.*;
+import globallyAccessible.*;
 import presenter.Presenter;
 import useCases.UserManager;
 

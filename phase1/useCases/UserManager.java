@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.time.*;
 
-import globalConstants.UserNotFoundException;
-import globalConstants.UserType;
+import globallyAccessible.UserNotFoundException;
+import globallyAccessible.UserType;
 
 //public class use_cases.UserManager implements java.io.Serializable
 

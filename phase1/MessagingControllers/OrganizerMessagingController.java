@@ -1,6 +1,6 @@
 package MessagingControllers;
 
-import globalConstants.UserNotFoundException;
+import globallyAccessible.UserNotFoundException;
 import presenter.Presenter;
 
 import java.util.ArrayList;

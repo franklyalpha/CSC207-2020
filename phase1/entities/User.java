@@ -2,7 +2,7 @@ package entities;
 
 import java.util.*;
 import java.time.*;
-import globalConstants.*;
+import globallyAccessible.*;
 
 /**
  * A representation of entities.User.

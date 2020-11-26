@@ -1,7 +1,7 @@
 package UserControllers;
 
-import globalConstants.UserNotFoundException;
-import globalConstants.UserType;
+import globallyAccessible.UserNotFoundException;
+import globallyAccessible.UserType;
 import useCases.UserManager;
 import gateways.*;
 

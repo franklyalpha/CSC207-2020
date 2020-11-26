@@ -1,4 +1,4 @@
-package globalConstants;
+package globallyAccessible;
 
 public class UserNotFoundException extends Exception {
     public UserNotFoundException(String message){

@@ -1,4 +1,4 @@
-package globalConstants;
+package globallyAccessible;
 
 public enum UserType {
     ORGANIZER,

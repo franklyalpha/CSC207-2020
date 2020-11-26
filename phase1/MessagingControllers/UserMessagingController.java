@@ -1,7 +1,6 @@
 package MessagingControllers;
 
-import entities.Room;
-import globalConstants.UserNotFoundException;
+import globallyAccessible.UserNotFoundException;
 import presenter.Presenter;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
