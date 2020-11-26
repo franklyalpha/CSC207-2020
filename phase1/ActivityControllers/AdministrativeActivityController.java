@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class AdministrativeActivityController extends UserActivityController implements IAdministrativeActivity {
+public class AdministrativeActivityController extends UserActivityController{
     public AdministrativeActivityController(Object[] managers) {
         super(managers);
     }
 
-    @Override
     public void rescheduleSpeaker() {
         String actID = activitySelect();
         if(actID.equals("")){

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class UserMessagingController implements IMessaging {
+public class UserMessagingController {
     protected UserManager userManager;
     protected ActivityManager activityManager;
     protected MessageRoomManager messageRoomManager;
@@ -31,7 +31,6 @@ public class UserMessagingController implements IMessaging {
      * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
      * they want to send, then sends it.
      */
-    @Override
     public void sendPrivateMessage(){
         // may consider putting into a private method mainly calling
         // for inputs;
@@ -97,7 +96,6 @@ public class UserMessagingController implements IMessaging {
     /**
      * Displays the user's private messages.
      */
-    @Override
     public void viewPrivateMessage() {
         HashMap<String, UUID> contact = userManager.contacts();
         if (contact.size() == 0){
@@ -132,7 +130,6 @@ public class UserMessagingController implements IMessaging {
     /**
      * Displays the user's group messages.
      */
-    @Override
     public void viewGroupMessage() {
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;

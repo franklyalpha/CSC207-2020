@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class OrganizerActivityController extends AdministrativeActivityController implements IOrganizerActivity{
+public class OrganizerActivityController extends AdministrativeActivityController{
 
     public OrganizerActivityController(Object[] managers) {
         super(managers);
     }
 
-    @Override
     public void addSchedule() {
         while(true){
             try{

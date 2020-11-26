@@ -8,13 +8,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class SpeakerMessagingController extends AdministrativeMessagingController implements ISpeakerMessaging{
+public class SpeakerMessagingController extends AdministrativeMessagingController{
 
     public SpeakerMessagingController(Object[] managers) {
         super(managers);
     }
 
-    @Override
     public void sendActivityMessage() {
         ArrayList<String[]> info = showEnrolledSchedule();
         if (info.size() == 0){

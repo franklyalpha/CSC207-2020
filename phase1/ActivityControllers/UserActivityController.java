@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UserActivityController implements IActivity {
+public class UserActivityController {
 
     protected RoomManager roomManager;
     protected ActivityManager activityManager;
@@ -26,7 +26,7 @@ public class UserActivityController implements IActivity {
         messageRoomManager = (MessageRoomManager) managers[0];
     }
 
-    @Override
+
     public ArrayList<String[]> viewEnrolledSchedule() {
         HashMap<LocalDateTime[], UUID> schedules = userManager.schedules();
         ArrayList<String[]> allSchedule = new ArrayList<>();

@@ -1,6 +1,6 @@
 package ActivityControllers;
 
-public class SpeakerActivityController extends UserActivityController implements ISpeakerActivity {
+public class SpeakerActivityController extends UserActivityController{
 
     public SpeakerActivityController(Object[] managers) {
         super(managers);

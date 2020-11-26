@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class AttendeeActivityController extends UserActivityController implements IAttendeeActivity{
+public class AttendeeActivityController extends UserActivityController{
     public AttendeeActivityController(Object[] managers) {
         super(managers);
     }
 
-    @Override
+
     public void enrollConference() {
         ArrayList<String> userName = new ArrayList<>();
         userName.add(userManager.currentUsername());
@@ -65,7 +65,7 @@ public class AttendeeActivityController extends UserActivityController implement
         activityManager.addAttendee(UUID.fromString(activityID), userManager.currentUsername());
     }
 
-    @Override
+
     public void cancelEnrollment() {
         ArrayList<String> userName = new ArrayList<>();
         userName.add(userManager.currentUsername());

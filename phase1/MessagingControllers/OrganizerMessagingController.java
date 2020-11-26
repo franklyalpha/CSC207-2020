@@ -6,16 +6,12 @@ import presenter.Presenter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrganizerMessagingController extends AdministrativeMessagingController
-        implements IOrganizerMessaging {
+public class OrganizerMessagingController extends AdministrativeMessagingController {
 
     public OrganizerMessagingController(Object[] managers){
         super(managers);
     }
 
-
-
-    @Override
     public void messageAllAttendee() {
         try{
             ArrayList<String> attendeeName = userManager.allAttendee();
