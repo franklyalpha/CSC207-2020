@@ -1,8 +1,12 @@
-package UserControllers;
+package UI;
 
-import ActivityControllers.AttendeeActivityController;
-import MessagingControllers.AttendeeMessagingController;
-import presenter.Presenter;
+import Controllers.EnrollActivityController;
+import Controllers.QuitActivityController;
+import Controllers.UserController;
+import Presenters.AvailableSchedulePresenter;
+import Presenters.EnrolledSchedulePresenter;
+import Presenters.Presenter;
+import globallyAccessible.ActivityNotFoundException;
 import useCases.UserManager;
 
 import java.util.ArrayList;
@@ -19,40 +23,18 @@ import java.util.Scanner;
  * enrollConference: responsible for enrolling the user into available conference after checking constraints.
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
-public class AttendeeController extends UserController{
-    /**
-     * an Arraylist of <code>availableAction</code>;
-     * an Arraylist of <code>availableMethod</code>;
-     */
-    ArrayList<String> availableAction = new ArrayList<>();
-    ArrayList<String> availableMethod = new ArrayList<>();
-    AttendeeMessagingController messagingController;
-    AttendeeActivityController activityController;
-
-    /**
-     * Creates <code>AttendeeController</code> with all use-case classes being initialized.
-     */
-    public AttendeeController(UserManager manager){
-        super(manager);
-        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager, roomManager};
-        messagingController = new AttendeeMessagingController(managers);
-        activityController = new AttendeeActivityController(managers);
+public class AttendeeUI extends UserUI{
+    public AttendeeUI(UserController userController) {
+        super(userController);
     }
-    /*
-    require implementation:
-    view all available schedules they can enroll
-    enroll into one conference, cancel enrollment
-     */
 
     /**
      * This method allows users to do actions corresponding to attendee's allowed actions.
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */
-    @Override
     public void run() {
         addMenu();
-        addActions();
         int action;
         boolean enterAction = true;
         while(enterAction){
@@ -79,18 +61,18 @@ public class AttendeeController extends UserController{
             }
             enterAction = continuing();
         }
-        logout();
+        userController.logout();
     }
 
     private void runMethod(int action){
         switch(action){
-            case 1: activityController.viewAvailableSchedules(); break;
-            case 2: activityController.viewEnrolledSchedule(); break;
-            case 3: activityController.enrollConference(); break;
-            case 4: activityController.cancelEnrollment(); break;
-            case 5: messagingController.sendPrivateMessage(); break;
-            case 6: messagingController.viewPrivateMessage(); break;
-            case 7: messagingController.viewGroupMessage(); break;
+            case 1: viewAvailableSchedules(); break;
+            case 2: viewEnrolledSchedule(); break;
+            case 3: enrollConference(); break;
+            case 4: cancelEnrollment(); break;
+            case 5: sendPrivateMessage(); break;
+            case 6: viewPrivateMessage(); break;
+            case 7: viewGroupMessage(); break;
         }
     }
 
@@ -105,15 +87,66 @@ public class AttendeeController extends UserController{
         availableAction.add("- View group messages");
     }
 
-    private void addActions(){
-        availableMethod.add("viewSchedules");
-        availableMethod.add("viewEnrolledSchedule");
-        availableMethod.add("enrollConference");
-        availableMethod.add("cancelEnrollment");
-        availableMethod.add("sendPrivateMessage");
-        availableMethod.add("viewPrivateMessage");
-        availableMethod.add("viewGroupMessage");
+    protected void enrollConference(){
+        AvailableSchedulePresenter schedulePresenter = new AvailableSchedulePresenter(userController);
+        ArrayList<String[]> availables = schedulePresenter.viewAvailableSchedules();
+        if (availables.size() == 0){
+            return;
+        }
+        inputAndEnrollActivity(availables);
     }
+
+    private void inputAndEnrollActivity(ArrayList<String[]> availables) {
+        EnrollActivityController enroll = new EnrollActivityController(userController);
+        while(true){
+            try{
+                String actID = getAvailableActivityID(availables);
+                enroll.chooseActToEnroll(availables, actID);
+                break;
+            }catch(ActivityNotFoundException e){
+                Presenter.printInvalid("activity ID");
+            }
+        }
+    }
+
+    private String getAvailableActivityID(ArrayList<String[]> availables) {
+        Scanner scan = new Scanner(System.in);
+        Presenter.printDescription("available activities you can enroll");
+        Presenter.printSchedule(availables);
+        Presenter.printActivityIDPrompt("enroll");
+        return scan.nextLine();
+    }
+
+    protected void cancelEnrollment(){
+        EnrolledSchedulePresenter enrolledPresenter = new EnrolledSchedulePresenter(userController);
+        ArrayList<String[]> enrolled = enrolledPresenter.viewEnrolledSchedule();
+        if (enrolled.size() == 0){
+            return;
+        }
+        inputAndQuitActivity(enrolled);
+    }
+
+    private void inputAndQuitActivity(ArrayList<String[]> enrolled) {
+        QuitActivityController quit = new QuitActivityController(userController);
+        while (true){
+            try{
+                String activityID = getEnrolledActivityID(enrolled);
+                quit.chooseActToCancel(enrolled, activityID);
+                break;
+            }catch(ActivityNotFoundException e){
+                Presenter.printInvalid("activity ID");
+            }
+        }
+    }
+
+    private String getEnrolledActivityID(ArrayList<String[]> availables) {
+        Scanner scan = new Scanner(System.in);
+        Presenter.printDescription("available activities you have enrolled");
+        Presenter.printSchedule(availables);
+        Presenter.printActivityIDPrompt("cancel");
+        return scan.nextLine();
+    }
+
 
     //check whether the room is full, and whether this user is currently enroll.
 
@@ -124,18 +157,14 @@ public class AttendeeController extends UserController{
      * Will print out available conferences the user can enroll, and ask user to input the UUID of
      * conference the user wish to enroll.
      */
-    protected void enrollConference(){
 
-    }
 
     /**
      * Provides instructions for user to cancel conferences this user enrolled.
      * Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
      * wish to cancel.
      */
-    protected void cancelEnrollment(){
 
-    }
 
     private boolean continuing(){
         boolean enterAction = true;

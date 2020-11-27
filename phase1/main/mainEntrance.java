@@ -1,10 +1,10 @@
 package main;
 
-import UserControllers.LoginController;
+import UI.LoginUI;
 
 public class mainEntrance {
     public static void main(String[] args){
-        LoginController login = new LoginController();
+        LoginUI login = new LoginUI();
         login.run();
     }
 

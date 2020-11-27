@@ -1,11 +1,13 @@
-package UserControllers;
+package UI;
 
-import ActivityControllers.SpeakerActivityController;
-import MessagingControllers.SpeakerMessagingController;
-import presenter.Presenter;
+import Controllers.SendActivityMessageController;
+import Controllers.UserController;
+import Presenters.Presenter;
+import org.jetbrains.annotations.Nullable;
 import useCases.UserManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -17,22 +19,14 @@ import java.util.Scanner;
  * sendActivityMessage: a method responsible for guiding the user to choose a conference
  * and send message to all attendees enrolled.
  */
-public class SpeakerController extends OrganizerController {
+public class SpeakerUI extends OrganizerUI2{
+    public SpeakerUI(UserController userController) {
+        super(userController);
+    }
     /**
      * an Arraylist of <code>availableAction</code>;
      * an Arraylist of <code>availableMethod</code>;
      */
-    private ArrayList<String> availableAction = new ArrayList<>();
-    private ArrayList<String> availableMethod = new ArrayList<>();
-    private SpeakerMessagingController messagingController;
-    private SpeakerActivityController activityController;
-
-    public SpeakerController(UserManager manager){
-        super(manager);
-        Object[] managers = new Object[]{messageRoomManager, activityManager, userManager, roomManager};
-        messagingController = new SpeakerMessagingController(managers);
-        activityController = new SpeakerActivityController(managers);
-    }
     /*
     require implementation:
     (view enrolled schedule is implemented in general userController)
@@ -45,9 +39,7 @@ public class SpeakerController extends OrganizerController {
      * want to do and call corresponding method.
      */
     public void run() {
-        addActions();
         addMenu();
-
         int action;
         boolean enterAction = true;
         while(enterAction){
@@ -67,7 +59,7 @@ public class SpeakerController extends OrganizerController {
             }
             enterAction = continuing();
         }
-        logout();
+        userController.logout();
     }
 
     /**
@@ -78,21 +70,21 @@ public class SpeakerController extends OrganizerController {
 
     private void runMethod (int action){
         switch(action){
-            case 1: messagingController.sendPrivateMessage(); break;
-            case 2: messagingController.viewPrivateMessage(); break;
-            case 3: messagingController.viewGroupMessage(); break;
-            case 4: messagingController.sendActivityMessage(); break;
-            case 5: messagingController.sendCoopMessage(); break;
-            case 6: messagingController.viewCoopChat(); break;
-            case 7: activityController.viewEnrolledSchedule(); break;
+            case 1: sendPrivateMessage(); break;
+            case 2: viewPrivateMessage(); break;
+            case 3: viewGroupMessage(); break;
+            case 4: sendActivityMessage(); break;
+            case 5: sendCoopMessage(); break;
+            case 6: viewCoopChat(); break;
+            case 7: viewEnrolledSchedule(); break;
         }
     }
 
     /**
      * This method add actions to the class attribute availableAction.
      */
-
-    private void addMenu(){
+    @Override
+    protected void addMenu(){
         availableAction.add("send private message");
         availableAction.add("view private messages");
         availableAction.add("view group messages");
@@ -102,37 +94,62 @@ public class SpeakerController extends OrganizerController {
         availableAction.add("view signed conferences");
     }
 
+    protected void sendActivityMessage(){
+        SendActivityMessageController activityMessager = new SendActivityMessageController(userController);
+        ArrayList<String[]> info = presentEnrolledActivities(activityMessager);
+        if (info == null) return;
+        while(true){
+            try{
+                findAndSendMessage(activityMessager, info);
+                break;
+            }catch(IndexOutOfBoundsException e){
+                Presenter.printInvalid("index of chat list");
+            }
+        }
+    }
+
+    private ArrayList<String[]> presentEnrolledActivities(SendActivityMessageController activityMessager) {
+        ArrayList<String[]> info = activityMessager.showEnrolledSchedule();
+        if (info.size() == 0){
+            return null;
+        }
+        Presenter.printDescription("activities you've enrolled");
+        Presenter.printSchedule(info);
+        return info;
+    }
+
+    private void findAndSendMessage(SendActivityMessageController activityMessager, ArrayList<String[]> info) {
+        int actID = determineChatIDValidity(info);
+        Scanner messageScanner = new Scanner(System.in);
+        Presenter.printMessagePrompt();
+        String message = messageScanner.nextLine();
+        activityMessager.sendActivityMessage(actID, message);
+    }
+
+    private int determineChatIDValidity(ArrayList<String[]> info)
+            throws IndexOutOfBoundsException{
+        Scanner actIDScanner = new Scanner(System.in);
+        Presenter.printActivityMessagePrompt();
+        int actID = actIDScanner.nextInt();
+        if (actID < 1 || actID > info.size()){
+            throw new IndexOutOfBoundsException("invalid index for chat");
+        }
+        return actID;
+    }
+
     /**
      * This method add actions to the class attribute availableMethod.
      */
 
-    private void addActions(){
-        availableMethod.add("sendPrivateMessage");
-        availableMethod.add("viewPrivateMessage");
-        availableMethod.add("viewGroupMessage");
-        availableMethod.add("sendActivityMessage");
-        availableMethod.add("sendCoopMessage");
-        availableMethod.add("viewCoopChat");
-        availableMethod.add("viewEnrolledSchedule");
-    }
 
 
     /**
      * The method providing instructions for user to choose a conference they've assigned/enrolled
      * and send a message to all other users participated in this activity.
      */
-    protected void sendActivityMessage(){
 
-    }
-
-
-
-
-
-
-
-
-    private boolean continuing(){
+    @Override
+    protected boolean continuing(){
         boolean enterAction = true;
         //System.out.println("Continue for other services? Please enter true or false. (false for log out)");
         Presenter.printContinueServicePrompt();
