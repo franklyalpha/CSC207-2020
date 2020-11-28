@@ -111,6 +111,7 @@ public class LoginController {
         UserType userType = UserTypeDistributor(type);
         assert userType != null;
         String name = userManager.createUser(username, password, userType);
+        new GatewayUser().ser(userManager);
         return name;
     }
 
