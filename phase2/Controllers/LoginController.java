@@ -107,10 +107,11 @@ public class LoginController {
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
      */
-    public void handleCreateNewUser(String username, String password, int type) {
+    public String handleCreateNewUser(String username, String password, int type) {
         UserType userType = UserTypeDistributor(type);
         assert userType != null;
-        userManager.createUser(username, password, userType);
+        String name = userManager.createUser(username, password, userType);
+        return name;
     }
 
 }

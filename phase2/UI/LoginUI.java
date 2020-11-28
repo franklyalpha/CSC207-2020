@@ -64,7 +64,8 @@ public class LoginUI {
         String username = signUpScanner.nextLine();
         Presenter.printPasswordPrompt();
         String password = signUpScanner.nextLine();
-        loginController.handleCreateNewUser(username, password, type);
+        String newName = loginController.handleCreateNewUser(username, password, type);
+        Presenter.printUsernameIs(newName);
     }
 
     private void handleLogIn() {
