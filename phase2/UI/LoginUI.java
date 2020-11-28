@@ -58,9 +58,10 @@ public class LoginUI {
         }
         int type = signUpScanner.nextInt();
         Presenter.printEnterName();
-        Presenter.printPasswordPrompt();
+
         // should consider combine above two presenter method
         String username = signUpScanner.nextLine();
+        Presenter.printPasswordPrompt();
         String password = signUpScanner.nextLine();
         loginController.handleCreateNewUser(username, password, type);
     }
@@ -70,9 +71,10 @@ public class LoginUI {
             try {
                 Scanner type = new Scanner(System.in);
                 Presenter.printUsernamePrompt();
-                Presenter.printPasswordPrompt();
+
                 //should consider combining above two as one presenter method
                 String userName = type.nextLine();
+                Presenter.printPasswordPrompt();
                 String password = type.nextLine();
                 Object[] result = loginController.handleLogin(userName, password);
                 runUserUIs(result);
