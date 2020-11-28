@@ -57,6 +57,7 @@ public class LoginUI {
             return;
         }
         int type = signUpScanner.nextInt();
+        signUpScanner.nextLine();
         Presenter.printEnterName();
 
         // should consider combine above two presenter method
@@ -71,7 +72,6 @@ public class LoginUI {
             try {
                 Scanner type = new Scanner(System.in);
                 Presenter.printUsernamePrompt();
-
                 //should consider combining above two as one presenter method
                 String userName = type.nextLine();
                 Presenter.printPasswordPrompt();
