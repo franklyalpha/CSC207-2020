@@ -16,7 +16,7 @@ public class Activity implements java.io.Serializable {
         Getters and setters;
     */
     //private final ArrayList<String> speakers;
-    private String speakers;
+    private String speaker;
     private final ArrayList<String> attendeeList;
     private Duration duration;
     private LocalDateTime startTime;
@@ -38,7 +38,7 @@ public class Activity implements java.io.Serializable {
      */
     public Activity(LocalDateTime[] period, UUID[] chatRoomID,
                     String topic){
-        this.speakers = null;
+        this.speaker = null;
         this.attendeeList = new ArrayList<>();
         this.startTime = period[0];
         this.endTime = period[1];
@@ -90,7 +90,7 @@ public class Activity implements java.io.Serializable {
      * <CODE>false</CODE> otherwise
      */
     public boolean addSpeakers(String speaker){
-        this.speakers = speaker;
+        this.speaker = speaker;
         return true;
     }
 
@@ -173,7 +173,7 @@ public class Activity implements java.io.Serializable {
      * @return A list of strings corresponding to the speakers of <code>speakers</code> in this
      * <code>Activity</code>.
      */
-    public String getSpeakersList(){return this.speakers;}
+    public String getSpeaker(){return this.speaker;}
 
     /**
      * Gets the start time for this <code>Activity</code>.
@@ -236,7 +236,7 @@ public class Activity implements java.io.Serializable {
     public String toString(){
         String description = "Topic: " + this.topic + "\n" +
                 "Speakers: ";
-        description += speakers;
+        description += speaker;
         description += ("\nConference entities.Room " + this.conferenceRoomNum);
         description += ("\nFrom " + this.startTime + " to " + this.endTime);
         description += ("\nID: " + this.identity);

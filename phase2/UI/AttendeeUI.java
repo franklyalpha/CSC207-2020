@@ -3,6 +3,7 @@ package UI;
 import Controllers.EnrollActivityController;
 import Controllers.QuitActivityController;
 import Controllers.UserController;
+import Controllers.OutputConferenceInfoController;
 import Presenters.AvailableSchedulePresenter;
 import Presenters.EnrolledSchedulePresenter;
 import Presenters.Presenter;
