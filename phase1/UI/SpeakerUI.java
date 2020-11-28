@@ -3,7 +3,6 @@ package UI;
 import Controllers.SendActivityMessageController;
 import Controllers.UserController;
 import Presenters.Presenter;
-import org.jetbrains.annotations.Nullable;
 import useCases.UserManager;
 
 import java.util.ArrayList;
