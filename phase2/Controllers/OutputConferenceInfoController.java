@@ -1,17 +1,14 @@
 package Controllers;
-import java.io.FileOutputStream;
-import java.util.Date;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.ArrayList;
 
 public class OutputConferenceInfoController extends ActivityController {
-    private static final String DEST = "../conferenceInfo.pdf";
+    private static final String DEST = "./eventsInfo.pdf";
     private final int ID = 0;
     private final int TOPIC = 1;
     private final int START = 2;
@@ -20,28 +17,42 @@ public class OutputConferenceInfoController extends ActivityController {
     private final int SPEAKER = 5;
 
 
-    // private final ArrayList<String[]> upcomingEvents;
+    private final ArrayList<String[]> upcomingEvents;
 
     public OutputConferenceInfoController(UserController userController){
         super(userController);
-        // this.upcomingEvents = activityManager.viewUpcommingActivites();
+        this.upcomingEvents = activityManager.viewUpcommingActivites();
+    }
+
+    public void outputAllUpcomingEvents() throws IOException{
+        PdfDocument pdf = new PdfDocument(new PdfWriter("./allUpcomingEvents.pdf"));
+        Document document = new Document(pdf);
+        document.add(new Paragraph("eventHeader"));
+//        for (String[] event : this.upcomingEvents){
+//            writeSingleEvent(event, document);
+//        }
+        document.close();
     }
 
     public void outputEvents(ArrayList<String[]> events) throws IOException{
         PdfDocument pdf = new PdfDocument(new PdfWriter(DEST));
         Document document = new Document(pdf);
         for (String[] event : events){
-            String eventHeader = eventHeader(event);
-            String eventTime = eventTime(event);
-            String eventLocation = eventLocation(event);
-            String endOfEvent = "\n";
-
-            document.add(new Paragraph(eventHeader));
-            document.add(new Paragraph(eventTime));
-            document.add(new Paragraph(eventLocation));
-            document.add(new Paragraph(endOfEvent));
+            writeSingleEvent(event, document);
         }
         document.close();
+    }
+
+    private void writeSingleEvent(String[] event, Document document) {
+        String eventHeader = eventHeader(event);
+        String eventTime = eventTime(event);
+        String eventLocation = eventLocation(event);
+        String endOfEvent = "\n";
+
+        document.add(new Paragraph(eventHeader));
+        document.add(new Paragraph(eventTime));
+        document.add(new Paragraph(eventLocation));
+        document.add(new Paragraph(endOfEvent));
     }
 
     private String eventHeader(String[] event){

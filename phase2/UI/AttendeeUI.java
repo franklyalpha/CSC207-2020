@@ -3,7 +3,6 @@ package UI;
 import Controllers.EnrollActivityController;
 import Controllers.QuitActivityController;
 import Controllers.UserController;
-import Controllers.OutputConferenceInfoController;
 import Presenters.AvailableSchedulePresenter;
 import Presenters.EnrolledSchedulePresenter;
 import Presenters.Presenter;
@@ -34,7 +33,7 @@ public class AttendeeUI extends UserUI{
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */
-    public void run() {
+    public void run(){
         addMenu();
         int action;
         boolean enterAction = true;
@@ -65,7 +64,7 @@ public class AttendeeUI extends UserUI{
         userController.logout();
     }
 
-    private void runMethod(int action){
+    private void runMethod(int action) {
         switch(action){
             case 1: viewAvailableSchedules(); break;
             case 2: viewEnrolledSchedule(); break;
@@ -74,7 +73,7 @@ public class AttendeeUI extends UserUI{
             case 5: sendPrivateMessage(); break;
             case 6: viewPrivateMessage(); break;
             case 7: viewGroupMessage(); break;
-            default: break;
+            case 8: outputAllUpcomingEventsPdf(); break;
         }
     }
 
@@ -87,6 +86,7 @@ public class AttendeeUI extends UserUI{
         availableAction.add("- Send a private message");
         availableAction.add("- View private messages");
         availableAction.add("- View group messages");
+        availableAction.add("- Generate all upcoming events pdf");
     }
 
     protected void enrollConference(){

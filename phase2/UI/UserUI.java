@@ -3,6 +3,7 @@ package UI;
 import Controllers.SendPrivateMessageController;
 import Controllers.UserController;
 import Presenters.*;
+import Controllers.OutputConferenceInfoController;
 import gateways.GatewayActivity;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
@@ -13,6 +14,7 @@ import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
 
+import java.io.IOException;
 import java.util.*;
 
 //public abstract class controllers.UserController
@@ -37,7 +39,7 @@ public class UserUI {
     /**
      * Abstract run method to be overridden.
      */
-    public void run(){}
+    public void run() {}
 
     protected void viewPrivateMessage(){
         PrivateMessagePresenter messagePresenter = new PrivateMessagePresenter(userController);
@@ -101,5 +103,12 @@ public class UserUI {
         Presenter.printSchedule(availableSchedulePresenter.viewAvailableSchedules());
     }
 
-
+    protected void outputAllUpcomingEventsPdf() {
+        OutputConferenceInfoController pdf = new OutputConferenceInfoController(userController);
+        try{
+            pdf.outputAllUpcomingEvents();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

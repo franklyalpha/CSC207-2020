@@ -68,7 +68,7 @@ public class LoginUI {
         Presenter.printUsernameIs(newName);
     }
 
-    private void handleLogIn() {
+    private void handleLogIn(){
         for (int i = 0; i < 3; i++) {
             try {
                 Scanner type = new Scanner(System.in);
