@@ -74,6 +74,7 @@ public class AttendeeUI extends UserUI{
             case 5: sendPrivateMessage(); break;
             case 6: viewPrivateMessage(); break;
             case 7: viewGroupMessage(); break;
+            default: break;
         }
     }
 
