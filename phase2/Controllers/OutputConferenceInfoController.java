@@ -7,30 +7,45 @@ import java.io.*;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class OutputConferenceInfoController extends ActivityController {
+
     private static final String DEST = "./eventsInfo.pdf";
-    private final int ID = 0;
-    private final int TOPIC = 1;
-    private final int START = 2;
-    private final int END = 3;
-    private final int ROOMNUM = 4;
-    private final int SPEAKER = 5;
+    private static final int ID = 0;
+    private static final int TOPIC = 1;
+    private static final int START = 2;
+    private static final int END = 3;
+    private static final int ROOMNUM = 4;
+    private static final int SPEAKER = 5;
 
 
     private final ArrayList<String[]> upcomingEvents;
 
+    /**
+     * A class to output desired pdf file.
+     * @param userController get the upcomingEvents from userController.
+     */
     public OutputConferenceInfoController(UserController userController){
         super(userController);
         this.upcomingEvents = activityManager.viewUpcommingActivites();
     }
 
+    /**
+     * Generate a pdf file containing all upcoming events.
+     * @throws IOException exception threw by PdfDocument
+     */
     public void outputAllUpcomingEvents() throws IOException{
-        PdfDocument pdf = new PdfDocument(new PdfWriter("./allUpcomingEvents.pdf"));
+        PdfDocument pdf = new PdfDocument(new PdfWriter("./phase2/allUpcomingEvents.pdf"));
         Document document = new Document(pdf);
-        document.add(new Paragraph("eventHeader"));
-//        for (String[] event : this.upcomingEvents){
-//            writeSingleEvent(event, document);
-//        }
+        if (this.upcomingEvents.size() != 0){
+            for (String[] event : this.upcomingEvents){
+                writeSingleEvent(event, document);
+            }
+        } else {
+            document.add(new Paragraph("No upcoming event founded!"));
+        }
         document.close();
     }
 

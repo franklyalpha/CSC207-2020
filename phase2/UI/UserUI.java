@@ -108,7 +108,7 @@ public class UserUI {
         try{
             pdf.outputAllUpcomingEvents();
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 }
