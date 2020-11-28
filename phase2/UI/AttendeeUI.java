@@ -47,7 +47,7 @@ public class AttendeeUI extends UserUI{
             Presenter.printAvailableActions(availableAction);
             if (scan.hasNextInt()){   //if the input is an integer
                 action = scan.nextInt();    //set input to action
-                if (0 < action && action <= availableMethod.size()) {   // if action is within possible actions
+                if (0 < action && action <= availableAction.size()) {   // if action is within possible actions
                     runMethod(action);  // do the thing
                 }
                 else {

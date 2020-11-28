@@ -50,7 +50,7 @@ public class SpeakerUI extends OrganizerUI2{
             }*/
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
-            if (0 < action && action <= availableMethod.size()) {
+            if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }
             else{
