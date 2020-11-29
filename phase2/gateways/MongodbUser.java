@@ -11,19 +11,17 @@ import java.util.logging.Logger;
 public class MongodbUser {
 
     public void startMongodbUser() {
-
-         Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
-         mongoLogger.setLevel(Level.SEVERE);
+        Logger rootLogger = Logger.getLogger("org.mongodb.driver");
+        rootLogger.setLevel(Level.OFF);
 
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
 
             MongoDatabase database = mongoClient.getDatabase("csc207");
 
             try {
-                database.createCollection("csc207");
+                database.createCollection("users");
             } catch (MongoCommandException e) {
-
-                database.getCollection("csc207").drop();
+                database.getCollection("users").drop();
             }
         }
     }
