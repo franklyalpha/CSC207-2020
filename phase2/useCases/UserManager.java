@@ -1,5 +1,7 @@
 package useCases;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import entities.User;
 
 import java.util.ArrayList;
@@ -7,6 +9,12 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.time.*;
+
+import com.mongodb.MongoCommandException;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
 
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -98,9 +106,40 @@ public class UserManager implements java.io.Serializable{
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         User org = new User(name, password, t);
+        registerUserOnDB(name, password, t);
         addUser(org, type);
         return name;
         // return name: just in case to notify users about their exact username;
+    }
+
+    private void registerUserOnDB(String name, String password, UserType type){
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+
+            MongoDatabase database = mongoClient.getDatabase("csc207");
+
+        MongoCollection<Document> collection = database.getCollection("users");
+
+        Document newUser = new Document("_id", num_user);
+        newUser.append("username", name);
+        newUser.append("password", password);
+        String userType;
+        switch (type){
+            case ORGANIZER:
+                userType = "Organizer";
+                break;
+            case ATTENDEE:
+                userType = "Attendee";
+                break;
+            case SPEAKER:
+                userType = "Speaker";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        newUser.append("userType", userType);
+
+        collection.insertOne(newUser);
+        }
     }
 
     /**

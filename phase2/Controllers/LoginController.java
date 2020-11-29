@@ -109,7 +109,7 @@ public class LoginController {
      */
     public String handleCreateNewUser(String username, String password, int type) {
         UserType userType = UserTypeDistributor(type);
-        assert userType != null;
+        assert userType != null; // CHANGE
         String name = userManager.createUser(username, password, userType);
         new GatewayUser().ser(userManager);
         return name;
