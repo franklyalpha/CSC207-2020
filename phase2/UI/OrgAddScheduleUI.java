@@ -8,6 +8,7 @@ import globallyAccessible.UserNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -45,12 +46,14 @@ public class OrgAddScheduleUI extends UserUI{
                 Presenter.printInvalid("speaker");
             }catch(IndexOutOfBoundsException e2){
                 Presenter.printInvalid("room index");
+            }catch(InputMismatchException e3){
+                Presenter.printInvalid("input");
             }
         }
     }
 
     private Object[] InputSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
-            throws UserNotFoundException {
+            throws UserNotFoundException, InputMismatchException {
         Presenter.printSpeakerRoomPrompt(freeSpeaker, freeRooms);
         Scanner moreInfo = new Scanner(System.in);
         String topic = moreInfo.nextLine();

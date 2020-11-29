@@ -242,7 +242,7 @@ public class Presenter {
         System.out.println("Here are the names of all available speakers: " + freeSpeaker +
                 "\n Here are the IDs of all available rooms: " + "" + freeRooms);
         System.out.println("Please input the topic, speaker, and room number for this activity (i.e., input 1 for the first room, 2 for the second)" +
-                " IN THAT ORDER and on different lines: (if an invalid room is given, the first room will be used by default.");
+                " \n IN THAT ORDER and on different lines: (if an invalid room is given, the first room will be used by default.");
     }
 
     /**
