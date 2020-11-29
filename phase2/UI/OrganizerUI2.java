@@ -29,7 +29,7 @@ public class OrganizerUI2 extends OrganizerUI {
             Scanner scan = new Scanner(System.in);
             Presenter.printAvailableActions(availableAction);
             action = scan.nextInt();
-            if (0 < action && action <= availableMethod.size()) {
+            if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }
             else{

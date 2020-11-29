@@ -90,14 +90,17 @@ public class LoginUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-                OrganizerUI orgUI = new OrganizerUI(userController);
+                OrganizerUI2 orgUI = new OrganizerUI2(userController);
                 orgUI.run();
+                break;
             case SPEAKER:
                 SpeakerUI speUI = new SpeakerUI(userController);
                 speUI.run();
+                break;
             case ATTENDEE:
                 AttendeeUI attUI = new AttendeeUI(userController);
                 attUI.run();
+                break;
         }
     }
 
