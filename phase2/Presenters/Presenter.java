@@ -219,7 +219,7 @@ public class Presenter {
      * @param StartorEnd String representing whether a start time or end time is being asked for.
      */
     public static void printTimePrompt(String StartorEnd){
-        System.out.println("Please input the year, month, day, hour, and minute of the " + StartorEnd + " time (IN THAT ORDER): ");
+        System.out.println("Please input the year, month, day, hour, and minute of the " + StartorEnd + " time (IN THAT ORDER, separate by space): ");
     }
 
     /**
