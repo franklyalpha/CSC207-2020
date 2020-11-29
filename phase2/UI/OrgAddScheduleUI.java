@@ -29,6 +29,8 @@ public class OrgAddScheduleUI extends UserUI{
                 break;
             }catch(CannotCreateActivityException e){
                 Presenter.printInvalid("time period");
+            }catch(Exception e){
+                Presenter.printInvalid("input");
             }
         }
     }
