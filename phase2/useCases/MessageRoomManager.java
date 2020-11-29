@@ -3,6 +3,7 @@ package useCases;
 import entities.MessageRoom;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 //work in progress
@@ -134,6 +135,10 @@ public class MessageRoomManager implements java.io.Serializable{
         }
     }
 
+    public void deletePrivateConversation(UUID conversationID){
+        privateChats.removeIf(conversation -> conversation.getId().equals(conversationID));
+    }
+
     /**
      * Sends a message to the specified conference chat, adding it to the <code>historicalChats</code> of the <code>Chatroom</code>.
      *
@@ -191,6 +196,18 @@ public class MessageRoomManager implements java.io.Serializable{
     public ArrayList<String> getHistoricalChats(UUID chatID){
         MessageRoom targetedChat = findChatroom(chatID);
         return targetedChat.getHistoricalChats();
+    }
+
+    public void deleteMessage(UUID chatID, ArrayList<Integer> indexesDeletion){
+        MessageRoom targetedConversation = findChatroom(chatID);
+        indexesDeletion.sort(Collections.reverseOrder());
+        ArrayList<String> history = targetedConversation.getHistoricalChats();
+        for(int index: indexesDeletion){
+            if(index >= history.size() || index < 0){
+                continue;
+            }
+            history.remove(index);
+        }
     }
 
 

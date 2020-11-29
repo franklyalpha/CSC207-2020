@@ -200,6 +200,18 @@ public class UserManager implements java.io.Serializable{
         return userOnAir.getChatroom();
     }
 
+    public HashMap<String, UUID> otherContacts(String username){
+        User targetedUser = findUser(username);
+        assert targetedUser != null;
+        return targetedUser.getChatroom();
+    }
+
+    public void deleteContact(String deleter, String deleted){
+        User targetedUser = findUser(deleter);
+        assert targetedUser != null;
+        targetedUser.getChatroom().remove(deleted);
+    }
+
     /**
      * Creates a <code>schedules</code> and get the users' schedule.
      * @return the schedule that contains the users' all activities.
