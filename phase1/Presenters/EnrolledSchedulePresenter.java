@@ -16,6 +16,9 @@ public class EnrolledSchedulePresenter extends AbstractPresenter{
     public ArrayList<String[]> viewEnrolledSchedule() {
         HashMap<LocalDateTime[], UUID> schedules = userManager.schedules();
         ArrayList<String[]> allSchedule = new ArrayList<>();
+        if(schedules.isEmpty()){
+            return new ArrayList<String[]>();
+        }
         for (LocalDateTime[] time : schedules.keySet()){
             String[] partialInfo = activityManager.searchActivityByUUID(schedules.get(time).toString());
             allSchedule.add(partialInfo);
