@@ -106,7 +106,7 @@ public class UserManager implements java.io.Serializable{
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         User org = new User(name, password, t);
-        registerUserOnDB(name, password, t);
+//        registerUserOnDB(name, password, t);
         addUser(org, type);
         return name;
         // return name: just in case to notify users about their exact username;
