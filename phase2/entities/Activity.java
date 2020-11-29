@@ -25,6 +25,7 @@ public class Activity implements java.io.Serializable {
     private final UUID conferenceChat;
     private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
+    private Integer maxNumAttendee;
     //Maybe event tags for easier search?
 
     //TODO：thinking of making multiple constructors later
@@ -157,6 +158,14 @@ public class Activity implements java.io.Serializable {
         this.endTime = this.startTime.plus(duration);
     }
 
+    /**
+     * Changes the Maximum Number of attendees with the given new integer.
+     * @param  MaxNum the new Maximum number of attendees of this activity.
+     */
+    public void setMaxNumAttendee(int MaxNum){
+        this.maxNumAttendee = MaxNum;
+    }
+
     private void changeDuration(Duration duration){
         this.duration = duration;
     }
@@ -198,6 +207,14 @@ public class Activity implements java.io.Serializable {
      * @return The UUID corresponding to this <code>Activity</code>.
      */
     public UUID getChatID(){return this.conferenceChat;}
+
+    /**
+     * Gets the Maximum Number of attendees for this <code>Activity</code>.
+     * @return The integer corresponding to this <code>Activity</code>.
+     */
+    public Integer getMaxNumAttendee(){
+        return this.maxNumAttendee;
+    }
 
     /**
      * Gets an identity in this <code>Activity</code>.
