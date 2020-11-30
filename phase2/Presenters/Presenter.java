@@ -253,6 +253,20 @@ public class Presenter {
     }
 
     /**
+     * Prints out instruction asking user to enter the new capacity of the room.
+     */
+    public static void printRoomHaveProjectorPrompt(){
+        System.out.println("Please enter whether this room has Projector:");
+    }
+
+    /**
+     * Prints out instruction asking user to enter the new capacity of the room.
+     */
+    public static void printRoomNumMicrophonePrompt(){
+        System.out.println("Please enter the quantity of Microphone this room has:");
+    }
+
+    /**
      * Prints out a statement confirming a room's new maximum capacity.
      * @param a Integer representing the room's new maximum capacity.
      */
