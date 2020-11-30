@@ -80,7 +80,7 @@ public class AdminDeleteMessageUI extends UserUI {
 
     private void chooseLinesToDelete(DeleteSelectedMessagesController deleteMessage, ArrayList<String> history) {
         for(int i = 0; i < history.size(); i++){
-            System.out.println(i + ": " + history.get(i));
+            System.out.println(i + ": " + history.get(i) + "\n");
         }
         Scanner lines = new Scanner(System.in);
         System.out.println("please enter one or more integers, which are indexes of messages you want to delete (separate by space): \n" +
@@ -118,7 +118,7 @@ public class AdminDeleteMessageUI extends UserUI {
         System.out.println("below are conversation IDs paired with corresponding chats");
         ArrayList<String> ids = new ArrayList<>();
         for(String[] info: groupConversationId){
-            System.out.println(info[0] + ": " + info[1]);
+            System.out.println(info[0] + ": " + info[1] + "\n");
             ids.add(info[1]);
         }
         return ids;
