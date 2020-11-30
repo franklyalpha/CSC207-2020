@@ -200,6 +200,11 @@ public class ActivityManager implements java.io.Serializable{
 
     }
 
+    public void deleteEvent(UUID activityID){
+        Activity activityDelete = findActivity(activityID);
+        upcomingActivities.remove(activityDelete);
+    }
+
 
 
     //speaker identity duration topic roomnum starttime
