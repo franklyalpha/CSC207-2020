@@ -4,6 +4,9 @@ import Controllers.MessageAllAttendeeController;
 import Controllers.SendOrganizerSpeakerMessageController;
 import Controllers.UserController;
 import functionalityPresenters.OrganizerSpeakerMessagePresenter;
+import Controllers.ModifyActivityController;
+import globallyAccessible.NoActivitiesException;
+import menuPresenter.ModifyActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,6 +52,7 @@ public class OrganizerUI2 extends OrganizerUI {
             case 7: sendCoopMessage(); break;
             case 8: viewCoopChat(); break;
             case 9: messageAllAttendee(); break;
+            case 10: modifyActivity(); break;
         }
     }
 
@@ -73,5 +77,20 @@ public class OrganizerUI2 extends OrganizerUI {
         String message = messageScanner.nextLine();
         MessageAllAttendeeController messageAll = new MessageAllAttendeeController(userController);
         messageAll.messageAllAttendee(message);
+    }
+
+    protected void modifyActivity() {
+        ModifyActivityController modifyActivity = new ModifyActivityController(userController);
+        try{
+            ModifyActivityPresenter.printMaxNumActivityPrompt_1(modifyActivity.getAllActivities());
+            Scanner activityId = new Scanner(System.in);
+            ModifyActivityPresenter.printMaxNumActivityPrompt_2();
+            Scanner newMaxNum = new Scanner(System.in);
+
+        }catch (NoActivitiesException e){
+            ModifyActivityPresenter.printNoActivity();
+        }
+
+
     }
 }

@@ -66,7 +66,7 @@ public class RoomManager implements java.io.Serializable {
      * @param roomID is the id of the room we are searching for.
      * @return a room or nothing if it is not in the list of rooms of our <code>RoomManager</code>
      */
-    private Room findRoom(UUID roomID){
+    public Room findRoom(UUID roomID){
         for (Room room: rooms){
             if (room.getId().equals(roomID)){
                 return room;
@@ -90,6 +90,10 @@ public class RoomManager implements java.io.Serializable {
         }
     }
 
+
+    public int getRoomCapacity(UUID roomId){
+        return findRoom(roomId).getCapacity();
+    }
 
     /**
      * Remove an activity in the entities.Room schedule

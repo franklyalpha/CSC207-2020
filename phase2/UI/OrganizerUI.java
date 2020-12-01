@@ -50,6 +50,7 @@ public class OrganizerUI extends UserUI{
         availableAction.add("send messages in coopChatroom");
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
+        availableAction.add("modify activity information");
     }
     //TODO should move to presenter;
 

@@ -35,7 +35,7 @@ public class CreateScheduleController extends ActivityController {
     public void checkInfoValid(String[] speakerRoom, int MaxNumber)
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
         UUID RoomID = freeRooms.get(Integer.getInteger(speakerRoom[1]));
-        int RoomCapacity = Objects.requireNonNull(RoomManager.findRoom(RoomID)).getCapacity();
+        int RoomCapacity = roomManager.getRoomCapacity(RoomID);
 
         if (!freeSpeaker.contains(speakerRoom[0])){
             throw new UserNotFoundException("");
