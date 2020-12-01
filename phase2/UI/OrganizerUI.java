@@ -55,9 +55,9 @@ public class OrganizerUI extends UserUI{
         CreateRoomController createRoom = new CreateRoomController(userController);
         while(true){
             try {
-                organizerPresenter.strCreateRoomPrompt();
+                System.out.println(organizerPresenter.strCreateRoomPrompt());
                 int a = createNewRoom(createRoom);
-                organizerPresenter.strRoomCapacityConfirmation(a);
+                System.out.println(organizerPresenter.strRoomCapacityConfirmation(a));
                 break;
             }catch(Exception e) {
                 System.out.println(organizerPresenter.strInvalidInput());
@@ -168,7 +168,7 @@ public class OrganizerUI extends UserUI{
 
     boolean continuing(){
         boolean enterAction = true;
-        organizerPresenter.strContinueServicePrompt();
+        System.out.println(organizerPresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
             enterAction = false;

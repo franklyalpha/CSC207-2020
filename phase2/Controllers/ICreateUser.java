@@ -5,7 +5,7 @@ import globallyAccessible.UserType;
 import functionalityPresenters.Presenter;
 
 import java.util.Scanner;
-public interface CreateUser {
+public interface ICreateUser {
     void ValidateName(String name) throws SpeakerAlreadyExistException;
     String createUser(String name, String password);
 }

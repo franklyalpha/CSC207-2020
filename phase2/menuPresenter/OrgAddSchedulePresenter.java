@@ -20,7 +20,7 @@ public class OrgAddSchedulePresenter extends UserPresenter {
         finalList.append(strSpeakerList(speakers));
         finalList.append("Here are the IDs of all available rooms: \n");
         finalList.append(strRoomList(rooms));
-        finalList.append("Please input the topic, speaker, and room index for this activity\n" +
+        finalList.append("Please input the topic, speaker, room index and maximum capacity for this activity\n" +
                 "IN THAT ORDER and on different lines: (if an invalid room is given, the first room will be used by default.");
         return finalList.toString();
     }

@@ -64,7 +64,7 @@ public class OrgAddScheduleUI extends UserUI{
         Scanner moreInfo = new Scanner(System.in);
         String topic = moreInfo.nextLine();
         String speaker = moreInfo.nextLine();
-        int roomIndex = moreInfo.nextInt() - 1;
+        int roomIndex = moreInfo.nextInt();
         int MaxNumber = moreInfo.nextInt();
         createSchedule.checkInfoValid(new String[]{speaker, freeRooms.get(roomIndex).toString()}, MaxNumber);
         return new Object[]{speaker, freeRooms.get(roomIndex), topic, MaxNumber};

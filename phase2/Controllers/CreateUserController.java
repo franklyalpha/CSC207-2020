@@ -4,12 +4,12 @@ import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
 
 public class CreateUserController extends AbstractController{
-    private CreateUser createAttendee;
-    private CreateUser createSpeaker;
+    private ICreateUser createAttendee;
+    private ICreateUser createSpeaker;
     public CreateUserController(UserController userController) {
         super(userController);
-        CreateUser createSpeaker  = new CreateSpeakerController(userController);
-        CreateUser createAttendee = new CreateAttendeeController(userController);
+        createSpeaker  = new ICreateSpeakerController(userController);
+        createAttendee = new ICreateAttendeeController(userController);
     }
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
         if (userManager.isUser(name) !=0){
