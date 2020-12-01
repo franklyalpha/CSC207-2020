@@ -26,6 +26,7 @@ public class Activity implements java.io.Serializable {
     private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     private Integer maxNumAttendee;
+    private Integer currentParticipantNum;
     //Maybe event tags for easier search?
 
     //TODO：thinking of making multiple constructors later
@@ -49,6 +50,7 @@ public class Activity implements java.io.Serializable {
         this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
         this.maxNumAttendee = MaxNum;
+        this.currentParticipantNum = 0;
         // consider order of creating activity and corresponding chatroom
     }
 
@@ -234,6 +236,10 @@ public class Activity implements java.io.Serializable {
      * @return A string corresponding to the topic in this <code>Activity</code>.
      */
     public String getTopic(){return this.topic;}
+
+    public Integer getCurrentParticipantNum(){
+        return this.currentParticipantNum;
+    }
 
 //    public String toString(){
 //        String description = "Topic: " + this.topic + "\n" +
