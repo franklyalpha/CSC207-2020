@@ -6,11 +6,15 @@ import Presenters.Presenter;
 import globallyAccessible.ActivityNotFoundException;
 import globallyAccessible.NoActivitiesException;
 import globallyAccessible.UserNotFoundException;
+import menuPresenter.OrgRescheduleSpeakerPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrgRescheduleSpeakerUI extends UserUI{
+
+    final private OrgRescheduleSpeakerPresenter orgRescheduleSpeakerPresenter = new OrgRescheduleSpeakerPresenter();
+
     private RescheduleSpeakerController rescheduleSpeaker;
 
     public OrgRescheduleSpeakerUI(UserController userController) {
@@ -31,34 +35,34 @@ public class OrgRescheduleSpeakerUI extends UserUI{
     }
 
     private String chooseSpeaker(ArrayList<String> freeSpeakers){
-        Presenter.printSpeakers(freeSpeakers);
+        System.out.println(orgRescheduleSpeakerPresenter.strSpeakerList(freeSpeakers));
         while(true){
             try{
                 Scanner speakerScanner = new Scanner(System.in);
-                Presenter.printSpeakerAssignPrompt();
+                System.out.println(orgRescheduleSpeakerPresenter.strSpeakerAssignPrompt());
                 String speaker = speakerScanner.nextLine();
                 if (! freeSpeakers.contains(speaker)){
                     throw new UserNotFoundException("No such user in list");
                 }
                 return speaker;
             }catch(UserNotFoundException e){
-                Presenter.printInvalid("speaker's name");
+                System.out.println(orgRescheduleSpeakerPresenter.strInvalidSpeaker());
             }
         }
     }
 
     private String activitySelect() throws NoActivitiesException {
         ArrayList<String[]> allActivities = rescheduleSpeaker.getAllActivities();
-        Presenter.printDescription("all activities");
-        Presenter.printSchedule(allActivities);
+        System.out.println(orgRescheduleSpeakerPresenter.strAllActivityMenuDes());
+        System.out.println(orgRescheduleSpeakerPresenter.strSchedule(allActivities));
         while(true){
             try{
                 Scanner actIDGetter = new Scanner(System.in);
-                Presenter.printChangeSpeakerIDPrompt();
+                System.out.println(orgRescheduleSpeakerPresenter.strActivityChangeSpeakerPrompt());
                 String actID = actIDGetter.nextLine();
                 return rescheduleSpeaker.checkingValidActivityID(allActivities, actID);
             }catch(ActivityNotFoundException e){
-                Presenter.printInvalid("activity ID");
+                System.out.println(orgRescheduleSpeakerPresenter.strInvalidActivityID());
             }
         }
     }

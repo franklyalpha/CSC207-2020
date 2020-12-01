@@ -5,6 +5,7 @@ import Controllers.UserController;
 import Presenters.Presenter;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
+import menuPresenter.LoginPresenter;
 import useCases.UserManager;
 import gateways.*;
 
@@ -22,13 +23,14 @@ import java.util.Scanner;
  */
 public class LoginUI {
 
-    private LoginController loginController = new LoginController();
+    final private LoginController loginController = new LoginController();
+    private LoginPresenter loginPresenter = new LoginPresenter();
 
     public void run(){
         boolean notStop = true;
         while(notStop){
             Scanner singUPORLogin = new Scanner(System.in);
-            Presenter.printLoginMenu();
+            System.out.println(loginPresenter.strLoginMenu());
             String choice = singUPORLogin.nextLine();
             switch (choice){
                 case "0":
@@ -41,7 +43,7 @@ public class LoginUI {
                 case "q":
                     return;
                 default:
-                    Presenter.printInvalid("input");
+                    System.out.println(loginPresenter.strInvalidInput());
                     break;
             }
             notStop = handleWrongInput();
@@ -51,37 +53,37 @@ public class LoginUI {
     private void handleSignUp(){
         //for all presenter words, should be placed in one sign-up presenter
         Scanner signUpScanner = new Scanner(System.in);
-        Presenter.printSighUpMenu();
+        System.out.println(loginPresenter.strSighUpMenu());
         if(! signUpScanner.hasNextInt()){
-            Presenter.printInvalid("input");
+            System.out.println(loginPresenter.strInvalidInput());
             return;
         }
         int type = signUpScanner.nextInt();
         signUpScanner.nextLine();
-        Presenter.printEnterName();
+        System.out.println(loginPresenter.strNamePrompt());
 
         // should consider combine above two presenter method
         String username = signUpScanner.nextLine();
-        Presenter.printPasswordPrompt();
+        System.out.println(loginPresenter.strPasswordPrompt());
         String password = signUpScanner.nextLine();
         String newName = loginController.handleCreateNewUser(username, password, type);
-        Presenter.printUsernameIs(newName);
+        System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
 
     private void handleLogIn(){
         for (int i = 0; i < 3; i++) {
             try {
                 Scanner type = new Scanner(System.in);
-                Presenter.printUsernamePrompt();
+                System.out.println(loginPresenter.strUsernamePrompt());
                 //should consider combining above two as one presenter method
                 String userName = type.nextLine();
-                Presenter.printPasswordPrompt();
+                System.out.println(loginPresenter.strPasswordPrompt());
                 String password = type.nextLine();
                 Object[] result = loginController.handleLogin(userName, password);
                 runUserUIs(result);
                 break;
             } catch (UserNotFoundException e) {
-                Presenter.printInvalid("username / password combination.");
+                System.out.println(loginPresenter.strInvalidLogin());
             }
         }
     }
@@ -108,7 +110,7 @@ public class LoginUI {
         boolean notStop = false;
         boolean validInput = false;
         while(!validInput){
-            Presenter.printWrongInputMenu();
+            System.out.println(loginPresenter.strWrongInputMenu());
             Scanner nextChoice = new Scanner(System.in);
             String choice = nextChoice.nextLine();
             if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
@@ -119,7 +121,7 @@ public class LoginUI {
                 validInput = true;
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(loginPresenter.strInvalidInput());
             }
         }
         return notStop;

@@ -5,6 +5,7 @@ import Controllers.UserController;
 import Presenters.Presenter;
 import globallyAccessible.CannotCreateActivityException;
 import globallyAccessible.UserNotFoundException;
+import menuPresenter.OrgAddSchedulePresenter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class OrgAddScheduleUI extends UserUI{
+
+    private final OrgAddSchedulePresenter orgAddSchedulePresenter = new OrgAddSchedulePresenter();
+
     public OrgAddScheduleUI(UserController userController) {
         super(userController);
     }
@@ -29,9 +33,9 @@ public class OrgAddScheduleUI extends UserUI{
                 createSchedule.newActivitySetter(actSetting);
                 break;
             }catch(CannotCreateActivityException e){
-                Presenter.printInvalid("time period");
+                System.out.println(orgAddSchedulePresenter.strInvalidTimePeriod());
             }catch(Exception e){
-                Presenter.printInvalid("input");
+                System.out.println(orgAddSchedulePresenter.strInvalidInput());
             }
         }
     }
@@ -43,18 +47,18 @@ public class OrgAddScheduleUI extends UserUI{
                 ArrayList<UUID> freeRooms = (ArrayList<UUID>) speakersRooms[0];
                 return InputSpeakerRoomTopic(createSchedule, freeSpeaker, freeRooms);
             }catch(UserNotFoundException e){
-                Presenter.printInvalid("speaker");
+                System.out.println(orgAddSchedulePresenter.strInvalidSpeaker());
             }catch(IndexOutOfBoundsException e2){
-                Presenter.printInvalid("room index");
+                System.out.println(orgAddSchedulePresenter.strInvalidRoomIndex());
             }catch(InputMismatchException e3){
-                Presenter.printInvalid("input");
+                System.out.println(orgAddSchedulePresenter.strInvalidInput());
             }
         }
     }
 
     private Object[] InputSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException {
-        Presenter.printSpeakerRoomPrompt(freeSpeaker, freeRooms);
+        System.out.println(orgAddSchedulePresenter.strSpeakerRoomPrompt(freeSpeaker, freeRooms));
         Scanner moreInfo = new Scanner(System.in);
         String topic = moreInfo.nextLine();
         String speaker = moreInfo.nextLine();
@@ -65,11 +69,11 @@ public class OrgAddScheduleUI extends UserUI{
 
     private LocalDateTime[] periodProcessor(){
         Scanner start = new Scanner(System.in);
-        Presenter.printTimePrompt("start");
+        System.out.println(orgAddSchedulePresenter.strStartTimePrompt());
         LocalDateTime startDateTime = LocalDateTime.of(start.nextInt(),
                 start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt());
         Scanner end = new Scanner(System.in);
-        Presenter.printTimePrompt("end");
+        System.out.println(orgAddSchedulePresenter.strEndTimePrompt());
         LocalDateTime endDateTime = LocalDateTime.of(end.nextInt(),
                 end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
         return new LocalDateTime[]{startDateTime, endDateTime};

@@ -7,6 +7,7 @@ import Presenters.AvailableSchedulePresenter;
 import Presenters.EnrolledSchedulePresenter;
 import Presenters.Presenter;
 import globallyAccessible.ActivityNotFoundException;
+import menuPresenter.AttendeePresenter;
 import useCases.UserManager;
 
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ import java.util.Scanner;
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
 public class AttendeeUI extends UserUI{
+
+    final private AttendeePresenter attendeePresenter = new AttendeePresenter();
+
     public AttendeeUI(UserController userController) {
         super(userController);
     }
@@ -43,19 +47,19 @@ public class AttendeeUI extends UserUI{
             for(String a: availableAction){
                 System.out.println(availableAction.indexOf(a)+1 + " " + a);
             }*/
-            Presenter.printAvailableActions(availableAction);
+            System.out.println(attendeePresenter.strAvailableActions(availableAction));
             if (scan.hasNextInt()){   //if the input is an integer
                 action = scan.nextInt();    //set input to action
                 if (0 < action && action <= availableAction.size()) {   // if action is within possible actions
                     runMethod(action);  // do the thing
                 }
                 else {
-                    Presenter.printInvalid("input");
+                    System.out.println(attendeePresenter.strInvalidInput());
                     continue;
                 }
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(attendeePresenter.strInvalidInput());
                 scan.next();
                 continue;
             }
@@ -88,6 +92,7 @@ public class AttendeeUI extends UserUI{
         availableAction.add("- View group messages");
         availableAction.add("- Generate all upcoming events pdf");
     }
+    //TODO move this to presenter
 
     protected void enrollConference(){
         AvailableSchedulePresenter schedulePresenter = new AvailableSchedulePresenter(userController);
@@ -106,16 +111,16 @@ public class AttendeeUI extends UserUI{
                 enroll.chooseActToEnroll(availables, actID);
                 break;
             }catch(ActivityNotFoundException e){
-                Presenter.printInvalid("activity ID");
+                System.out.println(attendeePresenter.strInvalidActivityID());
             }
         }
     }
 
     private String getAvailableActivityID(ArrayList<String[]> availables) {
         Scanner scan = new Scanner(System.in);
-        Presenter.printDescription("available activities you can enroll");
-        Presenter.printSchedule(availables);
-        Presenter.printActivityIDPrompt("enroll");
+        System.out.println(attendeePresenter.strEnrollMenuDes());
+        System.out.println(attendeePresenter.strSchedule(availables));
+        System.out.println(attendeePresenter.strEnrollPrompt());
         return scan.nextLine();
     }
 
@@ -136,16 +141,16 @@ public class AttendeeUI extends UserUI{
                 quit.chooseActToCancel(enrolled, activityID);
                 break;
             }catch(ActivityNotFoundException e){
-                Presenter.printInvalid("activity ID");
+                System.out.println(attendeePresenter.strInvalidActivityID());
             }
         }
     }
 
     private String getEnrolledActivityID(ArrayList<String[]> availables) {
         Scanner scan = new Scanner(System.in);
-        Presenter.printDescription("available activities you have enrolled");
-        Presenter.printSchedule(availables);
-        Presenter.printActivityIDPrompt("cancel");
+        System.out.println(attendeePresenter.strEnrolledMenuDes());
+        System.out.println(attendeePresenter.strSchedule(availables));
+        System.out.println(attendeePresenter.strCancelPrompt());
         return scan.nextLine();
     }
 
@@ -170,7 +175,7 @@ public class AttendeeUI extends UserUI{
 
     private boolean continuing(){
         boolean enterAction = true;
-        Presenter.printContinueServicePrompt();
+        System.out.println(attendeePresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
             enterAction = false;

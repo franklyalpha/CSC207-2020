@@ -3,6 +3,7 @@ package UI;
 import Controllers.SendActivityMessageController;
 import Controllers.UserController;
 import Presenters.Presenter;
+import menuPresenter.SpeakerPresenter;
 import useCases.UserManager;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ import java.util.Scanner;
  * and send message to all attendees enrolled.
  */
 public class SpeakerUI extends OrganizerUI2{
+
+    final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
+
     public SpeakerUI(UserController userController) {
         super(userController);
     }
@@ -43,18 +47,13 @@ public class SpeakerUI extends OrganizerUI2{
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
-            /*System.out.println("Services apply\n");
-            for(String a: availableAction){
-                System.out.println(availableAction.indexOf(a)+1 + ": " + a);
-
-            }*/
-            Presenter.printAvailableActions(availableAction);
+            System.out.println(speakerPresenter.strAvailableActions(availableAction));
             action = scan.nextInt();
             if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(speakerPresenter.strInvalidInput());
             }
             enterAction = continuing();
         }
@@ -102,7 +101,7 @@ public class SpeakerUI extends OrganizerUI2{
                 findAndSendMessage(activityMessager, info);
                 break;
             }catch(IndexOutOfBoundsException e){
-                Presenter.printInvalid("index of chat list");
+                System.out.println(speakerPresenter.strInvalidIndex());
             }
         }
     }
@@ -112,15 +111,15 @@ public class SpeakerUI extends OrganizerUI2{
         if (info.size() == 0){
             return null;
         }
-        Presenter.printDescription("activities you've enrolled");
-        Presenter.printSchedule(info);
+        System.out.println(speakerPresenter.strEnrolledMenuDes());
+        System.out.println(speakerPresenter.strSchedule(info));
         return info;
     }
 
     private void findAndSendMessage(SendActivityMessageController activityMessager, ArrayList<String[]> info) {
         int actID = determineChatIDValidity(info);
         Scanner messageScanner = new Scanner(System.in);
-        Presenter.printMessagePrompt();
+        System.out.println(speakerPresenter.strMessagePrompt());
         String message = messageScanner.nextLine();
         activityMessager.sendActivityMessage(actID, message);
     }
@@ -128,7 +127,7 @@ public class SpeakerUI extends OrganizerUI2{
     private int determineChatIDValidity(ArrayList<String[]> info)
             throws IndexOutOfBoundsException{
         Scanner actIDScanner = new Scanner(System.in);
-        Presenter.printActivityMessagePrompt();
+        System.out.println(speakerPresenter.strActivityMessagePrompt());
         int actID = actIDScanner.nextInt();
         if (actID < 1 || actID > info.size()){
             throw new IndexOutOfBoundsException("invalid index for chat");
@@ -150,8 +149,7 @@ public class SpeakerUI extends OrganizerUI2{
     @Override
     protected boolean continuing(){
         boolean enterAction = true;
-        //System.out.println("Continue for other services? Please enter true or false. (false for log out)");
-        Presenter.printContinueServicePrompt();
+        System.out.println(speakerPresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
             enterAction = false;

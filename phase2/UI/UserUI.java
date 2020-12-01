@@ -9,6 +9,7 @@ import gateways.GatewayChat;
 import gateways.GatewayRoom;
 import gateways.GatewayUser;
 import globallyAccessible.UserNotFoundException;
+import menuPresenter.UserPresenter;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
@@ -27,9 +28,11 @@ import java.util.*;
  * @since 1.0
  */
 public class UserUI {
+
     protected ArrayList<String> availableAction = new ArrayList<>();
     protected ArrayList<String> availableMethod = new ArrayList<>();
     protected UserController userController;
+    final private UserPresenter userPresenter = new UserPresenter();
 
 
     public UserUI(UserController userController){
@@ -45,16 +48,14 @@ public class UserUI {
         PrivateMessagePresenter messagePresenter = new PrivateMessagePresenter(userController);
         HashMap<String, ArrayList<String>> historyChat = messagePresenter.viewPrivateMessage();
 
-        Presenter.printContactPrompt("contact");
-        Presenter.printList(historyChat.keySet().toArray());
+        Presenter.printContactPrompt("contact"); //TODO Really should change this to an index system
+        System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
         Scanner scan = new Scanner(System.in);
         String contactUser = scan.nextLine();
         if (!historyChat.containsKey(contactUser)){
-            Presenter.printInvalid("user name");
-            return;
+            System.out.println(userPresenter.strInvalidUsername());
         }
-        Presenter.printMessagesInInterval(historyChat.get(contactUser), 1, historyChat.get(contactUser).size());
-        // better put this method in message presenter;
+        System.out.println(userPresenter.strMessagesInInterval(historyChat.get(contactUser), 1, historyChat.get(contactUser).size()));
     }
 
     protected void sendPrivateMessage(){
@@ -62,16 +63,16 @@ public class UserUI {
         while(true){
             try{
                 Scanner userScanner = new Scanner(System.in);
-                Presenter.printUserToContactPrompt();
+                System.out.println(userPresenter.strUserToContactPrompt());
                 String userName = userScanner.nextLine();
                 Scanner messageScan = new Scanner(System.in);
-                Presenter.printMessagePrompt();
+                System.out.println(userPresenter.strMessagePrompt());
                 String message = messageScan.nextLine();
                 sendPrivateController.send(userName, message);
                 break;
             }
             catch(UserNotFoundException e){
-                Presenter.printInvalid("input. That user does not exist!");
+                System.out.println(userPresenter.strInvalidInput());
             }
         }
     }
@@ -80,27 +81,27 @@ public class UserUI {
         GroupMessagePresenter groupMessagePresenter = new GroupMessagePresenter(userController);
         HashMap<String, ArrayList<String>> historyChat = groupMessagePresenter.viewGroupMessage();
 
-        Presenter.printContactPrompt("event");
-        Presenter.printList(historyChat.keySet().toArray());
+        Presenter.printContactPrompt("event"); //TODO Really should change this to select an index
+        System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
         Scanner scan = new Scanner(System.in);
         String selectedEvent = scan.nextLine();
         if (!historyChat.containsKey(selectedEvent)){
-            Presenter.printInvalid("activity name");
+            System.out.println(userPresenter.strInvalidActivityID());
             return;
         }
-        Presenter.printMessagesInInterval(historyChat.get(selectedEvent), 1,
-                historyChat.get(selectedEvent).size());
+        System.out.println(userPresenter.strMessagesInInterval(historyChat.get(selectedEvent), 1,
+                historyChat.get(selectedEvent).size()));
     }
 
     protected void viewEnrolledSchedule(){
         EnrolledSchedulePresenter enrolledSchedulePresenter = new EnrolledSchedulePresenter(userController);
         ArrayList<String[]> schedules = enrolledSchedulePresenter.viewEnrolledSchedule();
-        Presenter.printSchedule(schedules);
+        System.out.println(userPresenter.strSchedule(schedules));
     }
 
     protected void viewAvailableSchedules(){
         AvailableSchedulePresenter availableSchedulePresenter = new AvailableSchedulePresenter(userController);
-        Presenter.printSchedule(availableSchedulePresenter.viewAvailableSchedules());
+        System.out.println(userPresenter.strSchedule(availableSchedulePresenter.viewAvailableSchedules()));
     }
 
     protected void outputAllUpcomingEventsPdf() {

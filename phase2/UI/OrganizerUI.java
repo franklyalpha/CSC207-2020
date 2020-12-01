@@ -7,6 +7,7 @@ import Controllers.CreateSpeakerController;
 import Controllers.UserController;
 import Presenters.Presenter;
 import globallyAccessible.SpeakerAlreadyExistException;
+import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
 
@@ -26,6 +27,9 @@ import java.util.Scanner;
  * messageAllAttendee: responsible for sending messages to all registered attendee.
  */
 public class OrganizerUI extends UserUI{
+
+    final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
+
     public OrganizerUI(UserController userController) {
         super(userController);
     }
@@ -48,7 +52,7 @@ public class OrganizerUI extends UserUI{
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
     }
-    // should move to presenter;
+    //TODO should move to presenter;
 
     protected void createRoom(){
         CreateRoomController createRoon = new CreateRoomController(userController);
@@ -57,7 +61,7 @@ public class OrganizerUI extends UserUI{
                 createRoon.createRoomWithCapacity();
                 break;
             }catch(Exception e) {
-                Presenter.printInvalid("capacity");
+                System.out.println(organizerPresenter.strInvalidCapacity());
             }
         }
     }
@@ -67,15 +71,15 @@ public class OrganizerUI extends UserUI{
         while(true){
             try{
                 Scanner input0 = new Scanner(System.in);
-                Presenter.printSpeakerNamePrompt();
+                System.out.println(organizerPresenter.strSpeakerPrompt());
                 String name = input0.next();
                 createSpeaker.ValidateName(name);
-                Presenter.printPasswordPrompt();
+                System.out.println(organizerPresenter.strPasswordPrompt());
                 String password = input0.next();
-                Presenter.printUsernameIs(createSpeaker.createNewSpeaker(name, password));
+                System.out.println(organizerPresenter.strUsernameConfirmation(createSpeaker.createNewSpeaker(name, password)));
                 break;
             }catch (SpeakerAlreadyExistException e){
-                Presenter.printSpeakerExist();
+                System.out.println(organizerPresenter.strSpeakerExistWarning());
             }
         }
     }
@@ -168,8 +172,7 @@ public class OrganizerUI extends UserUI{
 
     boolean continuing(){
         boolean enterAction = true;
-        //System.out.println("Continue for other services? Please enter true or false. (false for log out)");
-        Presenter.printContinueServicePrompt();
+        organizerPresenter.strContinueServicePrompt();
         Scanner scan2 = new Scanner(System.in);
         if(!scan2.nextLine().equals("true")){
             enterAction = false;

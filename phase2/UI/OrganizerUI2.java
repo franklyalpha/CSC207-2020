@@ -27,13 +27,13 @@ public class OrganizerUI2 extends OrganizerUI {
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
-            Presenter.printAvailableActions(availableAction);
+            System.out.println(organizerPresenter.strAvailableActions(availableAction));
             action = scan.nextInt();
             if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(organizerPresenter.strInvalidInput());
             }
             enterAction = continuing();
         }
@@ -57,7 +57,7 @@ public class OrganizerUI2 extends OrganizerUI {
     protected void sendCoopMessage(){
         SendOrganizerSpeakerMessageController orgSpeSendMessage = new SendOrganizerSpeakerMessageController(userController);
         Scanner messenger = new Scanner(System.in);
-        Presenter.printMessagePrompt();
+        System.out.println(organizerPresenter.strMessagePrompt());
         String message = messenger.nextLine();
         orgSpeSendMessage.sendCoopMessage(message);
     }
@@ -66,12 +66,12 @@ public class OrganizerUI2 extends OrganizerUI {
         OrganizerSpeakerMessagePresenter orgSpeMessager =
                 new OrganizerSpeakerMessagePresenter(userController);
         ArrayList<String> messages = orgSpeMessager.viewCoopChat();
-        Presenter.printMessagesInInterval(messages, 1, messages.size());
+        System.out.println(organizerPresenter.strMessagesInInterval(messages, 1, messages.size()));
     }
 
     protected void messageAllAttendee(){
         Scanner messageScanner = new Scanner(System.in);
-        Presenter.printMessagePrompt();
+        System.out.println(organizerPresenter.strMessagePrompt());
         String message = messageScanner.nextLine();
         MessageAllAttendeeController messageAll = new MessageAllAttendeeController(userController);
         messageAll.messageAllAttendee(message);

@@ -5,11 +5,14 @@ import Controllers.DeleteSelectedMessagesController;
 import Controllers.UserController;
 import Presenters.Presenter;
 import globallyAccessible.UserNotFoundException;
+import menuPresenter.AdminDeleteMessagePresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminDeleteMessageUI extends UserUI {
+
+    final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
 
     public AdminDeleteMessageUI(UserController userController) {
         super(userController);
@@ -21,11 +24,11 @@ public class AdminDeleteMessageUI extends UserUI {
     }
 
     private void chooseChatOrMessage(){
-        System.out.println("Please enter '1' if you want to delete whole conversation, or '2' if for messages: ");
+        System.out.println(adminDeleteMessagePresenter.strMessageActionMenu());
         while(true){
             Scanner choice = new Scanner(System.in);
             if(!choice.hasNextInt()){
-                Presenter.printInvalid("input");
+                System.out.println(adminDeleteMessagePresenter.strInvalidInput());
             }
             else{
                 switch(choice.nextInt()){
@@ -40,7 +43,7 @@ public class AdminDeleteMessageUI extends UserUI {
         while(true){
             try{
                 DeletePrivateConversationController deletePrivate = new DeletePrivateConversationController(userController);
-                System.out.println("Please enter username of users involved in this PRIVATE chat, one user for each line");
+                System.out.println(adminDeleteMessagePresenter.strUsersToAddPrompt());
                 Scanner users = new Scanner(System.in);
                 String username1 = users.nextLine();
                 String username2 = users.nextLine();
@@ -56,11 +59,11 @@ public class AdminDeleteMessageUI extends UserUI {
 
     // followings can be placed in another UI
     private void deleteSelectedMessages(){
-        System.out.println("Please enter '0' for deleting message in organizer-speaker conversation, or '1' for activity-group messages");
+        System.out.println(adminDeleteMessagePresenter.strGroupActionMenu());
         while(true){
             Scanner choice = new Scanner(System.in);
             if(!choice.hasNextInt()){
-                Presenter.printInvalid("invalid");
+                System.out.println(adminDeleteMessagePresenter.strInvalidInput());
             }
             else{
                 switch(choice.nextInt()){
@@ -79,12 +82,9 @@ public class AdminDeleteMessageUI extends UserUI {
     }
 
     private void chooseLinesToDelete(DeleteSelectedMessagesController deleteMessage, ArrayList<String> history) {
-        for(int i = 0; i < history.size(); i++){
-            System.out.println(i + ": " + history.get(i));
-        }
+        System.out.println(adminDeleteMessagePresenter.strDisplayMessageHistory(history));
         Scanner lines = new Scanner(System.in);
-        System.out.println("please enter one or more integers, which are indexes of messages you want to delete (separate by space): \n" +
-                "(Any integers greater than max index or less than zero will be filtered)");
+        System.out.println(adminDeleteMessagePresenter.strIndexToDeletePrompt());
         ArrayList<Integer> targetedDeletion = new ArrayList<>();
         while(lines.hasNextInt()){
             targetedDeletion.add(lines.nextInt());
@@ -100,7 +100,7 @@ public class AdminDeleteMessageUI extends UserUI {
 
     private ArrayList<String> selectGroupConversation(DeleteSelectedMessagesController deleteMessage){
         ArrayList<String> ids = viewAllGroupConversation(deleteMessage);
-        System.out.println("Please enter the ID of chat you wish to delete message");
+        System.out.println(adminDeleteMessagePresenter.strChatToDeletePrompt());
         while(true){
             Scanner conversationID = new Scanner(System.in);
             String ID = conversationID.nextLine();
@@ -108,17 +108,17 @@ public class AdminDeleteMessageUI extends UserUI {
                 return deleteMessage.getGroupHistoryChat(ID);
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(adminDeleteMessagePresenter.strInvalidInput());
             }
         }
     }
 
     private ArrayList<String> viewAllGroupConversation(DeleteSelectedMessagesController deleteMessage) {
         ArrayList<String[]> groupConversationId = deleteMessage.groupChatIDs();
-        System.out.println("below are conversation IDs paired with corresponding chats");
+        System.out.println(adminDeleteMessagePresenter.strChatDisplayHeader());
         ArrayList<String> ids = new ArrayList<>();
+        System.out.println(adminDeleteMessagePresenter.strDisplayChatGroups(groupConversationId));
         for(String[] info: groupConversationId){
-            System.out.println(info[0] + ": " + info[1]);
             ids.add(info[1]);
         }
         return ids;
