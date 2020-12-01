@@ -50,7 +50,6 @@ public class Activity implements java.io.Serializable {
         this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
         this.maxNumAttendee = MaxNum;
-        this.currentParticipantNum = 0;
         // consider order of creating activity and corresponding chatroom
     }
 
@@ -237,9 +236,6 @@ public class Activity implements java.io.Serializable {
      */
     public String getTopic(){return this.topic;}
 
-    public Integer getCurrentParticipantNum(){
-        return this.currentParticipantNum;
-    }
 
 //    public String toString(){
 //        String description = "Topic: " + this.topic + "\n" +
