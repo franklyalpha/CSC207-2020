@@ -12,9 +12,7 @@ public class CreateUserController extends AbstractController{
         CreateUser createAttendee = new CreateAttendeeController(userController);
     }
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
-        if(userManager.isUser(name) == 0){
-        }
-        else{
+        if (userManager.isUser(name) !=0){
             throw new SpeakerAlreadyExistException("Attendee already exist!");
         }
     }
@@ -28,6 +26,10 @@ public class CreateUserController extends AbstractController{
             }
             case SPEAKER: {
                 userName = createSpeaker.createUser(name, password);
+                break;
+            }
+            case ORGANIZER: {
+                // require implementation
                 break;
             }
         }

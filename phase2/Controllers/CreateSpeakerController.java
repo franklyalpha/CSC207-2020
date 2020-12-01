@@ -3,7 +3,7 @@ package Controllers;
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
 
-public class CreateSpeakerController extends AbstractController implements CreateUser{
+public class CreateSpeakerController extends CreateUserController implements CreateUser{
 
 
     public CreateSpeakerController(UserController userController) {
@@ -11,9 +11,7 @@ public class CreateSpeakerController extends AbstractController implements Creat
     }
 
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
-        if(userManager.isUser(name) == 0){
-        }
-        else{
+        if(userManager.isUser(name) != 0){
             throw new SpeakerAlreadyExistException("Speaker already exist!");
         }
     }
@@ -23,4 +21,6 @@ public class CreateSpeakerController extends AbstractController implements Creat
         messageRoomManager.addUser(name, messageRoomManager.getCoopId());
         return username;
     }
+
+
 }

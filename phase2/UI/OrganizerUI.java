@@ -3,9 +3,6 @@ package UI;
 
 
 import Controllers.*;
-import functionalityPresenters.Presenter;
-import globallyAccessible.SpeakerAlreadyExistException;
-import globallyAccessible.UserType;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -58,61 +55,27 @@ public class OrganizerUI extends UserUI{
         CreateRoomController createRoom = new CreateRoomController(userController);
         while(true){
             try {
-                createRoom.createRoomWithCondition();
+                organizerPresenter.strCreateRoomPrompt();
+                int a = createNewRoom(createRoom);
+                organizerPresenter.strRoomCapacityConfirmation(a);
                 break;
             }catch(Exception e) {
-                System.out.println(organizerPresenter.strInvalidCapacity());
+                System.out.println(organizerPresenter.strInvalidInput());
             }
         }
     }
 
-    protected void createSpeaker(){
-        CreateSpeakerController createSpeaker = new CreateSpeakerController(userController);
-        while(true){
-            try{
-                Scanner input0 = new Scanner(System.in);
-                System.out.println(organizerPresenter.strSpeakerPrompt());
-                String name = input0.next();
-                createSpeaker.ValidateName(name);
-                System.out.println(organizerPresenter.strPasswordPrompt());
-                String password = input0.next();
-                System.out.println(organizerPresenter.strUsernameConfirmation(createSpeaker.createNewSpeaker(name, password)));
-                //TODO Presenter.printUsernameIs(createSpeaker.createUser(name, password));
-                break;
-            }catch (SpeakerAlreadyExistException e){
-                //TODO Presenter.printSpeakerExist();
-            }
-        }
+    private int createNewRoom(CreateRoomController createRoom) throws Exception {
+        Scanner input = new Scanner(System.in);
+        int a = input.nextInt();
+        boolean b = input.nextBoolean();
+        int c = input.nextInt();
+        createRoom.createRoomWithCondition(a, b, c);
+        return a;
     }
 
     protected void createUser(){
-        CreateUserController createUser = new CreateUserController(userController);
-        while(true){
-            try{
-                Scanner input0 = new Scanner(System.in);
-                Scanner input1 = new Scanner(System.in);
-                Presenter.printUserType();
-                int type = input1.nextInt();
-                while(true){
-                    if(type >= 1 && type <= UserType.values().length){
-                        Presenter.printSpeakerNamePrompt();
-                        String name = input0.next();
-                        createUser.ValidateName(name);
-                        Presenter.printPasswordPrompt();
-                        String password = input0.next();
-                        Presenter.printUsernameIs(createUser.createUser(UserType.values()[type], name, password));
-                        break;
-                    }
-                    else{
-                        Presenter.printInvalid("User Type");
-                    }
-                }
-                break;
-
-            }catch (SpeakerAlreadyExistException e){
-                System.out.println(organizerPresenter.strSpeakerExistWarning());
-            }
-        }
+        new OrgCreateUserUI(userController).run();
     }
 
 

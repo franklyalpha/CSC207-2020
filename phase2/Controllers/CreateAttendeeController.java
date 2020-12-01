@@ -9,9 +9,7 @@ public class CreateAttendeeController extends AbstractController implements Crea
     }
 
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
-        if(userManager.isUser(name) == 0){
-        }
-        else{
+        if(userManager.isUser(name) != 0){
             throw new SpeakerAlreadyExistException("Attendee already exist!");
         }
     }
