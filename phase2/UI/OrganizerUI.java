@@ -40,7 +40,7 @@ public class OrganizerUI extends UserUI{
 
     void addMenu(){
         availableAction.add("create conference room");
-        availableAction.add("create speaker account");
+        availableAction.add("create other user account");
         availableAction.add("schedule conference");
         availableAction.add("reschedule speaker");
         availableAction.add("send private message");

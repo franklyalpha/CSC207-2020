@@ -43,7 +43,7 @@ public class OrganizerUI2 extends OrganizerUI {
     private void runMethod (int action){
         switch(action){
             case 1: createRoom(); break;
-            case 2: createSpeaker(); break;
+            case 2: createUser(); break;
             case 3: addSchedule(); break;
             case 4: rescheduleSpeaker(); break;
             case 5: sendPrivateMessage(); break;
