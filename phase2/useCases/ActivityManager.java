@@ -51,8 +51,8 @@ public class ActivityManager implements java.io.Serializable{
      * @param topic a <code>String</code> representing the topic of this activity.
      * @return UUID of newly created activity.
      */
-    public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic){
-        Activity newAct = new Activity(period, chatRoomID, topic);
+    public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic, Integer MaxNum){
+        Activity newAct = new Activity(period, chatRoomID, topic, MaxNum);
         upcomingActivities.add(newAct);
         return newAct.getIdentity();
     }
@@ -198,6 +198,11 @@ public class ActivityManager implements java.io.Serializable{
         Activity a = findActivity(activity);
         return a.removeAttendee(attendee);
 
+    }
+
+    public void deleteEvent(UUID activityID){
+        Activity activityDelete = findActivity(activityID);
+        upcomingActivities.remove(activityDelete);
     }
 
 

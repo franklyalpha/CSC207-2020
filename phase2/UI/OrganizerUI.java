@@ -55,10 +55,10 @@ public class OrganizerUI extends UserUI{
     //TODO should move to presenter;
 
     protected void createRoom(){
-        CreateRoomController createRoon = new CreateRoomController(userController);
+        CreateRoomController createRoom = new CreateRoomController(userController);
         while(true){
             try {
-                createRoon.createRoomWithCapacity();
+                createRoom.createRoomWithCondition();
                 break;
             }catch(Exception e) {
                 System.out.println(organizerPresenter.strInvalidCapacity());

@@ -13,6 +13,7 @@ import java.util.*;
 
 public class Room implements java.io.Serializable {
 
+
     /**
      * Unique identifier for each <code>Chatroom</code>.
      */
@@ -28,14 +29,19 @@ public class Room implements java.io.Serializable {
      */
     private final HashMap<LocalDateTime[], UUID> schedule;
 
+    private Boolean haveProjector;
+    private Integer NumMicrophone;
+
     /**
      * Creates <code>Room</code> with a randomly generated id, blank schedule, and a capacity we give it.
      * @param capacity is maximum number of <code>User</code> this room can fit in.
      */
-    public Room(int capacity){
+    public Room(int capacity, boolean haveProjector, int NumMicrophone){
         this.id = UUID.randomUUID(); //assign entities.Room id
         this.capacity = capacity; //assign entities.Room Capacity
         this.schedule = new HashMap<>(); //holds all the schedule times for the entities.Room
+        this.haveProjector = haveProjector;
+        this.NumMicrophone = NumMicrophone;
     }
 
     // getter for entities.Room id
@@ -52,6 +58,23 @@ public class Room implements java.io.Serializable {
      * @return a integer corresponding to the maximum number of <code>User</code> this room can fit in.
      */
     public int getCapacity() { return capacity; }
+
+
+    public boolean getHaveProjector(){
+        return this.haveProjector;
+    }
+
+    public int getNumMicrophone() {
+        return this.NumMicrophone;
+    }
+
+    public void setHaveProjector(boolean haveProjector){
+        this.haveProjector = haveProjector;
+    }
+
+    public void setHaveMicrophone(int NumMicrophone){
+        this.NumMicrophone = NumMicrophone;
+    }
 
     // setter for entities.Room id
     /**

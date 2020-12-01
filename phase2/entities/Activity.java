@@ -38,7 +38,7 @@ public class Activity implements java.io.Serializable {
      * @param topic the topic of the activity in <code>Activity</code>.
      */
     public Activity(LocalDateTime[] period, UUID[] chatRoomID,
-                    String topic){
+                    String topic, Integer MaxNum){
         this.speaker = null;
         this.attendeeList = new ArrayList<>();
         this.startTime = period[0];
@@ -48,6 +48,7 @@ public class Activity implements java.io.Serializable {
         this.identity = UUID.randomUUID();
         this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
+        this.maxNumAttendee = MaxNum;
         // consider order of creating activity and corresponding chatroom
     }
 

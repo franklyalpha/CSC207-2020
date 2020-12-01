@@ -6,10 +6,8 @@ import Presenters.Presenter;
 
 import java.util.Scanner;
 
-public class CreateSpeakerController extends AbstractController implements CreateUser{
-
-
-    public CreateSpeakerController(UserController userController) {
+public class CreateAttendeeController extends AbstractController implements CreateUser {
+    public CreateAttendeeController(UserController userController) {
         super(userController);
     }
 
@@ -17,13 +15,16 @@ public class CreateSpeakerController extends AbstractController implements Creat
         if(userManager.isUser(name) == 0){
         }
         else{
-            throw new SpeakerAlreadyExistException("Speaker already exist!");
+            throw new SpeakerAlreadyExistException("Attendee already exist!");
         }
     }
 
-    public String createUser(String name, String password){
-        String username = userManager.createUser(name, password, UserType.SPEAKER);
+
+
+    public String createUser(String name, String password) {
+        String username = userManager.createUser(name, password, UserType.ATTENDEE);
         messageRoomManager.addUser(name, messageRoomManager.getCoopId());
         return username;
+
     }
 }

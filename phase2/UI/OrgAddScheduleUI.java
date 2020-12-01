@@ -29,7 +29,7 @@ public class OrgAddScheduleUI extends UserUI{
                 LocalDateTime[] targetPeriod = periodProcessor();
                 Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
                 Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
-                Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0]};
+                Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
                 createSchedule.newActivitySetter(actSetting);
                 break;
             }catch(CannotCreateActivityException e){
@@ -52,19 +52,22 @@ public class OrgAddScheduleUI extends UserUI{
                 System.out.println(orgAddSchedulePresenter.strInvalidRoomIndex());
             }catch(InputMismatchException e3){
                 System.out.println(orgAddSchedulePresenter.strInvalidInput());
+            }catch(MaxNumberBeyondRoomCapacityException e4){
+                //TODO Presenter.printInvalid("MaxNumber");
             }
         }
     }
 
     private Object[] InputSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
-            throws UserNotFoundException, InputMismatchException {
+            throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException {
         System.out.println(orgAddSchedulePresenter.strSpeakerRoomPrompt(freeSpeaker, freeRooms));
         Scanner moreInfo = new Scanner(System.in);
         String topic = moreInfo.nextLine();
         String speaker = moreInfo.nextLine();
         int roomIndex = moreInfo.nextInt() - 1;
-        createSchedule.checkInfoValid(new String[]{speaker, freeRooms.get(roomIndex).toString()});
-        return new Object[]{speaker, freeRooms.get(roomIndex), topic};
+        int MaxNumber = moreInfo.nextInt();
+        createSchedule.checkInfoValid(new String[]{speaker, freeRooms.get(roomIndex).toString()}, MaxNumber);
+        return new Object[]{speaker, freeRooms.get(roomIndex), topic, MaxNumber};
     }
 
     private LocalDateTime[] periodProcessor(){
