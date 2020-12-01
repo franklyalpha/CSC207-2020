@@ -3,6 +3,7 @@ package UI;
 import Controllers.CreateScheduleController;
 import Controllers.UserController;
 import globallyAccessible.CannotCreateActivityException;
+import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.OrgAddSchedulePresenter;
 

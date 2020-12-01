@@ -10,6 +10,7 @@ import menuPresenter.ModifyActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class OrganizerUI2 extends OrganizerUI {
     public OrganizerUI2(UserController userController) {
@@ -83,14 +84,15 @@ public class OrganizerUI2 extends OrganizerUI {
         ModifyActivityController modifyActivity = new ModifyActivityController(userController);
         try{
             ModifyActivityPresenter.printMaxNumActivityPrompt_1(modifyActivity.getAllActivities());
-            Scanner activityId = new Scanner(System.in);
+            Scanner input_1 = new Scanner(System.in);
             ModifyActivityPresenter.printMaxNumActivityPrompt_2();
-            Scanner newMaxNum = new Scanner(System.in);
-
+            Scanner input_2 = new Scanner(System.in);
+            UUID activityId = UUID.fromString(input_1.nextLine());
+            int newMaxNum = input_2.nextInt();
+            modifyActivity.changeActivityMaxNumPeople(activityId, newMaxNum);
         }catch (NoActivitiesException e){
             ModifyActivityPresenter.printNoActivity();
         }
-
 
     }
 }

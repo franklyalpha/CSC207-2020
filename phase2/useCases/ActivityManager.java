@@ -205,6 +205,10 @@ public class ActivityManager implements java.io.Serializable{
         upcomingActivities.remove(activityDelete);
     }
 
+    public void changeActivityMaxParticipant(UUID activityId, Integer newMaxNum){
+        Objects.requireNonNull(findActivity(activityId)).setMaxNumAttendee(newMaxNum);
+    }
+
 
 
     //speaker identity duration topic roomnum starttime
