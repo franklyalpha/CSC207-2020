@@ -1,11 +1,15 @@
 package Controllers;
 
+import entities.Activity;
+import entities.User;
+import globallyAccessible.UserType;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ActivityController extends AbstractController{
 
@@ -40,6 +44,17 @@ public class ActivityController extends AbstractController{
      * ID of this activity and name of speaker.
      * Specific format will be determined in Presenter.
      */
+
+
+    protected <Arraylist> void cancelActivity(Arraylist<Activity>) {
+        for (activity:
+             ArrayList<Activity>) {
+            for (user:
+                 ArrayList<User>) {
+                userManager.deleteActivity();
+            }
+        }
+    }
 
 
 

@@ -1,6 +1,8 @@
 package useCases;
 
 import entities.Activity;
+import entities.User;
+import globallyAccessible.UserType;
 
 import java.time.*;
 import java.util.*;
@@ -32,6 +34,7 @@ public class ActivityManager implements java.io.Serializable{
      * Represents activities that have already been completed.
      */
     private final ArrayList<Activity> archivedActivities;
+    private UUID actID;
     // consider modifying as Hashmaps
 
 
@@ -125,12 +128,19 @@ public class ActivityManager implements java.io.Serializable{
     }
 
     private Activity findActivity(UUID actID){
+        this.actID = actID;
         for (Activity act : upcomingActivities){
             if (actID.equals(act.getIdentity())){
                 return act;
             }
         }
         return null;
+    }
+
+    public boolean cancelActivity(UUID activity,String organizer) {
+        Activity a = findActivity(activity);
+        return a.cancelActivity(organizer);
+
     }
 
     /**
@@ -200,7 +210,18 @@ public class ActivityManager implements java.io.Serializable{
 
     }
 
-    public void deleteEvent(UUID activityID){
+
+    public void deleteActivity(UUID activity, User user ){
+        if(findActivity(activity)){
+            if(user.type= UserType.ORGANIZER){
+                upcomingActivities.remove(activity);
+            }
+
+        }
+    }
+
+
+    public void deleteEvent(UUID activityID, User potentialOrganizer, ){
         Activity activityDelete = findActivity(activityID);
         upcomingActivities.remove(activityDelete);
     }
