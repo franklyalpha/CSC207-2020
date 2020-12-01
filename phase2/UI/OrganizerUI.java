@@ -2,11 +2,12 @@ package UI;
 
 
 
-import Controllers.CreateRoomController;
-import Controllers.CreateSpeakerController;
-import Controllers.UserController;
+import Controllers.*;
+import Controllers.CreateAttendeeController;
 import Presenters.Presenter;
 import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserType;
+import org.graalvm.compiler.phases.graph.ScheduledNodeIterator;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -43,7 +44,7 @@ public class OrganizerUI extends UserUI{
 
     void addMenu(){
         availableAction.add("create conference room");
-        availableAction.add("create speaker account");
+        availableAction.add("create other user account");
         availableAction.add("schedule conference");
         availableAction.add("reschedule speaker");
         availableAction.add("send private message");
@@ -77,12 +78,45 @@ public class OrganizerUI extends UserUI{
                 System.out.println(organizerPresenter.strPasswordPrompt());
                 String password = input0.next();
                 System.out.println(organizerPresenter.strUsernameConfirmation(createSpeaker.createNewSpeaker(name, password)));
+                //TODO Presenter.printUsernameIs(createSpeaker.createUser(name, password));
                 break;
+            }catch (SpeakerAlreadyExistException e){
+                //TODO Presenter.printSpeakerExist();
+            }
+        }
+    }
+
+    protected void createUser(){
+        CreateUserController createUser = new CreateUserController(userController);
+        while(true){
+            try{
+                Scanner input0 = new Scanner(System.in);
+                Scanner input1 = new Scanner(System.in);
+                Presenter.printUserType();
+                int type = input1.nextInt();
+                while(true){
+                    if(type >= 1 && type <= UserType.values().length){
+                        Presenter.printSpeakerNamePrompt();
+                        String name = input0.next();
+                        createUser.ValidateName(name);
+                        Presenter.printPasswordPrompt();
+                        String password = input0.next();
+                        Presenter.printUsernameIs(createUser.createUser(UserType.values()[type], name, password));
+                        break;
+                    }
+                    else{
+                        Presenter.printInvalid("User Type");
+                    }
+                }
+                break;
+
             }catch (SpeakerAlreadyExistException e){
                 System.out.println(organizerPresenter.strSpeakerExistWarning());
             }
         }
     }
+
+
 
     protected void addSchedule() {
         new OrgAddScheduleUI(userController).run();
