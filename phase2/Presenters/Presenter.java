@@ -67,6 +67,15 @@ public class Presenter {
     }
 
     /**
+     * Prints out instructions to ask the user the usertype the organizer wants to create.
+     */
+    public static void printUserType(){
+        System.out.println("Please enter the user-type you wish to create as: [0] Speaker [1] Attendee");
+    }
+
+
+
+    /**
      * Prints out instructions to ask the user to state user-type.
      */
     public static void printHandleLoginMenu(){
