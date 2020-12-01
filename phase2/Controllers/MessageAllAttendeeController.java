@@ -1,10 +1,8 @@
 package Controllers;
 
 import globallyAccessible.UserNotFoundException;
-import Presenters.Presenter;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MessageAllAttendeeController extends MessagingController {
 

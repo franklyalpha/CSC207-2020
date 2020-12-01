@@ -3,7 +3,6 @@ package UI;
 import Controllers.DeletePrivateConversationController;
 import Controllers.DeleteSelectedMessagesController;
 import Controllers.UserController;
-import Presenters.Presenter;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.AdminDeleteMessagePresenter;
 

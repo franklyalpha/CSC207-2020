@@ -2,18 +2,10 @@ package UI;
 
 import Controllers.SendPrivateMessageController;
 import Controllers.UserController;
-import Presenters.*;
+import functionalityPresenters.*;
 import Controllers.OutputConferenceInfoController;
-import gateways.GatewayActivity;
-import gateways.GatewayChat;
-import gateways.GatewayRoom;
-import gateways.GatewayUser;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.UserPresenter;
-import useCases.ActivityManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
 
 import java.io.IOException;
 import java.util.*;

@@ -1,11 +1,8 @@
 package Controllers;
 
-import com.sun.jdi.InvalidTypeException;
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
-import Presenters.Presenter;
 
-import java.util.Scanner;
 public class CreateUserController extends AbstractController{
     private CreateUser createAttendee;
     private CreateUser createSpeaker;

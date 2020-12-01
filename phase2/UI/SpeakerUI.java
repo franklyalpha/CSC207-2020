@@ -2,12 +2,9 @@ package UI;
 
 import Controllers.SendActivityMessageController;
 import Controllers.UserController;
-import Presenters.Presenter;
 import menuPresenter.SpeakerPresenter;
-import useCases.UserManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**

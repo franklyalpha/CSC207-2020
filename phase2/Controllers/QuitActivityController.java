@@ -1,7 +1,6 @@
 package Controllers;
 
 import globallyAccessible.ActivityNotFoundException;
-import Presenters.Presenter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

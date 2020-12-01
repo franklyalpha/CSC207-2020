@@ -1,11 +1,8 @@
 package Controllers;
 
-import Presenters.Presenter;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class SendActivityMessageController extends MessagingController {

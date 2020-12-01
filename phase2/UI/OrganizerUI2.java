@@ -3,11 +3,9 @@ package UI;
 import Controllers.MessageAllAttendeeController;
 import Controllers.SendOrganizerSpeakerMessageController;
 import Controllers.UserController;
-import Presenters.OrganizerSpeakerMessagePresenter;
-import Presenters.Presenter;
+import functionalityPresenters.OrganizerSpeakerMessagePresenter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class OrganizerUI2 extends OrganizerUI {

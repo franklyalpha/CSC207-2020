@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.CreateScheduleController;
 import Controllers.UserController;
-import Presenters.Presenter;
 import globallyAccessible.CannotCreateActivityException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.OrgAddSchedulePresenter;

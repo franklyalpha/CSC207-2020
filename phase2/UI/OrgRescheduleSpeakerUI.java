@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.RescheduleSpeakerController;
 import Controllers.UserController;
-import Presenters.Presenter;
 import globallyAccessible.ActivityNotFoundException;
 import globallyAccessible.NoActivitiesException;
 import globallyAccessible.UserNotFoundException;

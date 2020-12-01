@@ -3,11 +3,9 @@ package UI;
 
 
 import Controllers.*;
-import Controllers.CreateAttendeeController;
-import Presenters.Presenter;
+import functionalityPresenters.Presenter;
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
-import org.graalvm.compiler.phases.graph.ScheduledNodeIterator;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;

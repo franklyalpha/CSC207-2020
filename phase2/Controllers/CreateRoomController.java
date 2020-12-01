@@ -1,6 +1,6 @@
 package Controllers;
 
-import Presenters.Presenter;
+import functionalityPresenters.Presenter;
 
 import java.util.Scanner;
 

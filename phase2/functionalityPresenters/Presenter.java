@@ -1,7 +1,4 @@
-package Presenters;
-import java.util.*;
-
-import java.util.ArrayList;
+package functionalityPresenters;
 
 /**
  * Presenter in charge of outputting menu options to the user.

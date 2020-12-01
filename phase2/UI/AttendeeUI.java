@@ -3,12 +3,10 @@ package UI;
 import Controllers.EnrollActivityController;
 import Controllers.QuitActivityController;
 import Controllers.UserController;
-import Presenters.AvailableSchedulePresenter;
-import Presenters.EnrolledSchedulePresenter;
-import Presenters.Presenter;
+import functionalityPresenters.AvailableSchedulePresenter;
+import functionalityPresenters.EnrolledSchedulePresenter;
 import globallyAccessible.ActivityNotFoundException;
 import menuPresenter.AttendeePresenter;
-import useCases.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;

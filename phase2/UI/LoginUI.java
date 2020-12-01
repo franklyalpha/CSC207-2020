@@ -2,12 +2,9 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
-import Presenters.Presenter;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import menuPresenter.LoginPresenter;
-import useCases.UserManager;
-import gateways.*;
 
 import java.util.Scanner;
 

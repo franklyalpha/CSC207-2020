@@ -1,11 +1,10 @@
-package Presenters;
+package functionalityPresenters;
 
 import Controllers.UserController;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class GroupMessagePresenter extends AbstractPresenter {
