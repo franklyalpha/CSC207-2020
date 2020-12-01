@@ -17,7 +17,7 @@ public class Activity implements java.io.Serializable {
     */
     //private final ArrayList<String> speakers;
     private String speaker;
-    private final ArrayList<String> attendeeList;
+    private ArrayList<String> attendeeList;    // do not set this list as final, since this makes adding impossible
     private Duration duration;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -26,7 +26,6 @@ public class Activity implements java.io.Serializable {
     private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     private Integer maxNumAttendee;
-    private Integer currentParticipantNum;
     //Maybe event tags for easier search?
 
     //TODO：thinking of making multiple constructors later
