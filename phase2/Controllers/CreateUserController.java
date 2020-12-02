@@ -6,10 +6,12 @@ import globallyAccessible.UserType;
 public class CreateUserController extends AbstractController{
     private ICreateUser createAttendee;
     private ICreateUser createSpeaker;
+    private ICreateUser createOrganizer;
     public CreateUserController(UserController userController) {
         super(userController);
         createSpeaker  = new ICreateSpeakerController(userController);
         createAttendee = new ICreateAttendeeController(userController);
+        createOrganizer = new ICreateOrganizer(userController);
     }
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
         if (userManager.isUser(name) !=0){
@@ -29,7 +31,7 @@ public class CreateUserController extends AbstractController{
                 break;
             }
             case ORGANIZER: {
-                // require implementation
+                userName = createOrganizer.createUser(name, password);
                 break;
             }
         }
