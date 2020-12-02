@@ -209,6 +209,10 @@ public class ActivityManager implements java.io.Serializable{
         Objects.requireNonNull(findActivity(activityId)).setMaxNumAttendee(newMaxNum);
     }
 
+    public int getActivityMaxParticipant(UUID activityId){
+        return findActivity(activityId).getMaxNumAttendee();
+    }
+
     //speaker identity duration topic roomnum starttime
     //public ArrayList<entities.Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
 }

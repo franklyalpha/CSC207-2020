@@ -37,6 +37,11 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
                 UUID.fromString(info[4]))){
             return true;
         }
+        if (activityManager.numAttendee(UUID.fromString(info[0])) == activityManager.getActivityMaxParticipant(UUID.
+                fromString(info[0]))){
+            return true;
+        }
+
         LocalDateTime[] time = getTimeHelper(info);
         return !userManager.isFree(time);
     }
