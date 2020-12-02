@@ -37,7 +37,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
     private void deleteOrganizerSpeakerMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
         ArrayList<String> history = deleteMessage.getOrganizerSpeakerMessage();
-        chooseLinesToDelete(deleteMessage, history);
+        if(history.size() != 0){
+            chooseLinesToDelete(deleteMessage, history);
+        }
     }
 
     private void chooseLinesToDelete(DeleteSelectedMessagesController deleteMessage, ArrayList<String> history) {
@@ -53,12 +55,14 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
 
     private void deleteActivityMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
-        ArrayList<String> history = selectGroupConversation(deleteMessage);
-        chooseLinesToDelete(deleteMessage, history);
+        ArrayList<String> ids = viewAllGroupConversation(deleteMessage);
+        if(ids.size() != 0){
+            ArrayList<String> history = selectGroupConversation(deleteMessage, ids);
+            chooseLinesToDelete(deleteMessage, history);
+        }
     }
 
-    private ArrayList<String> selectGroupConversation(DeleteSelectedMessagesController deleteMessage){
-        ArrayList<String> ids = viewAllGroupConversation(deleteMessage);
+    private ArrayList<String> selectGroupConversation(DeleteSelectedMessagesController deleteMessage, ArrayList<String> ids){
         System.out.println(adminDeleteMessagePresenter.strChatToDeletePrompt());
         while(true){
             Scanner conversationID = new Scanner(System.in);

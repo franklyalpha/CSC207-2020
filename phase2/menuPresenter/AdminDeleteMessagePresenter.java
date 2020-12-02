@@ -15,7 +15,8 @@ public class AdminDeleteMessagePresenter extends UserPresenter {
     }
 
     public String strUsersToAddPrompt(){
-        return "Please enter username of users involved in this PRIVATE chat, one user for each line:";
+        return "Please enter username of users involved in this PRIVATE chat, one user for each line \n" +
+                "(Don't worry if they are not real contacts):";
     }
 
     public String strGroupActionMenu(){
