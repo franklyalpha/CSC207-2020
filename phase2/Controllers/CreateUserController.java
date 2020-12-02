@@ -7,11 +7,13 @@ public class CreateUserController extends AbstractController{
     private ICreateUser createAttendee;
     private ICreateUser createSpeaker;
     private ICreateUser createOrganizer;
+    private ICreateUser createAdministrator;
     public CreateUserController(UserController userController) {
         super(userController);
-        createSpeaker  = new ICreateSpeakerController(userController);
-        createAttendee = new ICreateAttendeeController(userController);
-        createOrganizer = new ICreateOrganizer(userController);
+        createSpeaker  = new CreateSpeakerController(userController);
+        createAttendee = new CreateAttendeeController(userController);
+        createOrganizer = new CreateOrganizerController(userController);
+        createAdministrator = new CreateAdministratorController(userController);
     }
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
         if (userManager.isUser(name) !=0){
@@ -32,6 +34,10 @@ public class CreateUserController extends AbstractController{
             }
             case ORGANIZER: {
                 userName = createOrganizer.createUser(name, password);
+                break;
+            }
+            case ADMINISTRATOR:{
+                userName = createAdministrator.createUser(name, password);
                 break;
             }
         }

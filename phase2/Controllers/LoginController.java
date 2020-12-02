@@ -1,6 +1,7 @@
 package Controllers;
 
 import gateways.GatewayUser;
+import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import useCases.UserManager;
@@ -54,7 +55,7 @@ public class LoginController {
      * Specific format will be determined in Presenter.
      */
 
-    private UserType UserTypeDistributor(int type) {
+    private UserType UserTypeDistributor(int type) throws InvalidUserTypeException {
         switch (type) {
             case 0: {
                 return ORGANIZER;
@@ -62,7 +63,10 @@ public class LoginController {
             case 1: {
                 return UserType.ATTENDEE;
             }
-            default: return null;
+            case 2: {
+                return ADMINISTRATOR;
+            }
+            default: throw new InvalidUserTypeException("No such user type!!!");
         }
     }
 
@@ -72,12 +76,12 @@ public class LoginController {
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
      */
-    public Object[] handleLogin(String userName, String password) throws UserNotFoundException {
+    public Object[] handleLogin(String userName, String password) throws UserNotFoundException{
         UserType loginCondition = checkLoginCondition(userName, password);
         return userControlDistributor(loginCondition);
     }
 
-    private Object[] userControlDistributor(UserType loginCondition) {
+    private Object[] userControlDistributor(UserType loginCondition){
         UserController userController = new UserController(userManager);
         switch (loginCondition) {
             case ORGANIZER: {
@@ -89,8 +93,10 @@ public class LoginController {
             case ATTENDEE: {
                 return new Object[]{ATTENDEE, userController};
             }
-            default:
-                return new Object[]{};
+            case ADMINISTRATOR:{
+                return new Object[]{ADMINISTRATOR, userController};
+            }
+            default: return new Object[]{};
         }
     }
 
@@ -100,9 +106,8 @@ public class LoginController {
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
      */
-    public String handleCreateNewUser(String username, String password, int type) {
+    public String handleCreateNewUser(String username, String password, int type) throws InvalidUserTypeException{
         UserType userType = UserTypeDistributor(type);
-        assert userType != null; // CHANGE
         String name = userManager.createUser(username, password, userType);
         new GatewayUser().ser(userManager);
         return name;

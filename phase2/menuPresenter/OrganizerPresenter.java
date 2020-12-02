@@ -13,7 +13,7 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strUserTypePrompt(){
-        return "Please enter the type of user (integer) you want to create: \n1: organizer; 2: attendee; 3: speaker";
+        return "Please enter the type of user (integer) you want to create: \n1: organizer; 2: attendee; 3: speaker 4: administrator";
     }
 
     public String strInvalidUserType(){

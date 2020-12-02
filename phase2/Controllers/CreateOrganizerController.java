@@ -5,8 +5,8 @@ import globallyAccessible.UserType;
 
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
-public class ICreateOrganizer extends AbstractController implements ICreateUser{
-    public ICreateOrganizer(UserController userController) {
+public class CreateOrganizerController extends AbstractController implements ICreateUser{
+    public CreateOrganizerController(UserController userController) {
         super(userController);
     }
     public void ValidateName(String name) throws SpeakerAlreadyExistException {

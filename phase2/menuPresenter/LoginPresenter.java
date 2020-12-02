@@ -27,6 +27,7 @@ public class LoginPresenter extends GeneralMenuPresenter {
         HashMap<Character, String> items = new HashMap<Character, String>() {{
             put('0', "Organizer");
             put('1', "Attendee");
+            put('2', "Administrator");
         }};
         return strItemizeMenuOption("sign up as", items);
     }

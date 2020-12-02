@@ -20,12 +20,7 @@ public class OrganizerUI2 extends OrganizerUI {
     public void run() {
         addMenu();
         int action;
-
-
         // replace with try-catch in while loop
-
-
-
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);

@@ -2,6 +2,7 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
+import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import menuPresenter.LoginPresenter;
@@ -48,18 +49,27 @@ public class LoginUI {
     }
 
     private void handleSignUp(){
-        //for all presenter words, should be placed in one sign-up presenter
-        Scanner signUpScanner = new Scanner(System.in);
-        System.out.println(loginPresenter.strSighUpMenu());
-        if(! signUpScanner.hasNextInt()){
+        try{
+            Scanner signUpScanner = new Scanner(System.in);
+            System.out.println(loginPresenter.strSighUpMenu());
+            if(signUpScanner.hasNextInt()){
+                continueWithUserType(signUpScanner);
+                return;
+            }
             System.out.println(loginPresenter.strInvalidInput());
-            return;
+        }catch(InvalidUserTypeException e){
+            e.printStackTrace();
         }
+    }
+
+    private void continueWithUserType(Scanner signUpScanner) throws InvalidUserTypeException {
         int type = signUpScanner.nextInt();
         signUpScanner.nextLine();
-        System.out.println(loginPresenter.strNamePrompt());
+        inputNewUserInfo(signUpScanner, type);
+    }
 
-        // should consider combine above two presenter method
+    private void inputNewUserInfo(Scanner signUpScanner, int type) throws InvalidUserTypeException {
+        System.out.println(loginPresenter.strNamePrompt());
         String username = signUpScanner.nextLine();
         System.out.println(loginPresenter.strPasswordPrompt());
         String password = signUpScanner.nextLine();
@@ -99,6 +109,10 @@ public class LoginUI {
             case ATTENDEE:
                 AttendeeUI attUI = new AttendeeUI(userController);
                 attUI.run();
+                break;
+            case ADMINISTRATOR:
+                AdmininistratorUI adminUI = new AdmininistratorUI(userController);
+                adminUI.run();
                 break;
         }
     }

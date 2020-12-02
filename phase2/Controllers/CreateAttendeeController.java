@@ -3,8 +3,8 @@ package Controllers;
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
 
-public class ICreateAttendeeController extends AbstractController implements ICreateUser {
-    public ICreateAttendeeController(UserController userController) {
+public class CreateAttendeeController extends AbstractController implements ICreateUser {
+    public CreateAttendeeController(UserController userController) {
         super(userController);
     }
 
