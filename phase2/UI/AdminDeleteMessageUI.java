@@ -61,16 +61,18 @@ public class AdminDeleteMessageUI extends UserUI {
         System.out.println(adminDeleteMessagePresenter.strGroupActionMenu());
         while(true){
             Scanner choice = new Scanner(System.in);
-            if(!choice.hasNextInt()){
-                System.out.println(adminDeleteMessagePresenter.strInvalidInput());
-            }
-            else{
-                switch(choice.nextInt()){
-                    case 0: deleteOrganizerSpeakerMessage();
-                    case 1: deleteActivityMessage();
-                }
+            if(choice.hasNextInt()) {
+                deleteChoice(choice);
                 break;
             }
+            System.out.println(adminDeleteMessagePresenter.strInvalidInput());
+        }
+    }
+
+    private void deleteChoice(Scanner choice) {
+        switch(choice.nextInt()){
+            case 0: deleteOrganizerSpeakerMessage();
+            case 1: deleteActivityMessage();
         }
     }
 
