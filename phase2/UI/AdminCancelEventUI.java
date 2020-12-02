@@ -12,9 +12,14 @@ public class AdminCancelEventUI extends UserUI{
         super(userController);
     }
 
-    private void cancelEmptyEvent(){
+    @Override
+    public void run() {
         CancelEventController deleteEvent = new CancelEventController(userController);
         ArrayList<String[]> emptyEvents = deleteEvent.findEmptyEvents();
+        if (emptyEvents.size() == 0){
+            System.out.println("There are no events being added");
+            return;
+        }
         String cancelEventID = selectEventToCancel(emptyEvents);
         deleteEvent.cancelAndUpdate(cancelEventID);
     }
