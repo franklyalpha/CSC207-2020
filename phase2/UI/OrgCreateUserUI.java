@@ -10,15 +10,16 @@ import java.util.Scanner;
 
 public class OrgCreateUserUI extends AbstractUI {
     private OrganizerPresenter presenter;
+    private CreateUserController createUser;
 
     public OrgCreateUserUI(UserController userController) {
         super(userController);
         presenter = new OrganizerPresenter();
+        createUser = new CreateUserController(userController);
     }
 
     @Override
     public void run() {
-        CreateUserController createUser = new CreateUserController(userController);
         while(true){
             try{
                 int type = acquireUserType();

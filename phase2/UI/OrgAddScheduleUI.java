@@ -16,21 +16,18 @@ import java.util.UUID;
 public class OrgAddScheduleUI extends AbstractUI {
 
     private final OrgAddSchedulePresenter orgAddSchedulePresenter = new OrgAddSchedulePresenter();
+    private CreateScheduleController createSchedule;
 
     public OrgAddScheduleUI(UserController userController) {
         super(userController);
+        createSchedule = new CreateScheduleController(userController);
     }
 
     @Override
     public void run() {
-        CreateScheduleController createSchedule = new CreateScheduleController(userController);
         while(true){
             try{
-                LocalDateTime[] targetPeriod = periodProcessor();
-                Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
-                Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
-                Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
-                createSchedule.newActivitySetter(actSetting);
+                majorProcessor();
                 break;
             }catch(CannotCreateActivityException e){
                 System.out.println(orgAddSchedulePresenter.strInvalidTimePeriod());
@@ -38,6 +35,14 @@ public class OrgAddScheduleUI extends AbstractUI {
                 System.out.println(orgAddSchedulePresenter.strInvalidInput());
             }
         }
+    }
+
+    private void majorProcessor() throws CannotCreateActivityException {
+        LocalDateTime[] targetPeriod = periodProcessor();
+        Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
+        Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
+        Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
+        createSchedule.newActivitySetter(actSetting);
     }
 
     private Object[] getSpeakerRoomTopic(Object[] speakersRooms, CreateScheduleController createSchedule) {
@@ -53,7 +58,7 @@ public class OrgAddScheduleUI extends AbstractUI {
             }catch(InputMismatchException e3){
                 System.out.println(orgAddSchedulePresenter.strInvalidInput());
             }catch(MaxNumberBeyondRoomCapacityException e4){
-                //TODO Presenter.printInvalid("MaxNumber");
+                System.out.println(orgAddSchedulePresenter.strInvalidMaxNum());
             }
         }
     }

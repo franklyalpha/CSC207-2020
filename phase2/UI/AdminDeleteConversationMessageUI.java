@@ -17,7 +17,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
 
     @Override
     public void run() {
-        super.run();
+        chooseChatOrMessage();
     }
 
     private void chooseChatOrMessage(){

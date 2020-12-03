@@ -1,8 +1,11 @@
-package UI;
+package Facades;
 
 import Controllers.EnrollActivityController;
 import Controllers.QuitActivityController;
 import Controllers.UserController;
+import Facades.UserFacade;
+import UI.AttCancelEnrollmentUI;
+import UI.AttEnrollEventUI;
 import functionalityPresenters.AvailableSchedulePresenter;
 import functionalityPresenters.EnrolledSchedulePresenter;
 import globallyAccessible.ActivityNotFoundException;
@@ -22,11 +25,11 @@ import java.util.Scanner;
  * enrollConference: responsible for enrolling the user into available conference after checking constraints.
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
-public class AttendeeUI extends AbstractUI {
+public class AttendeeFacade extends UserFacade {
 
     final private AttendeePresenter attendeePresenter = new AttendeePresenter();
 
-    public AttendeeUI(UserController userController) {
+    public AttendeeFacade(UserController userController) {
         super(userController);
     }
 
@@ -93,64 +96,14 @@ public class AttendeeUI extends AbstractUI {
     //TODO move this to presenter
 
     protected void enrollConference(){
-        AvailableSchedulePresenter schedulePresenter = new AvailableSchedulePresenter(userController);
-        ArrayList<String[]> availables = schedulePresenter.viewAvailableSchedules();
-        if (availables.size() == 0){
-            return;
-        }
-        inputAndEnrollActivity(availables);
-    }
-
-    private void inputAndEnrollActivity(ArrayList<String[]> availables) {
-        EnrollActivityController enroll = new EnrollActivityController(userController);
-        while(true){
-            try{
-                String actID = getAvailableActivityID(availables);
-                enroll.chooseActToEnroll(availables, actID);
-                break;
-            }catch(ActivityNotFoundException e){
-                System.out.println(attendeePresenter.strInvalidActivityID());
-            }
-        }
-    }
-
-    private String getAvailableActivityID(ArrayList<String[]> availables) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println(attendeePresenter.strEnrollMenuDes());
-        System.out.println(attendeePresenter.strSchedule(availables));
-        System.out.println(attendeePresenter.strEnrollPrompt());
-        return scan.nextLine();
+        new AttEnrollEventUI(userController).run();
     }
 
     protected void cancelEnrollment(){
-        EnrolledSchedulePresenter enrolledPresenter = new EnrolledSchedulePresenter(userController);
-        ArrayList<String[]> enrolled = enrolledPresenter.viewEnrolledSchedule();
-        if (enrolled.size() == 0){
-            return;
-        }
-        inputAndQuitActivity(enrolled);
+        new AttCancelEnrollmentUI(userController).run();
     }
 
-    private void inputAndQuitActivity(ArrayList<String[]> enrolled) {
-        QuitActivityController quit = new QuitActivityController(userController);
-        while (true){
-            try{
-                String activityID = getEnrolledActivityID(enrolled);
-                quit.chooseActToCancel(enrolled, activityID);
-                break;
-            }catch(ActivityNotFoundException e){
-                System.out.println(attendeePresenter.strInvalidActivityID());
-            }
-        }
-    }
 
-    private String getEnrolledActivityID(ArrayList<String[]> availables) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println(attendeePresenter.strEnrolledMenuDes());
-        System.out.println(attendeePresenter.strSchedule(availables));
-        System.out.println(attendeePresenter.strCancelPrompt());
-        return scan.nextLine();
-    }
 
 
     //check whether the room is full, and whether this user is currently enroll.

@@ -1,15 +1,17 @@
-package UI;
+package Facades;
 
 import Controllers.UserController;
 import Facades.OrganizerFacade;
+import UI.AdminCancelEventUI;
+import UI.AdminDeleteMessageUI;
 import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
 
-public class AdmininistratorUI extends OrganizerFacade {
+public class AdmininistratorFacade extends OrganizerFacade {
     private AdminPresenter presenter = new AdminPresenter();
 
-    public AdmininistratorUI(UserController userController) {
+    public AdmininistratorFacade(UserController userController) {
         super(userController);
     }
 

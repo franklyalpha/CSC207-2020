@@ -12,13 +12,13 @@ import java.util.Scanner;
 
 public class OrgRescheduleSpeakerUI extends AbstractUI {
 
-    final private OrgRescheduleSpeakerPresenter orgRescheduleSpeakerPresenter = new OrgRescheduleSpeakerPresenter();
-
+    final private OrgRescheduleSpeakerPresenter orgRescheduleSpeakerPresenter;
     private RescheduleSpeakerController rescheduleSpeaker;
 
     public OrgRescheduleSpeakerUI(UserController userController) {
         super(userController);
         rescheduleSpeaker = new RescheduleSpeakerController(userController);
+        orgRescheduleSpeakerPresenter = new OrgRescheduleSpeakerPresenter();
     }
 
     @Override
@@ -37,28 +37,34 @@ public class OrgRescheduleSpeakerUI extends AbstractUI {
         System.out.println(orgRescheduleSpeakerPresenter.strSpeakerList(freeSpeakers));
         while(true){
             try{
-                Scanner speakerScanner = new Scanner(System.in);
-                System.out.println(orgRescheduleSpeakerPresenter.strSpeakerAssignPrompt());
-                String speaker = speakerScanner.nextLine();
-                if (! freeSpeakers.contains(speaker)){
-                    throw new UserNotFoundException("No such user in list");
-                }
-                return speaker;
+                return inputSelectedSpeaker(freeSpeakers);
             }catch(UserNotFoundException e){
                 System.out.println(orgRescheduleSpeakerPresenter.strInvalidSpeaker());
             }
         }
     }
 
+    private String inputSelectedSpeaker(ArrayList<String> freeSpeakers) throws UserNotFoundException {
+        Scanner speakerScanner = new Scanner(System.in);
+        System.out.println(orgRescheduleSpeakerPresenter.strSpeakerAssignPrompt());
+        String speaker = speakerScanner.nextLine();
+        if (! freeSpeakers.contains(speaker)){
+            throw new UserNotFoundException("No such user in list");
+        }
+        return speaker;
+    }
+
     private String activitySelect() throws NoActivitiesException {
         ArrayList<String[]> allActivities = rescheduleSpeaker.getAllActivities();
         System.out.println(orgRescheduleSpeakerPresenter.strAllActivityMenuDes());
         System.out.println(orgRescheduleSpeakerPresenter.strSchedule(allActivities));
+        return inputSelection(allActivities);
+    }
+
+    private String inputSelection(ArrayList<String[]> allActivities) {
         while(true){
             try{
-                Scanner actIDGetter = new Scanner(System.in);
-                System.out.println(orgRescheduleSpeakerPresenter.strActivityChangeSpeakerPrompt());
-                String actID = actIDGetter.nextLine();
+                String actID = inputActID();
                 return rescheduleSpeaker.checkingValidActivityID(allActivities, actID);
             }catch(ActivityNotFoundException e){
                 System.out.println(orgRescheduleSpeakerPresenter.strInvalidActivityID());
@@ -66,7 +72,9 @@ public class OrgRescheduleSpeakerUI extends AbstractUI {
         }
     }
 
-
-
-
+    private String inputActID() {
+        Scanner actIDGetter = new Scanner(System.in);
+        System.out.println(orgRescheduleSpeakerPresenter.strActivityChangeSpeakerPrompt());
+        return actIDGetter.nextLine();
+    }
 }

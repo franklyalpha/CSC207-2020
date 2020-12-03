@@ -25,4 +25,6 @@ public class OrgAddSchedulePresenter extends UserPresenter {
         return finalList.toString();
     }
 
+    public String strInvalidMaxNum(){return strInvalidHelper("max enrollment");}
+
 }

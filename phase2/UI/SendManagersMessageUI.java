@@ -8,12 +8,14 @@ import menuPresenter.OrganizerPresenter;
 import java.util.Scanner;
 
 public class SendManagersMessageUI extends AbstractUI {
+    private SendOrganizerSpeakerMessageController orgSpeSendMessage;
+
     public SendManagersMessageUI(UserController userController) {
         super(userController);
+        orgSpeSendMessage = new SendOrganizerSpeakerMessageController(userController);
     }
 
     public void run(){
-        SendOrganizerSpeakerMessageController orgSpeSendMessage = new SendOrganizerSpeakerMessageController(userController);
         OrganizerPresenter organizerPresenter = new OrganizerPresenter();
         Scanner messenger = new Scanner(System.in);
         System.out.println(organizerPresenter.strMessagePrompt());

@@ -9,14 +9,16 @@ import java.awt.desktop.AppReopenedEvent;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class ModifyActivityUI extends AbstractUI {
-    public ModifyActivityUI(UserController userController) {
+public class OrgModifyActivityUI extends AbstractUI {
+    private ModifyActivityController modifyActivity;
+
+    public OrgModifyActivityUI(UserController userController) {
         super(userController);
+        modifyActivity = new ModifyActivityController(userController);
     }
 
     @Override
     public void run() {
-        ModifyActivityController modifyActivity = new ModifyActivityController(userController);
         ModifyActivityPresenter presenter = new ModifyActivityPresenter();
         try{
             inputAndUpdateModification(modifyActivity, presenter);
