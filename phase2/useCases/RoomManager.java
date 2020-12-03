@@ -42,7 +42,7 @@ public class RoomManager implements java.io.Serializable {
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, boolean haveProjector, int NumMicrophone){
-        Room newRoom = new Room(capacity, haveProjector, NumMicrophone);
+        Room newRoom = new Room(capacity);
         rooms.add(newRoom);
         return newRoom.getId();
     }
