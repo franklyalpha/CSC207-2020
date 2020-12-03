@@ -19,7 +19,7 @@ import java.util.*;
  * @version 1.0
  * @since 1.0
  */
-public class UserUI {
+public class AbstractUI {
 
     protected ArrayList<String> availableAction = new ArrayList<>();
     protected ArrayList<String> availableMethod = new ArrayList<>();
@@ -27,7 +27,7 @@ public class UserUI {
     final private UserPresenter userPresenter = new UserPresenter();
 
 
-    public UserUI(UserController userController){
+    public AbstractUI(UserController userController){
         this.userController = userController;
     }
 
@@ -101,7 +101,7 @@ public class UserUI {
         try{
             pdf.outputAllUpcomingEvents();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 

@@ -6,7 +6,7 @@ import Controllers.UserController;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminCancelEventUI extends UserUI{
+public class AdminCancelEventUI extends AbstractUI {
 
     public AdminCancelEventUI(UserController userController) {
         super(userController);

@@ -22,7 +22,7 @@ import java.util.Scanner;
  * enrollConference: responsible for enrolling the user into available conference after checking constraints.
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
-public class AttendeeUI extends UserUI{
+public class AttendeeUI extends AbstractUI {
 
     final private AttendeePresenter attendeePresenter = new AttendeePresenter();
 

@@ -1,8 +1,12 @@
-package UI;
+package Facades;
 
 
 
 import Controllers.*;
+import UI.AbstractUI;
+import UI.OrgAddScheduleUI;
+import UI.OrgCreateUserUI;
+import UI.OrgRescheduleSpeakerUI;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -22,11 +26,11 @@ import java.util.Scanner;
  * viewCoopChat: responsible for viewing messages from the group with only organizers and speakers;
  * messageAllAttendee: responsible for sending messages to all registered attendee.
  */
-public class OrganizerUI extends UserUI{
+public class ExtendedOrganizerFacade extends AbstractUI {
 
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
 
-    public OrganizerUI(UserController userController) {
+    public ExtendedOrganizerFacade(UserController userController) {
         super(userController);
     }
 

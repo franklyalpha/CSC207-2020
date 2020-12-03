@@ -8,7 +8,7 @@ import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
 
-public class OrgCreateUserUI extends UserUI {
+public class OrgCreateUserUI extends AbstractUI {
     private OrganizerPresenter presenter;
 
     public OrgCreateUserUI(UserController userController) {

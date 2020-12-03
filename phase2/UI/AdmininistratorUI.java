@@ -1,11 +1,12 @@
 package UI;
 
 import Controllers.UserController;
+import Facades.OrganizerFacade;
 import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
 
-public class AdmininistratorUI extends OrganizerUI2{
+public class AdmininistratorUI extends OrganizerFacade {
     private AdminPresenter presenter = new AdminPresenter();
 
     public AdmininistratorUI(UserController userController) {

@@ -1,15 +1,13 @@
 package UI;
 
 import Controllers.DeletePrivateConversationController;
-import Controllers.DeleteSelectedMessagesController;
 import Controllers.UserController;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.AdminDeleteMessagePresenter;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminDeleteConversationMessageUI extends UserUI {
+public class AdminDeleteConversationMessageUI extends AbstractUI {
 
     final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
 

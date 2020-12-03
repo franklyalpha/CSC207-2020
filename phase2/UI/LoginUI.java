@@ -2,6 +2,7 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
+import Facades.OrganizerFacade;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -99,7 +100,7 @@ public class LoginUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-                OrganizerUI2 orgUI = new OrganizerUI2(userController);
+                OrganizerFacade orgUI = new OrganizerFacade(userController);
                 orgUI.run();
                 break;
             case SPEAKER:

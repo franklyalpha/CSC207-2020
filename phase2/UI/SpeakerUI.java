@@ -2,6 +2,7 @@ package UI;
 
 import Controllers.SendActivityMessageController;
 import Controllers.UserController;
+import Facades.OrganizerFacade;
 import menuPresenter.SpeakerPresenter;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Scanner;
  * sendActivityMessage: a method responsible for guiding the user to choose a conference
  * and send message to all attendees enrolled.
  */
-public class SpeakerUI extends OrganizerUI2{
+public class SpeakerUI extends OrganizerFacade {
 
     final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
 
@@ -78,7 +79,7 @@ public class SpeakerUI extends OrganizerUI2{
     /**
      * This method add actions to the class attribute availableAction.
      */
-    @Override
+
     protected void addMenu(){
         availableAction.add("send private message");
         availableAction.add("view private messages");
@@ -143,7 +144,7 @@ public class SpeakerUI extends OrganizerUI2{
      * and send a message to all other users participated in this activity.
      */
 
-    @Override
+
     protected boolean continuing(){
         boolean enterAction = true;
         System.out.println(speakerPresenter.strContinueServicePrompt());

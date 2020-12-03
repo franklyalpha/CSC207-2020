@@ -13,7 +13,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class OrgAddScheduleUI extends UserUI{
+public class OrgAddScheduleUI extends AbstractUI {
 
     private final OrgAddSchedulePresenter orgAddSchedulePresenter = new OrgAddSchedulePresenter();
 

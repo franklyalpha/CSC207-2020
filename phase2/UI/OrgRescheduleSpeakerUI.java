@@ -10,7 +10,7 @@ import menuPresenter.OrgRescheduleSpeakerPresenter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrgRescheduleSpeakerUI extends UserUI{
+public class OrgRescheduleSpeakerUI extends AbstractUI {
 
     final private OrgRescheduleSpeakerPresenter orgRescheduleSpeakerPresenter = new OrgRescheduleSpeakerPresenter();
 
