@@ -4,7 +4,7 @@ public class OrgRescheduleSpeakerPresenter extends UserPresenter {
 
     public OrgRescheduleSpeakerPresenter(){super();}
 
-    public String strActivityChangeSpeakerPrompt(){
+    public String strEventChangeSpeakerPrompt(){
         return strPromptHelper("the ID of the activity to change the speaker");
     }
 

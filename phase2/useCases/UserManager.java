@@ -393,7 +393,7 @@ public class UserManager implements java.io.Serializable{
      * Creates a <code>deleteActivity</code> and delete the activity.
      * @param time is the time of the activity that needed to be delete.
      */
-    public boolean deleteActivity(LocalDateTime[] time){
+    public boolean deleteEvent(LocalDateTime[] time){
         Set<LocalDateTime[]> period = userOnAir.getActivities().keySet();
         for (LocalDateTime[] target : period){
             if (target[0].equals(time[0]) && target[1].equals(time[1])){
@@ -409,7 +409,7 @@ public class UserManager implements java.io.Serializable{
      * @param username is the name of user that we want to operate.
      * @param time is the time of the activity that needed to be delete.
      */
-    public boolean deleteActivity(String username, LocalDateTime[] time){
+    public boolean deleteEvent(String username, LocalDateTime[] time){
         User target = findUser(username);
         assert target != null;
         Set<LocalDateTime[]> period = target.getActivities().keySet();

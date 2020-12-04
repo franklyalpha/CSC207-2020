@@ -3,7 +3,7 @@ package entities;
 import java.time.*;
 import java.util.*;
 
-public class Activity implements java.io.Serializable {
+public class Event implements java.io.Serializable {
     /*
         Variables include:
         String/Date(require importing) time;
@@ -37,8 +37,8 @@ public class Activity implements java.io.Serializable {
      * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
      * @param topic the topic of the activity in <code>Activity</code>.
      */
-    public Activity(LocalDateTime[] period, UUID[] chatRoomID,
-                    String topic, Integer MaxNum){
+    public Event(LocalDateTime[] period, UUID[] chatRoomID,
+                 String topic, Integer MaxNum){
         this.speaker = null;
         this.attendeeList = new ArrayList<>();
         this.startTime = period[0];

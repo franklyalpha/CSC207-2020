@@ -33,7 +33,7 @@ public class User implements java.io.Serializable {
     private final HashMap<String, UUID> chatroom;
 
     /**
-     * a HashMap which holds the id of the <code>Activity</code> this user signed in and their description.
+     * a HashMap which holds the id of the <code>Event</code> this user signed in and their description.
      */
     private final HashMap<LocalDateTime[], UUID> activities;
     // in phase 2, will create a clone corresponding activities for

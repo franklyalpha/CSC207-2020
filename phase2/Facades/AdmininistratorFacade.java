@@ -1,7 +1,6 @@
 package Facades;
 
 import Controllers.UserController;
-import Facades.OrganizerFacade;
 import UI.AdminCancelEventUI;
 import UI.AdminDeleteMessageUI;
 import menuPresenter.AdminPresenter;
@@ -43,7 +42,7 @@ public class AdmininistratorFacade extends OrganizerFacade {
             case 3: sendCoopMessage(); break;
             case 4: viewCoopChat(); break;
             case 5: deleteMessage(); break;
-            case 6: deleteActivity(); break;
+            case 6: deleteEvent(); break;
         }
     }
 
@@ -51,7 +50,7 @@ public class AdmininistratorFacade extends OrganizerFacade {
         new AdminDeleteMessageUI(userController).run();
     }
 
-    private void deleteActivity(){
+    private void deleteEvent(){
         new AdminCancelEventUI(userController).run();
     }
 

@@ -1,24 +1,24 @@
 package UI;
 
-import Controllers.SendActivityMessageController;
+import Controllers.SendEventMessageController;
 import Controllers.UserController;
 import menuPresenter.SpeakerPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SpeSendActivityMessagesUI extends AbstractUI {
+public class SpeSendEventMessagesUI extends AbstractUI {
     private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
-    private SendActivityMessageController activityMessager;
+    private SendEventMessageController eventMessager;
 
-    public SpeSendActivityMessagesUI(UserController userController) {
+    public SpeSendEventMessagesUI(UserController userController) {
         super(userController);
-        activityMessager = new SendActivityMessageController(userController);
+        eventMessager = new SendEventMessageController(userController);
     }
 
     @Override
     public void run() {
-        ArrayList<String[]> info = presentEnrolledActivities(activityMessager);
+        ArrayList<String[]> info = presentEnrolledActivities(eventMessager);
         if (info == null) return;
         majorProcessor(info);
     }
@@ -26,7 +26,7 @@ public class SpeSendActivityMessagesUI extends AbstractUI {
     private void majorProcessor(ArrayList<String[]> info) {
         while(true){
             try{
-                findAndSendMessage(activityMessager, info);
+                findAndSendMessage(eventMessager, info);
                 break;
             }catch(IndexOutOfBoundsException e){
                 System.out.println(speakerPresenter.strInvalidIndex());
@@ -34,7 +34,7 @@ public class SpeSendActivityMessagesUI extends AbstractUI {
         }
     }
 
-    private ArrayList<String[]> presentEnrolledActivities(SendActivityMessageController activityMessager) {
+    private ArrayList<String[]> presentEnrolledActivities(SendEventMessageController activityMessager) {
         ArrayList<String[]> info = activityMessager.showEnrolledSchedule();
         if (info.size() == 0){
             return null;
@@ -44,18 +44,18 @@ public class SpeSendActivityMessagesUI extends AbstractUI {
         return info;
     }
 
-    private void findAndSendMessage(SendActivityMessageController activityMessager, ArrayList<String[]> info) {
+    private void findAndSendMessage(SendEventMessageController activityMessager, ArrayList<String[]> info) {
         int actID = determineChatIDValidity(info);
         Scanner messageScanner = new Scanner(System.in);
         System.out.println(speakerPresenter.strMessagePrompt());
         String message = messageScanner.nextLine();
-        activityMessager.sendActivityMessage(actID, message);
+        activityMessager.sendEventMessage(actID, message);
     }
 
     private int determineChatIDValidity(ArrayList<String[]> info)
             throws IndexOutOfBoundsException{
         Scanner actIDScanner = new Scanner(System.in);
-        System.out.println(speakerPresenter.strActivityMessagePrompt());
+        System.out.println(speakerPresenter.strEventMessagePrompt());
         int actID = actIDScanner.nextInt();
         if (actID < 1 || actID > info.size()){
             throw new IndexOutOfBoundsException("invalid index for chat");

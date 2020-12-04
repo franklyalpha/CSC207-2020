@@ -1,29 +1,29 @@
 package Controllers;
 
-import globallyAccessible.ActivityNotFoundException;
+import globallyAccessible.EventNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class EnrollActivityController extends ActivityController {
+public class EnrollEventController extends EventController {
     private ArrayList<String> userName = new ArrayList<>();
 
-    public EnrollActivityController(UserController userController) {
+    public EnrollEventController(UserController userController) {
         super(userController);
         userName.add(userManager.currentUsername());
     }
 
 
     public void chooseActToEnroll(ArrayList<String[]> available, String activityID
-                                   ) throws ActivityNotFoundException {
+                                   ) throws EventNotFoundException {
         ArrayList<String> actIDs = extractActIDHelper(available);
-        String[] temp = activityManager.searchActivityByUUID(activityID);
+        String[] temp = eventManager.searchEventByUUID(activityID);
         if (actIDs.contains(activityID)){
             addEnrollment(temp, activityID, userName);
         }
         else{
-            throw new ActivityNotFoundException("The ID of activity isn't right");
+            throw new EventNotFoundException("The ID of activity isn't right");
         }
     }
 
@@ -31,8 +31,8 @@ public class EnrollActivityController extends ActivityController {
     private void addEnrollment(String[] temp, String activityID, ArrayList<String> userName){
         LocalDateTime[] time = getTimeHelper(temp);
         userManager.selfAddSchedule(time, UUID.fromString(activityID));
-        UUID conferenceChat = activityManager.getConferenceChat(UUID.fromString(temp[0]));
+        UUID conferenceChat = eventManager.getConferenceChat(UUID.fromString(temp[0]));
         messageRoomManager.addUser(userName, conferenceChat);
-        activityManager.addAttendee(UUID.fromString(activityID), userManager.currentUsername());
+        eventManager.addAttendee(UUID.fromString(activityID), userManager.currentUsername());
     }
 }

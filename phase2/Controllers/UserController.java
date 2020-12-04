@@ -1,10 +1,10 @@
 package Controllers;
 
-import gateways.GatewayActivity;
+import gateways.GatewayEvent;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
 import gateways.GatewayUser;
-import useCases.ActivityManager;
+import useCases.EventManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
@@ -21,7 +21,7 @@ import useCases.UserManager;
 public class UserController {
     protected UserManager userManager;
     protected MessageRoomManager messageRoomManager;
-    protected ActivityManager activityManager;
+    protected EventManager eventManager;
     protected RoomManager roomManager;
 
     /**
@@ -31,7 +31,7 @@ public class UserController {
     public UserController(UserManager manager) {
         userManager = manager;
         messageRoomManager = new GatewayChat().deserialize();
-        activityManager = new GatewayActivity().deserialize();
+        eventManager = new GatewayEvent().deserialize();
         roomManager = new GatewayRoom().deserialize();
     }
 
@@ -40,7 +40,7 @@ public class UserController {
      */
 
     public Object[] extractManagers(){
-        return new Object[]{messageRoomManager, activityManager, userManager, roomManager};
+        return new Object[]{messageRoomManager, eventManager, userManager, roomManager};
     }
 
     public void logout(){
@@ -48,7 +48,7 @@ public class UserController {
         new GatewayUser().ser(userManager);
         new GatewayRoom().ser(roomManager);
         new GatewayChat().ser(messageRoomManager);
-        new GatewayActivity().ser(activityManager);
+        new GatewayEvent().ser(eventManager);
     }
 
 

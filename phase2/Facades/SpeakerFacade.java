@@ -1,7 +1,7 @@
 package Facades;
 
 import Controllers.UserController;
-import UI.SpeSendActivityMessagesUI;
+import UI.SpeSendEventMessagesUI;
 import menuPresenter.SpeakerPresenter;
 
 import java.util.Scanner;
@@ -67,7 +67,7 @@ public class SpeakerFacade extends OrganizerFacade {
             case 1: sendPrivateMessage(); break;
             case 2: viewPrivateMessage(); break;
             case 3: viewGroupMessage(); break;
-            case 4: sendActivityMessage(); break;
+            case 4: sendEventMessage(); break;
             case 5: sendCoopMessage(); break;
             case 6: viewCoopChat(); break;
             case 7: viewEnrolledSchedule(); break;
@@ -88,8 +88,8 @@ public class SpeakerFacade extends OrganizerFacade {
         availableAction.add("view signed conferences");
     }
 
-    protected void sendActivityMessage(){
-        new SpeSendActivityMessagesUI(userController).run();
+    protected void sendEventMessage(){
+        new SpeSendEventMessagesUI(userController).run();
     }
 
 

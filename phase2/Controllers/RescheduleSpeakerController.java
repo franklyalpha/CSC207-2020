@@ -1,13 +1,13 @@
 package Controllers;
 
-import globallyAccessible.ActivityNotFoundException;
-import globallyAccessible.NoActivitiesException;
+import globallyAccessible.EventNotFoundException;
+import globallyAccessible.NoEventsException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class RescheduleSpeakerController extends ActivityController {
+public class RescheduleSpeakerController extends EventController {
     private String[] actInfo;
     private LocalDateTime[] actTime;
 
@@ -19,7 +19,7 @@ public class RescheduleSpeakerController extends ActivityController {
     }
 
     private String[] tmp(String actID) {
-        return activityManager.searchActivityByUUID(actID);
+        return eventManager.searchEventByUUID(actID);
     }
 
     public ArrayList<String> availableSpeakers(String actID){
@@ -31,8 +31,8 @@ public class RescheduleSpeakerController extends ActivityController {
     }
 
     public void updateRescheduledSpeaker(String speaker){
-        activityManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        userManager.deleteActivity(actInfo[5], actTime);
+        eventManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
+        userManager.deleteEvent(actInfo[5], actTime);
         userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
     }
 
@@ -40,18 +40,18 @@ public class RescheduleSpeakerController extends ActivityController {
 
 
 
-    public ArrayList<String[]> getAllActivities() throws NoActivitiesException {
-        ArrayList<String[]> allActivities = activityManager.viewUpcommingActivites();
+    public ArrayList<String[]> getAllActivities() throws NoEventsException {
+        ArrayList<String[]> allActivities = eventManager.viewUpcommingActivites();
         if (allActivities.size() == 0){
-            throw new NoActivitiesException("No activities created yet");
+            throw new NoEventsException("No activities created yet");
         }
         return allActivities;
     }
 
-    public String checkingValidActivityID(ArrayList<String[]> allActivities, String actID)
-            throws ActivityNotFoundException {
+    public String checkingValidEventID(ArrayList<String[]> allActivities, String actID)
+            throws EventNotFoundException {
         if (! extractActIDHelper(allActivities).contains(actID)){
-            throw new ActivityNotFoundException("invalid activity ID");
+            throw new EventNotFoundException("invalid activity ID");
         }
         return actID;
     }

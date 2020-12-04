@@ -2,8 +2,8 @@ package UI;
 
 import Controllers.RescheduleSpeakerController;
 import Controllers.UserController;
-import globallyAccessible.ActivityNotFoundException;
-import globallyAccessible.NoActivitiesException;
+import globallyAccessible.EventNotFoundException;
+import globallyAccessible.NoEventsException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.OrgRescheduleSpeakerPresenter;
 
@@ -24,11 +24,11 @@ public class OrgRescheduleSpeakerUI extends AbstractUI {
     @Override
     public void run() {
         try{
-            String actID =activitySelect();
+            String actID = eventSelect();
             ArrayList<String> availableSpeakers = rescheduleSpeaker.availableSpeakers(actID);
             String speaker = chooseSpeaker(availableSpeakers);
             rescheduleSpeaker.updateRescheduledSpeaker(speaker);
-        }catch(NoActivitiesException e){
+        }catch(NoEventsException e){
             e.printStackTrace();
         }
     }
@@ -54,9 +54,9 @@ public class OrgRescheduleSpeakerUI extends AbstractUI {
         return speaker;
     }
 
-    private String activitySelect() throws NoActivitiesException {
+    private String eventSelect() throws NoEventsException {
         ArrayList<String[]> allActivities = rescheduleSpeaker.getAllActivities();
-        System.out.println(orgRescheduleSpeakerPresenter.strAllActivityMenuDes());
+        System.out.println(orgRescheduleSpeakerPresenter.strAllEventMenuDes());
         System.out.println(orgRescheduleSpeakerPresenter.strSchedule(allActivities));
         return inputSelection(allActivities);
     }
@@ -65,16 +65,16 @@ public class OrgRescheduleSpeakerUI extends AbstractUI {
         while(true){
             try{
                 String actID = inputActID();
-                return rescheduleSpeaker.checkingValidActivityID(allActivities, actID);
-            }catch(ActivityNotFoundException e){
-                System.out.println(orgRescheduleSpeakerPresenter.strInvalidActivityID());
+                return rescheduleSpeaker.checkingValidEventID(allActivities, actID);
+            }catch(EventNotFoundException e){
+                System.out.println(orgRescheduleSpeakerPresenter.strInvalidEventID());
             }
         }
     }
 
     private String inputActID() {
         Scanner actIDGetter = new Scanner(System.in);
-        System.out.println(orgRescheduleSpeakerPresenter.strActivityChangeSpeakerPrompt());
+        System.out.println(orgRescheduleSpeakerPresenter.strEventChangeSpeakerPrompt());
         return actIDGetter.nextLine();
     }
 }

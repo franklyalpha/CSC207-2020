@@ -1,12 +1,12 @@
 package gateways;
 
-import useCases.ActivityManager;
+import useCases.EventManager;
 
 import java.io.*;
 
-public class GatewayActivity {
+public class GatewayEvent {
 
-    public void ser(ActivityManager tester){
+    public void ser(EventManager tester){
         try{
             File f = new File("activities.txt");
             ObjectOutputStream oos = null;
@@ -20,20 +20,20 @@ public class GatewayActivity {
 
     }
 
-    public ActivityManager deserialize(){
-        ActivityManager serialize;
+    public EventManager deserialize(){
+        EventManager serialize;
         try{
             File f = new File("activities.txt");
             InputStream input = new FileInputStream(f);
             ObjectInputStream oid = new ObjectInputStream(input);
-            serialize = (ActivityManager) oid.readObject();
+            serialize = (EventManager) oid.readObject();
             oid.close();
 
         } catch(EOFException eof) {
-            serialize = new ActivityManager();
+            serialize = new EventManager();
         } catch(IOException | ClassNotFoundException io){
             System.out.println("Cannot find activity file. Will reset all settings. ");
-            serialize = new ActivityManager();
+            serialize = new EventManager();
         }
         return serialize;
 

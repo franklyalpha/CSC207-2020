@@ -15,7 +15,7 @@ public class UserPresenter extends GeneralMenuPresenter {
         return strPromptHelper("the message you wish to send");
     }
 
-    public String strInvalidActivityID(){
+    public String strInvalidEventID(){
         return strInvalidHelper("activity ID");
     }
 
@@ -51,7 +51,7 @@ public class UserPresenter extends GeneralMenuPresenter {
         return "Here are activities you have enrolled: ";
     }
 
-    public String strAllActivityMenuDes(){
+    public String strAllEventMenuDes(){
         return "Here are all the activities: ";
     }
 

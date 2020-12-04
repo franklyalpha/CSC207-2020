@@ -20,7 +20,7 @@ public class EnrolledSchedulePresenter extends AbstractPresenter{
             return allSchedule;
         }
         for (LocalDateTime[] time : schedules.keySet()){
-            String[] partialInfo = activityManager.searchActivityByUUID(schedules.get(time).toString());
+            String[] partialInfo = eventManager.searchEventByUUID(schedules.get(time).toString());
             allSchedule.add(partialInfo);
         }
         return allSchedule;

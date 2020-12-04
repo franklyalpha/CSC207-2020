@@ -1,17 +1,14 @@
 package Controllers;
 
-import globallyAccessible.CannotCreateActivityException;
+import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 
-import useCases.RoomManager;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.UUID;
 
-public class CreateScheduleController extends ActivityController {
+public class CreateScheduleController extends EventController {
     private ArrayList<String> freeSpeaker;
     private ArrayList<UUID> freeRooms;
 
@@ -21,14 +18,14 @@ public class CreateScheduleController extends ActivityController {
         freeRooms = new ArrayList<>();
     }
 
-    public Object[] checkTimePeriodValidity(LocalDateTime[] targetPeriod) throws CannotCreateActivityException {
+    public Object[] checkTimePeriodValidity(LocalDateTime[] targetPeriod) throws CannotCreateEventException {
         freeSpeaker = userManager.availableSpeakers(targetPeriod);
         freeRooms = roomManager.bookingAvailable(targetPeriod);
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
             return new Object[]{freeRooms, freeSpeaker};
         }
         else{
-            throw new CannotCreateActivityException("Can't create activity");
+            throw new CannotCreateEventException("Can't create activity");
         }
     }
 
@@ -50,15 +47,15 @@ public class CreateScheduleController extends ActivityController {
     }
 
 
-    public void newActivitySetter(Object[] actSettings){
+    public void newEventSetter(Object[] actSettings){
         UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
         LocalDateTime[] targetPeriod = (LocalDateTime[]) actSettings[0];
         UUID assignedRoom = (UUID) actSettings[1];
         String topic = (String) actSettings[2];
         String speaker = (String) actSettings[3];
         Integer MaxNum = (Integer) actSettings[4];
-        UUID actID = activityManager.addNewActivity(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum);
-        activityManager.addSpeaker(actID, speaker);
+        UUID actID = eventManager.addNewEvent(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum);
+        eventManager.addSpeaker(actID, speaker);
         roomManager.BookRoom(targetPeriod, actID, assignedRoom);
         userManager.otherAddSchedule(speaker, targetPeriod, actID);
         messageRoomManager.addUser(speaker, assignedChat);

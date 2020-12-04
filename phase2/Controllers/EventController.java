@@ -1,16 +1,11 @@
 package Controllers;
 
-import useCases.ActivityManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
-
 import java.util.ArrayList;
 
-public class ActivityController extends AbstractController{
+public class EventController extends AbstractController{
 
 
-    public ActivityController(UserController userController) {
+    public EventController(UserController userController) {
         super(userController);
     }
 

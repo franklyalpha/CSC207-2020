@@ -2,7 +2,7 @@ package UI;
 
 import Controllers.CreateScheduleController;
 import Controllers.UserController;
-import globallyAccessible.CannotCreateActivityException;
+import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.OrgAddSchedulePresenter;
@@ -29,7 +29,7 @@ public class OrgAddScheduleUI extends AbstractUI {
             try{
                 majorProcessor();
                 break;
-            }catch(CannotCreateActivityException e){
+            }catch(CannotCreateEventException e){
                 System.out.println(orgAddSchedulePresenter.strInvalidTimePeriod());
             }catch(Exception e){
                 System.out.println(orgAddSchedulePresenter.strInvalidInput());
@@ -37,12 +37,12 @@ public class OrgAddScheduleUI extends AbstractUI {
         }
     }
 
-    private void majorProcessor() throws CannotCreateActivityException {
+    private void majorProcessor() throws CannotCreateEventException {
         LocalDateTime[] targetPeriod = periodProcessor();
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
         Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
         Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
-        createSchedule.newActivitySetter(actSetting);
+        createSchedule.newEventSetter(actSetting);
     }
 
     private Object[] getSpeakerRoomTopic(Object[] speakersRooms, CreateScheduleController createSchedule) {

@@ -101,7 +101,7 @@ public class RoomManager implements java.io.Serializable {
      * @param actID id of the <code>Activity</code>
      * @param roomID of the <code>Room</code>
      */
-    public void CancelRoomActivity(LocalDateTime[] time, UUID actID, UUID roomID){
+    public void CancelRoomEvent(LocalDateTime[] time, UUID actID, UUID roomID){
         Room room = findRoom(roomID);
         assert room != null;
         if (room.getSchedule().containsKey(time)){

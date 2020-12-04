@@ -1,6 +1,6 @@
 package useCases;
 
-import entities.Activity;
+import entities.Event;
 
 import java.time.*;
 import java.util.*;
@@ -21,17 +21,17 @@ import java.util.*;
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
  */
-public class ActivityManager implements java.io.Serializable{
+public class EventManager implements java.io.Serializable{
 
     /**
      * Represents activities that have not yet begun.
     */
-    private final ArrayList<Activity> upcomingActivities;
+    private final ArrayList<Event> upcomingActivities;
 
      /**
      * Represents activities that have already been completed.
      */
-    private final ArrayList<Activity> archivedActivities;
+    private final ArrayList<Event> archivedActivities;
     // consider modifying as Hashmaps
 
 
@@ -39,9 +39,9 @@ public class ActivityManager implements java.io.Serializable{
      * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
      * archived activities.
      */
-    public ActivityManager(){
-        this.upcomingActivities = new ArrayList<Activity>();
-        this.archivedActivities = new ArrayList<Activity>();
+    public EventManager(){
+        this.upcomingActivities = new ArrayList<Event>();
+        this.archivedActivities = new ArrayList<Event>();
     }
 
     /**
@@ -51,8 +51,8 @@ public class ActivityManager implements java.io.Serializable{
      * @param topic a <code>String</code> representing the topic of this activity.
      * @return UUID of newly created activity.
      */
-    public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic, Integer MaxNum){
-        Activity newAct = new Activity(period, chatRoomID, topic, MaxNum);
+    public UUID addNewEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic, Integer MaxNum){
+        Event newAct = new Event(period, chatRoomID, topic, MaxNum);
         upcomingActivities.add(newAct);
         return newAct.getIdentity();
     }
@@ -95,8 +95,8 @@ public class ActivityManager implements java.io.Serializable{
      * UUID of this activity (in string), topic, start time, end time, room's UUID,
      * and username of speaker.
      */
-    public String[] searchActivityByUUID(String ID){
-        for(Activity i: this.upcomingActivities){
+    public String[] searchEventByUUID(String ID){
+        for(Event i: this.upcomingActivities){
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
@@ -106,7 +106,7 @@ public class ActivityManager implements java.io.Serializable{
         return null;
     }
 
-    private LocalDateTime[] timeProcessing(Activity act){
+    private LocalDateTime[] timeProcessing(Event act){
         LocalDateTime[] time = new LocalDateTime[2];
         time[0] = act.getStartTime();
         time[1] = act.getEndTime();
@@ -119,13 +119,13 @@ public class ActivityManager implements java.io.Serializable{
      * @param speakerName a <code>String</code> representing the username of speaker needed to be assigned.
      */
     public void addSpeaker(UUID actID, String speakerName){
-        Activity targetAct = findActivity(actID);
+        Event targetAct = findEvent(actID);
         assert targetAct != null;
         targetAct.addSpeakers(speakerName);
     }
 
-    private Activity findActivity(UUID actID){
-        for (Activity act : upcomingActivities){
+    private Event findEvent(UUID actID){
+        for (Event act : upcomingActivities){
             if (actID.equals(act.getIdentity())){
                 return act;
             }
@@ -139,7 +139,7 @@ public class ActivityManager implements java.io.Serializable{
      * @return <code>UUID</code> of corresponding chat.
      */
     public UUID getConferenceChat(UUID actID){
-        Activity targetAct = findActivity(actID);
+        Event targetAct = findEvent(actID);
         assert targetAct != null;
         return targetAct.getChatID();
     }
@@ -154,7 +154,7 @@ public class ActivityManager implements java.io.Serializable{
     //TODO remove the typo in all instance of this method
     public ArrayList<String[]> viewUpcommingActivites(){
         ArrayList<String[]> result = new ArrayList<String[]>();
-        for(Activity i: this.upcomingActivities){
+        for(Event i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
                     i.getConferenceRoomNum().toString(), i.getSpeaker()};
@@ -171,7 +171,7 @@ public class ActivityManager implements java.io.Serializable{
      */
     //method that add attendees
     public boolean addAttendee(UUID activity,String attendee){
-        Activity a = findActivity(activity);
+        Event a = findEvent(activity);
         return a.addAttendeesToList(attendee);
     }
 
@@ -182,7 +182,7 @@ public class ActivityManager implements java.io.Serializable{
      */
     //method that get the num of attendees in certain activity.
     public int numAttendee(UUID activity){
-        Activity a = findActivity(activity);
+        Event a = findEvent(activity);
         return a.getAttendeeList().size();
     }
 
@@ -195,22 +195,22 @@ public class ActivityManager implements java.io.Serializable{
      */
     //method that remove the attendee from certain activity.
     public boolean removeAttendee(UUID activity,String attendee) {
-        Activity a = findActivity(activity);
+        Event a = findEvent(activity);
         return a.removeAttendee(attendee);
 
     }
 
     public void deleteEvent(UUID activityID){
-        Activity activityDelete = findActivity(activityID);
-        upcomingActivities.remove(activityDelete);
+        Event eventDelete = findEvent(activityID);
+        upcomingActivities.remove(eventDelete);
     }
 
-    public void changeActivityMaxParticipant(UUID activityId, Integer newMaxNum){
-        Objects.requireNonNull(findActivity(activityId)).setMaxNumAttendee(newMaxNum);
+    public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){
+        Objects.requireNonNull(findEvent(activityId)).setMaxNumAttendee(newMaxNum);
     }
 
-    public int getActivityMaxParticipant(UUID activityId){
-        return findActivity(activityId).getMaxNumAttendee();
+    public int getEventMaxParticipant(UUID activityId){
+        return findEvent(activityId).getMaxNumAttendee();
     }
 
     //speaker identity duration topic roomnum starttime

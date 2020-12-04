@@ -1,9 +1,9 @@
 package UI;
 
-import Controllers.EnrollActivityController;
+import Controllers.EnrollEventController;
 import Controllers.UserController;
 import functionalityPresenters.AvailableSchedulePresenter;
-import globallyAccessible.ActivityNotFoundException;
+import globallyAccessible.EventNotFoundException;
 import menuPresenter.AttendeePresenter;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import java.util.Scanner;
 public class AttEnrollEventUI extends AbstractUI {
     private AttendeePresenter attendeePresenter = new AttendeePresenter();
     private AvailableSchedulePresenter schedulePresenter;
-    private EnrollActivityController enroll;
+    private EnrollEventController enroll;
 
     public AttEnrollEventUI(UserController userController) {
         super(userController);
         schedulePresenter = new AvailableSchedulePresenter(userController);
-        enroll = new EnrollActivityController(userController);
+        enroll = new EnrollEventController(userController);
     }
 
     @Override
@@ -26,22 +26,22 @@ public class AttEnrollEventUI extends AbstractUI {
         if (availables.size() == 0){
             return;
         }
-        inputAndEnrollActivity(availables);
+        inputAndEnrollEvent(availables);
     }
 
-    private void inputAndEnrollActivity(ArrayList<String[]> availables) {
+    private void inputAndEnrollEvent(ArrayList<String[]> availables) {
         while(true){
             try{
-                String actID = getAvailableActivityID(availables);
+                String actID = getAvailableEventID(availables);
                 enroll.chooseActToEnroll(availables, actID);
                 break;
-            }catch(ActivityNotFoundException e){
-                System.out.println(attendeePresenter.strInvalidActivityID());
+            }catch(EventNotFoundException e){
+                System.out.println(attendeePresenter.strInvalidEventID());
             }
         }
     }
 
-    private String getAvailableActivityID(ArrayList<String[]> availables) {
+    private String getAvailableEventID(ArrayList<String[]> availables) {
         Scanner scan = new Scanner(System.in);
         System.out.println(attendeePresenter.strEnrollMenuDes());
         System.out.println(attendeePresenter.strSchedule(availables));

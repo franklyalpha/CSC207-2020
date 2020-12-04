@@ -1,17 +1,10 @@
 package Facades;
 
-import Controllers.EnrollActivityController;
-import Controllers.QuitActivityController;
 import Controllers.UserController;
-import Facades.UserFacade;
 import UI.AttCancelEnrollmentUI;
 import UI.AttEnrollEventUI;
-import functionalityPresenters.AvailableSchedulePresenter;
-import functionalityPresenters.EnrolledSchedulePresenter;
-import globallyAccessible.ActivityNotFoundException;
 import menuPresenter.AttendeePresenter;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 

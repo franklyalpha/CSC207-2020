@@ -25,7 +25,7 @@ public class ViewGroupMessageUI extends AbstractUI {
         Scanner scan = new Scanner(System.in);
         String selectedEvent = scan.nextLine();
         if (!historyChat.containsKey(selectedEvent)){
-            System.out.println(userPresenter.strInvalidActivityID());
+            System.out.println(userPresenter.strInvalidEventID());
             return;
         }
         System.out.println(userPresenter.strMessagesInInterval(historyChat.get(selectedEvent), 1,

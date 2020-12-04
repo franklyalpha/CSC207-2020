@@ -30,7 +30,7 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
     private void deleteChoice(Scanner choice) {
         switch(choice.nextInt()){
             case 0: deleteOrganizerSpeakerMessage();
-            case 1: deleteActivityMessage();
+            case 1: deleteEventMessage();
         }
     }
 
@@ -53,7 +53,7 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         deleteMessage.deleteMessage(targetedDeletion);
     }
 
-    private void deleteActivityMessage(){
+    private void deleteEventMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
         ArrayList<String> ids = viewAllGroupConversation(deleteMessage);
         if(ids.size() != 0){

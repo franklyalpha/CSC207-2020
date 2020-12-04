@@ -19,13 +19,13 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
     // place to UI
 
     ArrayList<String[]> availableSchedules(){
-        ArrayList<String[]> schedules = activityManager.viewUpcommingActivites();
+        ArrayList<String[]> schedules = eventManager.viewUpcommingActivites();
         ArrayList<String> temp = new ArrayList<>();
 
         //activity that is full and user is not free.
         for(String[] info: schedules){
             if(checkIsConflict(info)){
-                temp.add(activityManager.searchActivityByUUID(info[0])[0]);
+                temp.add(eventManager.searchEventByUUID(info[0])[0]);
             }
         }
         schedules.removeIf(info -> temp.contains(info[0]));
@@ -33,11 +33,11 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
     }
 
     private boolean checkIsConflict(String[] info){
-        if (!roomManager.CheckRoomFullness(activityManager.numAttendee(UUID.fromString(info[0])),
+        if (!roomManager.CheckRoomFullness(eventManager.numAttendee(UUID.fromString(info[0])),
                 UUID.fromString(info[4]))){
             return true;
         }
-        if (activityManager.numAttendee(UUID.fromString(info[0])) >= activityManager.getActivityMaxParticipant(UUID.
+        if (eventManager.numAttendee(UUID.fromString(info[0])) >= eventManager.getEventMaxParticipant(UUID.
                 fromString(info[0]))){
             return true;
         }

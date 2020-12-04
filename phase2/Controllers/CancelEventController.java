@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class CancelEventController extends ActivityController{
+public class CancelEventController extends EventController {
 
 
     public CancelEventController(UserController userController) {
@@ -12,10 +12,10 @@ public class CancelEventController extends ActivityController{
     }
 
     public ArrayList<String[]> findEmptyEvents(){
-        ArrayList<String[]> events = activityManager.viewUpcommingActivites();
+        ArrayList<String[]> events = eventManager.viewUpcommingActivites();
         ArrayList<String[]> emptyEvents = new ArrayList<>();
         for (String[] actinfo: events){
-            if(activityManager.numAttendee(UUID.fromString(actinfo[0])) == 0){
+            if(eventManager.numAttendee(UUID.fromString(actinfo[0])) == 0){
                 emptyEvents.add(new String[]{actinfo[0], actinfo[1]});
             }
         }
@@ -25,11 +25,11 @@ public class CancelEventController extends ActivityController{
     public void cancelAndUpdate(String eventID){
         // need to update the speaker as an array list of speaker;
         UUID actID = UUID.fromString(eventID);
-        String[] actInfo = activityManager.searchActivityByUUID(eventID);
+        String[] actInfo = eventManager.searchEventByUUID(eventID);
         String speaker = actInfo[5];
         LocalDateTime[] period = getTimeHelper(actInfo);
-        activityManager.deleteEvent(actID);
-        userManager.deleteActivity(speaker, period);
+        eventManager.deleteEvent(actID);
+        userManager.deleteEvent(speaker, period);
     }
 
 

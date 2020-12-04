@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class SendActivityMessageController extends MessagingController {
+public class SendEventMessageController extends MessagingController {
     private ArrayList<String[]> info;
 
-    public SendActivityMessageController(UserController userController) {
+    public SendEventMessageController(UserController userController) {
         super(userController);
         info = showEnrolledSchedule();
     }
 
-    public void sendActivityMessage(int activity, String message) {
+    public void sendEventMessage(int activity, String message) {
         UUID chatID = findRightChat(activity);
         messageRoomManager.sendMessage(message, chatID);
     }
 
     public UUID findRightChat(int activity){
-        return activityManager.getConferenceChat(
+        return eventManager.getConferenceChat(
                 UUID.fromString(info.get(activity - 1)[0]));
     }
 
@@ -27,7 +27,7 @@ public class SendActivityMessageController extends MessagingController {
         HashMap<LocalDateTime[], UUID> schedulesEnrolled = userManager.schedules();
         ArrayList<String[]> info = new ArrayList<>();
         for (UUID actID: schedulesEnrolled.values()){
-            info.add(activityManager.searchActivityByUUID(actID.toString()));
+            info.add(eventManager.searchEventByUUID(actID.toString()));
         }
         return info;
     }
