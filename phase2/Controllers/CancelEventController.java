@@ -15,7 +15,7 @@ public class CancelEventController extends EventController {
     }
 
     public ArrayList<String[]> findEmptyEvents(){
-        ArrayList<String[]> events = eventManager.viewUpcommingActivites();
+        ArrayList<String[]> events = eventManager.viewUpcomingActivites();
         ArrayList<String[]> emptyEvents = new ArrayList<>();
         for (String[] actinfo: events){
             if(eventManager.numAttendee(UUID.fromString(actinfo[0])) == 0){

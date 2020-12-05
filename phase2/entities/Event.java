@@ -1,9 +1,11 @@
 package entities;
 
+import globallyAccessible.EventType;
+
 import java.time.*;
 import java.util.*;
 
-public class Event implements java.io.Serializable {
+public abstract class Event implements java.io.Serializable {
     /*
         Variables include:
         String/Date(require importing) time;
@@ -16,7 +18,6 @@ public class Event implements java.io.Serializable {
         Getters and setters;
     */
     //private final ArrayList<String> speakers;
-    private String speaker;
     private ArrayList<String> attendeeList;    // do not set this list as final, since this makes adding impossible
     private Duration duration;
     private LocalDateTime startTime;
@@ -26,6 +27,7 @@ public class Event implements java.io.Serializable {
     private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     private Integer maxNumAttendee;
+    protected EventType type;
     //Maybe event tags for easier search?
 
     //TODO：thinking of making multiple constructors later
@@ -39,7 +41,6 @@ public class Event implements java.io.Serializable {
      */
     public Event(LocalDateTime[] period, UUID[] chatRoomID,
                  String topic, Integer MaxNum){
-        this.speaker = null;
         this.attendeeList = new ArrayList<>();
         this.startTime = period[0];
         this.endTime = period[1];
@@ -85,16 +86,6 @@ public class Event implements java.io.Serializable {
      * <CODE>false</CODE> otherwise
      */
     public boolean removeAttendee(String attendee){return this.attendeeList.remove(attendee);}
-
-    /**
-     * Determine whether this speaker has been added.
-     * @return <CODE>true</CODE> if this speaker has been added.
-     * <CODE>false</CODE> otherwise
-     */
-    public boolean addSpeakers(String speaker){
-        this.speaker = speaker;
-        return true;
-    }
 
 //    public boolean addSpeakers(ArrayList<String> speakers){
 //        boolean addedAll = true;
@@ -179,13 +170,6 @@ public class Event implements java.io.Serializable {
     public ArrayList<String> getAttendeeList(){return this.attendeeList;}
 
     /**
-     * Gets an speakers list in this <code>Activity</code>.
-     * @return A list of strings corresponding to the speakers of <code>speakers</code> in this
-     * <code>Activity</code>.
-     */
-    public String getSpeaker(){return this.speaker;}
-
-    /**
      * Gets the start time for this <code>Activity</code>.
      * @return The LocalDateTime corresponding to the start time of this <code>Activity</code>.
      */
@@ -235,6 +219,8 @@ public class Event implements java.io.Serializable {
      */
     public String getTopic(){return this.topic;}
 
+    public EventType getEventType(){return this.type;}
+
 
 //    public String toString(){
 //        String description = "Topic: " + this.topic + "\n" +
@@ -255,8 +241,7 @@ public class Event implements java.io.Serializable {
     public String toString(){
         String description = "Topic: " + this.topic + "\n" +
                 "Speakers: ";
-        description += speaker;
-        description += ("\nConference entities.Room " + this.conferenceRoomNum);
+        description += ("\nConference Room " + this.conferenceRoomNum);
         description += ("\nFrom " + this.startTime + " to " + this.endTime);
         description += ("\nID: " + this.identity);
         description += ("\nChat ID: " + this.conferenceChat);

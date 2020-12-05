@@ -21,7 +21,7 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
     // place to UI
 
     ArrayList<String[]> availableSchedules(){
-        ArrayList<String[]> schedules = eventManager.viewUpcommingActivites();
+        ArrayList<String[]> schedules = eventManager.viewUpcomingActivites();
         ArrayList<String> temp = new ArrayList<>();
 
         //activity that is full and user is not free.
