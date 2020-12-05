@@ -60,6 +60,54 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
     }
 
     /**
+     * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
+     * an independent account creator class would be implemented, and only the function
+     * 'add user would be kept, and being made public'
+     *
+     * Creates a <code>createUser</code> and add it to the list of Users of the <code>UserManager</code>
+     * @param username is the username for the newly constructed <code>User</code>.
+     * @param password is the password for the newly constructed <code>User</code>.
+     * @param type is the UserType for the newly constructed <code>User</code>.
+     * @return the name of the newly constructed <code>User</code>.
+     */
+    public String createUser(String username, String password, UserType type) {
+        new UserFactory(this).construct(username + num_user, password, type);
+        return username + num_user;
+    }
+
+    // registerUserOnDB(name, password, t);
+    // this require further modification to fit with factory pattern
+    private void registerUserOnDB(String name, String password, UserType type){
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+
+            MongoDatabase database = mongoClient.getDatabase("csc207");
+
+            MongoCollection<Document> collection = database.getCollection("users");
+
+            Document newUser = new Document("_id", num_user);
+            newUser.append("username", name);
+            newUser.append("password", password);
+            String userType;
+            switch (type){
+                case ORGANIZER:
+                    userType = "Organizer";
+                    break;
+                case ATTENDEE:
+                    userType = "Attendee";
+                    break;
+                case SPEAKER:
+                    userType = "Speaker";
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + type);
+            }
+            newUser.append("userType", userType);
+
+            collection.insertOne(newUser);
+        }
+    }
+
+    /**
      * Creates a <code>contactable</code> and check whether the user can be contact.
      * @param username is the username of user that needs to be checked.
      * @return returns 1 if the user can be contact and returns 0 otherwise.

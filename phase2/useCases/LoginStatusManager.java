@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import entities.User;
+import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import org.bson.Document;
@@ -38,82 +39,15 @@ public class LoginStatusManager implements Serializable {
     }
 
     /**
-     * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
-     * an independent account creator class would be implemented, and only the function
-     * 'add user would be kept, and being made public'
-     *
-     *
-     * Creates a <code>createUser</code> and add it to the list of Users of the <code>UserManager</code>
-     * @param username is the username for the newly constructed <code>User</code>.
-     * @param password is the password for the newly constructed <code>User</code>.
-     * @param type is the UserType for the newly constructed <code>User</code>.
-     * @return the name of the newly constructed <code>User</code>.
-     */
-    public String createUser(String username, String password, UserType type) {
-        String name = username + num_user;
-        UserType t;
-        switch (type){
-            case ORGANIZER:
-                t = UserType.ORGANIZER;
-                break;
-            case ATTENDEE:
-                t = UserType.ATTENDEE;
-                break;
-            case SPEAKER:
-                // This default should not be accessed, if accessed check
-                t = UserType.SPEAKER;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
-        User org = new User(name, password, t);
-//        registerUserOnDB(name, password, t);
-        addUser(org, type);
-        return name;
-        // return name: just in case to notify users about their exact username;
-    }
-
-    private void registerUserOnDB(String name, String password, UserType type){
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-
-            MongoDatabase database = mongoClient.getDatabase("csc207");
-
-            MongoCollection<Document> collection = database.getCollection("users");
-
-            Document newUser = new Document("_id", num_user);
-            newUser.append("username", name);
-            newUser.append("password", password);
-            String userType;
-            switch (type){
-                case ORGANIZER:
-                    userType = "Organizer";
-                    break;
-                case ATTENDEE:
-                    userType = "Attendee";
-                    break;
-                case SPEAKER:
-                    userType = "Speaker";
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + type);
-            }
-            newUser.append("userType", userType);
-
-            collection.insertOne(newUser);
-        }
-    }
-
-    /**
      * Creates a <code>assUser</code> and add Users to the corresponding TypeList if the Users are not inside and
      * update the num_user.
      * @param users is the user that needs to be added in the list.
      * @param type is the UserType for the user that needs to be added in the list.
      */
-    private void addUser(User users, UserType type){
+    public void addUser(User users, UserType type){
         if (!allUsers.containsKey(type)){
             allUsers.put(type, new ArrayList<>());
         }
-
         allUsers.get(type).add(users);
         num_user += 1;
     }
@@ -143,31 +77,6 @@ public class LoginStatusManager implements Serializable {
         }
         return null;
     }
-
-
-//    public int isUser(String username){
-//        for (User users : allUsers){
-//            if(users.getUsername().equals(username)){
-//                return allUsers.indexOf(users) + 1;
-//            }
-//        }
-//        return 0;
-//    }
-
-//    /**
-//     * Creates a <code>checkUserIndex</code> and return the index of User.
-//     * @param username is the username of user that needs to be checked.
-//     * @param type is the UserType for the user that needs to be checked.
-//     * @return the index of the User, if not all Users contain key, return 0.
-//     */
-//    private int checkUserIndex(String username, UserType type){
-//        for (User users : allUsers.get(type)){
-//            if (users.getUsername().equals(username)){
-//                return allUsers.get(type).indexOf(users) + 1;
-//            }
-//        }
-//        return 0;
-//    }
 
     /** check whether the password is correct
      @return type of user if password is correct, "invalid" otherwise.
