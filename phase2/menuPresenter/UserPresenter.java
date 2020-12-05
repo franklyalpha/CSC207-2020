@@ -28,8 +28,8 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strAvailableActions(ArrayList<String> availableAction){
-        StringBuilder action = new StringBuilder(new String("//-------------------------------------//\n" +
-                "//          Available Actions:         //\n" +
+        StringBuilder action = new StringBuilder(new String("  //-------------------------------------//\n" +
+                " //          Available Actions:         //\n" +
                 "//-------------------------------------//\n"));
         for(String a: availableAction){
             action.append("[").append(Integer.toString(availableAction.indexOf(a) + 1)).append("]").append(" ")

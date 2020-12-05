@@ -13,11 +13,11 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strUserTypePrompt(){
-        return "Please enter the type of user (integer) you want to create: \n1: organizer; 2: attendee; 3: speaker 4: administrator";
+        return "Please enter number corresponding to the type of account you wish to create: \n(1) Organizer\n(2) Attendee \n(3) Speaker \n(4) Administrator";
     }
 
     public String strInvalidUserType(){
-        return "Invalid User type!!! Try again!";
+        return "Invalid input!!! Please try again and ensure you input the number corresponding to the type of account you wish to create.";
     }
 
     public String strCreateRoomPrompt(){
@@ -26,7 +26,7 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strRoomCapacityConfirmation(int a){
-        return "New room with capacity " + a + " is created successfully. ";
+        return "Successfully created a new room with a capacity of " + a + ".";
     }
 
 

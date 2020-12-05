@@ -58,7 +58,8 @@ public class AdmininistratorFacade extends OrganizerFacade {
         boolean enterAction = true;
         System.out.println(presenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("true")){
+        if(!scan2.nextLine().equals("true") && !scan2.nextLine().equals("True") && !scan2.nextLine().equals("t") &&
+                !scan2.nextLine().equals("T")){
             enterAction = false;
         }
         return enterAction;

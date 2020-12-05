@@ -63,6 +63,9 @@ public class LoginStatusManager implements Serializable {
                 // This default should not be accessed, if accessed check
                 t = UserType.SPEAKER;
                 break;
+            case ADMINISTRATOR:
+                t = UserType.ADMINISTRATOR;
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
