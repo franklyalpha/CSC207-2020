@@ -10,9 +10,8 @@ public class Administrator extends User implements Serializable {
      *
      * @param name     the valid name of this user, which help to identify.
      * @param password the valid password of this user.
-     * @param type     the type of this user: Attendee, Organizer, Speaker.
      */
-    public Administrator(String name, String password, UserType type) {
-        super(name, password, type);
+    public Administrator(String name, String password) {
+        super(name, password, UserType.ADMINISTRATOR);
     }
 }
