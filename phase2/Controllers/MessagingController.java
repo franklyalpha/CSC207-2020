@@ -25,6 +25,7 @@ public class MessagingController extends AbstractController{
      * @param message String representing the message we wish to send.
      */
     public void send(String userName, String message) throws UserNotFoundException {
+        message = userManager.getUsername() + ": " + message;
         if (userManager.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userManager.contacts();
