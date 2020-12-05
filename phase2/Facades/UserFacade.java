@@ -50,4 +50,6 @@ public class UserFacade {
     protected void outputAllUpcomingEventsPdf() {
         new OutputUpcomingEventsPDFUI(userController).run();
     }
+
+    protected void viewStatistic(){new StatisticUI(userController).run();}
 }
