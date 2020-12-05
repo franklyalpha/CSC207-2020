@@ -1,10 +1,10 @@
 package roomRequirementBuilder;
 
-public class SonyProjector extends projector{
+public class EpsonProjector extends projector{
 
     @Override
     public String name() {
-        return "Sony Projector";
+        return "Epson Projector";
     }
 
     @Override
@@ -26,5 +26,4 @@ public class SonyProjector extends projector{
     public void setSeriesNum(String newSeriesNum) {
         this.seriesNum = newSeriesNum;
     }
-
 }
