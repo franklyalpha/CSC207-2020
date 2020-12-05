@@ -31,6 +31,7 @@ import globallyAccessible.UserType;
  * being able to check whether the password is correct(return true)
  * able to check whether a given user/activity is in another user's contact list;
  * being able to return scheduled activities of the user
+ * being able to return the username of the user
  * being able to add a new activity to schedule
  * being able to add a new chatroom the person is in
  * being able to delete an activity participated, and being
@@ -98,6 +99,8 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
                 case SPEAKER:
                     userType = "Speaker";
                     break;
+                case ADMINISTRATOR:
+                    userType = "Administrator";
                 default:
                     throw new IllegalStateException("Unexpected value: " + type);
             }

@@ -92,7 +92,7 @@ public class LoginStatusManager implements Serializable {
                 return currUser.getUserType();
             }
         }
-        throw new UserNotFoundException("Wrong login info");
+        throw new UserNotFoundException("Wrong login info.");
     }
 
     /**

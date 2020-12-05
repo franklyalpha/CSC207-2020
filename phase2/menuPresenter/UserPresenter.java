@@ -28,11 +28,11 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strAvailableActions(ArrayList<String> availableAction){
-        StringBuilder action = new StringBuilder(new String("  //-------------------------------------//\n" +
+        StringBuilder action = new StringBuilder("  //-------------------------------------//\n" +
                 " //          Available Actions:         //\n" +
-                "//-------------------------------------//\n"));
+                "//-------------------------------------//\n");
         for(String a: availableAction){
-            action.append("[").append(Integer.toString(availableAction.indexOf(a) + 1)).append("]").append(" ")
+            action.append("[").append((availableAction.indexOf(a) + 1)).append("]").append(" ")
                     .append(a).append("\n");
         }
         return action.toString();
@@ -77,7 +77,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strTimePrompt(String startOrEnd){
-        return "Please input the year, month, day, hour, and minute of the " + startOrEnd + " time (IN THAT ORDER, separate by space): ";
+        return "Please input the year, month, day, hour, and minute of the " + startOrEnd + " time (IN THAT ORDER, separated by a space): ";
     }
 
     public String strStartTimePrompt(){
