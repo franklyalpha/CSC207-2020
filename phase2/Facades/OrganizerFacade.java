@@ -109,11 +109,11 @@ public class OrganizerFacade extends UserFacade {
 
 
     protected void addSchedule() {
-        new OrgAddScheduleUI(userController).run();
+        new OrganizerAddScheduleUI(userController).run();
     }
 
     protected void rescheduleSpeaker(){
-        new OrgRescheduleSpeakerUI(userController).run();
+        new OrganizerRescheduleSpeakerUI(userController).run();
     }
 
 
