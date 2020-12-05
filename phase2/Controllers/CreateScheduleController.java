@@ -3,6 +3,7 @@ package Controllers;
 import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
+import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,15 +12,17 @@ import java.util.UUID;
 public class CreateScheduleController extends EventController {
     private ArrayList<String> freeSpeaker;
     private ArrayList<UUID> freeRooms;
+    private OrganizerManager organizerManager;
 
     public CreateScheduleController(UserController userController) {
         super(userController);
         freeSpeaker = new ArrayList<>();
         freeRooms = new ArrayList<>();
+        organizerManager = new OrganizerManager(userManager);
     }
 
     public Object[] checkTimePeriodValidity(LocalDateTime[] targetPeriod) throws CannotCreateEventException {
-        freeSpeaker = userManager.availableSpeakers(targetPeriod);
+        freeSpeaker = organizerManager.availableSpeakers(targetPeriod);
         freeRooms = roomManager.bookingAvailable(targetPeriod);
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
             return new Object[]{freeRooms, freeSpeaker};
@@ -57,7 +60,7 @@ public class CreateScheduleController extends EventController {
         UUID actID = eventManager.addNewEvent(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum);
         eventManager.addSpeaker(actID, speaker);
         roomManager.BookRoom(targetPeriod, actID, assignedRoom);
-        userManager.otherAddSchedule(speaker, targetPeriod, actID);
+        organizerManager.otherAddSchedule(speaker, targetPeriod, actID);
         messageRoomManager.addUser(speaker, assignedChat);
     }
 

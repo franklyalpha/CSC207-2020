@@ -1,14 +1,17 @@
 package Controllers;
 
+import useCases.OrganizerManager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class CancelEventController extends EventController {
-
+    private OrganizerManager organizerManager;
 
     public CancelEventController(UserController userController) {
         super(userController);
+        organizerManager = new OrganizerManager(userManager);
     }
 
     public ArrayList<String[]> findEmptyEvents(){
@@ -29,7 +32,7 @@ public class CancelEventController extends EventController {
         String speaker = actInfo[5];
         LocalDateTime[] period = getTimeHelper(actInfo);
         eventManager.deleteEvent(actID);
-        userManager.deleteEvent(speaker, period);
+        organizerManager.deleteEvent(speaker, period);
     }
 
 

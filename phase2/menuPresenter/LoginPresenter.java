@@ -16,9 +16,9 @@ public class LoginPresenter extends GeneralMenuPresenter {
 
     public String strLoginMenu(){
         HashMap<Character, String> items = new HashMap<Character, String>() {{
-            put('1', "Sign Up");
-            put('2', "Log in");
-            put('Q', "Quit");
+            put('0', " Sign Up");
+            put('1', " Log in");
+            put('Q', " Quit");
         }};
         return strItemizeMenuOption("do", items);
     }

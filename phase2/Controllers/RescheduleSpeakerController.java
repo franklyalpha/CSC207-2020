@@ -2,6 +2,7 @@ package Controllers;
 
 import globallyAccessible.EventNotFoundException;
 import globallyAccessible.NoEventsException;
+import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,12 +11,14 @@ import java.util.UUID;
 public class RescheduleSpeakerController extends EventController {
     private String[] actInfo;
     private LocalDateTime[] actTime;
+    private OrganizerManager organizerManager;
 
 
     public RescheduleSpeakerController(UserController userController) {
         super(userController);
         actInfo = new String[]{};
         actTime = new LocalDateTime[]{};
+        organizerManager = new OrganizerManager(userManager);
     }
 
     private String[] tmp(String actID) {
@@ -25,15 +28,15 @@ public class RescheduleSpeakerController extends EventController {
     public ArrayList<String> availableSpeakers(String actID){
         actInfo = tmp(actID);
         actTime = getTimeHelper(actInfo);
-        ArrayList<String> freeSpeakers = userManager.availableSpeakers(actTime);
+        ArrayList<String> freeSpeakers = organizerManager.availableSpeakers(actTime);
         freeSpeakers.add(actInfo[5]);
         return freeSpeakers;
     }
 
     public void updateRescheduledSpeaker(String speaker){
         eventManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        userManager.deleteEvent(actInfo[5], actTime);
-        userManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
+        organizerManager.deleteEvent(actInfo[5], actTime);
+        organizerManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
     }
 
 

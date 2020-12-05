@@ -1,16 +1,18 @@
 package functionalityPresenters;
 
 import Controllers.UserController;
+import useCases.AttendeeManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class AvailableSchedulePresenter extends AbstractPresenter{
-
+    private AttendeeManager attendeeManager;
 
     public AvailableSchedulePresenter(UserController userController) {
         super(userController);
+        attendeeManager = new AttendeeManager(userManager);
     }
 
     public ArrayList<String[]> viewAvailableSchedules(){
@@ -43,7 +45,7 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
         }
 
         LocalDateTime[] time = getTimeHelper(info);
-        return !userManager.isFree(time);
+        return !attendeeManager.isFree(time);
     }
 
 

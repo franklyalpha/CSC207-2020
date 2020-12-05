@@ -1,6 +1,7 @@
 package Controllers;
 
 import globallyAccessible.EventNotFoundException;
+import useCases.AttendeeManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,11 +9,13 @@ import java.util.UUID;
 
 public class QuitEventController extends EventController {
     private ArrayList<String> userName;
+    private AttendeeManager attendeeManager;
 
     public QuitEventController(UserController userController) {
         super(userController);
         userName = new ArrayList<>();
         userName.add(userManager.currentUsername());
+        attendeeManager = new AttendeeManager(userManager);
     }
 
     public void chooseActToCancel(ArrayList<String[]> enrolled, String activityID)
@@ -32,6 +35,6 @@ public class QuitEventController extends EventController {
         messageRoomManager.removeUser(userName, eventManager.getConferenceChat(actID));
         String[] actInfo = eventManager.searchEventByUUID(activityID);
         LocalDateTime[] time = getTimeHelper(actInfo);
-        userManager.deleteEvent(time);
+        attendeeManager.deleteEvent(time);
     }
 }
