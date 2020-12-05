@@ -1,18 +1,29 @@
 package roomRequirementBuilder;
 
 public class EpsonProjector extends projector{
+
     @Override
     public String name() {
         return "Epson Projector";
     }
 
     @Override
-    public int quantity() {
-        return 0;
+    public int getPrice() {
+        return this.price;
     }
 
     @Override
-    public int rentalPrice() {
-        return 0;
+    public void setPrice(int newPrice){
+        this.price = newPrice;
+    }
+
+    @Override
+    public String getSeriesNum() {
+        return this.seriesNum;
+    }
+
+    @Override
+    public void setSeriesNum(String newSeriesNum) {
+        this.seriesNum = newSeriesNum;
     }
 }

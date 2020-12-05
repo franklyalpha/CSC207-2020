@@ -1,7 +1,11 @@
 package roomRequirementBuilder;
 
+
 public interface roomItem {
     public String name();
-    public int quantity();
-    public int rentalPrice();
+    public int getPrice();
+    public void setPrice(int newPrice);
+    public String getSeriesNum();
+    public void setSeriesNum(String newSeriesNum);
+
 }
