@@ -6,8 +6,8 @@ import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
 
-public class OrgMessageAllAttendeeUI extends AbstractUI {
-    public OrgMessageAllAttendeeUI(UserController userController) {
+public class OrganizerMessageAllAttendeeUI extends AbstractUI {
+    public OrganizerMessageAllAttendeeUI(UserController userController) {
         super(userController);
     }
 

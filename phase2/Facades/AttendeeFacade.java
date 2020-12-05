@@ -72,6 +72,7 @@ public class AttendeeFacade extends UserFacade {
             case 6: viewPrivateMessage(); break;
             case 7: viewGroupMessage(); break;
             case 8: outputAllUpcomingEventsPdf(); break;
+            case 9: viewStatistic(); break;
         }
     }
 
@@ -85,6 +86,7 @@ public class AttendeeFacade extends UserFacade {
         availableAction.add("- View private messages");
         availableAction.add("- View group messages");
         availableAction.add("- Generate all upcoming events pdf");
+        availableAction.add("-View top five popular events");
     }
     //TODO move this to presenter
 

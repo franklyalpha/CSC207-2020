@@ -3,9 +3,9 @@ package menuPresenter;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class OrgAddSchedulePresenter extends UserPresenter {
+public class OrganizerAddSchedulePresenter extends UserPresenter {
 
-    public OrgAddSchedulePresenter(){super();}
+    public OrganizerAddSchedulePresenter(){super();}
 
     public String strInvalidTimePeriod(){
         return strInvalidHelper("time period");
