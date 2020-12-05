@@ -1,16 +1,19 @@
 package Controllers;
 
 import globallyAccessible.UserNotFoundException;
+import useCases.AdminManager;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class DeletePrivateConversationController extends AbstractController {
     private String[] usernames;
+    private AdminManager adminManager;
 
     public DeletePrivateConversationController(UserController userController) {
         super(userController);
         usernames = new String[]{};
+        adminManager = new AdminManager(userManager);
     }
 
     public void checkIsUser(String[] usernames) throws UserNotFoundException {
@@ -26,8 +29,8 @@ public class DeletePrivateConversationController extends AbstractController {
         HashMap<String, UUID> contacts = userManager.otherContacts(usernames[0]);
         if(contacts.containsKey(usernames[1])){
             messageRoomManager.deletePrivateConversation(contacts.get(usernames[1]));
-            userManager.deleteContact(usernames[0], usernames[1]);
-            userManager.deleteContact(usernames[1], usernames[0]);
+            adminManager.deleteContact(usernames[0], usernames[1]);
+            adminManager.deleteContact(usernames[1], usernames[0]);
         }
 
     }

@@ -6,15 +6,21 @@ import Controllers.UserController;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminCancelEventUI extends UserUI{
+public class AdminCancelEventUI extends AbstractUI {
+    private CancelEventController deleteEvent;
 
     public AdminCancelEventUI(UserController userController) {
         super(userController);
+        deleteEvent = new CancelEventController(userController);
     }
 
-    private void cancelEmptyEvent(){
-        CancelEventController deleteEvent = new CancelEventController(userController);
+    @Override
+    public void run() {
         ArrayList<String[]> emptyEvents = deleteEvent.findEmptyEvents();
+        if (emptyEvents.size() == 0){
+            System.out.println("There are no events being added");
+            return;
+        }
         String cancelEventID = selectEventToCancel(emptyEvents);
         deleteEvent.cancelAndUpdate(cancelEventID);
     }

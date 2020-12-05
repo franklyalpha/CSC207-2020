@@ -1,10 +1,6 @@
 package Controllers;
 
 import globallyAccessible.UserNotFoundException;
-import useCases.ActivityManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +25,7 @@ public class MessagingController extends AbstractController{
      * @param message String representing the message we wish to send.
      */
     public void send(String userName, String message) throws UserNotFoundException {
+        message = userManager.currentUsername() + ": " + message;
         if (userManager.contactable(userName)){
             // may consider putting first two lines in use-case;
             HashMap<String, UUID> contacts = userManager.contacts();

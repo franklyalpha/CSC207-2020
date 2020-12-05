@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public class OutputConferenceInfoController extends ActivityController {
+public class OutputConferenceInfoController extends EventController {
 
     private static final String DEST = "./eventsInfo.pdf";
     private static final int ID = 0;
@@ -29,7 +29,7 @@ public class OutputConferenceInfoController extends ActivityController {
      */
     public OutputConferenceInfoController(UserController userController){
         super(userController);
-        this.upcomingEvents = activityManager.viewUpcommingActivites();
+        this.upcomingEvents = eventManager.viewUpcommingActivites();
     }
 
     /**

@@ -10,7 +10,7 @@ import globallyAccessible.*;
  * @version 1.0
  */
 
-public class User implements java.io.Serializable {
+public abstract class User implements java.io.Serializable {
 
     /**
      * Name for each <code>User</code>
@@ -33,7 +33,7 @@ public class User implements java.io.Serializable {
     private final HashMap<String, UUID> chatroom;
 
     /**
-     * a HashMap which holds the id of the <code>Activity</code> this user signed in and their description.
+     * a HashMap which holds the id of the <code>Event</code> this user signed in and their description.
      */
     private final HashMap<LocalDateTime[], UUID> activities;
     // in phase 2, will create a clone corresponding activities for
@@ -88,7 +88,6 @@ public class User implements java.io.Serializable {
         return chatroom;
     }
 
-
     /**
      * Gets the Activity which this user belong to.
      * @return the Map of a description of the Activity and the name of the chatroom.
@@ -110,11 +109,8 @@ public class User implements java.io.Serializable {
      * @param  newPassword the new password of this user.
      */
     public void setPassword(String newPassword){ password = newPassword;}
-
-
     /*
      * will set arraylists and hashmaps in use-case class. however, when returning something outside use-case,
      * it would be safer to make a DEEP copy of variable so that any possible modifications won't affect original data.
      */
-
 }

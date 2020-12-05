@@ -2,19 +2,14 @@ package Controllers;
 
 import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
-import Presenters.Presenter;
 
-import java.util.Scanner;
-
-public class CreateAttendeeController extends AbstractController implements CreateUser {
+public class CreateAttendeeController extends AbstractController implements ICreateUser {
     public CreateAttendeeController(UserController userController) {
         super(userController);
     }
 
     public void ValidateName(String name) throws SpeakerAlreadyExistException {
-        if(userManager.isUser(name) == 0){
-        }
-        else{
+        if(userManager.isUser(name) != 0){
             throw new SpeakerAlreadyExistException("Attendee already exist!");
         }
     }

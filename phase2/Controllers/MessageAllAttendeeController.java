@@ -1,20 +1,22 @@
 package Controllers;
 
 import globallyAccessible.UserNotFoundException;
-import Presenters.Presenter;
+import useCases.OrganizerManager;
+import useCases.UserManager;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MessageAllAttendeeController extends MessagingController {
+    private OrganizerManager organizerManager;
 
     public MessageAllAttendeeController(UserController userController) {
         super(userController);
+        organizerManager = new OrganizerManager(userManager);
     }
 
     public void messageAllAttendee(String message) {
         try{
-            ArrayList<String> attendeeName = userManager.allAttendee();
+            ArrayList<String> attendeeName = organizerManager.allAttendee();
             for (String attendee : attendeeName){
                 send(attendee, message);
             }

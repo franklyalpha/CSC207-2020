@@ -42,7 +42,7 @@ public class RoomManager implements java.io.Serializable {
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, boolean haveProjector, int NumMicrophone){
-        Room newRoom = new Room(capacity, haveProjector, NumMicrophone);
+        Room newRoom = new Room(capacity);
         rooms.add(newRoom);
         return newRoom.getId();
     }
@@ -66,7 +66,7 @@ public class RoomManager implements java.io.Serializable {
      * @param roomID is the id of the room we are searching for.
      * @return a room or nothing if it is not in the list of rooms of our <code>RoomManager</code>
      */
-    private Room findRoom(UUID roomID){
+    public Room findRoom(UUID roomID){
         for (Room room: rooms){
             if (room.getId().equals(roomID)){
                 return room;
@@ -91,13 +91,17 @@ public class RoomManager implements java.io.Serializable {
     }
 
 
+    public int getRoomCapacity(UUID roomId){
+        return findRoom(roomId).getCapacity();
+    }
+
     /**
      * Remove an activity in the entities.Room schedule
      * @param time of the <code>Activity</code>
      * @param actID id of the <code>Activity</code>
      * @param roomID of the <code>Room</code>
      */
-    public void CancelRoomActivity(LocalDateTime[] time, UUID actID, UUID roomID){
+    public void CancelRoomEvent(LocalDateTime[] time, UUID actID, UUID roomID){
         Room room = findRoom(roomID);
         assert room != null;
         if (room.getSchedule().containsKey(time)){

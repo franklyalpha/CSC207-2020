@@ -1,8 +1,5 @@
 package Controllers;
 
-import Presenters.Presenter;
-
-import java.util.Scanner;
 import java.util.UUID;
 
 public class SendOrganizerSpeakerMessageController extends MessagingController {

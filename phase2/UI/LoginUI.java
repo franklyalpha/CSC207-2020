@@ -2,11 +2,14 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
-import Presenters.Presenter;
+import Facades.AdmininistratorFacade;
+import Facades.AttendeeFacade;
+import Facades.OrganizerFacade;
+import Facades.SpeakerFacade;
+import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
-import useCases.UserManager;
-import gateways.*;
+import menuPresenter.LoginPresenter;
 
 import java.util.Scanner;
 
@@ -22,13 +25,14 @@ import java.util.Scanner;
  */
 public class LoginUI {
 
-    private LoginController loginController = new LoginController();
+    final private LoginController loginController = new LoginController();
+    private LoginPresenter loginPresenter = new LoginPresenter();
 
     public void run(){
         boolean notStop = true;
         while(notStop){
             Scanner singUPORLogin = new Scanner(System.in);
-            Presenter.printLoginMenu();
+            System.out.println(loginPresenter.strLoginMenu());
             String choice = singUPORLogin.nextLine();
             switch (choice){
                 case "0":
@@ -41,7 +45,7 @@ public class LoginUI {
                 case "q":
                     return;
                 default:
-                    Presenter.printInvalid("input");
+                    System.out.println(loginPresenter.strInvalidInput());
                     break;
             }
             notStop = handleWrongInput();
@@ -49,39 +53,48 @@ public class LoginUI {
     }
 
     private void handleSignUp(){
-        //for all presenter words, should be placed in one sign-up presenter
-        Scanner signUpScanner = new Scanner(System.in);
-        Presenter.printSighUpMenu();
-        if(! signUpScanner.hasNextInt()){
-            Presenter.printInvalid("input");
-            return;
+        try{
+            Scanner signUpScanner = new Scanner(System.in);
+            System.out.println(loginPresenter.strSighUpMenu());
+            if(signUpScanner.hasNextInt()){
+                continueWithUserType(signUpScanner);
+                return;
+            }
+            System.out.println(loginPresenter.strInvalidInput());
+        }catch(InvalidUserTypeException e){
+            e.printStackTrace();
         }
+    }
+
+    private void continueWithUserType(Scanner signUpScanner) throws InvalidUserTypeException {
         int type = signUpScanner.nextInt();
         signUpScanner.nextLine();
-        Presenter.printEnterName();
+        inputNewUserInfo(signUpScanner, type);
+    }
 
-        // should consider combine above two presenter method
+    private void inputNewUserInfo(Scanner signUpScanner, int type) throws InvalidUserTypeException {
+        System.out.println(loginPresenter.strNamePrompt());
         String username = signUpScanner.nextLine();
-        Presenter.printPasswordPrompt();
+        System.out.println(loginPresenter.strPasswordPrompt());
         String password = signUpScanner.nextLine();
         String newName = loginController.handleCreateNewUser(username, password, type);
-        Presenter.printUsernameIs(newName);
+        System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
 
     private void handleLogIn(){
         for (int i = 0; i < 3; i++) {
             try {
                 Scanner type = new Scanner(System.in);
-                Presenter.printUsernamePrompt();
+                System.out.println(loginPresenter.strUsernamePrompt());
                 //should consider combining above two as one presenter method
                 String userName = type.nextLine();
-                Presenter.printPasswordPrompt();
+                System.out.println(loginPresenter.strPasswordPrompt());
                 String password = type.nextLine();
                 Object[] result = loginController.handleLogin(userName, password);
                 runUserUIs(result);
                 break;
             } catch (UserNotFoundException e) {
-                Presenter.printInvalid("username / password combination.");
+                System.out.println(loginPresenter.strInvalidLogin());
             }
         }
     }
@@ -90,16 +103,20 @@ public class LoginUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-                OrganizerUI2 orgUI = new OrganizerUI2(userController);
+                OrganizerFacade orgUI = new OrganizerFacade(userController);
                 orgUI.run();
                 break;
             case SPEAKER:
-                SpeakerUI speUI = new SpeakerUI(userController);
+                SpeakerFacade speUI = new SpeakerFacade(userController);
                 speUI.run();
                 break;
             case ATTENDEE:
-                AttendeeUI attUI = new AttendeeUI(userController);
+                AttendeeFacade attUI = new AttendeeFacade(userController);
                 attUI.run();
+                break;
+            case ADMINISTRATOR:
+                AdmininistratorFacade adminUI = new AdmininistratorFacade(userController);
+                adminUI.run();
                 break;
         }
     }
@@ -108,7 +125,7 @@ public class LoginUI {
         boolean notStop = false;
         boolean validInput = false;
         while(!validInput){
-            Presenter.printWrongInputMenu();
+            System.out.println(loginPresenter.strWrongInputMenu());
             Scanner nextChoice = new Scanner(System.in);
             String choice = nextChoice.nextLine();
             if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
@@ -119,7 +136,7 @@ public class LoginUI {
                 validInput = true;
             }
             else{
-                Presenter.printInvalid("input");
+                System.out.println(loginPresenter.strInvalidInput());
             }
         }
         return notStop;
