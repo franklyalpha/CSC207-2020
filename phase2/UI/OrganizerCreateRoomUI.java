@@ -7,10 +7,10 @@ import menuPresenter.OrganizerPresenter;
 import java.util.Scanner;
 
 
-public class OrgCreateRoomUI extends AbstractUI {
+public class OrganizerCreateRoomUI extends AbstractUI {
     private CreateRoomController createRoom;
 
-    public OrgCreateRoomUI(UserController userController) {
+    public OrganizerCreateRoomUI(UserController userController) {
         super(userController);
         createRoom = new CreateRoomController(userController);
     }

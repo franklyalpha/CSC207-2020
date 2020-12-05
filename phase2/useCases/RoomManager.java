@@ -1,6 +1,6 @@
 package useCases;
 
-import entities.Room;
+import entities.EventRoom;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,13 +27,13 @@ public class RoomManager implements java.io.Serializable {
     /**
      * a Arraylist of <code>Room</code>
      */
-    private static ArrayList<Room> rooms;
+    private static ArrayList<EventRoom> eventRooms;
 
     /**
      * Creates <code>RoomManager</code> with a blank list of Rooms.
      */
     public RoomManager(){
-        rooms = new ArrayList<Room>();
+        eventRooms = new ArrayList<EventRoom>();
     }
 
     /**
@@ -42,9 +42,9 @@ public class RoomManager implements java.io.Serializable {
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, boolean haveProjector, int NumMicrophone){
-        Room newRoom = new Room(capacity);
-        rooms.add(newRoom);
-        return newRoom.getId();
+        EventRoom newEventRoom = new EventRoom(capacity);
+        eventRooms.add(newEventRoom);
+        return newEventRoom.getId();
     }
 
     // Check the Fullness for the room
@@ -56,9 +56,9 @@ public class RoomManager implements java.io.Serializable {
      * @return True if the room have the ability to hold this activity.
      */
     public boolean CheckRoomFullness(Integer UserNum, UUID roomID){
-        Room room = findRoom(roomID);
-        assert room != null;
-        return room.getCapacity() >= UserNum;
+        EventRoom eventRoom = findRoom(roomID);
+        assert eventRoom != null;
+        return eventRoom.getCapacity() >= UserNum;
     }
 
     /**
@@ -66,10 +66,10 @@ public class RoomManager implements java.io.Serializable {
      * @param roomID is the id of the room we are searching for.
      * @return a room or nothing if it is not in the list of rooms of our <code>RoomManager</code>
      */
-    public Room findRoom(UUID roomID){
-        for (Room room: rooms){
-            if (room.getId().equals(roomID)){
-                return room;
+    public EventRoom findRoom(UUID roomID){
+        for (EventRoom eventRoom : eventRooms){
+            if (eventRoom.getId().equals(roomID)){
+                return eventRoom;
             }
         }
         return null;
@@ -83,10 +83,10 @@ public class RoomManager implements java.io.Serializable {
      * @param roomID is the id of the room.
      */
     public void BookRoom(LocalDateTime[] time, UUID activityID, UUID roomID){
-        Room room = findRoom(roomID);
-        assert room != null;
-        if (!room.getSchedule().containsKey(time)){
-            room.getSchedule().put(time, activityID);
+        EventRoom eventRoom = findRoom(roomID);
+        assert eventRoom != null;
+        if (!eventRoom.getSchedule().containsKey(time)){
+            eventRoom.getSchedule().put(time, activityID);
         }
     }
 
@@ -102,10 +102,10 @@ public class RoomManager implements java.io.Serializable {
      * @param roomID of the <code>Room</code>
      */
     public void CancelRoomEvent(LocalDateTime[] time, UUID actID, UUID roomID){
-        Room room = findRoom(roomID);
-        assert room != null;
-        if (room.getSchedule().containsKey(time)){
-            room.getSchedule().remove(time, actID);
+        EventRoom eventRoom = findRoom(roomID);
+        assert eventRoom != null;
+        if (eventRoom.getSchedule().containsKey(time)){
+            eventRoom.getSchedule().remove(time, actID);
         }
     }
 
@@ -116,9 +116,9 @@ public class RoomManager implements java.io.Serializable {
      */
     public ArrayList<UUID> bookingAvailable(LocalDateTime[] targetPeriod){
         ArrayList<UUID> possibleRooms = new ArrayList<UUID>();
-        for (Room room: rooms){
-            if (checkSingleRoomOK(targetPeriod, room)){
-                possibleRooms.add(room.getId());
+        for (EventRoom eventRoom : eventRooms){
+            if (checkSingleRoomOK(targetPeriod, eventRoom)){
+                possibleRooms.add(eventRoom.getId());
             }
         }
         return possibleRooms;
@@ -127,11 +127,11 @@ public class RoomManager implements java.io.Serializable {
     /**
      * check if a specific <code>Room</code> is available in a time period.
      * @param targetPeriod is the target time period.
-     * @param room is the target room
+     * @param eventRoom is the target room
      * @return True if the room is not used by any activity in this time period.
      */
-    private boolean checkSingleRoomOK(LocalDateTime[] targetPeriod, Room room){
-        HashMap<LocalDateTime[], UUID> roomBooked = room.getSchedule();
+    private boolean checkSingleRoomOK(LocalDateTime[] targetPeriod, EventRoom eventRoom){
+        HashMap<LocalDateTime[], UUID> roomBooked = eventRoom.getSchedule();
         for(LocalDateTime[] interv: roomBooked.keySet()){
             LocalDateTime start = interv[0];
             LocalDateTime end = interv[1];

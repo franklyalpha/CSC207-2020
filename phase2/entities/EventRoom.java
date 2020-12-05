@@ -4,14 +4,14 @@ import java.time.*;
 import java.util.*;
 
 /**
- * Represents a Room where <code>Activity</code> can take place.
+ * Represents a Room where <code>Event</code> can take place.
  * @author Group 0168
  * @author CSC207 - Fall 2020
  * @version 1.0
  * @since 1.0
  */
 
-public class Room implements java.io.Serializable {
+public class EventRoom implements java.io.Serializable {
 
 
     /**
@@ -34,7 +34,7 @@ public class Room implements java.io.Serializable {
      * Creates <code>Room</code> with a randomly generated id, blank schedule, and a capacity we give it.
      * @param capacity is maximum number of <code>User</code> this room can fit in.
      */
-    public Room(int capacity){
+    public EventRoom(int capacity){
         this.id = UUID.randomUUID(); //assign entities.Room id
         this.capacity = capacity; //assign entities.Room Capacity
         this.schedule = new HashMap<>(); //holds all the schedule times for the entities.Room

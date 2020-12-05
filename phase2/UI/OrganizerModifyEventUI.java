@@ -8,10 +8,10 @@ import menuPresenter.ModifyEventPresenter;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class OrgModifyEventUI extends AbstractUI {
+public class OrganizerModifyEventUI extends AbstractUI {
     private ModifyEventController modifyEvent;
 
-    public OrgModifyEventUI(UserController userController) {
+    public OrganizerModifyEventUI(UserController userController) {
         super(userController);
         modifyEvent = new ModifyEventController(userController);
     }
