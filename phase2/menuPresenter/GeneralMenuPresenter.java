@@ -21,11 +21,11 @@ public class GeneralMenuPresenter {
     }
 
     public String strPromptHelper(String item){
-        return "Please enter" + item + ": ";
+        return "Please enter " + item + ": ";
     }
 
     public String strPasswordPrompt(){
-        return strPromptHelper("a password");
+        return strPromptHelper("the password");
     }
 
     public String strInvalidInput(){

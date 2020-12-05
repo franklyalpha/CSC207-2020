@@ -21,12 +21,12 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strCreateRoomPrompt(){
-        return "Please input the capacity of room, has projector or not (true if have) and number of microphones\n" +
-                "IN THAT ORDER and on the same line, separate by space";
+        return "Please input the room capacity, whether or not the room has a projector (true or false), and number of available microphones\n" +
+                "IN THAT ORDER, on the same line, and each separated by a space.";
     }
 
     public String strRoomCapacityConfirmation(int a){
-        return "New room with capacity " + a + "is created successfully. ";
+        return "New room with capacity " + a + " is created successfully. ";
     }
 
 

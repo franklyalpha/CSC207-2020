@@ -28,14 +28,14 @@ public class AdminDeleteMessagePresenter extends UserPresenter {
     }
 
     public String strIndexToDeletePrompt(){
-        return "Please enter all the index of the messages to be deleted (separatedpre by space):";
+        return "Please enter the indices of all messages to be deleted, each separated by a space (i.e. 1 3 4):";
     }
 
     public String strChatToDeletePrompt(){
-        return "Please enter the ID of the chat you want message cleared:";
+        return "Please enter the ID of the conversation from which you want message(s) cleared:";
     }
 
     public String strChatDisplayHeader(){
-        return "Below are conversation IDs paired with corresponding chats:";
+        return "Listed below are conversation IDs paired with the corresponding conversations:";
     }
 }
