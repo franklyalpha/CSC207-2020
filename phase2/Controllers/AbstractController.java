@@ -39,7 +39,7 @@ public class AbstractController {
 
 
     /**
-     * The constructor of 'AbstractController', and will instantiate an abstract controller.
+     * Instantiates new <code>AbstractController</code>.
      * @param userController: An instance of user controller.
      */
     public AbstractController(UserController userController){
