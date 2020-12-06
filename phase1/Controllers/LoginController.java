@@ -1,16 +1,9 @@
 package Controllers;
 
-import Presenters.Presenter;
-import UI.AttendeeUI;
-import UI.OrganizerUI;
-import UI.SpeakerUI;
-import entities.User;
 import gateways.GatewayUser;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import useCases.UserManager;
-
-import java.util.Scanner;
 
 import static globallyAccessible.UserType.*;
 
@@ -32,10 +25,10 @@ public class LoginController {
      */
     private final UserManager userManager = new GatewayUser().deserialize();
 
-    /**
-     * This method allow people to do actions corresponding to allowed actions.
-     * Will print out a list of actions people can implement, ask for choice of action the people
-     * want to do and call corresponding method, such as sign up as a user, or log in or just quit.
+    /*
+      This method allow people to do actions corresponding to allowed actions.
+      Will print out a list of actions people can implement, ask for choice of action the people
+      want to do and call corresponding method, such as sign up as a user, or log in or just quit.
      */
 
 
@@ -48,9 +41,9 @@ public class LoginController {
     private UserType checkLoginCondition(String username, String password) throws UserNotFoundException {
         return userManager.loginCheck(username, password);
     }
-    /**
-     * Determine whether the input is wrong.
-     * @return <CODE>true</CODE> if the input is right:
+    /*
+      Determine whether the input is wrong.
+      @return <CODE>true</CODE> if the input is right:
      * otherwise
      */
 
