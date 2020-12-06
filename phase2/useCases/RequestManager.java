@@ -107,30 +107,27 @@ public class RequestManager implements java.io.Serializable{
         }
     }
 
+    /**
+     * Removes the specified <code>Request</code> from all locations (i.e. pending/handled requests, and master request list).
+     * @param request UUID of the <code>Request</code> to be removed.
+     */
     public void removeRequest(UUID request){
+        removeFromListHelper(requestList, request);
+        removeFromListHelper(doneRequests, request);
+        removeFromListHelper(pendingRequests, request);
+    }
+
+    /**
+     * Helper function for removeRequest(). Removes the specified <code>Request</code> from the specified ArrayList.
+     * @param removeFrom ArrayList from which the item is to be removed.
+     * @param toRemove <code>Request</code> to be removed from the specified ArrayList.
+     */
+    private void removeFromListHelper(ArrayList<Request> removeFrom, UUID toRemove) {
         int i = 0;  // index counter
-        ArrayList<Request> tmp = new ArrayList<>(requestList);
+        ArrayList<Request> tmp = new ArrayList<>(removeFrom);
         for (Request request1 : tmp) {
-            if (request1.getId().equals(request)) {           // check the UUID to make sure we have the right entities.Request
-                this.requestList.remove(i);
-                break;
-            }
-            i = i + 1;
-        }
-        i = 0;
-        tmp = new ArrayList<>(doneRequests);
-        for (Request request1 : tmp) {
-            if (request1.getId().equals(request)) {
-                this.doneRequests.remove(i);
-                break;
-            }
-            i = i + 1;
-        }
-        i = 0;
-        tmp = new ArrayList<>(pendingRequests);
-        for (Request request1 : tmp) {
-            if (request1.getId().equals(request)) {
-                this.pendingRequests.remove(i);
+            if (request1.getId().equals(toRemove)) {           // check the UUID to make sure we have the right entities.Request
+                removeFrom.remove(i);
                 break;
             }
             i = i + 1;
