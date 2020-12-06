@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
-//work in progress
-
 /**
  * Represents a <code>ChatroomManager</code> that is responsible for any interactions with <code>Chatroom</code> entities.
  * Also contains an instance of <code>Chatroom</code> that contains all speakers and organizers at a conference.

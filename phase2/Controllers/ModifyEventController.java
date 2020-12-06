@@ -13,7 +13,7 @@ public class ModifyEventController extends EventController {
     }
 
     public ArrayList<String[]> getAllActivities() throws NoEventsException {
-        ArrayList<String[]> allActivities = eventManager.viewUpcommingActivites();
+        ArrayList<String[]> allActivities = eventManager.viewUpcomingActivites();
         if (allActivities.size() == 0) {
             throw new NoEventsException("No activities created yet");
         }

@@ -29,7 +29,7 @@ public class OutputConferenceInfoController extends EventController {
      */
     public OutputConferenceInfoController(UserController userController){
         super(userController);
-        this.upcomingEvents = eventManager.viewUpcommingActivites();
+        this.upcomingEvents = eventManager.viewUpcomingActivites();
     }
 
     /**

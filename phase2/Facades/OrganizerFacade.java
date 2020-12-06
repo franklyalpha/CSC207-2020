@@ -78,11 +78,11 @@ public class OrganizerFacade extends UserFacade {
     }
 
     protected void messageAllAttendee(){
-        new OrgMessageAllAttendeeUI(userController).run();
+        new OrganizerMessageAllAttendeeUI(userController).run();
     }
 
     private void modifyEvent() {
-        new OrgModifyEventUI(userController).run();
+        new OrganizerModifyEventUI(userController).run();
     }
 
     void addMenu(){
@@ -100,11 +100,11 @@ public class OrganizerFacade extends UserFacade {
     //TODO should move to presenter;
 
     protected void createRoom(){
-        new OrgCreateRoomUI(userController).run();
+        new OrganizerCreateRoomUI(userController).run();
     }
 
     protected void createUser(){
-        new OrgCreateUserUI(userController).run();
+        new OrganizerCreateUserUI(userController).run();
     }
 
 
