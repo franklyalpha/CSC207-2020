@@ -30,20 +30,5 @@ public class RequestController extends AbstractController {
         }
     }
 
-
-    /**
-     * Handles the specified request.
-     * @param request UUID of the <code>Request</code> that is to be handled.
-     */
-    public void handleRequest(UUID request) throws RequestNotFoundException {
-        if (requestManager.isExistingRequest(request)) {
-            requestManager.handleRequest(request);
-        }
-        else{
-            throw new RequestNotFoundException("Request not found.");
-        }
-    }
-
-
 }
 
