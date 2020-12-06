@@ -51,9 +51,7 @@ public class MessageRoom implements java.io.Serializable{
      * Gets the unique identifier for this <code>Chatroom</code>.
      * @return The UUID corresponding to this <code>Chatroom</code>.
      */
-    public UUID getId(){
-        return this.id;
-    }
+    public UUID getId(){ return this.id; }
 
     /**
      * Gets a list of Users in this <code>Chatroom</code>.
