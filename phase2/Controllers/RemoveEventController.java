@@ -23,7 +23,8 @@ public class RemoveEventController extends EventController {
     }
 
     public void cancelEvent(UUID activityID){
-        EventManager eventManager;
+        EventManager eventManager = null;
+        UUID activityId = null;
         eventManager.deleteEvent(activityId);
     }
 }
