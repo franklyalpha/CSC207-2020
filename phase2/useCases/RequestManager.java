@@ -32,12 +32,19 @@ public class RequestManager implements java.io.Serializable{
     private ArrayList<Request> requestList;
 
     /**
-     * Creates <code>RequestManager</code> with a blank list of pending requests, a blank list of handled requests, and a list of all requests.
+     * ArrayList of all IDs of existing <code>Request</code>s.
+     */
+    private ArrayList<UUID> requestIDList;
+
+    /**
+     * Creates <code>RequestManager</code> with a blank list of pending requests, a blank list of handled requests,
+     * a list of all request instances, and a list of all request IDs.
      */
     public RequestManager(){
         pendingRequests = new ArrayList<>();
         doneRequests = new ArrayList<>();
         requestList = new ArrayList<>();
+        requestIDList = new ArrayList<>();
     }
 
     /**
@@ -53,12 +60,12 @@ public class RequestManager implements java.io.Serializable{
         Request newRequest = new Request(username, subject, description);
         this.pendingRequests.add(newRequest);
         this.requestList.add(newRequest);
+        this.requestIDList.add(newRequest.getId());
         return newRequest.getId();
     }
 
     /**
-     * Handles the specified <code>Request</code>, setting it's status to <code>true</code>, moving it out of the list
-     * of pending requests and into the list of handled requests.
+     * Handles the specified <code>Request</code>.
      * @param requested UUID of the <code>Request</code> to be handled.
      */
     public void handleRequest(UUID requested){
@@ -107,10 +114,26 @@ public class RequestManager implements java.io.Serializable{
     }
 
     /**
-     * Removes the specified <code>Request</code> from all locations (i.e. pending/handled requests, and master request list).
+     * Modifies the subject of the <code>Request</code> specified by UUID to be the given updated subject.
+     * @param request UUID of the <code>Request</code> for which the description will be updated.
+     * @param newSubject String representing the new updated subject to be used for replacement.
+     */
+    public void modifySubject(UUID request, String newSubject){
+        ArrayList<Request> tmp = new ArrayList<>(requestList);
+        for (Request request1 : tmp){
+            if (request1.getId().equals(request)){           // check the UUID to make sure we have the right entities.Request
+                request1.setSubject(newSubject);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Removes the specified <code>Request</code> from all locations (i.e. pending/handled requests, master request list, master ID list).
      * @param request UUID of the <code>Request</code> to be removed.
      */
     public void removeRequest(UUID request){
+        requestIDList.remove(request);
         removeFromListHelper(requestList, request);
         removeFromListHelper(doneRequests, request);
         removeFromListHelper(pendingRequests, request);
@@ -131,6 +154,15 @@ public class RequestManager implements java.io.Serializable{
             }
             i = i + 1;
         }
+    }
+
+    /**
+     * Checks whether or not the specified <code>Request</code> exists.
+     * @param request UUID of the <code>Request</code> to check the validity of.
+     * @return <code>true</code> if the <code>Request</code> exists, <code>false</code> if not.
+     */
+    public boolean isExistingRequest(UUID request){
+        return requestIDList.contains(request);
     }
 
 }
