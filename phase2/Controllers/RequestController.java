@@ -21,7 +21,7 @@ public class RequestController extends AbstractController {
      * @return the UUID of the newly created <code>Request</code>.
      */
     public UUID newRequestCreator(String username, String subject, String description){
-        return RequestManager.createRequest(username, subject, description);
+        return requestManager.createRequest(username, subject, description);
     }
 
 

@@ -8,6 +8,7 @@ import useCases.EventManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
+import useCases.RequestManager;
 
 //public abstract class controllers.UserController
 
@@ -23,6 +24,7 @@ public class UserController {
     protected MessageRoomManager messageRoomManager;
     protected EventManager eventManager;
     protected RoomManager roomManager;
+    protected RequestManager requestManager;
 
     /**
      * Creates a <code>UserController</code> with a new chatroomManager, activityManager, and roomManager, and specified userManager.
@@ -34,6 +36,7 @@ public class UserController {
         messageRoomManager = new GatewayChat().deserialize();
         eventManager = new GatewayEvent().deserialize();
         roomManager = new GatewayRoom().deserialize();
+        requestManager = new GatewayRequest().deserialize();
     }
 
     /**
@@ -41,7 +44,7 @@ public class UserController {
      */
 
     public Object[] extractManagers(){
-        return new Object[]{messageRoomManager, eventManager, userManager, roomManager};
+        return new Object[]{messageRoomManager, eventManager, userManager, roomManager, requestManager};
     }
 
     public void logout(){
@@ -50,9 +53,8 @@ public class UserController {
         new GatewayRoom().ser(roomManager);
         new GatewayChat().ser(messageRoomManager);
         new GatewayEvent().ser(eventManager);
+        new GatewayRequest().ser(requestManager);
     }
-
-
 
 
 }
