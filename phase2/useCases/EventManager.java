@@ -150,7 +150,6 @@ public class EventManager implements java.io.Serializable{
      * UUID of assigned room and name of speaker.
      */
     public ArrayList<String[]> viewUpcomingActivites(){
-        int test;
         ArrayList<String[]> result = new ArrayList<String[]>();
         for(Event i: allUpcomingEvents()){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
