@@ -41,8 +41,8 @@ public class ActivityManager implements java.io.Serializable{
      * <code>archivedActivity</code>list respectively.
      */
     public ActivityManager(){
-        this.upcomingActivities = new ArrayList<Activity>();
-        this.archivedActivities = new ArrayList<Activity>();
+        this.upcomingActivities = new ArrayList<>();
+        this.archivedActivities = new ArrayList<>();
     }
 
     /**
@@ -130,6 +130,7 @@ public class ActivityManager implements java.io.Serializable{
      * @param actID an <code>UUID</code> representing the activity requiring assigning a speaker;
      * @param speakerName a <code>String</code> representing the username of speaker needed to be assigned.
      */
+
     public void addSpeaker(UUID actID, String speakerName){
         Activity targetAct = findActivity(actID);
         assert targetAct != null;
@@ -173,7 +174,7 @@ public class ActivityManager implements java.io.Serializable{
     // method that get all upcomming Activites.
     //TODO remove the typo in all instance of this method
     public ArrayList<String[]> viewUpcommingActivites(){
-        ArrayList<String[]> result = new ArrayList<String[]>();
+        ArrayList<String[]> result = new ArrayList<>();
         for(Activity i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
@@ -193,6 +194,7 @@ public class ActivityManager implements java.io.Serializable{
     //method that add attendees
     public boolean addAttendee(UUID activity,String attendee){
         Activity a = findActivity(activity);
+        assert a != null;
         return a.addAttendeesToList(attendee);
     }
 
@@ -201,11 +203,11 @@ public class ActivityManager implements java.io.Serializable{
      * @param activity the UUID of target activity that the user wants to know about number of participants.
      * @return the number of existing attendants participated in the given activity, \
      * i.e. an <code>int</code> representing number of participants for this activity
-     * @param activity the UUID of target activity that the user wants to know about number of participants.
      */
     //method that get the num of attendees in certain activity.
     public int numAttendee(UUID activity){
         Activity a = findActivity(activity);
+        assert a != null;
         return a.getAttendeeList().size();
     }
 
@@ -223,6 +225,7 @@ public class ActivityManager implements java.io.Serializable{
     //method that remove the attendee from certain activity.
     public boolean removeAttendee(UUID activity,String attendee) {
         Activity a = findActivity(activity);
+        assert a != null;
         return a.removeAttendee(attendee);
 
     }
