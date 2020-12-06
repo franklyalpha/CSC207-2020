@@ -70,10 +70,10 @@ public class RequestManager implements java.io.Serializable{
                 request1.setStatus(true);
                 this.doneRequests.add(request1);
                 this.pendingRequests.remove(i);
-                }
-           i = i + 1;
             }
+            i = i + 1;
         }
+    }
 
     /**
      * Gets the username of the sender of the specified <code>Request</code>.
@@ -104,6 +104,36 @@ public class RequestManager implements java.io.Serializable{
                request1.setDetails(newDetails);
                 break;
             }
+        }
+    }
+
+    public void removeRequest(UUID request){
+        int i = 0;  // index counter
+        ArrayList<Request> tmp = new ArrayList<>(requestList);
+        for (Request request1 : tmp) {
+            if (request1.getId().equals(request)) {           // check the UUID to make sure we have the right entities.Request
+                this.requestList.remove(i);
+                break;
+            }
+            i = i + 1;
+        }
+        i = 0;
+        tmp = new ArrayList<>(doneRequests);
+        for (Request request1 : tmp) {
+            if (request1.getId().equals(request)) {
+                this.doneRequests.remove(i);
+                break;
+            }
+            i = i + 1;
+        }
+        i = 0;
+        tmp = new ArrayList<>(pendingRequests);
+        for (Request request1 : tmp) {
+            if (request1.getId().equals(request)) {
+                this.pendingRequests.remove(i);
+                break;
+            }
+            i = i + 1;
         }
     }
 
