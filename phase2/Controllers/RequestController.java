@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class RequestController extends AbstractController {
+
     public RequestController(UserController userController) {
         super(userController);
     }
