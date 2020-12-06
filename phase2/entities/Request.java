@@ -22,10 +22,10 @@ public class Request{
     /**
      * String representing the username of the user who created this <code>Request</code>.
      */
-    private String sender;
+    private final String sender;
 
     /**
-     * String representing user-specific details about this <code>Request</code> (i.e. 'Lactose-intolerant', 'Requires visual language interpreter', etc.).
+     * String representing user-specific details about this particular <code>Request</code> (i.e. 'Lactose-intolerant', 'Requires visual language interpreter', etc.).
      */
     private String details;
 
@@ -38,5 +38,43 @@ public class Request{
         sender = username;
         details = description;
     }
+
+    /**
+     * Gets the username of the user who made this request.
+     * @return String corresponding to the username of the user who made this request.
+     */
+    public String getSender(){
+        return this.sender;
+    }
+
+    /**
+     * Gets status of this request; <code>true</code> indicates request has been addressed and <code>false</code>
+     * indicates it is pending.
+     * @return Boolean corresponding to the request status.
+     */
+    public boolean getStatus(){
+        return this.status;
+    }
+
+    /**
+     * Gets this request's details.
+     * @return String corresponding to this request's details.
+     */
+    public String getDetails(){ return this.details; }
+
+    /**
+     * Sets the status of this <code>Request</code> to the given value.
+     */
+    public void setStatus(boolean newStatus){
+        this.status = newStatus;
+    }
+
+    /**
+     * Modifies this <code>Request</code>'s details to be the new given <code>String</code>.
+     */
+    public void setDetails(String newDetails){
+        this.details = newDetails;
+    }
+
 
 }
