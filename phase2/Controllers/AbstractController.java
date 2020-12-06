@@ -5,14 +5,43 @@ import useCases.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This is an abstract controller which will be extended for all other controllers.
+ */
 public class AbstractController {
 
+    /**
+     * an instance of <>RoomManager</>.
+     */
     protected RoomManager roomManager;
+
+    /**
+     * an instance of <>EventManager</>.
+     */
     protected EventManager eventManager;
+
+    /**
+     * an instance of <>UserManager</>.
+     */
     protected UserManager userManager;
+
+
+    /**
+     * an instance of <>MessageRoomManager</>.
+     */
     protected MessageRoomManager messageRoomManager;
+
+
+    /**
+     * an instance of <>RequestManager</>.
+     */
     protected RequestManager requestManager;
 
+
+    /**
+     * The constructor of 'AbstractController', and will instantiate an abstract controller.
+     * @param userController: An instance of user controller.
+     */
     public AbstractController(UserController userController){
         Object[] managers = userController.extractManagers();
         requestManager = (RequestManager) managers[4];
@@ -22,6 +51,16 @@ public class AbstractController {
         messageRoomManager = (MessageRoomManager) managers[0];
     }
 
+
+    /**
+     * This method extracts the time period of given activity information and convert to the format of
+     * which computer stores and uses.
+     *
+     * @param scheduleInfo: An array of String with length 6, describing all relevant information of an <>Event</>,
+     *                    where the third and fourth elements are start time and end time of <>Event</>.
+     * @return an array of length two with first element the start time of given event and second the end time of event;
+     * both with type <>LocalDateTime</>.
+     */
     protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
