@@ -51,15 +51,14 @@ public class AbstractController {
         messageRoomManager = (MessageRoomManager) managers[0];
     }
 
-
     /**
-     * This method extracts the time period of given activity information and convert to the format of
+     * Extracts the time period of given activity information and convert to the format of
      * which computer stores and uses.
      *
-     * @param scheduleInfo: An array of String with length 6, describing all relevant information of an <>Event</>,
-     *                    where the third and fourth elements are start time and end time of <>Event</>.
+     * @param scheduleInfo: An array of String with length 6, describing all relevant information of an <code>Event</code>,
+     *                    where the third and fourth elements are start time and end time of <code>Event</code>.
      * @return an array of length two with first element the start time of given event and second the end time of event;
-     * both with type <>LocalDateTime</>.
+     * both with type <code>LocalDateTime</code>.
      */
     protected LocalDateTime[] getTimeHelper(String[] scheduleInfo){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
