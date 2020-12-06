@@ -4,6 +4,7 @@ import gateways.GatewayEvent;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
 import gateways.GatewayUser;
+import gateways.GatewayRequest;
 import useCases.EventManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;
