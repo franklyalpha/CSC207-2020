@@ -1,7 +1,6 @@
 package useCases;
 
-import entities.*;
-import globallyAccessible.EventType;
+import entities.Event;
 
 import java.time.*;
 import java.util.*;
@@ -24,38 +23,38 @@ import java.util.*;
  */
 public class EventManager implements java.io.Serializable{
 
-    protected HashMap<EventType,ArrayList<Event>> upcomingEvents;
+    /**
+     * Represents activities that have not yet begun.
+    */
+    private final ArrayList<Event> upcomingActivities;
 
-    protected HashMap<EventType,ArrayList<Event>> archivedEvents;
+     /**
+     * Represents activities that have already been completed.
+     */
+    private final ArrayList<Event> archivedActivities;
+    // consider modifying as Hashmaps
+
 
     /**
      * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
      * archived activities.
      */
-    public EventManager(EventManager eventManager){
-        this.upcomingEvents = eventManager.upcomingEvents;
-        this.archivedEvents = eventManager.archivedEvents;
+    public EventManager(){
+        this.upcomingActivities = new ArrayList<Event>();
+        this.archivedActivities = new ArrayList<Event>();
     }
 
-    public UUID createEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic,
-                              Integer MaxNum, EventType eventType) {
-        return new EventFactory(this).construct(period, chatRoomID, topic, MaxNum, eventType);
-    }
-
-    public UUID addEvent(Event event, EventType type){
-        if (!upcomingEvents.containsKey(type)){
-            upcomingEvents.put(type, new ArrayList<>());
-        }
-        upcomingEvents.get(type).add(event);
-        return event.getIdentity();
-    }
-
-    public ArrayList<Event> allUpcomingEvents(){
-        ArrayList<Event> finalList = new ArrayList<>();
-        for(ArrayList<Event> i: upcomingEvents.values()){
-            finalList.addAll(i);
-        }
-        return finalList;
+    /**
+     * will create and store a new activity with given parameters.
+     * @param period an array storing <code>LocalDateTime</code> of start time and end time;
+     * @param chatRoomID an array storing <code>UUID</code> of assigned chat and assigned room.
+     * @param topic a <code>String</code> representing the topic of this activity.
+     * @return UUID of newly created activity.
+     */
+    public UUID addNewEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic, Integer MaxNum){
+        Event newAct = new Event(period, chatRoomID, topic, MaxNum);
+        upcomingActivities.add(newAct);
+        return newAct.getIdentity();
     }
 /*
     public boolean markActivityDone(Activity act){
@@ -97,11 +96,11 @@ public class EventManager implements java.io.Serializable{
      * and username of speaker.
      */
     public String[] searchEventByUUID(String ID){
-        for(Event i: allUpcomingEvents()){
+        for(Event i: this.upcomingActivities){
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString()};
+                        i.getConferenceRoomNum().toString(), i.getSpeaker()};
             }
         }
         return null;
@@ -114,19 +113,21 @@ public class EventManager implements java.io.Serializable{
         return time;
     }
 
-    protected Event findEvent(UUID actID){
-        for (Event act : allUpcomingEvents()){
-            if (actID.equals(act.getIdentity())){
-                return act;
-            }
-        }
-        return null;
+    /**
+     * Will add given speaker to given conference.
+     * @param actID an <code>UUID</code> representing the activity requiring assigning a speaker;
+     * @param speakerName a <code>String</code> representing the username of speaker needed to be assigned.
+     */
+    public void addSpeaker(UUID actID, String speakerName){
+        Event targetAct = findEvent(actID);
+        assert targetAct != null;
+        targetAct.addSpeakers(speakerName);
     }
 
-    private EventType findType(UUID actID){
-        for (Event act : allUpcomingEvents()){
+    private Event findEvent(UUID actID){
+        for (Event act : upcomingActivities){
             if (actID.equals(act.getIdentity())){
-                return act.getEventType();
+                return act;
             }
         }
         return null;
@@ -149,13 +150,14 @@ public class EventManager implements java.io.Serializable{
      * String has six elements, represents: UUID of this activity, topic, start time, end time,
      * UUID of assigned room and name of speaker.
      */
-    public ArrayList<String[]> viewUpcomingActivites(){
+    // method that get all upcomming Activites.
+    //TODO remove the typo in all instance of this method
+    public ArrayList<String[]> viewUpcommingActivites(){
         ArrayList<String[]> result = new ArrayList<String[]>();
-        for(Event i: allUpcomingEvents()){
+        for(Event i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
-                    i.getConferenceRoomNum().toString(), i.toString()};
-            //TODO: make the output use toString instead of this big thing.
+                    i.getConferenceRoomNum().toString(), i.getSpeaker()};
             result.add(temp);
         }
         return result;
@@ -199,7 +201,8 @@ public class EventManager implements java.io.Serializable{
     }
 
     public void deleteEvent(UUID activityID){
-        upcomingEvents.remove(findType(activityID), findEvent(activityID));
+        Event eventDelete = findEvent(activityID);
+        upcomingActivities.remove(eventDelete);
     }
 
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){

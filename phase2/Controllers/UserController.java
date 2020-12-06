@@ -28,6 +28,7 @@ public class UserController {
      * Creates a <code>UserController</code> with a new chatroomManager, activityManager, and roomManager, and specified userManager.
      * @param manager <code>UserManager</code> object to be stored.
      */
+
     public UserController(UserManager manager) {
         userManager = manager;
         messageRoomManager = new GatewayChat().deserialize();
