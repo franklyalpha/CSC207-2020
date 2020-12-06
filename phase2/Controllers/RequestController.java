@@ -7,21 +7,15 @@ import java.util.UUID;
 
 public class RequestController extends AbstractController {
 
+    /**
+     * Constructor for an instance of <code>RequestController</code>
+     * @param userController Instance of <code>UserController</code> to use the superconstructor.
+     */
     public RequestController(UserController userController) {
         super(userController);
     }
 
-    /**
-     * Creates a new <code>Request</code> with the current user and the user specified by <code>userName</code>
-     * as the participants.
-     * @param username String representing username of user who made this <code>Request</code>.
-     * @param subject String representing a short concise description of the nature of this <code>Request</code>.
-     * @param description String representing a more detailed description of this <code>Request</code>.
-     * @return the UUID of the newly created <code>Request</code>.
-     */
-    public UUID newRequestCreator(String username, String subject, String description){
-        return requestManager.createRequest(username, subject, description);
-    }
+
 
     /**
      * Changes the details of the specified <code>Request</code> to the new specified description.
