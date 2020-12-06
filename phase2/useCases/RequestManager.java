@@ -53,6 +53,7 @@ public class RequestManager implements java.io.Serializable{
     public UUID createRequest(String username, String subject, String description){
         Request newRequest = new Request(username, subject, description);
         this.pendingRequests.add(newRequest);
+        this.requestList.add(newRequest);
         return newRequest.getId();
     }
 
@@ -76,14 +77,12 @@ public class RequestManager implements java.io.Serializable{
 
     /**
      * Gets the username of the sender of the specified <code>Request</code>.
-     * @param requested UUID of the <code>Request</code> to be handled.
+     * @param requested UUID of the <code>Request</code> to get the sender's username.
      * @return String representing the username of the user who sent this <code>Request</code>.
      */
     public String getSender(UUID requested){
         String result = "";
-        ArrayList<Request> tmp = new ArrayList<>(pendingRequests);
-        ArrayList<Request> tmp1 = new ArrayList<>(doneRequests);
-        tmp.addAll(tmp1);  // add the two lists together
+        ArrayList<Request> tmp = new ArrayList<>(requestList);
         for (Request request1 : tmp){
             if (request1.getId().equals(requested)){           // check the UUID to make sure we have the right entities.Request
                result = request1.getSender();
@@ -93,11 +92,19 @@ public class RequestManager implements java.io.Serializable{
         return result;
     }
 
+    /**
+     * Modifies the details of the <code>Request</code> specified by UUID to be the given updated description.
+     * @param request UUID of the <code>Request</code> for which the description will be updated.
+     * @param newDetails String representing the new updated description to be used for replacement.
+     */
     public void modifyDetails(UUID request, String newDetails){
-        ArrayList<Request> tmp = new ArrayList<>(pendingRequests);
-        ArrayList<Request> tmp1 = new ArrayList<>(doneRequests);
-        tmp.addAll(tmp1);  // add the two lists together
-
+        ArrayList<Request> tmp = new ArrayList<>(requestList);
+        for (Request request1 : tmp){
+            if (request1.getId().equals(request)){           // check the UUID to make sure we have the right entities.Request
+               request1.setDetails(newDetails);
+                break;
+            }
+        }
     }
 
 }
