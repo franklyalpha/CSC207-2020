@@ -11,7 +11,6 @@ public class MessagingController extends AbstractController{
         super(userController);
     }
 
-
     /**
      * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
      * they want to send, then sends it.

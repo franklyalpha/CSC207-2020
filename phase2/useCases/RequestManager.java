@@ -1,6 +1,5 @@
 package useCases;
 
-import entities.MessageRoom;
 import entities.Request;
 
 import java.util.ArrayList;
