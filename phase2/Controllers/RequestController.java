@@ -15,20 +15,5 @@ public class RequestController extends AbstractController {
         super(userController);
     }
 
-
-
-    /**
-     * Removes the specified <code>Request</code> from the system.
-     * @param request UUID of the <code>Request</code> that is to be removed.
-     */
-    public void deleteRequest(UUID request) throws RequestNotFoundException {
-        if (requestManager.isExistingRequest(request)) {
-            requestManager.removeRequest(request);
-        }
-        else{
-            throw new RequestNotFoundException("Request not found.");
-        }
-    }
-
 }
 
