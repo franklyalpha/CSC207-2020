@@ -1,10 +1,6 @@
 package Controllers;
 
-import useCases.EventManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
-//import useCases.RequestManager;
+import useCases.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,11 +11,11 @@ public class AbstractController {
     protected EventManager eventManager;
     protected UserManager userManager;
     protected MessageRoomManager messageRoomManager;
-    //protected RequestManager requestManager;
+    protected RequestManager requestManager;
 
     public AbstractController(UserController userController){
         Object[] managers = userController.extractManagers();
-        //requestManager = (RequestManager) managers[4];
+        requestManager = (RequestManager) managers[4];
         roomManager = (RoomManager) managers[3];
         eventManager = (EventManager) managers[1];
         userManager = (UserManager) managers[2];
