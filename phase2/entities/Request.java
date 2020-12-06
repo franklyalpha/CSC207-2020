@@ -112,7 +112,13 @@ public class Request implements java.io.Serializable{
      * Modifies this <code>Request</code>'s subject to be the new given <code>String</code>.
      */
     public void setSubject(String newSubject){
-        this.details = newSubject;
+        this.subject = newSubject;
+    }
+
+    @Override
+    public String toString() {
+        return "Submitted by: [" + sender + "]\n--------------------------------------\n" +
+                "Subject: " + subject + "\nDetails: " + details + "\n--------------------------------------";
     }
 
 

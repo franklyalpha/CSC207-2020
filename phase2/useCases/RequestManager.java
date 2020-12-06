@@ -1,6 +1,5 @@
 package useCases;
 
-import entities.MessageRoom;
 import entities.Request;
 
 import java.util.ArrayList;
@@ -15,13 +14,24 @@ import java.util.UUID;
  * @since 2.0
  */
 
-public class RequestManager {
+public class RequestManager implements java.io.Serializable{
 
     /**
-     * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
+     * ArrayList of instances of <code>Request</code>s that are still pending (i.e. <code>request.status == false</code>).
+     */
+    private ArrayList<Request> pendingRequests;
+
+    /**
+     * ArrayList of instances of <code>Request</code>s that have been handled (i.e. <code>request.status == true</code>).
+     */
+    private ArrayList<Request> doneRequests;
+
+    /**
+     * Creates <code>RequestManager</code> with a blank list of pending requests and a blank list of handled requests.
      */
     public RequestManager(){
-
+        pendingRequests = new ArrayList<>();
+        doneRequests = new ArrayList<>();
     }
 
     /**
@@ -31,11 +41,11 @@ public class RequestManager {
      * @param username String representing username of user who made this <code>Request</code>.
      * @param subject String representing a short concise description of the nature of this <code>Request</code>.
      * @param description String representing a more detailed description of this <code>Request</code>.
-     * @return the UUID of the newly created <code>Chatroom</code>.
+     * @return the UUID of the newly created <code>Request</code>.
      */
     public UUID createRequest(String username, String subject, String description){
         Request newRequest = new Request(username, subject, description);
-
+        this.pendingRequests.add(newRequest);
         return newRequest.getId();
     }
 
