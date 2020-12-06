@@ -15,6 +15,15 @@ public class UserPresenter extends GeneralMenuPresenter {
         return strPromptHelper("the message you wish to send");
     }
 
+    public String strRequestSubjectPrompt(){
+        return strPromptHelper("the subject of this request. Please try to be concise");
+    }
+
+    public String strRequestDetailsPrompt(){
+        return strPromptHelper("details regarding this request. Include as much detail as you can so the " +
+                "organizers can better accommodate you");
+    }
+
     public String strInvalidEventID(){
         return strInvalidHelper("activity ID");
     }
@@ -26,6 +35,8 @@ public class UserPresenter extends GeneralMenuPresenter {
     public String strInvalidIndex(){
         return strInvalidHelper("index");
     }
+
+
 
     public String strAvailableActions(ArrayList<String> availableAction){
         StringBuilder action = new StringBuilder("  //-------------------------------------//\n" +
