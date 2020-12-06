@@ -66,6 +66,7 @@ public class OrganizerFacade extends UserFacade {
             case 8: viewCoopChat(); break;
             case 9: messageAllAttendee(); break;
             case 10: modifyEvent(); break;
+            case 11: removeEvent(); break;
         }
     }
 
@@ -83,6 +84,10 @@ public class OrganizerFacade extends UserFacade {
 
     private void modifyEvent() {
         new OrganizerModifyEventUI(userController).run();
+    }
+
+    private void removeEvent() {
+        new OrganizerRemoveEventUI(userController).run();
     }
 
     void addMenu(){
