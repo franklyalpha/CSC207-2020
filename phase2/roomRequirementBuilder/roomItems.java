@@ -6,6 +6,11 @@ import java.util.List;
 public class roomItems {
     private List<roomItem> items = new ArrayList<roomItem>();
 
+
+    public List<roomItem> getItems(){
+        return this.items;
+    }
+
     public void addItem(roomItem item){
         items.add(item);
     }

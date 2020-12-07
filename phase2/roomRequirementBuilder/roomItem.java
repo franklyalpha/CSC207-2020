@@ -1,7 +1,7 @@
 package roomRequirementBuilder;
 
 
-public abstract class roomItem implements java.io.Serializable{
+public class roomItem implements java.io.Serializable{
 
     public int price;
     public String seriesNum;

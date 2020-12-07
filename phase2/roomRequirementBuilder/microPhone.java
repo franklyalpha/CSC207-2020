@@ -1,6 +1,6 @@
 package roomRequirementBuilder;
 
-public abstract class microPhone extends roomItem{
+public class microPhone extends roomItem{
 
     @Override
     public String name() {
