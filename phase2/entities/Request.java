@@ -117,8 +117,12 @@ public class Request implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return "Submitted by: [" + sender + "]\n--------------------------------------\n" +
-                "Subject: " + subject + "\nDetails: " + details + "\n--------------------------------------";
+        String stat = "PENDING";
+        if (this.status) {
+             stat = "COMPLETE";
+        }
+        return "Submitted by: [ " + sender + " ]    Status: [ " + stat + " ]\n------------------------------------------------\n" +
+                "Subject: " + subject + "\nDetails: " + details + "\n------------------------------------------------";
     }
 
 

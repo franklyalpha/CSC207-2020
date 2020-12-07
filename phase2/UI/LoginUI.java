@@ -121,6 +121,10 @@ public class LoginUI {
         }
     }
 
+    /**
+     * Asks the program user whether or not they wish to continue using the program when an invalid input occurs.
+     * @return Boolean value representing whether or not the program is to continue.
+     */
     private boolean handleWrongInput() {
         boolean notStop = false;
         boolean validInput = false;

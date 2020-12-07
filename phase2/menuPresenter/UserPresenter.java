@@ -24,6 +24,10 @@ public class UserPresenter extends GeneralMenuPresenter {
                 "organizers can better accommodate you");
     }
 
+    public String strChooseRequest(String item){
+        return strRequestPromptHelper(item);
+    }
+
     public String strInvalidEventID(){
         return strInvalidHelper("activity ID");
     }

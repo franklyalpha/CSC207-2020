@@ -1,5 +1,6 @@
 package Controllers;
 
+import entities.Request;
 import globallyAccessible.RequestNotFoundException;
 import useCases.RequestManager;
 import java.util.ArrayList;
@@ -34,8 +35,7 @@ public class RequestController extends AbstractController {
     public void deleteRequest(UUID request) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(request)) {
             requestManager.removeRequest(request);
-        }
-        else{
+        } else {
             throw new RequestNotFoundException("Request not found.");
         }
     }
@@ -48,8 +48,7 @@ public class RequestController extends AbstractController {
     public void modifyRequestDetails(UUID request, String newDetails) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(request)) {
             requestManager.modifyDetails(request, newDetails);
-        }
-        else{
+        } else {
             throw new RequestNotFoundException("Request not found.");
         }
     }
@@ -62,10 +61,30 @@ public class RequestController extends AbstractController {
     public void modifyRequestSubject(UUID request, String newSubject) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(request)) {
             requestManager.modifySubject(request, newSubject);
-        }
-        else{
+        } else {
             throw new RequestNotFoundException("Request not found.");
         }
+    }
+
+    /**
+     * Retrieves the instance of <code>Request</code> corresponding to the specified UUID.
+     * @param requestID UUID of the <code>Request</code> to be retrieved.
+     * @return Returns the instance of <code>Request</code> that has the input UUID.
+     */
+    public Request findRequest(UUID requestID) throws RequestNotFoundException {
+        if (requestManager.isExistingRequest(requestID)) {
+            return requestManager.findRequest(requestID);
+        } else {
+            throw new RequestNotFoundException("Request not found.");
+        }
+    }
+
+    /**
+     * Returns list of all existing <code>Requests</code>
+     * @return ArrayList of existing instances of <code>Request</code>s
+     */
+    public ArrayList<Request> getAllRequest(){
+        return requestManager.getRequestList();
     }
 
 }

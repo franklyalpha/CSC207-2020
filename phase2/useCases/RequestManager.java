@@ -165,6 +165,29 @@ public class RequestManager implements java.io.Serializable{
         return requestIDList.contains(request);
     }
 
+    /**
+     * Retrieves the instance of <code>Request</code> corresponding to the specified UUID.
+     * @param requestID UUID of the <code>Request</code> to be retrieved.
+     * @return Returns the instance of <code>Request</code> that has the input UUID.
+     */
+    public Request findRequest(UUID requestID) {
+        ArrayList<Request> tmp = new ArrayList<>(requestList);
+        for (Request request1 : tmp) {
+            if (request1.getId().equals(requestID)) {   // check the UUID to make sure we have the right entities.Request
+                return request1;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns list of all existing <code>Requests</code>
+     * @return ArrayList of existing instances of <code>Request</code>s
+     */
+    public ArrayList<Request> getRequestList(){
+        return this.requestList;
+    }
+
 }
 
 
