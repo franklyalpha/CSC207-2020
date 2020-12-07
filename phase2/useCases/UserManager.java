@@ -2,6 +2,7 @@ package useCases;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import entities.Request;
 import entities.User;
 
 import java.util.ArrayList;
@@ -147,6 +148,22 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
      * @return String representing the user's username
      */
     public String getUsername(){return userOnAir.getUsername();}
+
+    /**
+     * Returns the requests of the user.
+     * @return ArrayList representing the user's submitted requests.
+     */
+    public ArrayList<Request> getUserRequests(){
+        return userOnAir.getRequests();
+    }
+
+    /**
+     * Changes the list of <code>Request</code>s made by this user to be the new input list.
+     * @param newList New list with which the existing list of <code>Request</code>s will be replaced with.
+     */
+    public void setUserRequests(ArrayList<Request> newList){
+        userOnAir.setRequests(newList);
+    }
 
     /**
      * Creates a <code>selfAddChatroom</code> and add the user in the chatroom.
