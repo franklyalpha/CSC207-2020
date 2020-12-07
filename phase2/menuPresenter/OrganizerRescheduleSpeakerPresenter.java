@@ -8,8 +8,17 @@ public class OrganizerRescheduleSpeakerPresenter extends UserPresenter {
         return strPromptHelper("the ID of the event for which you wish to change the speaker of: ");
     }
 
-    public String strSpeakerAssignPrompt(){
-        return "Please input the speaker you wish to assign: ";
+    public String strSpeakerAssignPrompt(String action){
+        return "Please input the speaker you wish to " + action + ": ";
+    }
+
+    public String strActivityTypePrompt(){
+        return "please input the type of event (input the corresponding number): \n" +
+                "[0]: talk; [1]: panel.";
+    }
+
+    public String strChooseAddDeleteSpeakerPrompt(){
+        return "Please choose whether to: '[0] add' or '[1]: delete' speaker of a panel";
     }
 
 }

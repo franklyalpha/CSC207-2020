@@ -70,7 +70,7 @@ public class OutputConferenceInfoController extends EventController {
         document.add(new Paragraph(eventLocation));
         document.add(new Paragraph(endOfEvent));
         */
-        document.add(new Paragraph(event[6]));
+        document.add(new Paragraph(event[5]));
     }
 
     /*

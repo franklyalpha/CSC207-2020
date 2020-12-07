@@ -21,14 +21,30 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strCreateRoomPrompt(){
-        return "Please input the room capacity, whether or not the room has a projector (true or false), and number of available microphones\n" +
-                "IN THAT ORDER, on the same line, and each separated by a space.";
+        return "Please input the room capacity";
     }
 
     public String strRoomCapacityConfirmation(int a){
         return "Successfully created a new room with a capacity of " + a + ".";
     }
 
+    public String strNumOfMicrophone(){
+        return "Please input the quantity of Microphone this room has, and input the series number and price of the " +
+                "microphone in separated line if quantity is not 0:";
+    }
 
+    public String strNumOfProjector(){
+        return "Please input the quantity of Projector this room has, and input the series number and price of the " +
+                "projector in separated line if quantity is not 0:";
+    }
 
+    public String strNumOfDJEquipment(){
+        return "Please input the quantity of DJ Equipment this room has, and input the series number and price of the " +
+        "DJ Equipment in separated line if quantity is not 0:";
+    }
+
+    public String strNumOfPartyAudioSystem(){
+        return "Please input the quantity of Party Audio System this room has, and input the series number and price " +
+                "of the Party Audio System in separated line if quantity is not 0:";
+    }
 }

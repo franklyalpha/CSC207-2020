@@ -28,7 +28,6 @@ public class GatewayEvent {
             ObjectInputStream oid = new ObjectInputStream(input);
             serialize = (EventManager) oid.readObject();
             oid.close();
-
         } catch(EOFException eof) {
             serialize = new EventManager();
         } catch(IOException | ClassNotFoundException io){
@@ -36,6 +35,5 @@ public class GatewayEvent {
             serialize = new EventManager();
         }
         return serialize;
-
     }
 }

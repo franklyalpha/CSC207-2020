@@ -1,10 +1,13 @@
 package useCases;
 
 import entities.EventRoom;
+import roomRequirementBuilder.roomItem;
+import roomRequirementBuilder.roomItems;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 //still in progress.
@@ -41,8 +44,8 @@ public class RoomManager implements java.io.Serializable {
      * @param capacity is the capacity for the newly constructed <code>Room</code>.
      * @return the id of the newly constructed <code>Room</code>.
      */
-    public UUID addRoom(int capacity, boolean haveProjector, int NumMicrophone){
-        EventRoom newEventRoom = new EventRoom(capacity);
+    public UUID addRoom(int capacity, roomItems roomItems){
+        EventRoom newEventRoom = new EventRoom(capacity, roomItems);
         eventRooms.add(newEventRoom);
         return newEventRoom.getId();
     }

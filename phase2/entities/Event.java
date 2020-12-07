@@ -248,4 +248,8 @@ public abstract class Event implements java.io.Serializable {
         return description;
     }
 
+    public String speakerToString(){
+        return "no speakers";
+    }
+
 }

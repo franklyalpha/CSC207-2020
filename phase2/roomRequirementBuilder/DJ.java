@@ -1,10 +1,9 @@
 package roomRequirementBuilder;
 
-public class projector extends roomItem{
+public class DJ extends roomItem{
 
     @Override
     public String name() {
-        return "Projector";
+        return "DJ equipment";
     }
-
 }
