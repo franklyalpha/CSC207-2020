@@ -30,10 +30,9 @@ public class OrganizerModifyEventUI extends AbstractUI {
             throws NoEventsException {
         presenter.printMaxNumEventPrompt_1(modifyActivity.getAllActivities());
         Scanner input_1 = new Scanner(System.in);
-        presenter.printMaxNumEventPrompt_2();
-        Scanner input_2 = new Scanner(System.in);
         UUID activityId = UUID.fromString(input_1.nextLine());
-        int newMaxNum = input_2.nextInt();
+        presenter.printMaxNumEventPrompt_2();
+        int newMaxNum = input_1.nextInt();
         modifyActivity.changeEventMaxNumPeople(activityId, newMaxNum);
     }
 }

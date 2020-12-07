@@ -1,6 +1,8 @@
 package menuPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class ModifyEventPresenter extends UserPresenter{
 
@@ -21,4 +23,12 @@ public class ModifyEventPresenter extends UserPresenter{
         System.out.println("No activities created yet");
     }
 
+    public String askForRequirementPrompt(){
+        return "Please input the number of Projector, Microphone, DJ equipment and Party Audio System" +
+                " this event needs, in separate lines:";
+    }
+
+    public String printSuggestedRoomPrompt(List<UUID> suggestedList){
+        return "This is the suggested room list that match all your requirement:" + suggestedList;
+    }
 }

@@ -151,4 +151,8 @@ public class RoomManager implements java.io.Serializable {
         return true;
     }
 
+    public roomItems getRoomItems(UUID id){
+        return findRoom(id).getRoomItems();
+    }
+
 }

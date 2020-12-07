@@ -83,7 +83,7 @@ public class EventRoom implements java.io.Serializable {
      */
     public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 
-    public List<roomItem> getRoomItems(){
-        return this.items.getItems();
+    public roomItems getRoomItems(){
+        return this.items;
     }
 }

@@ -4,10 +4,12 @@ import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.EventType;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
+import roomRequirementBuilder.roomItems;
 import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CreateScheduleController extends EventController {
@@ -107,6 +109,20 @@ public class CreateScheduleController extends EventController {
             actID = partyManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
         }
         roomManager.BookRoom(period, actID, assignedRoom);
+    }
+
+    public List<UUID> getSuggestedRoomList(int projectorNum, int microNum, int djNum, int partyaudioNum){
+        List<UUID> suggestedList = new ArrayList<>();
+        for(UUID i: freeRooms){
+            roomItems items = roomManager.getRoomItems(i);
+            if(items.getQuantityByName("Projector") >= projectorNum &
+                    items.getQuantityByName("Microphone") >= projectorNum &
+                    items.getQuantityByName("DJ equipment") >= projectorNum &
+                    items.getQuantityByName("Party Audio System") >= projectorNum){
+                suggestedList.add(i);
+            }
+        }
+        return suggestedList;
     }
 
 

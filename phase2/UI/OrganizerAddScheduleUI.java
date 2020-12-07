@@ -3,18 +3,17 @@ package UI;
 import Controllers.CreateScheduleController;
 import Controllers.UserController;
 import globallyAccessible.*;
+import menuPresenter.ModifyEventPresenter;
 import menuPresenter.OrganizerAddSchedulePresenter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class OrganizerAddScheduleUI extends AbstractUI {
 
     private final OrganizerAddSchedulePresenter organizerAddSchedulePresenter = new OrganizerAddSchedulePresenter();
     private CreateScheduleController createSchedule;
+    private ModifyEventPresenter modifyEventPresenter;
 
     public OrganizerAddScheduleUI(UserController userController) {
         super(userController);
@@ -48,6 +47,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
             try{
                 ArrayList<String> freeSpeaker = (ArrayList<String>) speakersRooms[1];
                 ArrayList<UUID> freeRooms = (ArrayList<UUID>) speakersRooms[0];
+                modifyEventPresenter.printSuggestedRoomPrompt(getSuggestedRoom());
                 return inputTypeSpeakerRoomTopic(createSchedule, freeSpeaker, freeRooms);
             }catch(UserNotFoundException e){
                 System.out.println(organizerAddSchedulePresenter.strInvalidSpeaker());
@@ -61,6 +61,16 @@ public class OrganizerAddScheduleUI extends AbstractUI {
                 System.out.println(organizerAddSchedulePresenter.strInvalidEventType());
             }
         }
+    }
+
+    private List<UUID> getSuggestedRoom() {
+        Scanner input = new Scanner(System.in);
+        System.out.println(modifyEventPresenter.askForRequirementPrompt());
+        int projectorNum = input.nextInt();
+        int microNum = input.nextInt();
+        int djNum = input.nextInt();
+        int partyaudioNum = input.nextInt();
+        return createSchedule.getSuggestedRoomList(projectorNum, microNum, djNum, partyaudioNum);
     }
 
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
