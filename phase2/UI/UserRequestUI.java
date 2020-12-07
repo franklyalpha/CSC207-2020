@@ -43,7 +43,7 @@ public class UserRequestUI extends AbstractUI {
                     inputRequestInfo(requestController);
                     break;
                 case "1":
-                    ModifyRequest(requestController);
+                    modifyRequest(requestController);
                     break;
                 case "2":
 
@@ -79,7 +79,7 @@ public class UserRequestUI extends AbstractUI {
 
     private String modifyRequest(RequestController requestController) {
         UUID selection = chooseRequest(requestController);
-
+        return "test";
     }
 
     /**
