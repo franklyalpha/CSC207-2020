@@ -1,8 +1,10 @@
 package entities;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.time.*;
 import globallyAccessible.*;
+import entities.Request;
 
 /**
  * A representation of entities.User.
@@ -36,6 +38,11 @@ public abstract class User implements java.io.Serializable {
      * a HashMap which holds the id of the <code>Event</code> this user signed in and their description.
      */
     private final HashMap<LocalDateTime[], UUID> activities;
+
+    /**
+     * List of <code>Requests</code> submitted by this user.
+     */
+    private ArrayList<Request> requests;
     // in phase 2, will create a clone corresponding activities for
     // new modified schedules;  will be a shallow copy
 
@@ -97,11 +104,27 @@ public abstract class User implements java.io.Serializable {
     }
 
     /**
+     * Getter for list of <code>Request</code>s created by this user.
+     * @return ArrayList of <code>Requests</code> created by this user.
+     */
+    public ArrayList<Request> getRequests() {
+        return requests;
+    }
+
+    /**
      * Changes the name of this user with the given new name.
      * @param  newName the new name of this user.
      */
     public void setUsername(String newName) {
         username = newName;
+    }
+
+    /**
+     * Changes the list of <code>Request</code>s made by this user to be the new input list.
+     * @param requests New list with which the existing list of <code>Request</code>s will be replaced with.
+     */
+    public void setRequests(ArrayList<Request> requests) {
+        this.requests = requests;
     }
 
     /**
