@@ -32,6 +32,11 @@ public class EventManager implements java.io.Serializable{
      * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
      * archived activities.
      */
+    public EventManager(){
+        this.upcomingEvents = new HashMap<>();
+        this.archivedEvents = new HashMap<>();
+    }
+
     public EventManager(EventManager eventManager){
         this.upcomingEvents = eventManager.upcomingEvents;
         this.archivedEvents = eventManager.archivedEvents;
@@ -48,6 +53,10 @@ public class EventManager implements java.io.Serializable{
         }
         upcomingEvents.get(type).add(event);
         return event.getIdentity();
+    }
+
+    public void addSpeaker(UUID actID, String speaker){
+
     }
 
     public ArrayList<Event> allUpcomingEvents(){
@@ -94,14 +103,14 @@ public class EventManager implements java.io.Serializable{
      * @param ID the <code>String</code> form of UUID of given activity.
      * @return an array of <code>String</code>, with six elements; each one is:
      * UUID of this activity (in string), topic, start time, end time, room's UUID,
-     * and username of speaker.
+     * and username of speakers.
      */
     public String[] searchEventByUUID(String ID){
         for(Event i: allUpcomingEvents()){
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString()};
+                        i.getConferenceRoomNum().toString(), i.speakerToString()};
             }
         }
         return null;

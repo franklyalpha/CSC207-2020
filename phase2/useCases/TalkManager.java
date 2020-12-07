@@ -7,6 +7,7 @@ import globallyAccessible.EventType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class TalkManager extends EventManager {
@@ -18,19 +19,20 @@ public class TalkManager extends EventManager {
     Speaker manipulators
     Finder
      */
+    public TalkManager(){
+        super();
+    }
 
     public TalkManager(EventManager eventManager){
-        super(eventManager);
+        ArrayList<Event> talks = eventManager.upcomingEvents.get(EventType.TALK);
+        this.upcomingEvents = new HashMap<>();
+        upcomingEvents.put(EventType.TALK, talks);
     }
 
-    public void setSpeaker(UUID actID, String speakerName){
+    @Override
+    public void addSpeaker(UUID actID, String speakerName){
         Talk targetAct = findEvent(actID);
         targetAct.setSpeaker(speakerName);
-    }
-
-    public void deleteSpeaker(UUID actID){
-        Talk targetAct = findEvent(actID);
-        targetAct.setSpeaker(null);
     }
 
     @Override

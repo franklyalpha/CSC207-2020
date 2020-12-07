@@ -35,4 +35,9 @@ public class Talk extends Event {
                 "Speakers: " + speaker +
                 super.toString();
     }
+
+    @Override
+    public String speakerToString(){
+        return speaker;
+    }
 }

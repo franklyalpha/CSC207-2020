@@ -34,7 +34,8 @@ public class Panel extends Event {
                 super.toString();
     }
 
-    private String speakerToString(){
+    @Override
+    public String speakerToString(){
         StringBuilder finalList = new StringBuilder();
         for(String i: speakers){
             finalList.append("    ").append(i).append("\n");

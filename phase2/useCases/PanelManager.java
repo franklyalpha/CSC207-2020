@@ -2,9 +2,11 @@ package useCases;
 
 import entities.Event;
 import entities.Panel;
+import entities.Talk;
 import globallyAccessible.EventType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class PanelManager extends EventManager {
@@ -17,10 +19,17 @@ public class PanelManager extends EventManager {
     Finder
      */
 
-    public PanelManager(EventManager eventManager){
-        super(eventManager);
+    public PanelManager(){
+        super();
     }
 
+    public PanelManager(EventManager eventManager){
+        ArrayList<Event> panels = eventManager.upcomingEvents.get(EventType.PANEL);
+        this.upcomingEvents = new HashMap<>();
+        upcomingEvents.put(EventType.PANEL, panels);
+    }
+
+    @Override
     public void addSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
         ArrayList<String> speakers = targetAct.getSpeakers();
@@ -49,6 +58,10 @@ public class PanelManager extends EventManager {
             }
         }
         return targetAct;
+    }
+
+    public ArrayList<String> getSpeakersList(String panelID){
+        return findEvent(UUID.fromString(panelID)).getSpeakers();
     }
 
 }
