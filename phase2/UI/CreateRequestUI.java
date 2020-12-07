@@ -1,6 +1,6 @@
 package UI;
 
-import Controllers.CreateRequestController;
+import Controllers.RequestController;
 import Controllers.UserController;
 
 import java.util.Scanner;
@@ -9,7 +9,7 @@ public class CreateRequestUI extends AbstractUI {
     /**
      * Instance of <code>CreateRequestController</code>
      */
-    private final CreateRequestController createRequestController;
+    private final RequestController requestController;
 
     /**
      * Creates an instance of <code>CreateRequestUI</code>.
@@ -17,22 +17,22 @@ public class CreateRequestUI extends AbstractUI {
      */
     public CreateRequestUI(UserController userController) {
         super(userController);
-        createRequestController = new CreateRequestController(userController);
+        requestController = new RequestController(userController);
     }
 
     @Override
     public void run() {
-                inputRequestInfo(createRequestController);
+                inputRequestInfo(requestController);
     }
 
-    private void inputRequestInfo(CreateRequestController createRequestController) {
+    private void inputRequestInfo(RequestController requestController) {
         Scanner subjectScanner = new Scanner(System.in);
         System.out.println(userPresenter.strRequestSubjectPrompt());
         String subject = subjectScanner.nextLine();
         Scanner detailScan = new Scanner(System.in);
         System.out.println(userPresenter.strRequestDetailsPrompt());
         String detail = detailScan.nextLine();
-        createRequestController.newRequestCreator(subject, detail);
+        requestController.newRequestCreator(subject, detail);
     }
 
 }
