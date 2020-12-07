@@ -17,5 +17,6 @@ public class CreateUserController extends AbstractController{
     public String createUser(UserType type,String name, String password){
         new UserFactory(userManager).construct(name, password, type);
         return name;
+
     }
 }
