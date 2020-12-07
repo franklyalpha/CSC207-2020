@@ -20,7 +20,9 @@ public class TalkManager extends EventManager {
      */
 
     public TalkManager(EventManager eventManager){
-        super(eventManager);
+        super();
+        this.upcomingEvents.put(EventType.TALK, eventManager.upcomingEvents.get(EventType.TALK));
+        this.archivedEvents.put(EventType.TALK, eventManager.archivedEvents.get(EventType.TALK));
     }
 
     public void setSpeaker(UUID actID, String speakerName){
@@ -31,6 +33,14 @@ public class TalkManager extends EventManager {
     public void deleteSpeaker(UUID actID){
         Talk targetAct = findEvent(actID);
         targetAct.setSpeaker(null);
+    }
+
+    public String getSpeaker(UUID actID){
+        return findEvent(actID).getSpeaker();
+    }
+
+    public String getTypeStr(){
+        return "Talk";
     }
 
     @Override

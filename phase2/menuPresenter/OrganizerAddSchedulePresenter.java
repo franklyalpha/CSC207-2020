@@ -15,6 +15,41 @@ public class OrganizerAddSchedulePresenter extends UserPresenter {
         return strInvalidHelper("room index");
     }
 
+    public String strRoomPrompt(ArrayList<UUID> rooms){
+        String finalList = "Here are the IDs of all available rooms: \n" + strRoomList(rooms) +
+                "Please input the index of the room(if an invalid room is given, the first room will be used by default.):";
+        return finalList;
+    }
+
+    public String strSpeakerPrompt(ArrayList<String> speakers){
+        StringBuilder finalList = new StringBuilder("Here are the names of all available speakers: \n");
+        finalList.append(strSpeakerList(speakers));
+        return finalList.toString();
+    }
+
+    public String strMultiSpeakerPrompt(){
+        return "Please input the names of speakers on different lines, when you are done, input \"end\":";
+    }
+
+    public String strSingleSpeakerPrompt(){
+        return "Please input the name of speaker:";
+    }
+
+    public String strTypePrompt(){
+        return "Please enter one of the following number to choose the type of this event:\n" +
+                "[1]Talk: One Speaker\n" +
+                "[2]Panel: Multiple Speakers\n" +
+                "[3]Party: No Speaker\n";
+    }
+
+    public String strTopicPrompt(){
+        return "Please enter the topic for this activity:";
+    }
+
+    public String strMaxNumPrompt(){
+        return "Please enter the maximum capacity for this activity:";
+    }
+
     public String strSpeakerRoomPrompt(ArrayList<String> speakers, ArrayList<UUID> rooms){
         StringBuilder finalList = new StringBuilder("Here are the names of all available speakers: \n");
         finalList.append(strSpeakerList(speakers));

@@ -21,7 +21,7 @@ public class DeleteSelectedMessagesController extends AbstractController {
     }
 
     public ArrayList<String[]> groupChatIDs(){
-        ArrayList<String[]> actInfo = eventManager.viewUpcomingActivites();
+        ArrayList<String[]> actInfo = eventManager.viewUpcomingActivities();
         ArrayList<String[]> groupConversationIDs = new ArrayList<>();
         for (String[] info: actInfo){
             groupConversationIDs.add(new String[]{info[1], info[4]});

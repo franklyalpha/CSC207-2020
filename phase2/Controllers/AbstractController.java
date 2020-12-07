@@ -19,6 +19,9 @@ public class AbstractController {
      * an instance of <>EventManager</>.
      */
     protected EventManager eventManager;
+    protected PanelManager panelManager;
+    protected TalkManager talkManager;
+    protected PartyManager partyManager;
 
     /**
      * an instance of <>UserManager</>.
@@ -49,6 +52,11 @@ public class AbstractController {
         eventManager = (EventManager) managers[1];
         userManager = (UserManager) managers[2];
         messageRoomManager = (MessageRoomManager) managers[0];
+
+        panelManager = new PanelManager(eventManager);
+        talkManager = new TalkManager(eventManager);
+        partyManager = new PartyManager(eventManager);
+
     }
 
     /**

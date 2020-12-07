@@ -1,6 +1,7 @@
 package Controllers;
 
 import globallyAccessible.CannotCreateEventException;
+import globallyAccessible.EventType;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 import useCases.OrganizerManager;
@@ -32,15 +33,15 @@ public class CreateScheduleController extends EventController {
         }
     }
 
-    public void checkInfoValid(String[] speakerRoom, int MaxNumber)
+    public void checkInfoValid(String room, int MaxNumber, String speaker)
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
-        UUID RoomID = freeRooms.get(Integer.getInteger(speakerRoom[1]));
+        UUID RoomID = freeRooms.get(Integer.getInteger(room));
         int RoomCapacity = roomManager.getRoomCapacity(RoomID);
 
-        if (!freeSpeaker.contains(speakerRoom[0])){
+        if (!freeSpeaker.contains(speaker)){
             throw new UserNotFoundException("");
         }
-        if (Integer.getInteger(speakerRoom[1]) < 0 || Integer.getInteger(speakerRoom[1]) >= freeRooms.size()){
+        if (Integer.getInteger(room) < 0 || Integer.getInteger(room) >= freeRooms.size()){
             throw new IndexOutOfBoundsException();
         }
         if (RoomCapacity < MaxNumber){
@@ -49,19 +50,63 @@ public class CreateScheduleController extends EventController {
 
     }
 
+    public void checkInfoValid(String room, int MaxNumber, ArrayList<String> speakers)
+            throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
+        UUID RoomID = freeRooms.get(Integer.getInteger(room));
+        int RoomCapacity = roomManager.getRoomCapacity(RoomID);
 
-    public void newEventSetter(Object[] actSettings){
+        for(String speaker: speakers){
+            if (!freeSpeaker.contains(speaker)){
+                throw new UserNotFoundException("");
+            }
+        }
+        if (Integer.getInteger(room) < 0 || Integer.getInteger(room) >= freeRooms.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        if (RoomCapacity < MaxNumber){
+            throw new MaxNumberBeyondRoomCapacityException("");
+        }
+
+    }
+
+    public void checkInfoValid(String room, int MaxNumber)
+            throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
+        UUID RoomID = freeRooms.get(Integer.getInteger(room));
+        int RoomCapacity = roomManager.getRoomCapacity(RoomID);
+
+        if (Integer.getInteger(room) < 0 || Integer.getInteger(room) >= freeRooms.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        if (RoomCapacity < MaxNumber){
+            throw new MaxNumberBeyondRoomCapacityException("");
+        }
+
+    }
+
+    public void newEventSetter(EventType type, LocalDateTime[] period, Object[] actSettings){
         UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
-        LocalDateTime[] targetPeriod = (LocalDateTime[]) actSettings[0];
         UUID assignedRoom = (UUID) actSettings[1];
         String topic = (String) actSettings[2];
-        String speaker = (String) actSettings[3];
-        Integer MaxNum = (Integer) actSettings[4];
-        UUID actID = eventManager.addNewEvent(targetPeriod, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum);
-        eventManager.addSpeaker(actID, speaker);
-        roomManager.BookRoom(targetPeriod, actID, assignedRoom);
-        organizerManager.otherAddSchedule(speaker, targetPeriod, actID);
-        messageRoomManager.addUser(speaker, assignedChat);
+        Integer MaxNum = (Integer) actSettings[3];
+        UUID actID = null;
+        if(type == EventType.TALK){
+            actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
+            String speaker = (String) actSettings[4];
+            talkManager.setSpeaker(actID, speaker);
+            organizerManager.otherAddSchedule(speaker, period, actID);
+            messageRoomManager.addUser(speaker, assignedChat);
+        }else if(type == EventType.PANEL){
+            actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
+            ArrayList<String> speakers = (ArrayList<String>) actSettings[4];
+            for(String speaker: speakers){
+                panelManager.addSpeaker(actID, speaker);
+                organizerManager.otherAddSchedule(speaker, period, actID);
+                messageRoomManager.addUser(speaker, assignedChat);
+            }
+        }else if(type == EventType.PARTY){
+            actID = partyManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
+        }
+        roomManager.BookRoom(period, actID, assignedRoom);
     }
 
 

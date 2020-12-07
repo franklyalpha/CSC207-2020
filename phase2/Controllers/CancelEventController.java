@@ -1,5 +1,6 @@
 package Controllers;
 
+import globallyAccessible.EventType;
 import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,11 @@ public class CancelEventController extends EventController {
     }
 
     public ArrayList<String[]> findEmptyEvents(){
-        ArrayList<String[]> events = eventManager.viewUpcomingActivites();
+        ArrayList<String[]> events = eventManager.viewUpcomingActivities();
         ArrayList<String[]> emptyEvents = new ArrayList<>();
-        for (String[] actinfo: events){
-            if(eventManager.numAttendee(UUID.fromString(actinfo[0])) == 0){
-                emptyEvents.add(new String[]{actinfo[0], actinfo[1]});
+        for (String[] actInfo : events){
+            if(eventManager.numAttendee(UUID.fromString(actInfo[0])) == 0){
+                emptyEvents.add(new String[]{actInfo[0], actInfo[1]});
             }
         }
         return emptyEvents;
@@ -27,12 +28,25 @@ public class CancelEventController extends EventController {
 
     public void cancelAndUpdate(String eventID){
         // need to update the speaker as an array list of speaker;
-        UUID actID = UUID.fromString(eventID);
+        eventManager.deleteEvent(UUID.fromString(eventID));
+        processCancelSpeaker(eventID);
+
+    }
+
+    private void processCancelSpeaker(String eventID){
         String[] actInfo = eventManager.searchEventByUUID(eventID);
-        String speaker = actInfo[5];
+        UUID actID = UUID.fromString(eventID);
+        EventType eventType = eventManager.getEventType(actID);
         LocalDateTime[] period = getTimeHelper(actInfo);
-        eventManager.deleteEvent(actID);
-        organizerManager.deleteEvent(speaker, period);
+        if(eventType == EventType.TALK){
+            String speaker = talkManager.getSpeaker(actID);
+            organizerManager.deleteEvent(speaker, period);
+        }else if(eventType == EventType.PANEL){
+            ArrayList<String> speakers = panelManager.getSpeakers(actID);
+            for(String i: speakers){
+                organizerManager.deleteEvent(i, period);
+            }
+        }
     }
 
 

@@ -32,9 +32,12 @@ public class EventManager implements java.io.Serializable{
      * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
      * archived activities.
      */
-    public EventManager(EventManager eventManager){
-        this.upcomingEvents = eventManager.upcomingEvents;
-        this.archivedEvents = eventManager.archivedEvents;
+    public EventManager(){
+        this.upcomingEvents = new HashMap<>();
+        upcomingEvents.put(EventType.TALK, new ArrayList<>());
+        upcomingEvents.put(EventType.PANEL, new ArrayList<>());
+        upcomingEvents.put(EventType.PARTY, new ArrayList<>());
+        this.archivedEvents = new HashMap<>();
     }
 
     public UUID createEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic,
@@ -43,10 +46,15 @@ public class EventManager implements java.io.Serializable{
     }
 
     public UUID addEvent(Event event, EventType type){
-        if (!upcomingEvents.containsKey(type)){
-            upcomingEvents.put(type, new ArrayList<>());
-        }
         upcomingEvents.get(type).add(event);
+        return event.getIdentity();
+    }
+
+    private UUID addArchivedEvent(Event event, EventType type) {
+        if (!archivedEvents.containsKey(type)){
+            archivedEvents.put(type, new ArrayList<>());
+        }
+        archivedEvents.get(type).add(event);
         return event.getIdentity();
     }
 
@@ -149,7 +157,7 @@ public class EventManager implements java.io.Serializable{
      * String has six elements, represents: UUID of this activity, topic, start time, end time,
      * UUID of assigned room and name of speaker.
      */
-    public ArrayList<String[]> viewUpcomingActivites(){
+    public ArrayList<String[]> viewUpcomingActivities(){
         ArrayList<String[]> result = new ArrayList<String[]>();
         for(Event i: allUpcomingEvents()){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
@@ -198,8 +206,10 @@ public class EventManager implements java.io.Serializable{
 
     }
 
+    public EventType getEventType(UUID id){return findEvent(id).getEventType();}
+
     public void deleteEvent(UUID activityID){
-        upcomingEvents.remove(findType(activityID), findEvent(activityID));
+        upcomingEvents.get(findType(activityID)).remove(findEvent(activityID));
     }
 
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){

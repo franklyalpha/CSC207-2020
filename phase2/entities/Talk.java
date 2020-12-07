@@ -13,6 +13,7 @@ public class Talk extends Event {
     Additional Methods:
     Getter and setter for Event
     toString with more information
+    get event type
      */
     private String speaker;
 
@@ -28,6 +29,8 @@ public class Talk extends Event {
     }
 
     public String getSpeaker(){return this.speaker;}
+
+    public EventType getEventType(){return type;}
 
     @Override
     public String toString() {

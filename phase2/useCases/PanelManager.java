@@ -18,7 +18,9 @@ public class PanelManager extends EventManager {
      */
 
     public PanelManager(EventManager eventManager){
-        super(eventManager);
+        super();
+        this.upcomingEvents.put(EventType.PANEL, eventManager.upcomingEvents.get(EventType.PANEL));
+        this.archivedEvents.put(EventType.PANEL, eventManager.archivedEvents.get(EventType.PANEL));
     }
 
     public void addSpeaker(UUID actID, String speakerName){
@@ -38,6 +40,14 @@ public class PanelManager extends EventManager {
     public void changeSpeaker(UUID actID, String deleteName, String addName){
         deleteSpeaker(actID, deleteName);
         addSpeaker(actID, addName);
+    }
+
+    public ArrayList<String> getSpeakers(UUID actID){
+        return findEvent(actID).getSpeakers();
+    }
+
+    public String getTypeStr(){
+        return "Panel";
     }
 
     @Override

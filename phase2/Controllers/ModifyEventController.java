@@ -13,7 +13,7 @@ public class ModifyEventController extends EventController {
     }
 
     public ArrayList<String[]> getAllActivities() throws NoEventsException {
-        ArrayList<String[]> allActivities = eventManager.viewUpcomingActivites();
+        ArrayList<String[]> allActivities = eventManager.viewUpcomingActivities();
         if (allActivities.size() == 0) {
             throw new NoEventsException("No activities created yet");
         }
@@ -23,4 +23,4 @@ public class ModifyEventController extends EventController {
     public void changeEventMaxNumPeople(UUID activityId, Integer newMaxNum){
         eventManager.changeEventMaxParticipant(activityId, newMaxNum);
     }
-}
+}//TODO part of event retrofit

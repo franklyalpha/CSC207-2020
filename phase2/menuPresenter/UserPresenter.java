@@ -27,6 +27,8 @@ public class UserPresenter extends GeneralMenuPresenter {
         return strInvalidHelper("index");
     }
 
+    public String strInvalidEventType(){return strInvalidHelper("event type");}
+
     public String strAvailableActions(ArrayList<String> availableAction){
         StringBuilder action = new StringBuilder("  //-------------------------------------//\n" +
                 " //          Available Actions:         //\n" +

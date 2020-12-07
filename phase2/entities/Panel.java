@@ -14,6 +14,7 @@ public class Panel extends Event {
     Additional Methods:
     Getter and setter for speakers
     toString with more information
+    get event type
      */
     private ArrayList<String> speakers;
 
@@ -26,6 +27,8 @@ public class Panel extends Event {
     public void setSpeakers(ArrayList<String> speakers){this.speakers = speakers;}
 
     public ArrayList<String> getSpeakers(){return speakers;}
+
+    public EventType getEventType(){return type;}
 
     @Override
     public String toString() {

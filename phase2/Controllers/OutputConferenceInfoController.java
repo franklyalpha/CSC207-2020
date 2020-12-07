@@ -29,7 +29,7 @@ public class OutputConferenceInfoController extends EventController {
      */
     public OutputConferenceInfoController(UserController userController){
         super(userController);
-        this.upcomingEvents = eventManager.viewUpcomingActivites();
+        this.upcomingEvents = eventManager.viewUpcomingActivities();
     }
 
     /**
@@ -59,6 +59,7 @@ public class OutputConferenceInfoController extends EventController {
     }
 
     private void writeSingleEvent(String[] event, Document document) {
+        /*
         String eventHeader = eventHeader(event);
         String eventTime = eventTime(event);
         String eventLocation = eventLocation(event);
@@ -68,15 +69,18 @@ public class OutputConferenceInfoController extends EventController {
         document.add(new Paragraph(eventTime));
         document.add(new Paragraph(eventLocation));
         document.add(new Paragraph(endOfEvent));
+        */
+        document.add(new Paragraph(event[6]));
     }
 
+    /*
     private String eventHeader(String[] event){
         String id = event[ID];
         String topic = event[TOPIC];
         String speaker = event[SPEAKER];
 
         return topic + " hold by " + speaker + " (#" + id + ")";
-    }
+    }//TODO Part of event retrofit
 
     private String eventTime(String[] event){
         String startTime = event[START];
@@ -90,4 +94,5 @@ public class OutputConferenceInfoController extends EventController {
 
         return "Location: Conference Room #" + roomNum;
     }
+    */
 }
