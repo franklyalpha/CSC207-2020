@@ -150,18 +150,18 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
     public String getUsername(){return userOnAir.getUsername();}
 
     /**
-     * Returns the requests of the user.
-     * @return ArrayList representing the user's submitted requests.
+     * Returns the ID of requests of the user.
+     * @return ArrayList representing the UUIOD of user's submitted requests.
      */
-    public ArrayList<Request> getUserRequests(){
+    public ArrayList<UUID> getUserRequests(){
         return userOnAir.getRequests();
     }
 
     /**
-     * Changes the list of <code>Request</code>s made by this user to be the new input list.
-     * @param newList New list with which the existing list of <code>Request</code>s will be replaced with.
+     * Changes the list of <code>UUID</code>s to the new input list.
+     * @param newList New list with which the existing list of <code>UUID</code>s will be replaced with.
      */
-    public void setUserRequests(ArrayList<Request> newList){
+    public void setUserRequests(ArrayList<UUID> newList){
         userOnAir.setRequests(newList);
     }
 

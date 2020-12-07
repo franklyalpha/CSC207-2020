@@ -4,7 +4,6 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.time.*;
 import globallyAccessible.*;
-import entities.Request;
 
 /**
  * A representation of entities.User.
@@ -40,9 +39,9 @@ public abstract class User implements java.io.Serializable {
     private final HashMap<LocalDateTime[], UUID> activities;
 
     /**
-     * List of <code>Requests</code> submitted by this user.
+     * List of <code>UUID</code> corresponding to  requests submitted by this user.
      */
-    private ArrayList<Request> requests;
+    private ArrayList<UUID> requests;
     // in phase 2, will create a clone corresponding activities for
     // new modified schedules;  will be a shallow copy
 
@@ -104,10 +103,10 @@ public abstract class User implements java.io.Serializable {
     }
 
     /**
-     * Getter for list of <code>Request</code>s created by this user.
-     * @return ArrayList of <code>Requests</code> created by this user.
+     * Getter for list of <code>UUID</code>s corresponding to requests created by this user.
+     * @return ArrayList of <code>UUID</code> of requests created by this user.
      */
-    public ArrayList<Request> getRequests() {
+    public ArrayList<UUID> getRequests() {
         return requests;
     }
 
@@ -123,7 +122,7 @@ public abstract class User implements java.io.Serializable {
      * Changes the list of <code>Request</code>s made by this user to be the new input list.
      * @param requests New list with which the existing list of <code>Request</code>s will be replaced with.
      */
-    public void setRequests(ArrayList<Request> requests) {
+    public void setRequests(ArrayList<UUID> requests) {
         this.requests = requests;
     }
 
