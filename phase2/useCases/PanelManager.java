@@ -27,6 +27,7 @@ public class PanelManager extends EventManager {
         super(EventType.PANEL, eventManager.upcomingEvents.get(EventType.PANEL), eventManager.archivedEvents.get(EventType.PANEL));
     }
 
+    @Override
     public void addSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
         ArrayList<String> speakers = targetAct.getSpeakers();

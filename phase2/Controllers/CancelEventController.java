@@ -36,7 +36,7 @@ public class CancelEventController extends EventController {
     private void processCancelSpeaker(String eventID){
         String[] actInfo = eventManager.searchEventByUUID(eventID);
         UUID actID = UUID.fromString(eventID);
-        EventType eventType = eventManager.getEventType(actID);
+        EventType eventType = eventManager.findType(actID);
         LocalDateTime[] period = getTimeHelper(actInfo);
         if(eventType == EventType.TALK){
             String speaker = talkManager.getSpeaker(actID);

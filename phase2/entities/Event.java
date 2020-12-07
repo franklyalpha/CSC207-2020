@@ -245,6 +245,7 @@ public abstract class Event implements java.io.Serializable {
         description += ("\nFrom " + this.startTime + " to " + this.endTime);
         description += ("\nID: " + this.identity);
         description += ("\nChat ID: " + this.conferenceChat);
+        description += speakerToString();
         return description;
     }
 

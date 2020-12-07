@@ -92,7 +92,7 @@ public class CreateScheduleController extends EventController {
         if(type == EventType.TALK){
             actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
             String speaker = (String) actSettings[4];
-            talkManager.setSpeaker(actID, speaker);
+            talkManager.addSpeaker(actID, speaker);
             organizerManager.otherAddSchedule(speaker, period, actID);
             messageRoomManager.addUser(speaker, assignedChat);
         }else if(type == EventType.PANEL){

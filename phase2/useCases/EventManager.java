@@ -136,7 +136,7 @@ public class EventManager implements java.io.Serializable{
         return null;
     }
 
-    private EventType findType(UUID actID){
+    public EventType findType(UUID actID){
         for (Event act : allUpcomingEvents()){
             if (actID.equals(act.getIdentity())){
                 return act.getEventType();
@@ -167,11 +167,15 @@ public class EventManager implements java.io.Serializable{
         for(Event i: allUpcomingEvents()){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
-                    i.getConferenceRoomNum().toString(), i.toString()};
+                    i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString()};
             //TODO: make the output use toString instead of this big thing.
             result.add(temp);
         }
         return result;
+    }
+
+    public void addSpeaker(UUID actID, String speakerName){
+
     }
 
     /**

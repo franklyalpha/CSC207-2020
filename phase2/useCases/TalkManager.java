@@ -27,6 +27,7 @@ public class TalkManager extends EventManager {
         super(EventType.TALK, eventManager.upcomingEvents.get(EventType.TALK), eventManager.archivedEvents.get(EventType.TALK));
     }
 
+    @Override
     public void addSpeaker(UUID actID, String speakerName){
         Talk targetAct = findEvent(actID);
         targetAct.setSpeaker(speakerName);
