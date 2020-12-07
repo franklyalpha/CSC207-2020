@@ -16,9 +16,7 @@ public class PartyManager extends EventManager {
      */
 
     public PartyManager(EventManager eventManager){
-        super();
-        this.upcomingEvents.put(EventType.PARTY, eventManager.upcomingEvents.get(EventType.PARTY));
-        this.archivedEvents.put(EventType.PARTY, eventManager.archivedEvents.get(EventType.PARTY));
+        super(EventType.PARTY, eventManager.upcomingEvents.get(EventType.PARTY), eventManager.archivedEvents.get(EventType.PARTY));
     }
 
     public String getTypeStr(){

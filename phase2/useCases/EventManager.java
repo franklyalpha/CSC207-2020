@@ -38,6 +38,16 @@ public class EventManager implements java.io.Serializable{
         upcomingEvents.put(EventType.PANEL, new ArrayList<>());
         upcomingEvents.put(EventType.PARTY, new ArrayList<>());
         this.archivedEvents = new HashMap<>();
+        archivedEvents.put(EventType.TALK, new ArrayList<>());
+        archivedEvents.put(EventType.PANEL, new ArrayList<>());
+        archivedEvents.put(EventType.PARTY, new ArrayList<>());
+    }
+
+    public EventManager(EventType type, ArrayList<Event> upcoming, ArrayList<Event> archived){
+        this.upcomingEvents = new HashMap<>();
+        upcomingEvents.put(type, upcoming);
+        this.archivedEvents = new HashMap<>();
+        archivedEvents.put(type, archived);
     }
 
     public UUID createEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic,
@@ -46,15 +56,10 @@ public class EventManager implements java.io.Serializable{
     }
 
     public UUID addEvent(Event event, EventType type){
-        upcomingEvents.get(type).add(event);
-        return event.getIdentity();
-    }
-
-    private UUID addArchivedEvent(Event event, EventType type) {
-        if (!archivedEvents.containsKey(type)){
-            archivedEvents.put(type, new ArrayList<>());
+        if (!upcomingEvents.containsKey(type)){
+            upcomingEvents.put(type, new ArrayList<>());
         }
-        archivedEvents.get(type).add(event);
+        upcomingEvents.get(type).add(event);
         return event.getIdentity();
     }
 
@@ -206,10 +211,8 @@ public class EventManager implements java.io.Serializable{
 
     }
 
-    public EventType getEventType(UUID id){return findEvent(id).getEventType();}
-
     public void deleteEvent(UUID activityID){
-        upcomingEvents.get(findType(activityID)).remove(findEvent(activityID));
+        upcomingEvents.remove(findType(activityID), findEvent(activityID));
     }
 
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){
