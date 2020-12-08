@@ -26,7 +26,7 @@ public class Panel extends Event {
 
     public void setSpeakers(ArrayList<String> speakers){this.speakers = speakers;}
 
-    public ArrayList<String> getSpeakers(){return speakers;}
+    public ArrayList<String> getSpeakers(UUID actID){return speakers;}
 
     public EventType getEventType(){return type;}
 

@@ -2,11 +2,9 @@ package useCases;
 
 import entities.Event;
 import entities.Panel;
-import entities.Talk;
 import globallyAccessible.EventType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class PanelManager extends EventManager {
@@ -30,14 +28,14 @@ public class PanelManager extends EventManager {
     @Override
     public void addSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
-        ArrayList<String> speakers = targetAct.getSpeakers();
+        ArrayList<String> speakers = targetAct.getSpeakers(actID);
         speakers.add(speakerName);
         targetAct.setSpeakers(speakers);
     }
 
     public void deleteSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
-        ArrayList<String> speakers = targetAct.getSpeakers();
+        ArrayList<String> speakers = targetAct.getSpeakers(actID);
         speakers.remove(speakerName);
         targetAct.setSpeakers(speakers);
     }
@@ -48,7 +46,7 @@ public class PanelManager extends EventManager {
     }
 
     public ArrayList<String> getSpeakers(UUID actID){
-        return findEvent(actID).getSpeakers();
+        return findEvent(actID).getSpeakers(actID);
     }
 
     public String getTypeStr(){
@@ -67,7 +65,7 @@ public class PanelManager extends EventManager {
     }
 
     public ArrayList<String> getSpeakersList(String panelID){
-        return findEvent(UUID.fromString(panelID)).getSpeakers();
+        return findEvent(UUID.fromString(panelID)).getSpeakers(actID);
     }
 
 }

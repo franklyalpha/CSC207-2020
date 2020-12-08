@@ -1,13 +1,9 @@
 package useCases;
 
 import entities.Event;
-import entities.Panel;
 import entities.Talk;
 import globallyAccessible.EventType;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class TalkManager extends EventManager {
@@ -39,7 +35,7 @@ public class TalkManager extends EventManager {
     }
 
     public String getSpeaker(UUID actID){
-        return findEvent(actID).getSpeaker();
+        return findEvent(actID).getSpeaker(actID);
     }
 
     public String getTypeStr(){

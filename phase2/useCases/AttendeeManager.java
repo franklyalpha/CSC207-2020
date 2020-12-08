@@ -19,7 +19,7 @@ public class AttendeeManager extends UserManager {
      * Creates a <code>deleteActivity</code> and delete the activity.
      * @param time is the time of the activity that needed to be delete.
      */
-    public boolean deleteEvent(LocalDateTime[] time){
+    public boolean deleteEvent(UUID time){
         Set<LocalDateTime[]> period = userOnAir.getActivities().keySet();
         for (LocalDateTime[] target : period){
             if (target[0].equals(time[0]) && target[1].equals(time[1])){

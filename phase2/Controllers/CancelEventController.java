@@ -1,6 +1,7 @@
 package Controllers;
 
 import globallyAccessible.EventType;
+import useCases.EventManager;
 import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class CancelEventController extends EventController {
     }
 
     public ArrayList<String[]> findEmptyEvents(){
+        EventManager eventManager;
         ArrayList<String[]> events = eventManager.viewUpcomingActivities();
         ArrayList<String[]> emptyEvents = new ArrayList<>();
         for (String[] actInfo : events){
