@@ -1,24 +1,16 @@
 package useCases;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import entities.Request;
-import entities.User;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
-import java.time.*;
-
-import com.mongodb.MongoCommandException;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import entities.User;
+import globallyAccessible.UserType;
 import org.bson.Document;
 
-
-import globallyAccessible.UserNotFoundException;
-import globallyAccessible.UserType;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.UUID;
 
 //public class use_cases.UserManager implements java.io.Serializable
 

@@ -67,7 +67,7 @@ public abstract class User implements java.io.Serializable {
     }
 
     /**
-     * Gets the password of this user。
+     * Gets the password of this user.
      * @return the user's password.
      */
     public String getPassword(){
@@ -75,7 +75,7 @@ public abstract class User implements java.io.Serializable {
     }
 
     /**
-     * Gets the type of this user。
+     * Gets the type of this user.
      * @return the user's type as organizer, speaker, or attendee.
      */
     public UserType getUserType(){

@@ -8,7 +8,7 @@ import menuPresenter.RemoveEventPresenter;
 import java.util.Scanner;
 import java.util.UUID;
 
-package useCases;
+
 
 public class OrganizerModifyEventUI extends AbstractUI {
     private final RemoveEventController removeEvent;
