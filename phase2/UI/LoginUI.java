@@ -2,7 +2,7 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
-import Facades.AdmininistratorFacade;
+import Facades.AdministratorFacade;
 import Facades.AttendeeFacade;
 import Facades.OrganizerFacade;
 import Facades.SpeakerFacade;
@@ -115,7 +115,7 @@ public class LoginUI {
                 attUI.run();
                 break;
             case ADMINISTRATOR:
-                AdmininistratorFacade adminUI = new AdmininistratorFacade(userController);
+                AdministratorFacade adminUI = new AdministratorFacade(userController);
                 adminUI.run();
                 break;
         }

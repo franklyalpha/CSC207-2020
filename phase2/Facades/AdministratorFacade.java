@@ -7,10 +7,11 @@ import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
 
-public class AdmininistratorFacade extends OrganizerFacade {
-    private AdminPresenter presenter = new AdminPresenter();
+public class AdministratorFacade extends OrganizerFacade {
 
-    public AdmininistratorFacade(UserController userController) {
+    private final AdminPresenter presenter = new AdminPresenter();
+
+    public AdministratorFacade(UserController userController) {
         super(userController);
     }
 
@@ -36,13 +37,13 @@ public class AdmininistratorFacade extends OrganizerFacade {
     }
 
     private void runMethod (int action){
-        switch(action){
-            case 1: sendPrivateMessage(); break;
-            case 2: viewPrivateMessage(); break;
-            case 3: sendCoopMessage(); break;
-            case 4: viewCoopChat(); break;
-            case 5: deleteMessage(); break;
-            case 6: deleteEvent(); break;
+        switch (action) {
+            case 1 -> sendPrivateMessage();
+            case 2 -> viewPrivateMessage();
+            case 3 -> sendCoopMessage();
+            case 4 -> viewCoopChat();
+            case 5 -> deleteMessage();
+            case 6 -> deleteEvent();
         }
     }
 
