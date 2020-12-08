@@ -77,7 +77,7 @@ public class OrganizerRequestUI extends AbstractUI {
      */
     private void viewAllRequests(HandleRequestController requestController){
         if (requestController.getAllRequest().isEmpty()) {
-            System.out.println("There are currently no requests.");
+            System.out.println("No requests have been submitted yet.");
         } else {
             System.out.println("Here are all submitted requests: ");
             requestController.viewAllRequests();
