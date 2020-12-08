@@ -39,7 +39,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
         Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
         Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
-        createSchedule.newEventSetter((EventType) speakerRoom[0], targetPeriod, speakerRoom);
+        createSchedule.newEventSetter((EventType) speakerRoom[0], targetPeriod, actSetting);
     }
 
     private Object[] getSpeakerRoomTopic(Object[] speakersRooms, CreateScheduleController createSchedule) {
@@ -47,7 +47,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
             try{
                 ArrayList<String> freeSpeaker = (ArrayList<String>) speakersRooms[1];
                 ArrayList<UUID> freeRooms = (ArrayList<UUID>) speakersRooms[0];
-                modifyEventPresenter.printSuggestedRoomPrompt(getSuggestedRoom());
+                System.out.println(modifyEventPresenter.printSuggestedRoomPrompt(getSuggestedRoom()));
                 return inputTypeSpeakerRoomTopic(createSchedule, freeSpeaker, freeRooms);
             }catch(UserNotFoundException e){
                 System.out.println(organizerAddSchedulePresenter.strInvalidSpeaker());
@@ -86,7 +86,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         int MaxNumber = moreInfo.nextInt();
         if(typeNum == 1){
             System.out.println(organizerAddSchedulePresenter.strSpeakerPrompt(freeSpeaker));
-            String speaker = inputOneSpeaker();
+            ArrayList<String> speaker = inputOneSpeaker();
             createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, speaker);
             return new Object[]{EventType.TALK, freeRooms.get(roomIndex), topic, MaxNumber, speaker};
         }else if(typeNum == 2){
@@ -95,7 +95,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
             createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, speakers);
             return new Object[]{EventType.PANEL, freeRooms.get(roomIndex), topic, MaxNumber, speakers};
         }else if(typeNum == 3){
-            createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber);
+            createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, new ArrayList<>());
             return new Object[]{EventType.PARTY, freeRooms.get(roomIndex), topic, MaxNumber};
         }else{
             throw new WrongEventTypeException("");
@@ -114,11 +114,13 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new LocalDateTime[]{startDateTime, endDateTime};
     }
 
-    private String inputOneSpeaker(){
+    private ArrayList<String> inputOneSpeaker(){
         System.out.println(organizerAddSchedulePresenter.strSingleSpeakerPrompt());
         Scanner moreInfo = new Scanner(System.in);
-        String newInput = moreInfo.nextLine();;
-        return newInput;
+        String newInput = moreInfo.nextLine();
+        ArrayList<String> speaker = new ArrayList<>();
+        speaker.add(newInput);
+        return speaker;
     }
 
     private ArrayList<String> inputMultiSpeaker(){

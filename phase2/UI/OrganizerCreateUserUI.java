@@ -2,7 +2,7 @@ package UI;
 
 import Controllers.CreateUserController;
 import Controllers.UserController;
-import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 import menuPresenter.OrganizerPresenter;
 
@@ -26,14 +26,14 @@ public class OrganizerCreateUserUI extends AbstractUI {
                 Scanner input0 = new Scanner(System.in);
                 createUserWithGivenType(createUser, type, input0);
                 break;
-            }catch (SpeakerAlreadyExistException e){
+            }catch (UserAlreadyExistException e){
                 System.out.println(presenter.strSpeakerExistWarning());
             }
         }
     }
 
     private void createUserWithGivenType(CreateUserController createUser, int type, Scanner input0)
-            throws SpeakerAlreadyExistException {
+            throws UserAlreadyExistException {
         System.out.println(presenter.strUserNamePrompt());
         String name = input0.next();
         createUser.ValidateName(name);

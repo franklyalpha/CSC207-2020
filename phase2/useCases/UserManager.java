@@ -69,6 +69,10 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
         return username + num_user;
     }
 
+    public int getNumUsers(){
+        return num_user;
+    }
+
     // registerUserOnDB(name, password, t);
     // this require further modification to fit with factory pattern
     private void registerUserOnDB(String name, String password, UserType type){

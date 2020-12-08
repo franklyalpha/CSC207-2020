@@ -1,17 +1,15 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 
-import globallyAccessible.SpeakerAlreadyExistException;
-import globallyAccessible.UserType;
 public class CreateOrganizerController extends AbstractController implements ICreateUser{
     public CreateOrganizerController(UserController userController) {
         super(userController);
     }
-    public void ValidateName(String name) throws SpeakerAlreadyExistException {
+    public void ValidateName(String name) throws UserAlreadyExistException {
         if(userManager.isUser(name) != 0){
-            throw new SpeakerAlreadyExistException("Organizer already exist!");
+            throw new UserAlreadyExistException("Organizer already exist!");
         }
     }
 

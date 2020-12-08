@@ -1,6 +1,6 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 
 public class CreateSpeakerController extends AbstractController implements ICreateUser {
@@ -10,9 +10,9 @@ public class CreateSpeakerController extends AbstractController implements ICrea
         super(userController);
     }
 
-    public void ValidateName(String name) throws SpeakerAlreadyExistException {
+    public void ValidateName(String name) throws UserAlreadyExistException {
         if(userManager.isUser(name) != 0){
-            throw new SpeakerAlreadyExistException("Speaker already exist!");
+            throw new UserAlreadyExistException("Speaker already exist!");
         }
     }
 

@@ -6,10 +6,6 @@ import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import useCases.UserManager;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.UUID;
-
 import static globallyAccessible.UserType.*;
 
 
@@ -23,23 +19,11 @@ import static globallyAccessible.UserType.*;
  *
  */
 public class LoginController {
-
-    private static HashMap<String, UUID> chatroom;
-    private static HashMap<LocalDateTime[], UUID> activities;
-    private static final UserType ADMINISTRATOR = new UserType(type, chatroom, activities);
     /**
      * userManager: an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
     private final UserManager userManager = new GatewayUser().deserialize();
-
-    public static void setActivities(HashMap<LocalDateTime[], UUID> activities) {
-        LoginController.activities = activities;
-    }
-
-    public static void setChatroom(HashMap<String, UUID> chatroom) {
-        LoginController.chatroom = chatroom;
-    }
 
     /*
       This method allow people to do actions corresponding to allowed actions.
@@ -73,13 +57,13 @@ public class LoginController {
     private UserType UserTypeDistributor(int type) throws InvalidUserTypeException {
         switch (type) {
             case 0 -> {
-                return ORGANIZER;
+                return UserType.ORGANIZER;
             }
             case 1 -> {
                 return UserType.ATTENDEE;
             }
             case 2 -> {
-                return ADMINISTRATOR;
+                return UserType.ADMINISTRATOR;
             }
             default -> throw new InvalidUserTypeException("No such user type!!!");
         }

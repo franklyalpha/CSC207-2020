@@ -1,11 +1,8 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
-import globallyAccessible.UserType;
-import functionalityPresenters.Presenter;
+import globallyAccessible.UserAlreadyExistException;
 
-import java.util.Scanner;
 public interface ICreateUser {
-    void ValidateName(String name) throws SpeakerAlreadyExistException;
+    void ValidateName(String name) throws UserAlreadyExistException;
     String createUser(String name, String password);
 }

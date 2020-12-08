@@ -1,6 +1,6 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 
 public class CreateAttendeeController extends AbstractController implements ICreateUser {
@@ -8,9 +8,9 @@ public class CreateAttendeeController extends AbstractController implements ICre
         super(userController);
     }
 
-    public void ValidateName(String name) throws SpeakerAlreadyExistException {
+    public void ValidateName(String name) throws UserAlreadyExistException {
         if(userManager.isUser(name) != 0){
-            throw new SpeakerAlreadyExistException("Attendee already exist!");
+            throw new UserAlreadyExistException("Attendee already exist!");
         }
     }
 

@@ -7,14 +7,31 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+
+/**
+ * This is a controller responsible for deleting an existing event of conference. Extends from <>AbstractController</>.
+ */
 public class CancelEventController extends EventController {
+    /**
+     * An instance of <>OrganizerManager</>.
+     */
     private OrganizerManager organizerManager;
 
+    /**
+     * The constructor of this controller.
+     * @param userController An instance of UserController.
+     */
     public CancelEventController(UserController userController) {
         super(userController);
         organizerManager = new OrganizerManager(userManager);
     }
 
+    /**
+     * Return a list containing information of events without attendee participation.
+     *
+     * @return an instance of <>ArrayList<String[]></> which contains information of events having no attendee.
+     * Each <>String[]</> in <>Arraylist</> contains UUID and topic of a given event.
+     */
     public ArrayList<String[]> findEmptyEvents(){
         ArrayList<String[]> events = eventManager.viewUpcomingActivities();
         ArrayList<String[]> emptyEvents = new ArrayList<>();
@@ -26,11 +43,15 @@ public class CancelEventController extends EventController {
         return emptyEvents;
     }
 
+
+    /**
+     * Deletes an event given its ID, and update <>User</>'s schedule and <>MessageRoom</> associated with this event.
+     * @param eventID The ID of given event wants to be cancelled.
+     */
     public void cancelAndUpdate(String eventID){
         // need to update the speaker as an array list of speaker;
         eventManager.deleteEvent(UUID.fromString(eventID));
         processCancelSpeaker(eventID);
-
     }
 
     private void processCancelSpeaker(String eventID){

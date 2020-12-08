@@ -1,6 +1,6 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
+import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 
 public class CreateAdministratorController extends AbstractController implements ICreateUser {
@@ -9,9 +9,9 @@ public class CreateAdministratorController extends AbstractController implements
     }
 
     @Override
-    public void ValidateName(String name) throws SpeakerAlreadyExistException {
+    public void ValidateName(String name) throws UserAlreadyExistException {
         if(userManager.isUser(name) != 0){
-            throw new SpeakerAlreadyExistException("Organizer already exist!");
+            throw new UserAlreadyExistException("Organizer already exist!");
         }
     }
 

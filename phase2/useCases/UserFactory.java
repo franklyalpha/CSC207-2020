@@ -1,7 +1,6 @@
 package useCases;
 
 import entities.*;
-import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserType;
 
 public class UserFactory {
@@ -11,7 +10,9 @@ public class UserFactory {
         this.userManager = userManager;
     }
 
-    public void construct(String username, String password, UserType userType){
+    public String construct(String username, String password, UserType userType){
+        int numUser = userManager.getNumUsers();
+        username = username + numUser;
         switch (userType) {
             case ATTENDEE:
                 Attendee newAtt = new Attendee(username, password);
@@ -30,5 +31,6 @@ public class UserFactory {
                 userManager.addUser(newAdmin, UserType.ADMINISTRATOR);
                 break;
         }
+        return username;
     }
 }
