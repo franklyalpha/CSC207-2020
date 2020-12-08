@@ -75,7 +75,7 @@ public class RequestController extends AbstractController {
     }
 
     /**
-     * Outputs all requests in a list-like format.
+     * Outputs all requests made by the user in a list-like format.
      */
     public void viewUserRequests() {
         ArrayList<Request> output = new ArrayList<>();
@@ -89,6 +89,30 @@ public class RequestController extends AbstractController {
         int i = 0;
         for (Request req1 : output){
             System.out.println("[" + i + "]\n" + req1.toString());
+            i = i + 1;
+        }
+    }
+
+    /**
+     * Outputs all pending requests made by any user in a list-like format.
+     */
+    public void viewPendingRequests() {
+        ArrayList<Request> tmp = new ArrayList<>(requestManager.getPendingRequests());
+        int i = 0;
+        for (Request req : tmp){
+            System.out.println("[" + i + "]\n" + req.toString());
+            i = i + 1;
+        }
+    }
+
+    /**
+     * Outputs all requests made by any user in a list-like format.
+     */
+    public void viewAllRequests() {
+        ArrayList<Request> tmp = new ArrayList<>(requestManager.getRequestList());
+        int i = 0;
+        for (Request req : tmp){
+            System.out.println("[" + i + "]\n" + req.toString());
             i = i + 1;
         }
     }

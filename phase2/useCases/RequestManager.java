@@ -181,11 +181,27 @@ public class RequestManager implements java.io.Serializable{
     }
 
     /**
-     * Returns list of all existing <code>Requests</code>
+     * Returns list of all existing <code>Request</code>s
      * @return ArrayList of existing instances of <code>Request</code>s
      */
     public ArrayList<Request> getRequestList(){
         return this.requestList;
+    }
+
+    /**
+     * Returns list of all pending <code>Request</code>s
+     * @return ArrayList of instances of <code>Request</code>s that are pending.
+     */
+    public ArrayList<Request> getPendingRequests(){
+        return this.pendingRequests;
+    }
+
+    /**
+     * Returns list of all handled <code>Request</code>s
+     * @return ArrayList of instances of <code>Request</code>s that have been handled.
+     */
+    public ArrayList<Request> getDoneRequests(){
+        return this.doneRequests;
     }
 
 }
