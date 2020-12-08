@@ -8,11 +8,11 @@ import java.util.UUID;
 import entities.Attendee;
 
 public class AttendeeManager extends UserManager {
+    private Attendee currUser;
 
-    Attendee currUser = (Attendee) userOnAir;
-
-    public AttendeeManager(UserManager userManager){
+    public AttendeeManager(UserManager userManager) {
         super(userManager);
+        currUser = (Attendee) userOnAir;
     }
 
     /**

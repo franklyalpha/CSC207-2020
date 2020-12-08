@@ -28,14 +28,14 @@ public class PanelManager extends EventManager {
     @Override
     public void addSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
-        ArrayList<String> speakers = targetAct.getSpeakers(actID);
+        ArrayList<String> speakers = targetAct.getSpeakers();
         speakers.add(speakerName);
         targetAct.setSpeakers(speakers);
     }
 
     public void deleteSpeaker(UUID actID, String speakerName){
         Panel targetAct = findEvent(actID);
-        ArrayList<String> speakers = targetAct.getSpeakers(actID);
+        ArrayList<String> speakers = targetAct.getSpeakers();
         speakers.remove(speakerName);
         targetAct.setSpeakers(speakers);
     }
@@ -46,7 +46,7 @@ public class PanelManager extends EventManager {
     }
 
     public ArrayList<String> getSpeakers(UUID actID){
-        return findEvent(actID).getSpeakers(actID);
+        return findEvent(actID).getSpeakers();
     }
 
     public String getTypeStr(){
@@ -65,7 +65,7 @@ public class PanelManager extends EventManager {
     }
 
     public ArrayList<String> getSpeakersList(String panelID){
-        return findEvent(UUID.fromString(panelID)).getSpeakers(actID);
+        return findEvent(UUID.fromString(panelID)).getSpeakers();
     }
 
 }

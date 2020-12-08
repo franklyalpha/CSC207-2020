@@ -64,13 +64,13 @@ public class SpeakerFacade extends OrganizerFacade {
 
     private void runMethod (int action){
         switch (action) {
-            case 1 -> sendPrivateMessage();
-            case 2 -> viewPrivateMessage();
-            case 3 -> viewGroupMessage();
-            case 4 -> sendEventMessage();
-            case 5 -> sendCoopMessage();
-            case 6 -> viewCoopChat();
-            case 7 -> viewEnrolledSchedule();
+            case 1: sendPrivateMessage();
+            case 2: viewPrivateMessage();
+            case 3: viewGroupMessage();
+            case 4: sendEventMessage();
+            case 5: sendCoopMessage();
+            case 6: viewCoopChat();
+            case 7: viewEnrolledSchedule();
         }
     }
 

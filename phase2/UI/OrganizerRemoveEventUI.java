@@ -5,35 +5,40 @@ import Controllers.UserController;
 import globallyAccessible.NoEventsException;
 import menuPresenter.RemoveEventPresenter;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
 
-
-public class OrganizerModifyEventUI extends AbstractUI {
+public class OrganizerRemoveEventUI extends AbstractUI {
     private final RemoveEventController removeEvent;
 
-    public OrganizerModifyEventUI(UserController userController) {
+    public OrganizerRemoveEventUI(UserController userController) {
         super(userController);
         removeEvent = new RemoveEventController(userController);
     }
 
     @Override
     public void run() {
-        RemoveEventPresenter presenter = new RemoveEventPresenter();
-        try{
-            inputAndUpdateModification(presenter);
-        }catch (NoEventsException e){
-            presenter.printNoEvent();
+        for(int i = 0; i < 3; i++){
+            RemoveEventPresenter presenter = new RemoveEventPresenter();
+            try{
+                inputAndUpdateModification(presenter);
+                break;
+            }catch (NoEventsException e){
+                System.out.println(presenter.printNoEvent());
+            }catch(IllegalArgumentException e2){
+                System.out.println(presenter.strInvalidInput());
+            }
         }
     }
 
     private void inputAndUpdateModification(RemoveEventPresenter presenter)
-            throws NoEventsException {
+            throws NoEventsException, IllegalArgumentException {
         presenter.printIDForTheEventToBeCancelled(removeEvent.getAllActivities());
         Scanner input_1 = new Scanner(System.in);
-        UUID.fromString(input_1.nextLine());
-        removeEvent.cancelEvent();
+        UUID actID = UUID.fromString(input_1.nextLine());
+        removeEvent.cancelAndUpdate(actID);
     }
 }
 
