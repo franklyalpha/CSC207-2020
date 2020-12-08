@@ -6,6 +6,10 @@ import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import useCases.UserManager;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.UUID;
+
 import static globallyAccessible.UserType.*;
 
 
@@ -20,16 +24,27 @@ import static globallyAccessible.UserType.*;
  */
 public class LoginController {
 
+    private static HashMap<String, UUID> chatroom;
+    private static HashMap<LocalDateTime[], UUID> activities;
+    private static final UserType ADMINISTRATOR = new UserType(type, chatroom, activities);
     /**
      * userManager: an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
     private final UserManager userManager = new GatewayUser().deserialize();
 
-    /**
-     * This method allow people to do actions corresponding to allowed actions.
-     * Will print out a list of actions people can implement, ask for choice of action the people
-     * want to do and call corresponding method, such as sign up as a user, or log in or just quit.
+    public static void setActivities(HashMap<LocalDateTime[], UUID> activities) {
+        LoginController.activities = activities;
+    }
+
+    public static void setChatroom(HashMap<String, UUID> chatroom) {
+        LoginController.chatroom = chatroom;
+    }
+
+    /*
+      This method allow people to do actions corresponding to allowed actions.
+      Will print out a list of actions people can implement, ask for choice of action the people
+      want to do and call corresponding method, such as sign up as a user, or log in or just quit.
      */
 
 
@@ -42,9 +57,9 @@ public class LoginController {
     private UserType checkLoginCondition(String username, String password) throws UserNotFoundException {
         return userManager.loginCheck(username, password);
     }
-    /**
-     * Determine whether the input is wrong.
-     * @return <CODE>true</CODE> if the input is right:
+    /*
+      Determine whether the input is wrong.
+      @return <CODE>true</CODE> if the input is right:
      * otherwise
      */
 
@@ -57,16 +72,16 @@ public class LoginController {
 
     private UserType UserTypeDistributor(int type) throws InvalidUserTypeException {
         switch (type) {
-            case 0: {
+            case 0 -> {
                 return ORGANIZER;
             }
-            case 1: {
+            case 1 -> {
                 return UserType.ATTENDEE;
             }
-            case 2: {
+            case 2 -> {
                 return ADMINISTRATOR;
             }
-            default: throw new InvalidUserTypeException("No such user type!!!");
+            default -> throw new InvalidUserTypeException("No such user type!!!");
         }
     }
 

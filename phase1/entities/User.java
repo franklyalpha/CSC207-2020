@@ -56,6 +56,13 @@ public class User implements java.io.Serializable {
         activities = new HashMap<>();
     }
 
+    public User(UserType type, HashMap<String, UUID> chatroom, HashMap<LocalDateTime[], UUID> activities) {
+
+        this.type = type;
+        this.chatroom = chatroom;
+        this.activities = activities;
+    }
+
     /**
      * Gets the name of this user.
      * @return the user's name.

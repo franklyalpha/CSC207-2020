@@ -27,24 +27,22 @@ public class RoomManager implements java.io.Serializable {
     /**
      * a Arraylist of <code>Room</code>
      */
-    private ArrayList<Room> rooms;
+    private final ArrayList<Room> rooms;
 
     /**
      * Creates <code>RoomManager</code> with a blank list of Rooms.
      */
     public RoomManager(){
-        this.rooms = new ArrayList<Room>();
+        this.rooms = new ArrayList<>();
     }
 
     /**
      * Creates a <code>Room</code> and add it to the list of rooms of the <code>RoomManager</code>
      * @param capacity is the capacity for the newly constructed <code>Room</code>.
-     * @return the id of the newly constructed <code>Room</code>.
      */
-    public UUID addRoom(int capacity){
+    public void addRoom(int capacity){
         Room newRoom = new Room(capacity);
         rooms.add(newRoom);
-        return newRoom.getId();
     }
 
     // Check the Fullness for the room
@@ -144,4 +142,7 @@ public class RoomManager implements java.io.Serializable {
         return true;
     }
 
+    public int getRoomCapacity(UUID roomID) {
+        return 0;
+    }
 }

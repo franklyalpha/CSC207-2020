@@ -2,12 +2,11 @@ package Controllers;
 
 import globallyAccessible.UserNotFoundException;
 import useCases.OrganizerManager;
-import useCases.UserManager;
 
 import java.util.ArrayList;
 
 public class MessageAllAttendeeController extends MessagingController {
-    private OrganizerManager organizerManager;
+    private final OrganizerManager organizerManager;
 
     public MessageAllAttendeeController(UserController userController) {
         super(userController);

@@ -1,10 +1,6 @@
 package Controllers;
 
-import functionalityPresenters.Presenter;
 import roomRequirementBuilder.roomItems;
-
-import java.util.List;
-import java.util.Scanner;
 
 public class CreateRoomController extends AbstractController{
 

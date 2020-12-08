@@ -2,6 +2,7 @@ package Controllers;
 
 import globallyAccessible.EventNotFoundException;
 import useCases.AttendeeManager;
+import useCases.EventManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class EnrollEventController extends EventController {
     public void chooseActToEnroll(ArrayList<String[]> available, String activityID
                                    ) throws EventNotFoundException {
         ArrayList<String> actIDs = extractActIDHelper(available);
+        EventManager eventManager;
         String[] temp = eventManager.searchEventByUUID(activityID);
         if (actIDs.contains(activityID)){
             addEnrollment(temp, activityID, userName);
@@ -34,6 +36,7 @@ public class EnrollEventController extends EventController {
     private void addEnrollment(String[] temp, String activityID, ArrayList<String> userName){
         LocalDateTime[] time = getTimeHelper(temp);
         attendeeManager.selfAddSchedule(time, UUID.fromString(activityID));
+        EventManager eventManager;
         UUID conferenceChat = eventManager.getConferenceChat(UUID.fromString(temp[0]));
         messageRoomManager.addUser(userName, conferenceChat);
         eventManager.addAttendee(UUID.fromString(activityID), userManager.currentUsername());

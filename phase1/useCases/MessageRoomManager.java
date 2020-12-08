@@ -194,4 +194,6 @@ public class MessageRoomManager implements java.io.Serializable{
     }
 
 
+    public void deleteMessage(UUID targetedChat, ArrayList<Integer> indexesDeletion) {
+    }
 }

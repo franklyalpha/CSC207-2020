@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class DeletePrivateConversationController extends AbstractController {
     private String[] usernames;
-    private AdminManager adminManager;
+    private final AdminManager adminManager;
 
     public DeletePrivateConversationController(UserController userController) {
         super(userController);
