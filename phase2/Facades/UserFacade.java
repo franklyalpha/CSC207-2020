@@ -1,22 +1,14 @@
 package Facades;
 
-import Controllers.OutputConferenceInfoController;
-import Controllers.SendPrivateMessageController;
 import Controllers.UserController;
 import UI.*;
-import functionalityPresenters.*;
-import globallyAccessible.UserNotFoundException;
 import menuPresenter.UserPresenter;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class UserFacade {
     protected ArrayList<String> availableAction = new ArrayList<>();
     protected ArrayList<String> availableMethod = new ArrayList<>();
-
     protected UserController userController;
     final private UserPresenter userPresenter = new UserPresenter();
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class PanelRescheduleSpeakerController extends SpeakerReschedulingController {
+
     private PanelManager panelManager;
 
     public PanelRescheduleSpeakerController(UserController userController) {

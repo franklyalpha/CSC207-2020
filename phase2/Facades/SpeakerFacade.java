@@ -22,9 +22,9 @@ public class SpeakerFacade extends OrganizerFacade {
     public SpeakerFacade(UserController userController) {
         super(userController);
     }
-    /**
-     * an Arraylist of <code>availableAction</code>;
-     * an Arraylist of <code>availableMethod</code>;
+    /*
+      an Arraylist of <code>availableAction</code>;
+      an Arraylist of <code>availableMethod</code>;
      */
     /*
     require implementation:
@@ -63,14 +63,14 @@ public class SpeakerFacade extends OrganizerFacade {
      */
 
     private void runMethod (int action){
-        switch(action){
-            case 1: sendPrivateMessage(); break;
-            case 2: viewPrivateMessage(); break;
-            case 3: viewGroupMessage(); break;
-            case 4: sendEventMessage(); break;
-            case 5: sendCoopMessage(); break;
-            case 6: viewCoopChat(); break;
-            case 7: viewEnrolledSchedule(); break;
+        switch (action) {
+            case 1 -> sendPrivateMessage();
+            case 2 -> viewPrivateMessage();
+            case 3 -> viewGroupMessage();
+            case 4 -> sendEventMessage();
+            case 5 -> sendCoopMessage();
+            case 6 -> viewCoopChat();
+            case 7 -> viewEnrolledSchedule();
         }
     }
 
@@ -94,8 +94,8 @@ public class SpeakerFacade extends OrganizerFacade {
 
 
 
-    /**
-     * This method add actions to the class attribute availableMethod.
+    /*
+      This method add actions to the class attribute availableMethod.
      */
 
 

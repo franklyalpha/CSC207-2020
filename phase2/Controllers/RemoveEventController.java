@@ -14,6 +14,7 @@ import java.util.UUID;
 
 
 public class RemoveEventController extends EventController {
+
     private final OrganizerManager organizerManager;
 
     public RemoveEventController(UserController userController) {

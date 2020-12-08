@@ -55,18 +55,18 @@ public class OrganizerFacade extends UserFacade {
      */
 
     private void runMethod (int action){
-        switch(action){
-            case 1: createRoom(); break;
-            case 2: createUser(); break;
-            case 3: addSchedule(); break;
-            case 4: rescheduleSpeaker(); break;
-            case 5: sendPrivateMessage(); break;
-            case 6: viewPrivateMessage(); break;
-            case 7: sendCoopMessage(); break;
-            case 8: viewCoopChat(); break;
-            case 9: messageAllAttendee(); break;
-            case 10: modifyEvent(); break;
-            case 11: removeEvent(); break;
+        switch (action) {
+            case 1 -> createRoom();
+            case 2 -> createUser();
+            case 3 -> addSchedule();
+            case 4 -> rescheduleSpeaker();
+            case 5 -> sendPrivateMessage();
+            case 6 -> viewPrivateMessage();
+            case 7 -> sendCoopMessage();
+            case 8 -> viewCoopChat();
+            case 9 -> messageAllAttendee();
+            case 10 -> modifyEvent();
+            case 11 -> removeEvent();
         }
     }
 
@@ -127,14 +127,14 @@ public class OrganizerFacade extends UserFacade {
 
 
 
-    /**
-     * provides instructions for the user to create a new conference and store it in <code>ChatroomManager</code>.
-     *
-     * Will ask for specific time period first. Then display available rooms and speakers during that time period,
-     * to allow user make choices. Then will ask user to fill in extra info(such as topic). Finally will update
-     * all data in use-case classes.
-     *
-     * @return true iff the schedule is added successfully. 'false' otherwise.
+    /*
+      provides instructions for the user to create a new conference and store it in <code>ChatroomManager</code>.
+
+      Will ask for specific time period first. Then display available rooms and speakers during that time period,
+      to allow user make choices. Then will ask user to fill in extra info(such as topic). Finally will update
+      all data in use-case classes.
+
+      @return true iff the schedule is added successfully. 'false' otherwise.
      */
 
     //check speaker, positive number.
@@ -143,35 +143,35 @@ public class OrganizerFacade extends UserFacade {
 
 
 
-    /**
-     * Providing instructions for user to add a new conference room to the system.
-     *
-     * Will ask for capacity of the room when running the program. Then ask RoomManager to
-     * create the new room.
-     *
-     * @return true iff the room is created (inputting appropriate capacity value). 'false' otherwise.
+    /*
+      Providing instructions for user to add a new conference room to the system.
+
+      Will ask for capacity of the room when running the program. Then ask RoomManager to
+      create the new room.
+
+      @return true iff the room is created (inputting appropriate capacity value). 'false' otherwise.
      */
 
 
-    /**
-     * Providing instructions for creating a new speaker.
-     *
-     * Will ask user to input the name and password of speaker; will printout
-     * the username of speaker after creation.
-     *
-     * @return true iff the speaker is created successfully (the speaker is new).
+    /*
+      Providing instructions for creating a new speaker.
+
+      Will ask user to input the name and password of speaker; will printout
+      the username of speaker after creation.
+
+      @return true iff the speaker is created successfully (the speaker is new).
      */
 
 
-    /**
-     * Will printout messages being sent in chats involving only organizers and speakers.
+    /*
+      Will printout messages being sent in chats involving only organizers and speakers.
      */
 
 
-    /**
-     * Provides instructions for guiding user to send messages to all organizers and speakers.
-     *
-     * Will ask user to input the message want to send during running.
+    /*
+      Provides instructions for guiding user to send messages to all organizers and speakers.
+
+      Will ask user to input the message want to send during running.
      */
 
 
@@ -181,13 +181,13 @@ public class OrganizerFacade extends UserFacade {
 
 
 
-    /**
-     * Provides instructions for user to reassign another speaker for a given conference.
-     *
-     * Will first printout all conferences and ask the user to make a choice.
-     * Then will show all speakers who are free during the conference's time period.
-     * Next asks for user's choice on which speaker to assign.
-     * Finally will update all information.
+    /*
+      Provides instructions for user to reassign another speaker for a given conference.
+
+      Will first printout all conferences and ask the user to make a choice.
+      Then will show all speakers who are free during the conference's time period.
+      Next asks for user's choice on which speaker to assign.
+      Finally will update all information.
      */
 
 
