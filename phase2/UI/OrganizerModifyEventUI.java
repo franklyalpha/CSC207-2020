@@ -21,17 +21,19 @@ public class OrganizerModifyEventUI extends AbstractUI {
         ModifyEventPresenter presenter = new ModifyEventPresenter();
         try{
             inputAndUpdateModification(modifyEvent, presenter);
-        }catch (NoEventsException e){
-            presenter.printNoEvent();
+        }catch (NoEventsException e1){
+            System.out.println(presenter.printNoEvent());
+        }catch (Exception e2){
+            System.out.println(presenter.strInvalidInput());
         }
     }
 
     private void inputAndUpdateModification(ModifyEventController modifyActivity, ModifyEventPresenter presenter)
-            throws NoEventsException {
-        presenter.printMaxNumEventPrompt_1(modifyActivity.getAllActivities());
+            throws NoEventsException, IllegalArgumentException {
+        System.out.println(presenter.printMaxNumEventPrompt_1(modifyActivity.getAllActivities()));
         Scanner input_1 = new Scanner(System.in);
         UUID activityId = UUID.fromString(input_1.nextLine());
-        presenter.printMaxNumEventPrompt_2();
+        System.out.println(presenter.printMaxNumEventPrompt_2());
         int newMaxNum = input_1.nextInt();
         modifyActivity.changeEventMaxNumPeople(activityId, newMaxNum);
     }

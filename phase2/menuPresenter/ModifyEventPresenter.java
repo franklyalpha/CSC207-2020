@@ -10,22 +10,22 @@ public class ModifyEventPresenter extends UserPresenter{
         super();
     }
 
-    public void printMaxNumEventPrompt_1(ArrayList<String[]> upcomingActivities){
-        System.out.println("Here are the information of all the available activities: " + upcomingActivities);
-        System.out.println("Please input the Activity Id you want to modify:");
+    public String printMaxNumEventPrompt_1(ArrayList<String[]> upcomingActivities){
+        return "Here are the information of all the available activities: " + upcomingActivities + "\n" +
+                "Please input the Activity Id you want to modify:";
     }
 
-    public void printMaxNumEventPrompt_2(){
-        System.out.println("Please input the new Maximum number of people for the activity :");
+    public String printMaxNumEventPrompt_2(){
+        return "Please input the new Maximum number of people for the activity :";
     }
 
-    public void printNoEvent(){
-        System.out.println("No activities created yet");
+    public String printNoEvent(){
+        return "No activities created yet";
     }
 
     public String askForRequirementPrompt(){
         return "Please input the number of Projector, Microphone, DJ equipment and Party Audio System" +
-                " this event needs, in separate lines:";
+                " \n this event needs, separate by space: \n(if input less than or equal to 0, will default to 0)";
     }
 
     public String printSuggestedRoomPrompt(List<UUID> suggestedList){

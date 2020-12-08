@@ -40,18 +40,18 @@ public class OrganizerCreateRoomUI extends AbstractUI {
 
         System.out.println(organizerPresenter.strNumOfMicrophone());
         int equipQuantity_2 = input.nextInt();
-        if(equipQuantity_2 != 0){
+        if(equipQuantity_2 > 0){
             String seriesNum = input.nextLine();
             int equipPrice = input.nextInt();
-            for (int i=0; i<equipQuantity_2; i++){
+            for (int i = 0; i < equipQuantity_2; i++){
                 microPhone micro = (microPhone) ItemBuilder.buildItem(seriesNum, equipPrice);
                 itemList.addItem(micro);
             }
         }
 
-        System.out.println(organizerPresenter.strNumOfMicrophone());
+        System.out.println(organizerPresenter.strNumOfProjector());
         int equipQuantity_3 = input.nextInt();
-        if(equipQuantity_3 != 0){
+        if(equipQuantity_3 > 0){
             String seriesNum = input.nextLine();
             int equipPrice = input.nextInt();
             for (int i=0; i<equipQuantity_3; i++) {
@@ -60,9 +60,9 @@ public class OrganizerCreateRoomUI extends AbstractUI {
             }
         }
 
-        System.out.println(organizerPresenter.strNumOfMicrophone());
+        System.out.println(organizerPresenter.strNumOfDJEquipment());
         int equipQuantity_4 = input.nextInt();
-        if(equipQuantity_4 != 0){
+        if(equipQuantity_4 > 0){
             String seriesNum = input.nextLine();
             int equipPrice = input.nextInt();
             for (int i=0; i<equipQuantity_4; i++) {
@@ -71,7 +71,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
             }
         }
 
-        System.out.println(organizerPresenter.strNumOfMicrophone());
+        System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
         int equipQuantity_5 = input.nextInt();
         if(equipQuantity_5 != 0){
             String seriesNum = input.nextLine();
