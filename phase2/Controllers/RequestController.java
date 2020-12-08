@@ -74,6 +74,20 @@ public class RequestController extends AbstractController {
         }
     }
 
+    public void viewRequests() {
+        ArrayList<Request> output = new ArrayList<>();
+        for (UUID req : attendeeManager.getUserRequests()){
+            try {
+                output.add(findRequest(req));
+            } catch (RequestNotFoundException ex){
+                System.out.println("Invalid request ID: there is no existing request with that ID.");
+            }
+        }
+        for (Request req1 : output){
+            System.out.println(req1.toString());
+        }
+    }
+
     /**
      * Retrieves the instance of <code>Request</code> corresponding to the specified UUID.
      * @param requestID UUID of the <code>Request</code> to be retrieved.

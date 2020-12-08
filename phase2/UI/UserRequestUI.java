@@ -30,7 +30,7 @@ public class UserRequestUI extends AbstractUI {
     }
 
     @Override
-    public void run(){
+    public void run() {
         boolean notStop = true;
         while(notStop){
             Scanner doWithRequest = new Scanner(System.in);
@@ -41,7 +41,7 @@ public class UserRequestUI extends AbstractUI {
                     inputRequestInfo(requestController);
                     break;
                 case "1":
-                    // view requests
+                    viewRequests(requestController);
                     break;
                 case "2":
                     modifyRequest(requestController);
@@ -78,6 +78,20 @@ public class UserRequestUI extends AbstractUI {
             tmp.add(newID);
             requestController.attendeeManager.setUserRequests(tmp);
         }
+
+    /**
+     * Outputs all requests made by the user, if any. If the user has not made any requests yet, a message telling them
+     * so will be given instead.
+     * @param requestController An instance of <code>requestController</code>.
+     */
+    private void viewRequests(RequestController requestController){
+        if (requestController.attendeeManager.getUserRequests().isEmpty()) {
+            System.out.println("You have not submitted any requests.");
+        } else {
+            System.out.println("Here are your requests: ");
+            requestController.viewRequests();
+        }
+    }
 
     private void modifyRequest(RequestController requestController) {
         while(true){
