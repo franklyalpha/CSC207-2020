@@ -1,8 +1,7 @@
 package useCases;
 
 import entities.EventRoom;
-import roomRequirementBuilder.roomItem;
-import roomRequirementBuilder.roomItems;
+import roomRequirementBuilder.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +31,8 @@ public class RoomManager implements java.io.Serializable {
      */
     private static ArrayList<EventRoom> eventRooms;
 
+    private ItemBuilder itemBuilder;
+
     /**
      * Creates <code>RoomManager</code> with a blank list of Rooms.
      */
@@ -45,7 +46,29 @@ public class RoomManager implements java.io.Serializable {
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, List<List<Object>> roomItems){
-        EventRoom newEventRoom = new EventRoom(capacity, roomItems);
+        roomItems finalRoomItems = new roomItems();
+        for(int x = 0; x < 4; x++){
+            for(int i = 0; i < (int)roomItems.get(x).get(0); i++){
+                if(x==0){
+                    projector projector =
+                            (projector)itemBuilder.buildItem((String)roomItems.get(x).get(1), (int)roomItems.get(x).get(2));
+                    finalRoomItems.addItem(projector);
+                }else if(x==1){
+                    microPhone mic =
+                            (microPhone)itemBuilder.buildItem((String)roomItems.get(x).get(1), (int)roomItems.get(x).get(2));
+                    finalRoomItems.addItem(mic);
+                }else if(x==2){
+                    DJ djSys =
+                            (DJ)itemBuilder.buildItem((String)roomItems.get(x).get(1), (int)roomItems.get(x).get(2));
+                    finalRoomItems.addItem(djSys);
+                }else{
+                    PartyAudioSystem audiosys =
+                            (PartyAudioSystem)itemBuilder.buildItem((String)roomItems.get(x).get(1), (int)roomItems.get(x).get(2));
+                    finalRoomItems.addItem(audiosys);
+                }
+            }
+        }
+        EventRoom newEventRoom = new EventRoom(capacity, finalRoomItems);
         eventRooms.add(newEventRoom);
         return newEventRoom.getId();
     }
