@@ -77,11 +77,11 @@ public class RequestPresenter extends GeneralMenuPresenter {
             put('2', " - Handle a request");
             put('Q', " - Quit");
         }};
-        return strItemizeMenuOption("sign up as", items);
+        return strItemizeMenuOption("do", items);
     }
 
-    public String strInvalidLogin(){
-        return super.strInvalidHelper("username / password combination.");
+    public String strInvalidRequest(){
+        return super.strInvalidHelper("request (it does not exist).");
     }
 
 

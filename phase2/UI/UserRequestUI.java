@@ -114,7 +114,7 @@ public class UserRequestUI extends AbstractUI {
                             break;
                     }
             }catch(RequestNotFoundException e){
-                e.printStackTrace();
+                requestPresenter.strInvalidRequest();
             }
         }
     }
@@ -193,7 +193,7 @@ public class UserRequestUI extends AbstractUI {
                     i = i + 1;
                 }
             }catch(RequestNotFoundException e){
-                System.out.println("That is not a valid request.");
+                requestPresenter.strInvalidRequest();
             }
         }
     }
