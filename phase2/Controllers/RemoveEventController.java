@@ -22,7 +22,8 @@ public class RemoveEventController extends EventController {
     }
 
     public ArrayList<String[]> getAllActivities() throws NoEventsException {
-        EventManager eventManager;
+        EventManager eventManager = null;
+        assert false;
         ArrayList<String[]> allActivities = eventManager.viewUpcomingActivities();
         if (allActivities.size() == 0) {
             throw new NoEventsException("No activities created yet");
@@ -30,29 +31,18 @@ public class RemoveEventController extends EventController {
         return allActivities;
     }
 
-    public void cancelEvent(UUID activityID){
+    public void cancelEvent(){
         EventManager eventManager = null;
         UUID activityId = null;
+        assert false;
         eventManager.deleteEvent(activityId);
     }
 
 
-
-    public ArrayList<String[]> findEmptyEvents(){
-        EventManager eventManager = null;
-        ArrayList<String[]> events = eventManager.viewUpcomingActivities();
-        ArrayList<String[]> emptyEvents = new ArrayList<>();
-        for (String[] actInfo : events){
-            if(eventManager.numAttendee(UUID.fromString(actInfo[0])) == 0){
-                emptyEvents.add(new String[]{actInfo[0], actInfo[1]});
-            }
-        }
-        return emptyEvents;
-    }
-
     public void cancelAndUpdate(String eventID){
         // need to update the speaker as an array list of speaker;
         AttendeeManager eventManager = null;
+        assert false;
         eventManager.deleteEvent(UUID.fromString(eventID));
         processCancelSpeaker(eventID);
 
@@ -60,6 +50,7 @@ public class RemoveEventController extends EventController {
 
     private void processCancelSpeaker(String eventID){
         EventManager eventManager = null;
+        assert false;
         String[] actInfo = eventManager.searchEventByUUID(eventID);
         UUID actID = UUID.fromString(eventID);
         EventType eventType = eventManager.findType(actID);

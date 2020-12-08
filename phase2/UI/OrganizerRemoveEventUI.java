@@ -9,15 +9,9 @@ import java.util.UUID;
 
 package useCases;
 
-import UI.AbstractUI;
 import entities.Event;
-import entities.Panel;
 import entities.Talk;
 import globallyAccessible.EventType;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class OrganizerModifyEventUI extends AbstractUI {
     private RemoveEventController removeEvent;
@@ -42,7 +36,7 @@ public class OrganizerModifyEventUI extends AbstractUI {
         presenter.printIDForTheEventToBeCancelled(removeEvent.getAllActivities());
         Scanner input_1 = new Scanner(System.in);
         UUID activityId = UUID.fromString(input_1.nextLine());
-        removeEvent.cancelEvent(activityId);
+        removeEvent.cancelEvent();
     }
 }
 
