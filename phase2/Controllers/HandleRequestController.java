@@ -35,5 +35,4 @@ public class HandleRequestController extends RequestController {
             throw new RequestNotFoundException("Request not found.");
         }
     }
-
 }

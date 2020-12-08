@@ -3,7 +3,6 @@ package UI;
 import entities.Request;
 import Controllers.HandleRequestController;
 import Controllers.UserController;
-import functionalityPresenters.Presenter;
 import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
@@ -34,7 +33,7 @@ public class OrganizerRequestUI extends AbstractUI {
         boolean notStop = true;
         while(notStop){
             Scanner doWithRequest = new Scanner(System.in);
-            System.out.println(requestPresenter.strBeginRequestMenu());
+            System.out.println(requestPresenter.strOrgBeginRequestMenu());
             String choice = doWithRequest.nextLine();
             switch (choice){
                 case "0":
@@ -45,9 +44,6 @@ public class OrganizerRequestUI extends AbstractUI {
                     break;
                 case "2":
                     handleRequest(handleRequestController);
-                    break;
-                case "3":
-                    // reply to request?
                     break;
                 case "Q":
                 case "q":
@@ -111,33 +107,6 @@ public class OrganizerRequestUI extends AbstractUI {
                 System.out.println("That is not a valid request.");
             }
         }
-    }
-
-
-    /**
-     * Gets info from the user regarding which <code>Request</code> they wish to modify.
-     * @param requestController An instance of <code>requestController</code>.
-     * @return The UUID of the <code>Request</code> they wish to modify.
-     * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
-     */
-    private UUID chooseRequest(HandleRequestController requestController) throws RequestNotFoundException{
-        Scanner requestIDScanner = new Scanner(System.in);
-        System.out.println(requestPresenter.strRequestPromptHelper("modify"));
-        ArrayList<UUID> tmp = requestController.attendeeManager.getUserRequests();
-        ArrayList<Request> userReqs = new ArrayList<>();
-        for (UUID req : tmp){
-            userReqs.add(requestController.findRequest(req));
-        }
-        System.out.println(userPresenter.strList(userReqs.toArray()));
-        String selection = requestIDScanner.nextLine();
-        int i = 0;
-        for (Request req : requestController.getAllRequest()){
-            if (i == Integer.parseInt(selection)){
-                return req.getId();
-            }
-            i = i+1;
-        }
-        throw new RequestNotFoundException("Invalid selection!");
     }
 
     /**

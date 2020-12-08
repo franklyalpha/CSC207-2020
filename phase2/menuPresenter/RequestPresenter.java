@@ -70,11 +70,12 @@ public class RequestPresenter extends GeneralMenuPresenter {
         return strItemizeMenuOption("do", items);
     }
 
-    public String strSighUpMenu(){
+    public String strOrgBeginRequestMenu(){
         HashMap<Character, String> items = new HashMap<Character, String>() {{
-            put('0', "Organizer");
-            put('1', "Attendee");
-            put('2', "Administrator");
+            put('0', " - View pending requests");
+            put('1', " - View all requests");
+            put('2', " - Handle a request");
+            put('Q', " - Quit");
         }};
         return strItemizeMenuOption("sign up as", items);
     }

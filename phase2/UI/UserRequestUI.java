@@ -3,7 +3,6 @@ package UI;
 import entities.Request;
 import Controllers.RequestController;
 import Controllers.UserController;
-import functionalityPresenters.Presenter;
 import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
