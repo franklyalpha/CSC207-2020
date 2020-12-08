@@ -2,11 +2,15 @@ package Controllers;
 
 import entities.Request;
 import globallyAccessible.RequestNotFoundException;
+import useCases.AttendeeManager;
 import useCases.RequestManager;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class RequestController extends AbstractController {
+
+    protected AttendeeManager attendeeManager;
+
 
     /**
      * Constructor for an instance of <code>RequestController</code>

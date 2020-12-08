@@ -38,10 +38,6 @@ public abstract class User implements java.io.Serializable {
      */
     private final HashMap<LocalDateTime[], UUID> activities;
 
-    /**
-     * List of <code>UUID</code> corresponding to  requests submitted by this user.
-     */
-    private ArrayList<UUID> requests;
     // in phase 2, will create a clone corresponding activities for
     // new modified schedules;  will be a shallow copy
 
@@ -103,14 +99,6 @@ public abstract class User implements java.io.Serializable {
     }
 
     /**
-     * Getter for list of <code>UUID</code>s corresponding to requests created by this user.
-     * @return ArrayList of <code>UUID</code> of requests created by this user.
-     */
-    public ArrayList<UUID> getRequests() {
-        return requests;
-    }
-
-    /**
      * Changes the name of this user with the given new name.
      * @param  newName the new name of this user.
      */
@@ -118,13 +106,7 @@ public abstract class User implements java.io.Serializable {
         username = newName;
     }
 
-    /**
-     * Changes the list of <code>Request</code>s made by this user to be the new input list.
-     * @param requests New list with which the existing list of <code>Request</code>s will be replaced with.
-     */
-    public void setRequests(ArrayList<UUID> requests) {
-        this.requests = requests;
-    }
+
 
     /**
      * Changes the password of this user with the given new password.
