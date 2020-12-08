@@ -8,7 +8,7 @@ import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
 
-public class UserRequestUI extends AbstractUI {
+public class OrganizerRequestUI extends AbstractUI {
     /**
      * Instance of <code>CreateRequestController</code>
      */
@@ -23,7 +23,7 @@ public class UserRequestUI extends AbstractUI {
      * Creates an instance of <code>UserRequestUI</code>.
      * @param userController Instance of <code>UserController</code>.
      */
-    public UserRequestUI(UserController userController) {
+    public OrganizerRequestUI(UserController userController) {
         super(userController);
         requestController = new RequestController(userController);
         requestPresenter = new RequestPresenter();
@@ -38,16 +38,16 @@ public class UserRequestUI extends AbstractUI {
             String choice = doWithRequest.nextLine();
             switch (choice){
                 case "0":
-                    inputRequestInfo(requestController);
+                    viewPendingRequests(requestController);
                     break;
                 case "1":
-                    viewRequests(requestController);
+                    viewAllRequests(requestController);
                     break;
                 case "2":
-                    modifyRequest(requestController);
+                    // handle request
                     break;
                 case "3":
-                    removeRequest(requestController);
+                    // reply to request?
                     break;
                 case "Q":
                 case "q":
@@ -60,32 +60,28 @@ public class UserRequestUI extends AbstractUI {
         }
     }
 
-
     /**
-     * Takes user input for information required to create a new <code>Request</code>: subject, details.
-     * @param requestController An instance of <code>requestController</code>.
-     */
-    private void inputRequestInfo(RequestController requestController) {
-            Scanner subjectScanner = new Scanner(System.in);
-            System.out.println(requestPresenter.strRequestSubjectPrompt());
-            String subject = subjectScanner.nextLine();
-            Scanner detailScan = new Scanner(System.in);
-            System.out.println(requestPresenter.strRequestDetailsPrompt());
-            String detail = detailScan.nextLine();
-            UUID newID = requestController.newRequestCreator(subject, detail);
-            ArrayList<UUID> tmp = requestController.attendeeManager.getUserRequests();
-            tmp.add(newID);
-            requestController.attendeeManager.setUserRequests(tmp);
-        }
-
-    /**
-     * Outputs all requests made by the user, if any. If the user has not made any requests yet, a message telling them
+     * Outputs all submitted requests, if any. If there are no requests yet, a message telling them
      * so will be given instead.
      * @param requestController An instance of <code>requestController</code>.
      */
-    private void viewRequests(RequestController requestController){
+    private void viewPendingRequests(RequestController requestController){
+        if (requestController.getAllRequest().isEmpty()) {
+            System.out.println("There are currently no pending requests");
+        } else {
+            System.out.println("Here are all pending requests: ");
+            requestController.viewPendingRequests();
+        }
+    }
+
+    /**
+     * Outputs all submitted requests, if any. If there are no requests yet, a message telling them
+     * so will be given instead.
+     * @param requestController An instance of <code>requestController</code>.
+     */
+    private void viewAllRequests(RequestController requestController){
         if (requestController.attendeeManager.getUserRequests().isEmpty()) {
-            System.out.println("You have not submitted any requests.");
+            System.out.println("There are currently no requests");
         } else {
             System.out.println("Here are your requests: ");
             requestController.viewUserRequests();
@@ -102,18 +98,18 @@ public class UserRequestUI extends AbstractUI {
                 UUID selection = chooseRequest(requestController);
                 Scanner chooseSubjectDetail = new Scanner(System.in);
                 System.out.println("What part would you like to modify? (Please enter the corresponding number):");
-                    String choice = chooseSubjectDetail.nextLine();
-                    switch (choice){
-                        case "0":  // modify subject
-                            modifySubject(selection);
-                            break;
-                        case "1":  // modify details
-                            modifyDetails(selection);
-                            break;
-                        default:
-                            System.out.println(userPresenter.strInvalidInput());
-                            break;
-                    }
+                String choice = chooseSubjectDetail.nextLine();
+                switch (choice){
+                    case "0":  // modify subject
+                        modifySubject(selection);
+                        break;
+                    case "1":  // modify details
+                        modifyDetails(selection);
+                        break;
+                    default:
+                        System.out.println(userPresenter.strInvalidInput());
+                        break;
+                }
             }catch(RequestNotFoundException e){
                 e.printStackTrace();
             }

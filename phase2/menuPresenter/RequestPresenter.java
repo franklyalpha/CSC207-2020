@@ -83,11 +83,5 @@ public class RequestPresenter extends GeneralMenuPresenter {
         return super.strInvalidHelper("username / password combination.");
     }
 
-    public String strWrongInputMenu(){
-        HashMap<Character, String> items = new HashMap<Character, String>() {{
-            put('Y', "Continue");
-            put('N', "No");
-        }};
-        return strItemizeMenuOption("do", items);
-    }
+
 }

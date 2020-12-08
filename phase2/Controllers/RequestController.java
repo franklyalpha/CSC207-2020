@@ -74,7 +74,10 @@ public class RequestController extends AbstractController {
         }
     }
 
-    public void viewRequests() {
+    /**
+     * Outputs all requests in a list-like format.
+     */
+    public void viewUserRequests() {
         ArrayList<Request> output = new ArrayList<>();
         for (UUID req : attendeeManager.getUserRequests()){
             try {
