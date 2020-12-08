@@ -9,6 +9,9 @@ import java.util.UUID;
 
 public class RequestController extends AbstractController {
 
+    /**
+     * An instance of <code>AttendeeManager</code>.
+     */
     protected AttendeeManager attendeeManager;
 
 
@@ -18,6 +21,7 @@ public class RequestController extends AbstractController {
      */
     public RequestController(UserController userController) {
         super(userController);
+        attendeeManager = new AttendeeManager(userManager);
     }
 
     /**

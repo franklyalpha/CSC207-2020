@@ -1,11 +1,16 @@
 package useCases;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
+import entities.Attendee;
 
 public class AttendeeManager extends UserManager {
+
+    Attendee currUser = (Attendee) userOnAir;
+
     public AttendeeManager(UserManager userManager){
         super(userManager);
     }
@@ -58,5 +63,21 @@ public class AttendeeManager extends UserManager {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns the ID of requests of the <code>Attendee</code>>.
+     * @return ArrayList representing the UUID of the attendee's submitted requests.
+     */
+    public ArrayList<UUID> getUserRequests(){
+        return currUser.getRequests();
+    }
+
+    /**
+     * Changes the list of <code>UUID</code>s to the new input list.
+     * @param newList New list with which the existing list of <code>UUID</code>s will be replaced with.
+     */
+    public void setUserRequests(ArrayList<UUID> newList){
+        currUser.setRequests(newList);
     }
 }

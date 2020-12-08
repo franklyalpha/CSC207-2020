@@ -74,7 +74,8 @@ public class UserRequestUI extends AbstractUI {
             Scanner detailScan = new Scanner(System.in);
             System.out.println(userPresenter.strRequestDetailsPrompt());
             String detail = detailScan.nextLine();
-            requestController.newRequestCreator(subject, detail);
+            UUID newID = requestController.newRequestCreator(subject, detail);
+            // requestController.attendeeManager.
         }
 
     private String modifyRequest(RequestController requestController) {
@@ -99,7 +100,7 @@ public class UserRequestUI extends AbstractUI {
             }
             i = i+1;
         }
-        return userPresenter.strInvalidInput();
+        return null; //TODO fix this
     }
 
     private void modifyRequestSubject(RequestController requestController) {

@@ -58,7 +58,7 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
     public UserManager(UserManager userManager) {
         this.allUsers = userManager.allUsers;
         this.num_user = userManager.num_user;
-        this.userOnAir = userManager.userOnAir;
+        this.userOnAir = userManager.userOnAir;  // user that is currently logged in
     }
 
     /**
