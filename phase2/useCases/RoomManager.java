@@ -44,7 +44,7 @@ public class RoomManager implements java.io.Serializable {
      * @param capacity is the capacity for the newly constructed <code>Room</code>.
      * @return the id of the newly constructed <code>Room</code>.
      */
-    public UUID addRoom(int capacity, roomItems roomItems){
+    public UUID addRoom(int capacity, List<List<Object>> roomItems){
         EventRoom newEventRoom = new EventRoom(capacity, roomItems);
         eventRooms.add(newEventRoom);
         return newEventRoom.getId();

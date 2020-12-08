@@ -2,6 +2,8 @@ package Controllers;
 
 import roomRequirementBuilder.roomItems;
 
+import java.util.List;
+
 public class CreateRoomController extends AbstractController{
 
 
@@ -10,7 +12,7 @@ public class CreateRoomController extends AbstractController{
     }
 
 
-    public void createRoomWithCondition(int a, roomItems b) throws Exception {
+    public void createRoomWithCondition(int a, List<List<Object>> b) throws Exception {
         if (a > 0){
             roomManager.addRoom(a, b);
         }

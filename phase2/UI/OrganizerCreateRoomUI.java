@@ -5,6 +5,8 @@ import Controllers.UserController;
 import menuPresenter.OrganizerPresenter;
 import roomRequirementBuilder.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -36,49 +38,27 @@ public class OrganizerCreateRoomUI extends AbstractUI {
 
         int room_capacity = input.nextInt();
 
-        roomItems itemList = new roomItems();
+        List<List<Object>> itemList = new ArrayList<>();
 
-        System.out.println(organizerPresenter.strNumOfMicrophone());
-        int equipQuantity_2 = input.nextInt();
-        if(equipQuantity_2 > 0){
-            String seriesNum = input.nextLine();
-            int equipPrice = input.nextInt();
-            for (int i = 0; i < equipQuantity_2; i++){
-                microPhone micro = (microPhone) ItemBuilder.buildItem(seriesNum, equipPrice);
-                itemList.addItem(micro);
+        for(int x = 0; x < 4; x++){
+            if(x==0){
+                System.out.println(organizerPresenter.strNumOfMicrophone());
+            }else if(x==1){
+                System.out.println(organizerPresenter.strNumOfProjector());
+            }else if(x==2){
+                System.out.println(organizerPresenter.strNumOfDJEquipment());
+            }else{
+                System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
             }
-        }
-
-        System.out.println(organizerPresenter.strNumOfProjector());
-        int equipQuantity_3 = input.nextInt();
-        if(equipQuantity_3 > 0){
-            String seriesNum = input.nextLine();
-            int equipPrice = input.nextInt();
-            for (int i=0; i<equipQuantity_3; i++) {
-                projector projec = (projector) ItemBuilder.buildItem(seriesNum, equipPrice);
-                itemList.addItem(projec);
-            }
-        }
-
-        System.out.println(organizerPresenter.strNumOfDJEquipment());
-        int equipQuantity_4 = input.nextInt();
-        if(equipQuantity_4 > 0){
-            String seriesNum = input.nextLine();
-            int equipPrice = input.nextInt();
-            for (int i=0; i<equipQuantity_4; i++) {
-                DJ dj = (DJ) ItemBuilder.buildItem(seriesNum, equipPrice);
-                itemList.addItem(dj);
-            }
-        }
-
-        System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
-        int equipQuantity_5 = input.nextInt();
-        if(equipQuantity_5 != 0){
-            String seriesNum = input.nextLine();
-            int equipPrice = input.nextInt();
-            for (int i=0; i<equipQuantity_5; i++) {
-                PartyAudioSystem audioSys = (PartyAudioSystem) ItemBuilder.buildItem(seriesNum, equipPrice);
-                itemList.addItem(audioSys);
+            List<Object> temp = new ArrayList<>();
+            int equipQuantity = input.nextInt();
+            temp.add(equipQuantity);
+            if(equipQuantity > 0){
+                String seriesNum = input.nextLine();
+                int equipPrice = input.nextInt();
+                temp.add(seriesNum);
+                temp.add(equipPrice);
+                itemList.add(temp);
             }
         }
 
