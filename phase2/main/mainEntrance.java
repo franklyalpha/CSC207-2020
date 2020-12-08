@@ -1,17 +1,11 @@
 package main;
 
-import UI.LoginUI;
-import gateways.MongodbUser;
+import UI.MainUI;
 
 public class mainEntrance {
     public static void main(String[] args){
-        // Mongodb
-//        MongodbUser mongodbUser = new MongodbUser();
-//        mongodbUser.startMongodbUser();
-
-        // UI
-        LoginUI login = new LoginUI();
-        login.run();
+        MainUI mainUI = new MainUI();
+        mainUI.run();
     }
 
 }

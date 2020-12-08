@@ -23,7 +23,7 @@ import java.util.Scanner;
  *  run: the main method for printing out instructions to guide user for login and sign up.
  *
  */
-public class LoginUI {
+public class MainUI {
 
     final private LoginController loginController = new LoginController();
     private LoginPresenter loginPresenter = new LoginPresenter();
