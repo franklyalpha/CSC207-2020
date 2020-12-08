@@ -150,22 +150,6 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
     public String getUsername(){return userOnAir.getUsername();}
 
     /**
-     * Returns the ID of requests of the user.
-     * @return ArrayList representing the UUIOD of user's submitted requests.
-     */
-    public ArrayList<UUID> getUserRequests(){
-        return userOnAir.getRequests();
-    }
-
-    /**
-     * Changes the list of <code>UUID</code>s to the new input list.
-     * @param newList New list with which the existing list of <code>UUID</code>s will be replaced with.
-     */
-    public void setUserRequests(ArrayList<UUID> newList){
-        userOnAir.setRequests(newList);
-    }
-
-    /**
      * Creates a <code>selfAddChatroom</code> and add the user in the chatroom.
      * @param userName is the name of the user that needed to be added.
      * @param chatID is the ID of the chat.
