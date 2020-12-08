@@ -12,7 +12,7 @@ public class RequestController extends AbstractController {
     /**
      * An instance of <code>AttendeeManager</code>.
      */
-    protected AttendeeManager attendeeManager;
+    public AttendeeManager attendeeManager;
 
 
     /**

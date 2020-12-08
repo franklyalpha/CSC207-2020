@@ -3,12 +3,10 @@ package UI;
 import entities.Request;
 import Controllers.RequestController;
 import Controllers.UserController;
-import menuPresenter.UserPresenter;
-
-import java.lang.reflect.Array;
-import java.util.UUID;
-
-import java.util.Scanner;
+import functionalityPresenters.Presenter;
+import menuPresenter.RequestPresenter;
+import globallyAccessible.RequestNotFoundException;
+import java.util.*;
 
 public class UserRequestUI extends AbstractUI {
     /**
@@ -19,7 +17,7 @@ public class UserRequestUI extends AbstractUI {
     /**
      * Instance of <code>UserPresenter</code>
      */
-    private UserPresenter userPresenter;
+    private final RequestPresenter requestPresenter;
 
     /**
      * Creates an instance of <code>UserRequestUI</code>.
@@ -28,7 +26,7 @@ public class UserRequestUI extends AbstractUI {
     public UserRequestUI(UserController userController) {
         super(userController);
         requestController = new RequestController(userController);
-        userPresenter = new UserPresenter();
+        requestPresenter = new RequestPresenter();
     }
 
     @Override
@@ -36,7 +34,7 @@ public class UserRequestUI extends AbstractUI {
         boolean notStop = true;
         while(notStop){
             Scanner doWithRequest = new Scanner(System.in);
-            System.out.println(userPresenter.strRequestSubjectPrompt());
+            System.out.println(requestPresenter.strRequestSubjectPrompt());
             String choice = doWithRequest.nextLine();
             switch (choice){
                 case "0":
@@ -69,28 +67,53 @@ public class UserRequestUI extends AbstractUI {
      */
     private void inputRequestInfo(RequestController requestController) {
             Scanner subjectScanner = new Scanner(System.in);
-            System.out.println(userPresenter.strRequestSubjectPrompt());
+            System.out.println(requestPresenter.strRequestSubjectPrompt());
+            System.out.println(requestPresenter.strBeginRequestMenu());
             String subject = subjectScanner.nextLine();
             Scanner detailScan = new Scanner(System.in);
-            System.out.println(userPresenter.strRequestDetailsPrompt());
+            System.out.println(requestPresenter.strRequestDetailsPrompt());
             String detail = detailScan.nextLine();
             UUID newID = requestController.newRequestCreator(subject, detail);
-            // requestController.attendeeManager.
+            ArrayList<UUID> tmp = requestController.attendeeManager.getUserRequests();
+            tmp.add(newID);
+            requestController.attendeeManager.setUserRequests(tmp);
         }
 
-    private String modifyRequest(RequestController requestController) {
-        UUID selection = chooseRequest(requestController);
-        return "test";
+    private void modifyRequest(RequestController requestController) {
+        while(true){
+            try{
+                UUID selection = chooseRequest(requestController);
+                Scanner chooseSubjectDetail = new Scanner(System.in);
+                System.out.println("What would you like to modify? (Please enter the corresponding number):");
+                    String choice = chooseSubjectDetail.nextLine();
+                    switch (choice){
+                        case "0":  // modify subject
+                            modifySubject(selection);
+                            break;
+                        case "1":  // modify details
+                            modifyDetails(selection);
+                            break;
+                        default:
+                            System.out.println(userPresenter.strInvalidInput());
+                            break;
+                    }
+
+            }catch(RequestNotFoundException e){
+                e.printStackTrace();
+            }
+        }
     }
+
 
     /**
      * Gets info from the user regarding which <code>Request</code> they wish to modify.
      * @param requestController An instance of <code>requestController</code>.
      * @return The UUID of the <code>Request</code> they wish to modify.
+     * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
      */
-    private UUID chooseRequest(RequestController requestController){
+    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException{
         Scanner requestIDScanner = new Scanner(System.in);
-        System.out.println(userPresenter.strChooseRequest("modify"));
+        System.out.println(requestPresenter.strChooseRequest("modify"));
         System.out.println(userPresenter.strList(requestController.getAllRequest().toArray()));
         String selection = requestIDScanner.nextLine();
         int i = 0;
@@ -100,12 +123,33 @@ public class UserRequestUI extends AbstractUI {
             }
             i = i+1;
         }
-        return null; //TODO fix this
+        throw new RequestNotFoundException("Invalid selection!");
     }
 
-    private void modifyRequestSubject(RequestController requestController) {
-        Scanner requestIDScanner = new Scanner(System.in);
-        System.out.println(userPresenter.strChooseRequest("modify"));
+    /**
+     * Gets user to input the new subject to be used to replace the subject of the specified <code>Request</code> and
+     * performs this replacement.
+     * @param request <code>UUID</code> corresponding to the <code>Request</code> to modify.
+     * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
+     */
+    private void modifySubject(UUID request) throws RequestNotFoundException {
+        Scanner subjectScanner = new Scanner(System.in);
+        System.out.println(requestPresenter.strInputNewSubject());
+        String newSubject = subjectScanner.nextLine();
+        requestController.modifyRequestSubject(request, newSubject);
+    }
+
+    /**
+     * Gets user to input the new details to be used to replace the description of the specified <code>Request</code>
+     * and performs this replacement.
+     * @param request <code>UUID</code> corresponding to the <code>Request</code> to modify.
+     * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
+     */
+    private void modifyDetails(UUID request) throws RequestNotFoundException {
+        Scanner detailScanner = new Scanner(System.in);
+        System.out.println(requestPresenter.strInputNewSubject());
+        String newDetail = detailScanner.nextLine();
+        requestController.modifyRequestDetails(request, newDetail);
     }
 
     /**
