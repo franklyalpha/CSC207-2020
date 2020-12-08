@@ -24,10 +24,6 @@ public class GeneralMenuPresenter {
         return "Please enter " + item + ": ";
     }
 
-    public String strRequestPromptHelper(String item){
-        return "Please specify which request you wish to " + item + ": ";
-    }
-
     public String strPasswordPrompt(){
         return strPromptHelper("the password");
     }

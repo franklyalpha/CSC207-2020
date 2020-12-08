@@ -34,20 +34,20 @@ public class UserRequestUI extends AbstractUI {
         boolean notStop = true;
         while(notStop){
             Scanner doWithRequest = new Scanner(System.in);
-            System.out.println(requestPresenter.strRequestSubjectPrompt());
+            System.out.println(requestPresenter.strBeginRequestMenu());
             String choice = doWithRequest.nextLine();
             switch (choice){
                 case "0":
                     inputRequestInfo(requestController);
                     break;
                 case "1":
-                    modifyRequest(requestController);
+                    // view requests
                     break;
                 case "2":
-
+                    modifyRequest(requestController);
                     break;
                 case "3":
-
+                    //remove request
                     break;
                 case "Q":
                 case "q":
@@ -113,7 +113,7 @@ public class UserRequestUI extends AbstractUI {
      */
     private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException{
         Scanner requestIDScanner = new Scanner(System.in);
-        System.out.println(requestPresenter.strChooseRequest("modify"));
+        System.out.println(requestPresenter.strRequestPromptHelper("modify"));
         System.out.println(userPresenter.strList(requestController.getAllRequest().toArray()));
         String selection = requestIDScanner.nextLine();
         int i = 0;
