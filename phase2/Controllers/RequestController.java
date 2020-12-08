@@ -83,8 +83,10 @@ public class RequestController extends AbstractController {
                 System.out.println("Invalid request ID: there is no existing request with that ID.");
             }
         }
+        int i = 0;
         for (Request req1 : output){
-            System.out.println(req1.toString());
+            System.out.println("[" + i + "]\n" + req1.toString());
+            i = i + 1;
         }
     }
 
