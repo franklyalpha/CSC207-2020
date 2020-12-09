@@ -57,16 +57,16 @@ public class LoginController {
 
     private UserType UserTypeDistributor(int type) throws InvalidUserTypeException {
         switch (type) {
-            case 0 -> {
+            case 0 : {
                 return UserType.ORGANIZER;
             }
-            case 1 -> {
+            case 1 : {
                 return UserType.ATTENDEE;
             }
-            case 2 -> {
+            case 2 : {
                 return UserType.ADMINISTRATOR;
             }
-            default -> throw new InvalidUserTypeException("No such user type!!!");
+            default : throw new InvalidUserTypeException("No such user type!!!");
         }
     }
 
