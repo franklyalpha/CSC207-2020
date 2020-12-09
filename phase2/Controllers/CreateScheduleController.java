@@ -26,7 +26,7 @@ public class CreateScheduleController extends EventController {
     /**
      * An <>ArrayList</> containing <>UUID</> of rooms which are free during certain time period.
      */
-    private ArrayList<UUID> freeRooms;
+    private ArrayList<String[]> freeRooms;
 
 
     /**
@@ -78,7 +78,7 @@ public class CreateScheduleController extends EventController {
      */
     public void checkInfoValid(String room, int MaxNumber, ArrayList<String> speakers)
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
-        UUID RoomID = freeRooms.get(Integer.getInteger(room));
+        UUID RoomID = UUID.fromString(freeRooms.get(Integer.getInteger(room))[0]);
         int RoomCapacity = roomManager.getRoomCapacity(RoomID);
 
         for(String speaker: speakers){
@@ -129,14 +129,11 @@ public class CreateScheduleController extends EventController {
     }
 
     // this method will be deleted after not allowing user to input number of microphones and so on.
-    public List<UUID> getSuggestedRoomList(int projectorNum, int microNum, int djNum, int partyaudioNum){
-        List<UUID> suggestedList = new ArrayList<>();
-        for(UUID i: freeRooms){
-            RoomItems items = roomManager.getRoomItems(i);
-            if(items.getQuantityByName("Projector") >= projectorNum &
-                    items.getQuantityByName("Microphone") >= microNum &
-                    items.getQuantityByName("DJ equipment") >= djNum &
-                    items.getQuantityByName("Party Audio System") >= partyaudioNum){
+    public List<String[]> getSuggestedRoomList(boolean hasProjector, boolean hasMicrophone, boolean hasPartyAudio){
+        List<String[]> suggestedList = new ArrayList<>();
+        for(String[] i: freeRooms){
+            UUID roomID = UUID.fromString(i[0]);
+            if (roomManager.checkRoomItems(roomID, new Boolean[]{hasProjector, hasMicrophone, hasPartyAudio})){
                 suggestedList.add(i);
             }
         }

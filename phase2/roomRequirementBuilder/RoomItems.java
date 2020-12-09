@@ -58,6 +58,18 @@ public class RoomItems {
         return itemsString;
     }
 
+    public boolean hasMicrophone(){
+        return items.get(0) != null;
+    }
+
+    public boolean hasProjector(){
+        return items.get(1) != null;
+    }
+
+    public boolean hasPartyAudio(){
+        return items.get(2) != null;
+    }
+
 
 
 }
