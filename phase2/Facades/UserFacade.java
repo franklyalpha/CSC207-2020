@@ -5,6 +5,7 @@ import UI.*;
 import menuPresenter.UserPresenter;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserFacade {
     protected ArrayList<String> availableAction = new ArrayList<>();
@@ -44,4 +45,14 @@ public class UserFacade {
     }
 
     protected void viewStatistic(){new StatisticUI(userController).run();}
+
+    protected boolean continuing(){
+        boolean enterAction = true;
+        System.out.println(userPresenter.strContinueServicePrompt());
+        Scanner scan2 = new Scanner(System.in);
+        if(!scan2.nextLine().equalsIgnoreCase("true")){
+            enterAction = false;
+        }
+        return enterAction;
+    }
 }

@@ -45,9 +45,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
                 System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
             }
             int equipQuantity = input.nextInt();
-            if(equipQuantity > 0){
-                itemList.add(equipQuantity);
-            }
+            itemList.add(equipQuantity);
         }
         createRoom.createRoomWithCondition(room_capacity, itemList);
         System.out.println(organizerPresenter.strRoomCapacityConfirmation(room_capacity));

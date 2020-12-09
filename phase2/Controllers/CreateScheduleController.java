@@ -78,16 +78,13 @@ public class CreateScheduleController extends EventController {
      */
     public void checkInfoValid(String room, int MaxNumber, ArrayList<String> speakers)
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
-        UUID RoomID = UUID.fromString(freeRooms.get(Integer.getInteger(room))[0]);
+        UUID RoomID = UUID.fromString(room);
         int RoomCapacity = roomManager.getRoomCapacity(RoomID);
 
         for(String speaker: speakers){
             if (!freeSpeaker.contains(speaker)){
                 throw new UserNotFoundException("");
             }
-        }
-        if (Integer.getInteger(room) < 0 || Integer.getInteger(room) >= freeRooms.size()){
-            throw new IndexOutOfBoundsException();
         }
         if (RoomCapacity < MaxNumber){
             throw new MaxNumberBeyondRoomCapacityException("");
@@ -104,19 +101,19 @@ public class CreateScheduleController extends EventController {
      */
     public void newEventSetter(EventType type, LocalDateTime[] period, Object[] actSettings){
         UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
-        UUID assignedRoom = (UUID) actSettings[1];
-        String topic = (String) actSettings[2];
-        Integer MaxNum = (Integer) actSettings[3];
+        UUID assignedRoom = (UUID) actSettings[0];
+        String topic = (String) actSettings[1];
+        Integer MaxNum = (Integer) actSettings[4];
         UUID actID = null;
         if(type == EventType.TALK){
             actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
-            String speaker = (String) actSettings[4];
-            talkManager.addSpeaker(actID, speaker);
-            organizerManager.otherAddSchedule(speaker, period, actID);
-            messageRoomManager.addUser(speaker, assignedChat);
+            ArrayList<String> speakers = (ArrayList<String>) actSettings[2];
+            talkManager.addSpeaker(actID, speakers.get(0));
+            organizerManager.otherAddSchedule(speakers.get(0), period, actID);
+            messageRoomManager.addUser(speakers.get(0), assignedChat);
         }else if(type == EventType.PANEL){
             actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
-            ArrayList<String> speakers = (ArrayList<String>) actSettings[4];
+            ArrayList<String> speakers = (ArrayList<String>) actSettings[2];
             for(String speaker: speakers){
                 panelManager.addSpeaker(actID, speaker);
                 organizerManager.otherAddSchedule(speaker, period, actID);

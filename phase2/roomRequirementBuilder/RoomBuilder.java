@@ -25,20 +25,26 @@ public class RoomBuilder {
         if (quantity != 0){
             roomItems.addItem(itemFactory.constructProjector());
         }
-        roomItems.addItem(null);
+        else{
+            roomItems.addItem(null);
+        }
     }
 
     public void buildMicrophone(int quantity){
         if(quantity != 0){
             roomItems.addItem(itemFactory.constructMicrophone(quantity));
         }
-        roomItems.addItem(null);
+        else{
+            roomItems.addItem(null);
+        }
     }
 
     public void buildPartyAudio(int quantity){
         if(quantity != 0){
             roomItems.addItem(itemFactory.constructPartyAudio());
         }
-        roomItems.addItem(null);
+        else{
+            roomItems.addItem(null);
+        }
     }
 }
