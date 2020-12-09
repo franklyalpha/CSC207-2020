@@ -106,15 +106,7 @@ public class SpeakerFacade extends OrganizerFacade {
      */
 
 
-    protected boolean continuing(){
-        boolean enterAction = true;
-        System.out.println(speakerPresenter.strContinueServicePrompt());
-        Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("true")){
-            enterAction = false;
-        }
-        return enterAction;
-    }
+
 
 
 

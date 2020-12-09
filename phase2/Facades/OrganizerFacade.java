@@ -200,13 +200,5 @@ public class OrganizerFacade extends UserFacade {
      * Will ask for messages to send during running.
      */
 
-    boolean continuing(){
-        boolean enterAction = true;
-        System.out.println(organizerPresenter.strContinueServicePrompt());
-        Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("true")){
-            enterAction = false;
-        }
-        return enterAction;
-    }
+
 }

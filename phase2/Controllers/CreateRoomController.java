@@ -3,6 +3,7 @@ package Controllers;
 import globallyAccessible.CannotCreateEventException;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The controller responsible for creating a new room with given information. Extends from <>AbstractController</>.
@@ -25,9 +26,9 @@ public class CreateRoomController extends AbstractController{
      *                  serial number of <>RoomItem</>, and price of <>RoomItem</>.
      * @throws CannotCreateEventException: is thrown when capacity is less than or equal to zero.
      */
-    public void createRoomWithCondition(int capacity, List<Integer> roomItems) throws CannotCreateEventException {
+    public UUID createRoomWithCondition(int capacity, List<Integer> roomItems) throws CannotCreateEventException {
         if (capacity > 0){
-            roomManager.addRoom(capacity, roomItems);
+            return roomManager.addRoom(capacity, roomItems);
         }
         else{
             throw new CannotCreateEventException("Invalid capacity!!!");

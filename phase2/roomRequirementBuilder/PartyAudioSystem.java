@@ -1,6 +1,6 @@
 package roomRequirementBuilder;
 
-public class PartyAudioSystem extends RoomItem {
+public class PartyAudioSystem extends RoomItem implements java.io.Serializable {
 
     @Override
     public String name() {

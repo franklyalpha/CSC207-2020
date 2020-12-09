@@ -58,7 +58,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strContinueServicePrompt(){
-        return "Do you want to perform another action? You will be logged out if not. [YES / NO] ";
+        return "Do you want to perform another action? You will be logged out if not. [true / false] ";
     }
     //TODO change this so it match up the input pattern
 

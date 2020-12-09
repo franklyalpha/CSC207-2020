@@ -3,7 +3,7 @@ package roomRequirementBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomItems {
+public class RoomItems implements java.io.Serializable {
     private List<RoomItem> items = new ArrayList<RoomItem>();
 
 

@@ -39,7 +39,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         LocalDateTime[] targetPeriod = periodProcessor();
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
         Object[] speakerRoom = getSpeakerRoomTopic(speakersRooms, createSchedule);
-        Object[] actSetting = new Object[]{targetPeriod, speakerRoom[1], speakerRoom[2], speakerRoom[0], speakerRoom[4]};
+        Object[] actSetting = new Object[]{speakerRoom[1], speakerRoom[2], speakerRoom[4], speakerRoom[3]};
         createSchedule.newEventSetter((EventType) speakerRoom[0], targetPeriod, actSetting);
     }
 

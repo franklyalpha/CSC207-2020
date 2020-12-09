@@ -29,7 +29,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     /**
      * a Arraylist of <code>Room</code>
      */
-    private static ArrayList<EventRoom> eventRooms;
+    private ArrayList<EventRoom> eventRooms;
 
     private ItemFactory itemFactory;
 

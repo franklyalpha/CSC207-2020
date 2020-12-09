@@ -1,6 +1,6 @@
 package roomRequirementBuilder;
 
-public class MicroPhone extends RoomItem {
+public class MicroPhone extends RoomItem implements java.io.Serializable {
     private int micQuantity;
 
     public MicroPhone(int quantity){
