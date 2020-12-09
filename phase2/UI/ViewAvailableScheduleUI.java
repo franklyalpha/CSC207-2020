@@ -4,7 +4,7 @@ import Controllers.UserController;
 import functionalityPresenters.AvailableSchedulePresenter;
 
 public class ViewAvailableScheduleUI extends AbstractUI {
-    private AvailableSchedulePresenter availableSchedulePresenter;
+    private final AvailableSchedulePresenter availableSchedulePresenter;
 
     public ViewAvailableScheduleUI(UserController userController) {
         super(userController);
@@ -13,6 +13,10 @@ public class ViewAvailableScheduleUI extends AbstractUI {
 
     @Override
     public void run() {
-        System.out.println(userPresenter.strSchedule(availableSchedulePresenter.viewAvailableSchedules()));
+        if (availableSchedulePresenter.viewAvailableSchedules().isEmpty()){
+            System.out.println("sorry, there are no events available for registration at the moment. Please check back later.\n ");
+        }else {
+            System.out.println(userPresenter.strSchedule(availableSchedulePresenter.viewAvailableSchedules()));
+        }
     }
 }

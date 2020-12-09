@@ -16,6 +16,10 @@ public class ViewEnrolledScheduleUI extends AbstractUI {
     @Override
     public void run() {
         ArrayList<String[]> schedules = enrolledSchedulePresenter.viewEnrolledSchedule();
-        System.out.println(userPresenter.strSchedule(schedules));
+        if (schedules.isEmpty()){
+            System.out.println("You have not signed up for any events yet.\n ");
+        }else{
+            System.out.println(userPresenter.strSchedule(schedules));
+        }
     }
 }
