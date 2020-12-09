@@ -29,22 +29,22 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     public String strNumOfMicrophone(){
-        return "Please input the quantity of Microphone this room has, and input the series number and price of the " +
+        return "Please input the quantity of Microphone this room has, and input the series number and price of the \n" +
                 "microphone in separated line if quantity is not 0:";
     }
 
     public String strNumOfProjector(){
-        return "Please input the quantity of Projector this room has, and input the series number and price of the " +
+        return "Please input the quantity of Projector this room has, and input the series number and price of the \n" +
                 "projector in separated line if quantity is not 0:";
     }
 
     public String strNumOfDJEquipment(){
-        return "Please input the quantity of DJ Equipment this room has, and input the series number and price of the " +
+        return "Please input the quantity of DJ Equipment this room has, and input the series number and price of the \n" +
         "DJ Equipment in separated line if quantity is not 0:";
     }
 
     public String strNumOfPartyAudioSystem(){
-        return "Please input the quantity of Party Audio System this room has, and input the series number and price " +
+        return "Please input the quantity of Party Audio System this room has, and input the series number and price \n" +
                 "of the Party Audio System in separated line if quantity is not 0:";
     }
 }
