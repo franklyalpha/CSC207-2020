@@ -101,6 +101,7 @@ public class OrganizerFacade extends UserFacade {
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
         availableAction.add("modify activity information");
+        availableACtion.add("cancel existing event");
     }
     //TODO should move to presenter;
 
