@@ -44,7 +44,7 @@ public class OutputConferenceInfoController extends EventController {
                 writeSingleEvent(event, document);
             }
         } else {
-            document.add(new Paragraph("No upcoming event founded!"));
+            document.add(new Paragraph("No upcoming events found!"));
         }
         document.close();
     }
