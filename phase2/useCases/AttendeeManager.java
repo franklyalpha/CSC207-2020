@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import entities.Attendee;
+import java.lang.ClassCastException;
 
 public class AttendeeManager extends UserManager {
     private Attendee currUser;
 
-    public AttendeeManager(UserManager userManager) {
+    public AttendeeManager(UserManager userManager) throws ClassCastException {
         super(userManager);
-        currUser = (Attendee) userOnAir;
+            currUser = (Attendee) userOnAir;
     }
 
     /**

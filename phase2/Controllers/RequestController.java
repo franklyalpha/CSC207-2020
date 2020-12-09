@@ -23,7 +23,10 @@ public class RequestController extends AbstractController {
      */
     public RequestController(UserController userController) {
         super(userController);
-        attendeeManager = new AttendeeManager(userManager);
+        try{
+            attendeeManager = new AttendeeManager(userManager);
+        } catch (ClassCastException e){ }
+
     }
 
     /**
