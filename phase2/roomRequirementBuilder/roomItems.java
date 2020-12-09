@@ -48,12 +48,12 @@ public class roomItems {
     }
 
 
-    //public void showItems(){
-    //    for (roomItem item: items){
-    //        System.out.print("Room Item: " + item.name());
-    //        System.out.print("total rental price: " + getTotalPrice());
-    //    }
-    //}
+    public void showItems(){
+        for (roomItem item: items){
+            System.out.print("Room Item: " + item.name());
+            System.out.print("total rental price: " + getTotalPrice());
+        }
+    }
 
 
 

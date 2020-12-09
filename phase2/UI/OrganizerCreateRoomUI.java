@@ -61,7 +61,6 @@ public class OrganizerCreateRoomUI extends AbstractUI {
                 itemList.add(temp);
             }
         }
-
         createRoom.createRoomWithCondition(room_capacity, itemList);
         System.out.println(organizerPresenter.strRoomCapacityConfirmation(room_capacity));
     }
