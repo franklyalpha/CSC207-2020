@@ -122,11 +122,11 @@ public class RoomManager implements java.io.Serializable {
      * @param targetPeriod is the time period we want to check.
      * @return a list of available room ids.
      */
-    public ArrayList<UUID> bookingAvailable(LocalDateTime[] targetPeriod){
-        ArrayList<UUID> possibleRooms = new ArrayList<UUID>();
+    public ArrayList<String[]> bookingAvailable(LocalDateTime[] targetPeriod){
+        ArrayList<String[]> possibleRooms = new ArrayList<String[]>();
         for (EventRoom eventRoom : eventRooms){
             if (checkSingleRoomOK(targetPeriod, eventRoom)){
-                possibleRooms.add(eventRoom.getId());
+                possibleRooms.add(new String[]{eventRoom.getId().toString(), eventRoom.toString()});
             }
         }
         return possibleRooms;
@@ -158,6 +158,10 @@ public class RoomManager implements java.io.Serializable {
 
     public RoomItems getRoomItems(UUID id){
         return findRoom(id).getRoomItems();
+    }
+
+    public boolean checkRoomItems(UUID eventID, Boolean[] itemChoice){
+        return findRoom(eventID).checkItemRequirement(itemChoice);
     }
 
 //    public showItems(){

@@ -28,7 +28,7 @@ public class OrganizerAddSchedulePresenter extends UserPresenter {
     }
 
     public String strMultiSpeakerPrompt(){
-        return "Please input the names of speakers on different lines, when you are done, input \"end\":";
+        return "Please input the names of speakers on different lines and, when you are done, input \"end\":";
     }
 
     public String strSingleSpeakerPrompt(){
@@ -37,17 +37,17 @@ public class OrganizerAddSchedulePresenter extends UserPresenter {
 
     public String strTypePrompt(){
         return "Please enter one of the following number to choose the type of this event:\n" +
-                "[1]Talk: One Speaker\n" +
-                "[2]Panel: Multiple Speakers\n" +
-                "[3]Party: No Speaker\n";
+                "[1] Talk: One Speaker\n" +
+                "[2] Panel: Multiple Speakers\n" +
+                "[3] Party: No Speakers\n";
     }
 
     public String strTopicPrompt(){
-        return "Please enter the topic for this activity:";
+        return "Please enter the topic for this event:";
     }
 
     public String strMaxNumPrompt(){
-        return "Please enter the maximum capacity for this activity:";
+        return "Please enter the maximum capacity for this event:";
     }
 
     public String strSpeakerRoomPrompt(ArrayList<String> speakers, ArrayList<UUID> rooms){

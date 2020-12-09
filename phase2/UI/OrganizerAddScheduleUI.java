@@ -18,6 +18,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     public OrganizerAddScheduleUI(UserController userController) {
         super(userController);
         createSchedule = new CreateScheduleController(userController);
+        modifyEventPresenter = new ModifyEventPresenter();
     }
 
     @Override
@@ -46,9 +47,9 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         while(true){
             try{
                 ArrayList<String> freeSpeaker = (ArrayList<String>) speakersRooms[1];
-                ArrayList<UUID> freeRooms = (ArrayList<UUID>) speakersRooms[0];
-                System.out.println(modifyEventPresenter.printSuggestedRoomPrompt(getSuggestedRoom()));
-                return inputTypeSpeakerRoomTopic(createSchedule, freeSpeaker, freeRooms);
+                ArrayList<String[]> freeRooms = new ArrayList<>(getSuggestedRoom());
+                ArrayList<UUID> freeRoomsID = extractRoomID(freeRooms);
+                return inputTypeSpeakerRoomTopic(createSchedule, freeSpeaker, freeRoomsID);
             }catch(UserNotFoundException e){
                 System.out.println(organizerAddSchedulePresenter.strInvalidSpeaker());
             }catch(IndexOutOfBoundsException e2){
@@ -63,25 +64,35 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
-    private List<UUID> getSuggestedRoom() {
+    private ArrayList<UUID> extractRoomID(ArrayList<String[]> freeRooms) {
+        ArrayList<UUID> freeRoomsID = new ArrayList<>();
+        for (String[] roomInfo: freeRooms){
+            freeRoomsID.add(UUID.fromString(roomInfo[0]));
+        }
+        System.out.println(modifyEventPresenter.printSuggestedRoomPrompt(freeRooms));
+        return freeRoomsID;
+    }
+
+    private List<String[]> getSuggestedRoom() {
         Scanner input = new Scanner(System.in);
         System.out.println(modifyEventPresenter.askForRequirementPrompt());
-        int projectorNum = input.nextInt();
-        int microNum = input.nextInt();
-        int djNum = input.nextInt();
-        int partyaudioNum = input.nextInt();
-        return createSchedule.getSuggestedRoomList(projectorNum, microNum, djNum, partyaudioNum);
+        boolean hasProjector = input.nextBoolean();
+        boolean hasMicrophone = input.nextBoolean();
+        boolean hasPartyAudio = input.nextBoolean();
+        return createSchedule.getSuggestedRoomList(hasProjector, hasMicrophone, hasPartyAudio);
     }
 
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
         Scanner moreInfo = new Scanner(System.in);
+        System.out.println("Please input the room number of which you wish to use: (e.g. No.1, then input '1')");
+        int roomIndex = moreInfo.nextInt();
+        moreInfo.nextLine();
         System.out.println(organizerAddSchedulePresenter.strTypePrompt());
         int typeNum = moreInfo.nextInt();
+        moreInfo.nextLine();
         System.out.println(organizerAddSchedulePresenter.strTopicPrompt());
         String topic = moreInfo.nextLine();
-        System.out.println(organizerAddSchedulePresenter.strRoomPrompt(freeRooms));
-        int roomIndex = moreInfo.nextInt();
         System.out.println(organizerAddSchedulePresenter.strMaxNumPrompt());
         int MaxNumber = moreInfo.nextInt();
         if(typeNum == 1){

@@ -96,4 +96,23 @@ public class EventRoom implements java.io.Serializable {
     public void setRoomItems(RoomItems itemsTotal){
         items = itemsTotal;
     }
+
+    @Override
+    public String toString(){
+        return "EventRoom{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", \nitems=" + items.showItems() +
+                '}';
+    }
+
+    public Boolean checkItemRequirement(Boolean[] constraints){
+        Boolean[] availability = new Boolean[]{items.hasProjector(), items.hasMicrophone(), items.hasPartyAudio()};
+        for(int i = 0; i < 3; i ++){
+            if(constraints[i] != availability[i] & constraints[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 }

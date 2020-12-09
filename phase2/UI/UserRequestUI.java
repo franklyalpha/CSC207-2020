@@ -72,7 +72,7 @@ public class UserRequestUI extends AbstractUI {
             System.out.println(requestPresenter.strRequestDetailsPrompt());
             String detail = detailScan.nextLine();
             UUID newID = requestController.newRequestCreator(subject, detail);
-            ArrayList<UUID> tmp = requestController.attendeeManager.getUserRequests();
+            ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
             tmp.add(newID);
             requestController.attendeeManager.setUserRequests(tmp);
         }
@@ -83,7 +83,7 @@ public class UserRequestUI extends AbstractUI {
      * @param requestController An instance of <code>requestController</code>.
      */
     private void viewRequests(RequestController requestController){
-        if (requestController.attendeeManager.getUserRequests().isEmpty()) {
+        if (requestController.getUserRequests().isEmpty()) {
             System.out.println("You have not submitted any requests.");
         } else {
             System.out.println("Here are your requests: ");
@@ -129,7 +129,7 @@ public class UserRequestUI extends AbstractUI {
     private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException{
         Scanner requestIDScanner = new Scanner(System.in);
         System.out.println(requestPresenter.strRequestPromptHelper("modify"));
-        ArrayList<UUID> tmp = requestController.attendeeManager.getUserRequests();
+        ArrayList<UUID> tmp = requestController.getUserRequests();
         ArrayList<Request> userReqs = new ArrayList<>();
         for (UUID req : tmp){
             userReqs.add(requestController.findRequest(req));
@@ -183,10 +183,10 @@ public class UserRequestUI extends AbstractUI {
                 System.out.println("Which request would you like to remove? (Please enter the corresponding number):");
                 String choice = chooseToRemove.nextLine();
                 int i = 0;
-                for (UUID reqID : requestController.attendeeManager.getUserRequests()){
+                for (UUID reqID : requestController.getUserRequests()){
                     if (i == Integer.parseInt(choice)){
                         requestController.deleteRequest(reqID);
-                        ArrayList<UUID> tmp = new ArrayList<>(requestController.attendeeManager.getUserRequests());
+                        ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
                         tmp.remove(reqID);
                         requestController.attendeeManager.setUserRequests(tmp);
                     }

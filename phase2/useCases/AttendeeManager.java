@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import entities.Attendee;
+import java.lang.ClassCastException;
 
 public class AttendeeManager extends UserManager {
     private Attendee currUser;
 
-    public AttendeeManager(UserManager userManager) {
+    public AttendeeManager(UserManager userManager) throws ClassCastException {
         super(userManager);
-        currUser = (Attendee) userOnAir;
+            currUser = (Attendee) userOnAir;
     }
 
     /**
@@ -66,11 +67,15 @@ public class AttendeeManager extends UserManager {
     }
 
     /**
-     * Returns the ID of requests of the <code>Attendee</code>>.
+     * Returns a list of IDs of requests of the <code>Attendee</code>>.
      * @return ArrayList representing the UUID of the attendee's submitted requests.
      */
     public ArrayList<UUID> getUserRequests(){
-        return currUser.getRequests();
+        if (currUser.getRequests() != null) {
+            return currUser.getRequests();
+        }
+        ArrayList<UUID> result = new ArrayList<UUID>();
+        return result;
     }
 
     /**

@@ -164,12 +164,15 @@ public class EventManager implements java.io.Serializable{
      */
     public ArrayList<String[]> viewUpcomingActivities(){
         ArrayList<String[]> result = new ArrayList<String[]>();
-        for(Event i: allUpcomingEvents()){
-            String[] temp = {i.getIdentity().toString(), i.getTopic(),
-                    i.getStartTime().toString(), i.getEndTime().toString(),
-                    i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString()};
-            //TODO: make the output use toString instead of this big thing.
-            result.add(temp);
+        if (allUpcomingEvents() == null) {
+            return result;
+        }else{
+            for (Event i : allUpcomingEvents()) {
+                String[] temp = {i.getIdentity().toString(), i.getTopic(),
+                        i.getStartTime().toString(), i.getEndTime().toString(),
+                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString()};
+                result.add(temp);
+            }
         }
         return result;
     }

@@ -19,16 +19,19 @@ public class ViewGroupMessageUI extends AbstractUI {
     @Override
     public void run() {
         HashMap<String, ArrayList<String>> historyChat = groupMessagePresenter.viewGroupMessage();
-
-        Presenter.printContactPrompt("event"); //TODO Really should change this to select an index
-        System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
-        Scanner scan = new Scanner(System.in);
-        String selectedEvent = scan.nextLine();
-        if (!historyChat.containsKey(selectedEvent)){
-            System.out.println(userPresenter.strInvalidEventID());
-            return;
+        if (historyChat == null) {
+            System.out.println("You are not in any group-chats at the moment.\n ");
+        } else {
+            Presenter.printContactPrompt("event"); //TODO Really should change this to select an index
+            System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
+            Scanner scan = new Scanner(System.in);
+            String selectedEvent = scan.nextLine();
+            if (!historyChat.containsKey(selectedEvent)) {
+                System.out.println(userPresenter.strInvalidEventID());
+                return;
+            }
+            System.out.println(userPresenter.strMessagesInInterval(historyChat.get(selectedEvent), 1,
+                    historyChat.get(selectedEvent).size()));
         }
-        System.out.println(userPresenter.strMessagesInInterval(historyChat.get(selectedEvent), 1,
-                historyChat.get(selectedEvent).size()));
     }
 }

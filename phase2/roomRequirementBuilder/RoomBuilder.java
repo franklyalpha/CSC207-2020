@@ -29,7 +29,10 @@ public class RoomBuilder {
     }
 
     public void buildMicrophone(int quantity){
-        roomItems.addItem(itemFactory.constructMicrophone(quantity));
+        if(quantity != 0){
+            roomItems.addItem(itemFactory.constructMicrophone(quantity));
+        }
+        roomItems.addItem(null);
     }
 
     public void buildPartyAudio(int quantity){

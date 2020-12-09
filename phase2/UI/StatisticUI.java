@@ -10,7 +10,10 @@ public class StatisticUI extends AbstractUI{
         StatisticPresenter statistic = new StatisticPresenter(userController);
     }
      public void run(){
-         System.out.println(statistic.popularEvent());
-
+        if (statistic.popularEvent() == null){
+            System.out.println("Statistics could not be generated because there are no events yet.\n ");
+        } else {
+            System.out.println(statistic.popularEvent());
+        }
      }
 }

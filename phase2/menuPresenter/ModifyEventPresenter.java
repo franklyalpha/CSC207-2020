@@ -24,11 +24,17 @@ public class ModifyEventPresenter extends UserPresenter{
     }
 
     public String askForRequirementPrompt(){
-        return "Please input the number of Projector, Microphone, DJ equipment and Party Audio System" +
-                " \n this event needs, separate by space: \n(if input less than or equal to 0, will default to 0)";
+        return "Please input the number of Projector, Microphone and Party Audio System" +
+                " \n is required for this event in order, separate by space: ";
     }
 
-    public String printSuggestedRoomPrompt(List<UUID> suggestedList){
-        return "This is the suggested room list that match all your requirement:" + suggestedList;
+    public String printSuggestedRoomPrompt(List<String[]> suggestedList){
+        String output = "This is the suggested room list that match all your requirements:";
+        int i = 0;
+        for (String[] roomInfo: suggestedList){
+            String newInfo = "Room No." + i + ": \n" + roomInfo[1] + "\n";
+            output += newInfo + "\n";
+        }
+        return output;
     }
 }
