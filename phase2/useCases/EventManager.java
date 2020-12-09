@@ -22,7 +22,7 @@ import java.util.*;
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
  */
-public class EventManager implements java.io.Serializable{
+public class EventManager extends AbstractSerializableManager implements java.io.Serializable{
 
     protected HashMap<EventType,ArrayList<Event>> upcomingEvents;
 

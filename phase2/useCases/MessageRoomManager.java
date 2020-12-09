@@ -15,7 +15,7 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class MessageRoomManager implements java.io.Serializable{
+public class MessageRoomManager extends AbstractSerializableManager implements java.io.Serializable{
 
     /**
      * A <code>Chatroom</code> with all speakers and organizers at a conference.

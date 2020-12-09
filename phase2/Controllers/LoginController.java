@@ -1,6 +1,5 @@
 package Controllers;
 
-import com.mongodb.client.MongoDatabase;
 import gateways.GatewayUser;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;

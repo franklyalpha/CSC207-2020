@@ -1,12 +1,7 @@
 package useCases;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import entities.User;
 import globallyAccessible.UserType;
-import org.bson.Document;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -73,40 +68,6 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
         return num_user;
     }
 
-    // registerUserOnDB(name, password, t);
-    // this require further modification to fit with factory pattern
-    private void registerUserOnDB(String name, String password, UserType type){
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-
-            MongoDatabase database = mongoClient.getDatabase("csc207");
-
-            MongoCollection<Document> collection = database.getCollection("users");
-
-            Document newUser = new Document("_id", num_user);
-            newUser.append("username", name);
-            newUser.append("password", password);
-            String userType;
-            switch (type){
-                case ORGANIZER:
-                    userType = "Organizer";
-                    break;
-                case ATTENDEE:
-                    userType = "Attendee";
-                    break;
-                case SPEAKER:
-                    userType = "Speaker";
-                    break;
-                case ADMINISTRATOR:
-                    userType = "Administrator";
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + type);
-            }
-            newUser.append("userType", userType);
-
-            collection.insertOne(newUser);
-        }
-    }
 
     /**
      * Creates a <code>contactable</code> and check whether the user can be contact.

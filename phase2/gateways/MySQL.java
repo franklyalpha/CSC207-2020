@@ -16,13 +16,13 @@ public class MySQL {
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         byte[] employeeAsBytes = baos.toByteArray();
         PreparedStatement pstmt = dbConn
-                .prepareStatement("INSERT INTO EMPLOYEE (emp) VALUES(?)");
+                .prepareStatement("");
         ByteArrayInputStream bais = new ByteArrayInputStream(employeeAsBytes);
         pstmt.setBinaryStream(1, bais, employeeAsBytes.length);
         pstmt.executeUpdate();
         pstmt.close();
         Statement stmt = dbConn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT emp FROM Employee");
+        ResultSet rs = stmt.executeQuery("");
         while (rs.next()) {
             byte[] st = (byte[]) rs.getObject(1);
             ByteArrayInputStream baip = new ByteArrayInputStream(st);

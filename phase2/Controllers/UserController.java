@@ -1,16 +1,8 @@
 package Controllers;
 
-import com.mongodb.client.MongoDatabase;
-import gateways.GatewayEvent;
-import gateways.GatewayChat;
-import gateways.GatewayRoom;
-import gateways.GatewayUser;
-import gateways.GatewayRequest;
-import useCases.EventManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
-import useCases.RequestManager;
+import gateways.*;
+import globallyAccessible.CannotSerializeException;
+import useCases.*;
 
 //public abstract class controllers.UserController
 
@@ -35,10 +27,14 @@ public class UserController {
 
     public UserController(UserManager manager) {
         userManager = manager;
-        messageRoomManager = new GatewayChat().deserialize();
-        eventManager = new GatewayEvent().deserialize();
-        roomManager = new GatewayRoom().deserialize();
-        requestManager = new GatewayRequest().deserialize();
+        try {
+            messageRoomManager = (MessageRoomManager) new GatewaySerialize().deserialize("chats.txt");
+            eventManager = (EventManager) new GatewaySerialize().deserialize("events.txt");
+            roomManager = (RoomManager) new GatewaySerialize().deserialize("rooms.txt");
+            requestManager = (RequestManager) new GatewaySerialize().deserialize("requests.txt");
+        } catch (CannotSerializeException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,10 +49,16 @@ public class UserController {
 
         userManager.logout();
         new GatewayUser().ser(userManager);
-        new GatewayRoom().ser(roomManager);
-        new GatewayChat().ser(messageRoomManager);
-        new GatewayEvent().ser(eventManager);
-        new GatewayRequest().ser(requestManager);
+
+        new GatewaySerialize().serialize(roomManager);
+        new GatewaySerialize().serialize(messageRoomManager);
+        new GatewaySerialize().serialize(eventManager);
+        new GatewaySerialize().serialize(requestManager);
+
+//        new GatewayRoom().ser(roomManager);
+//        new GatewayChat().ser(messageRoomManager);
+//        new GatewayEvent().ser(eventManager);
+//        new GatewayRequest().ser(requestManager);
     }
 
 

@@ -14,7 +14,7 @@ import java.util.UUID;
  * @since 2.0
  */
 
-public class RequestManager implements java.io.Serializable{
+public class RequestManager extends AbstractSerializableManager implements java.io.Serializable{
 
     /**
      * ArrayList of instances of <code>Request</code>s that are still pending (i.e. <code>request.status == false</code>).

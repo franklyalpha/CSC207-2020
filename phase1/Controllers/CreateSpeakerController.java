@@ -1,6 +1,5 @@
 package Controllers;
 
-import globallyAccessible.SpeakerAlreadyExistException;
 import globallyAccessible.UserType;
 import Presenters.Presenter;
 
