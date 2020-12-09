@@ -219,7 +219,13 @@ public class EventManager extends AbstractSerializableManager implements java.io
     }
 
     public void deleteEvent(UUID activityID){
-        upcomingEvents.remove(findType(activityID), findEvent(activityID));
+        EventType activityType = findType(activityID);
+        Event potentialCancel = findEvent(activityID);
+        upcomingEvents.get(activityType).remove(potentialCancel);
+    }
+
+    public ArrayList<String> getAttendeeList(UUID activityID){
+        return findEvent(activityID).getAttendeeList();
     }
 
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){
