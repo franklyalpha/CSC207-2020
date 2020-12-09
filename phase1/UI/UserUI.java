@@ -4,7 +4,6 @@ import Controllers.SendPrivateMessageController;
 import Controllers.UserController;
 import Presenters.*;
 import gateways.GatewayActivity;
-import gateways.GatewayUser;
 import globallyAccessible.UserNotFoundException;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;

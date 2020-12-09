@@ -48,17 +48,12 @@ public class UserController {
     public void logout(){
 
         userManager.logout();
-        new GatewayUser().ser(userManager);
+        new GatewaySerialize().serializeUser(userManager);
 
         new GatewaySerialize().serialize(roomManager);
         new GatewaySerialize().serialize(messageRoomManager);
         new GatewaySerialize().serialize(eventManager);
         new GatewaySerialize().serialize(requestManager);
-
-//        new GatewayRoom().ser(roomManager);
-//        new GatewayChat().ser(messageRoomManager);
-//        new GatewayEvent().ser(eventManager);
-//        new GatewayRequest().ser(requestManager);
     }
 
 

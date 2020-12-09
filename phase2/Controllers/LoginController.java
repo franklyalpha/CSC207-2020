@@ -1,6 +1,6 @@
 package Controllers;
 
-import gateways.GatewayUser;
+import gateways.GatewaySerialize;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -24,7 +24,7 @@ public class LoginController {
      * userManager: an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
-    private final UserManager userManager = new GatewayUser().deserialize();
+    private final UserManager userManager = new GatewaySerialize().deserializeUser();
 
     /*
       This method allow people to do actions corresponding to allowed actions.
@@ -109,7 +109,7 @@ public class LoginController {
     public String handleCreateNewUser(String username, String password, int type) throws InvalidUserTypeException{
         UserType userType = UserTypeDistributor(type);
         String name = new UserFactory(userManager).construct(username, password, userType);
-        new GatewayUser().ser(userManager);
+        new GatewaySerialize().serializeUser(userManager);
         return name;
     }
 
