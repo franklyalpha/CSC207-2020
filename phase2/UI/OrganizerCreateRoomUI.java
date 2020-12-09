@@ -53,6 +53,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
             int equipQuantity = input.nextInt();
             temp.add(equipQuantity);
             if(equipQuantity > 0){
+                input.nextLine();
                 String seriesNum = input.nextLine();
                 int equipPrice = input.nextInt();
                 temp.add(seriesNum);
