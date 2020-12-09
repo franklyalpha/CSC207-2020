@@ -11,8 +11,7 @@ public class StatisticPresenter extends AbstractPresenter{
 
     public ArrayList<String> popularEvent() {
         HashMap<String, Integer> result = new HashMap<>();
-        ArrayList<String[]> eventList;
-        eventList = eventManager.viewUpcomingActivities();
+        ArrayList<String[]> eventList = eventManager.viewUpcomingActivities();
         for (String[] c : eventList) {
             result.put(c[0], eventManager.numAttendee(UUID.fromString(c[0])));
         }
