@@ -16,8 +16,10 @@ public class SendPrivateMessageUI extends AbstractUI {
 
     @Override
     public void run() {
-        while(true){
+        int i = 3;
+        while(i > 0){
             try{
+                i = i - 1;
                 inputContactAndMessage(sendPrivateController);
                 break;
             }
