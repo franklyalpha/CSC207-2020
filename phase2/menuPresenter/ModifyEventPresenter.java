@@ -2,7 +2,6 @@ package menuPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ModifyEventPresenter extends UserPresenter{
 
@@ -11,7 +10,7 @@ public class ModifyEventPresenter extends UserPresenter{
     }
 
     public String printMaxNumEventPrompt_1(ArrayList<String[]> upcomingActivities){
-        return "Here are the information of all the available activities: " + upcomingActivities + "\n" +
+        return "Here are the information of all the available activities:\n " + getString(upcomingActivities, "") + "\n" +
                 "Please input the Activity Id you want to modify:";
     }
 
@@ -29,10 +28,15 @@ public class ModifyEventPresenter extends UserPresenter{
     }
 
     public String printSuggestedRoomPrompt(List<String[]> suggestedList){
-        String output = "This is the suggested room list that match all your requirements: \n";
+        String output = "This is the suggested room list that match all your requirements:";
+        output = getString(suggestedList, output);
+        return output;
+    }
+
+    private String getString(List<String[]> suggestedList, String output) {
         int i = 0;
         for (String[] roomInfo: suggestedList){
-            String newInfo = "Room No." + i + ": \n" + roomInfo[1] + "\n";
+            String newInfo = "Room No." + i + ": \n" + roomInfo[1] + "\n" + "eventID: "+ roomInfo[0];
             output += newInfo + "\n";
             i += 1;
         }

@@ -1,5 +1,6 @@
 package Controllers;
 
+import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 import globallyAccessible.NoEventsException;
 
 import java.util.ArrayList;
@@ -20,7 +21,11 @@ public class ModifyEventController extends EventController {
         return allActivities;
     }
 
-    public void changeEventMaxNumPeople(UUID activityId, Integer newMaxNum){
+    public void changeEventMaxNumPeople(UUID activityId, Integer newMaxNum) throws MaxNumberBeyondRoomCapacityException {
+        UUID roomID = UUID.fromString(eventManager.searchEventByUUID(activityId.toString())[4]);
+        if(roomManager.getRoomCapacity(roomID) < newMaxNum){
+            throw new MaxNumberBeyondRoomCapacityException("invalid maximum enrollment");
+        }
         eventManager.changeEventMaxParticipant(activityId, newMaxNum);
     }
 }//TODO part of event retrofit

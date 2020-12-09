@@ -170,7 +170,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
             for (Event i : allUpcomingEvents()) {
                 String[] temp = {i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString()};
+                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
                 result.add(temp);
             }
         }
