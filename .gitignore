@@ -4,4 +4,7 @@ chats.txt
 rooms.txt
 group_0168.iml
 users.txt
-./phase2/allUpcomingEvents.pdf
+allUpcomingEvents.pdf
+out
+*.icloud
+*.DS_Store

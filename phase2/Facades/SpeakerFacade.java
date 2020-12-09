@@ -2,6 +2,7 @@ package Facades;
 
 import Controllers.UserController;
 import UI.SpeSendEventMessagesUI;
+import com.mongodb.client.MongoDatabase;
 import menuPresenter.SpeakerPresenter;
 
 import java.util.Scanner;
@@ -19,8 +20,8 @@ public class SpeakerFacade extends OrganizerFacade {
 
     final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
 
-    public SpeakerFacade(UserController userController) {
-        super(userController);
+    public SpeakerFacade(UserController userController, MongoDatabase database) {
+        super(userController, database);
     }
     /*
       an Arraylist of <code>availableAction</code>;
@@ -53,7 +54,7 @@ public class SpeakerFacade extends OrganizerFacade {
             }
             enterAction = continuing();
         }
-        userController.logout();
+        userController.logout(database);
     }
 
     /**

@@ -98,6 +98,7 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
                     break;
                 case ADMINISTRATOR:
                     userType = "Administrator";
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + type);
             }

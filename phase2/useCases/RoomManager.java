@@ -160,7 +160,7 @@ public class RoomManager implements java.io.Serializable {
         return findRoom(id).getRoomItems();
     }
 
-    public showItems(){
-
-    }
+//    public showItems(){
+//
+//    }
 }

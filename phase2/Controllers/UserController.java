@@ -1,5 +1,7 @@
 package Controllers;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import gateways.GatewayEvent;
 import gateways.GatewayChat;
 import gateways.GatewayRoom;
@@ -10,6 +12,7 @@ import useCases.MessageRoomManager;
 import useCases.RoomManager;
 import useCases.UserManager;
 import useCases.RequestManager;
+import gateways.Mongodb;
 
 //public abstract class controllers.UserController
 
@@ -48,9 +51,10 @@ public class UserController {
         return new Object[]{messageRoomManager, eventManager, userManager, roomManager, requestManager};
     }
 
-    public void logout(){
+    public void logout(MongoDatabase database){
+
         userManager.logout();
-        new GatewayUser().ser(userManager);
+        new GatewayUser().ser(userManager, database);
         new GatewayRoom().ser(roomManager);
         new GatewayChat().ser(messageRoomManager);
         new GatewayEvent().ser(eventManager);

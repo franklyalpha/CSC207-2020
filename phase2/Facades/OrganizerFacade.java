@@ -2,6 +2,7 @@ package Facades;
 
 import Controllers.UserController;
 import UI.*;
+import com.mongodb.client.MongoDatabase;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -23,9 +24,11 @@ import java.util.Scanner;
  */
 public class OrganizerFacade extends UserFacade {
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
+    protected MongoDatabase database;
 
-    public OrganizerFacade(UserController userController) {
+    public OrganizerFacade(UserController userController, MongoDatabase database) {
         super(userController);
+        this.database = database;
     }
 
     public void run() {
@@ -45,7 +48,7 @@ public class OrganizerFacade extends UserFacade {
             }
             enterAction = continuing();
         }
-        userController.logout();
+        userController.logout(database);
     }
 
     /**
@@ -101,7 +104,7 @@ public class OrganizerFacade extends UserFacade {
         availableAction.add("view messages from coopChatroom");
         availableAction.add("message all attendees");
         availableAction.add("modify activity information");
-        availableACtion.add("cancel existing event");
+//        availableACtion.add("cancel existing event");
     }
     //TODO should move to presenter;
 
