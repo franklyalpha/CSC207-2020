@@ -6,6 +6,7 @@ import Facades.AdministratorFacade;
 import Facades.AttendeeFacade;
 import Facades.OrganizerFacade;
 import Facades.SpeakerFacade;
+import com.mongodb.client.MongoDatabase;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -27,6 +28,11 @@ public class MainUI {
 
     final private LoginController loginController = new LoginController();
     private LoginPresenter loginPresenter = new LoginPresenter();
+    private MongoDatabase database;
+
+    public MainUI(MongoDatabase database){
+        this.database = database;
+    }
 
     public void run(){
         boolean notStop = true;
@@ -77,7 +83,7 @@ public class MainUI {
         String username = signUpScanner.nextLine();
         System.out.println(loginPresenter.strPasswordPrompt());
         String password = signUpScanner.nextLine();
-        String newName = loginController.handleCreateNewUser(username, password, type);
+        String newName = loginController.handleCreateNewUser(username, password, type, database);
         System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
 
@@ -103,19 +109,19 @@ public class MainUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-                OrganizerFacade orgUI = new OrganizerFacade(userController);
+                OrganizerFacade orgUI = new OrganizerFacade(userController, database);
                 orgUI.run();
                 break;
             case SPEAKER:
-                SpeakerFacade speUI = new SpeakerFacade(userController);
+                SpeakerFacade speUI = new SpeakerFacade(userController, database);
                 speUI.run();
                 break;
             case ATTENDEE:
-                AttendeeFacade attUI = new AttendeeFacade(userController);
+                AttendeeFacade attUI = new AttendeeFacade(userController, database);
                 attUI.run();
                 break;
             case ADMINISTRATOR:
-                AdministratorFacade adminUI = new AdministratorFacade(userController);
+                AdministratorFacade adminUI = new AdministratorFacade(userController, database);
                 adminUI.run();
                 break;
         }

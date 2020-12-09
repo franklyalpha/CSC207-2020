@@ -2,6 +2,7 @@ package Facades;
 
 import Controllers.UserController;
 import UI.*;
+import com.mongodb.client.MongoDatabase;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -23,9 +24,11 @@ import java.util.Scanner;
  */
 public class OrganizerFacade extends UserFacade {
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
+    protected MongoDatabase database;
 
-    public OrganizerFacade(UserController userController) {
+    public OrganizerFacade(UserController userController, MongoDatabase database) {
         super(userController);
+        this.database = database;
     }
 
     public void run() {
@@ -45,7 +48,7 @@ public class OrganizerFacade extends UserFacade {
             }
             enterAction = continuing();
         }
-        userController.logout();
+        userController.logout(database);
     }
 
     /**
@@ -67,7 +70,6 @@ public class OrganizerFacade extends UserFacade {
             case 9: messageAllAttendee(); break;
             case 10: modifyEvent(); break;
             case 11: removeEvent(); break;
-            case 12: manageRequests(); break;
         }
     }
 
@@ -92,18 +94,17 @@ public class OrganizerFacade extends UserFacade {
     }
 
     void addMenu(){
-        availableAction.add("- Create new event room");
-        availableAction.add("- Create new user account");
-        availableAction.add("- Create an event");
-        availableAction.add("- Reschedule speaker");
-        availableAction.add("- Send private message");
-        availableAction.add("- View private messages");
-        availableAction.add("- Message the Organizer-Speaker Chatroom");
-        availableAction.add("- View messages in the Organizer-Speaker Chatroom");
-        availableAction.add("- Message all attendees");
-        availableAction.add("- Modify event information");
-        availableAction.add("- Cancel event");
-        availableAction.add("- Manage requests");
+        availableAction.add("create conference room");
+        availableAction.add("create other user account");
+        availableAction.add("schedule conference");
+        availableAction.add("reschedule speaker");
+        availableAction.add("send private message");
+        availableAction.add("view private messages");
+        availableAction.add("send messages in coopChatroom");
+        availableAction.add("view messages from coopChatroom");
+        availableAction.add("message all attendees");
+        availableAction.add("modify activity information");
+//        availableACtion.add("cancel existing event");
     }
     //TODO should move to presenter;
 
@@ -123,8 +124,6 @@ public class OrganizerFacade extends UserFacade {
     protected void rescheduleSpeaker(){
         new OrganizerRescheduleSpeakerUI(userController).run();
     }
-
-    protected void manageRequests() { new OrganizerRequestUI(userController).run(); }
 
 
 
