@@ -38,12 +38,12 @@ public class AdministratorFacade extends OrganizerFacade {
 
     private void runMethod (int action){
         switch (action) {
-            case 1 -> sendPrivateMessage();
-            case 2 -> viewPrivateMessage();
-            case 3 -> sendCoopMessage();
-            case 4 -> viewCoopChat();
-            case 5 -> deleteMessage();
-            case 6 -> deleteEvent();
+            case 1 : sendPrivateMessage();
+            case 2 : viewPrivateMessage();
+            case 3 : sendCoopMessage();
+            case 4 : viewCoopChat();
+            case 5 : deleteMessage();
+            case 6 : deleteEvent();
         }
     }
 
