@@ -56,17 +56,17 @@ public class OrganizerFacade extends UserFacade {
 
     private void runMethod (int action){
         switch (action) {
-            case 1: createRoom();
-            case 2: createUser();
-            case 3: addSchedule();
-            case 4: rescheduleSpeaker();
-            case 5: sendPrivateMessage();
-            case 6: viewPrivateMessage();
-            case 7: sendCoopMessage();
-            case 8: viewCoopChat();
-            case 9: messageAllAttendee();
-            case 10: modifyEvent();
-            case 11: removeEvent();
+            case 1: createRoom(); break;
+            case 2: createUser(); break;
+            case 3: addSchedule();break;
+            case 4: rescheduleSpeaker();break;
+            case 5: sendPrivateMessage(); break;
+            case 6: viewPrivateMessage(); break;
+            case 7: sendCoopMessage(); break;
+            case 8: viewCoopChat(); break;
+            case 9: messageAllAttendee(); break;
+            case 10: modifyEvent(); break;
+            case 11: removeEvent(); break;
         }
     }
 

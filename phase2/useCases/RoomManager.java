@@ -46,6 +46,7 @@ public class RoomManager implements java.io.Serializable {
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, List<List<Object>> roomItems){
+        itemBuilder = new ItemBuilder();
         roomItems finalRoomItems = new roomItems();
         for(int x = 0; x < 4; x++){
             for(int i = 0; i < (int)roomItems.get(x).get(0); i++){

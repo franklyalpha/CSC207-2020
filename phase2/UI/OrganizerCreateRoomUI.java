@@ -36,7 +36,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
         Scanner input = new Scanner(System.in);
 
         int room_capacity = input.nextInt();
-
+        input.nextLine();
         List<List<Object>> itemList = new ArrayList<>();
 
         for(int x = 0; x < 4; x++){

@@ -65,15 +65,15 @@ public class AttendeeFacade extends UserFacade {
     private void runMethod(int action) {
         //case 10:
         switch (action) {
-            case 1: viewAvailableSchedules();
-            case 2: viewEnrolledSchedule();
-            case 3: enrollConference();
-            case 4: cancelEnrollment();
-            case 5: sendPrivateMessage();
-            case 6: viewPrivateMessage();
-            case 7: viewGroupMessage();
-            case 8: outputAllUpcomingEventsPdf();
-            case 9: viewStatistic();
+            case 1: viewAvailableSchedules(); break;
+            case 2: viewEnrolledSchedule(); break;
+            case 3: enrollConference(); break;
+            case 4: cancelEnrollment(); break;
+            case 5: sendPrivateMessage(); break;
+            case 6: viewPrivateMessage(); break;
+            case 7: viewGroupMessage(); break;
+            case 8: outputAllUpcomingEventsPdf();  break;
+            case 9: viewStatistic(); break;
         }
     }
 
