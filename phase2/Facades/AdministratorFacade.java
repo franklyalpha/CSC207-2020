@@ -11,11 +11,13 @@ import java.util.Scanner;
 public class AdministratorFacade extends OrganizerFacade {
 
     private final AdminPresenter presenter = new AdminPresenter();
-    public MongoDatabase database;
+//    public MongoDatabase database;
 
-    public AdministratorFacade(UserController userController, MongoDatabase database) {
-        super(userController, database);
-        this.database = database;
+//    public AdministratorFacade(UserController userController, MongoDatabase database) {
+    public AdministratorFacade(UserController userController) {
+//        super(userController, database);
+        super(userController);
+//        this.database = database;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class AdministratorFacade extends OrganizerFacade {
             }
             enterAction = continuing();
         }
-        userController.logout(database);
+//        userController.logout(database);
+        userController.logout();
     }
 
     private void runMethod (int action){

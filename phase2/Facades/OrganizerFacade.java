@@ -24,11 +24,12 @@ import java.util.Scanner;
  */
 public class OrganizerFacade extends UserFacade {
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
-    protected MongoDatabase database;
+//    protected MongoDatabase database;
 
-    public OrganizerFacade(UserController userController, MongoDatabase database) {
+//    public OrganizerFacade(UserController userController, MongoDatabase database) {
+    public OrganizerFacade(UserController userController) {
         super(userController);
-        this.database = database;
+//        this.database = database;
     }
 
     public void run() {
@@ -48,7 +49,8 @@ public class OrganizerFacade extends UserFacade {
             }
             enterAction = continuing();
         }
-        userController.logout(database);
+//        userController.logout(database);
+        userController.logout();
     }
 
     /**

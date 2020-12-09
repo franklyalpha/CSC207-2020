@@ -11,7 +11,8 @@ import java.io.*;
 
 public class GatewayUser {
 
-    public void ser(UserManager tester, MongoDatabase database){
+//    public void ser(UserManager tester, MongoDatabase database){
+    public void ser(UserManager tester){
         try{
             File f = new File("users.txt");
             ObjectOutputStream oos = null;
@@ -20,9 +21,9 @@ public class GatewayUser {
             oos.writeObject(tester);
 
             // SEND File f to DATABASE
-            Document users = new Document("_id", new ObjectId());
-            users.append("users", f);
-            MongoCollection<Document> usersCollection = database.getCollection("users");
+//            Document users = new Document("_id", new ObjectId());
+//            users.append("users", f);
+//            MongoCollection<Document> usersCollection = database.getCollection("users");
 //            usersCollection.insertOne(users);
             oos.close();
         }catch (IOException io){

@@ -51,10 +51,11 @@ public class UserController {
         return new Object[]{messageRoomManager, eventManager, userManager, roomManager, requestManager};
     }
 
-    public void logout(MongoDatabase database){
-
+//    public void logout(MongoDatabase database){
+    public void logout(){
         userManager.logout();
-        new GatewayUser().ser(userManager, database);
+//        new GatewayUser().ser(userManager, database);
+        new GatewayUser().ser(userManager);
         new GatewayRoom().ser(roomManager);
         new GatewayChat().ser(messageRoomManager);
         new GatewayEvent().ser(eventManager);

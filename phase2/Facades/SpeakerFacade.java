@@ -20,9 +20,13 @@ public class SpeakerFacade extends OrganizerFacade {
 
     final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
 
-    public SpeakerFacade(UserController userController, MongoDatabase database) {
-        super(userController, database);
-    }
+//    public SpeakerFacade(UserController userController, MongoDatabase database) {
+//        super(userController, database);
+//    }
+     public SpeakerFacade(UserController userController) {
+        super(userController);
+     }
+
     /*
       an Arraylist of <code>availableAction</code>;
       an Arraylist of <code>availableMethod</code>;
@@ -54,7 +58,8 @@ public class SpeakerFacade extends OrganizerFacade {
             }
             enterAction = continuing();
         }
-        userController.logout(database);
+//        userController.logout(database);
+        userController.logout();
     }
 
     /**
