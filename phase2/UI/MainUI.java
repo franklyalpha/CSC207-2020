@@ -28,11 +28,6 @@ public class MainUI {
 
     final private LoginController loginController = new LoginController();
     private LoginPresenter loginPresenter = new LoginPresenter();
-//    private MongoDatabase database;
-//
-//    public MainUI(MongoDatabase database){
-//        this.database = database;
-//    }
 
     public void run(){
         boolean notStop = true;
@@ -83,7 +78,6 @@ public class MainUI {
         String username = signUpScanner.nextLine();
         System.out.println(loginPresenter.strPasswordPrompt());
         String password = signUpScanner.nextLine();
-//        String newName = loginController.handleCreateNewUser(username, password, type, database);
         String newName = loginController.handleCreateNewUser(username, password, type);
         System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
@@ -110,22 +104,18 @@ public class MainUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-//                OrganizerFacade orgUI = new OrganizerFacade(userController, database);
                 OrganizerFacade orgUI = new OrganizerFacade(userController);
                 orgUI.run();
                 break;
             case SPEAKER:
-//                SpeakerFacade speUI = new SpeakerFacade(userController, database);
                 SpeakerFacade speUI = new SpeakerFacade(userController);
                 speUI.run();
                 break;
             case ATTENDEE:
-//                AttendeeFacade attUI = new AttendeeFacade(userController, database);
                 AttendeeFacade attUI = new AttendeeFacade(userController);
                 attUI.run();
                 break;
             case ADMINISTRATOR:
-//                AdministratorFacade adminUI = new AdministratorFacade(userController, database);
                 AdministratorFacade adminUI = new AdministratorFacade(userController);
                 adminUI.run();
                 break;
