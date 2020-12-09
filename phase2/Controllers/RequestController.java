@@ -4,6 +4,8 @@ import entities.Request;
 import globallyAccessible.RequestNotFoundException;
 import useCases.AttendeeManager;
 import useCases.RequestManager;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -136,6 +138,20 @@ public class RequestController extends AbstractController {
      */
     public ArrayList<Request> getAllRequest(){
         return requestManager.getRequestList();
+    }
+
+    /**
+     * Returns list of of <code>UUID</code>s of requests submitted by the user.
+     * @return ArrayList of <code>UUID</code>s of requests submitted by the user.
+     */
+    public ArrayList<UUID> getUserRequests(){ return attendeeManager.getUserRequests(); }
+
+    /**
+     * Changes the list of <code>UUID</code>s to the new input list.
+     * @param requests New list with which the existing list of <code>UUID</code>s will be replaced with.
+     */
+    public void setUserRequests(ArrayList<UUID> requests){
+        attendeeManager.setUserRequests(requests);
     }
 
 }

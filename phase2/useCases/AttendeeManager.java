@@ -66,11 +66,15 @@ public class AttendeeManager extends UserManager {
     }
 
     /**
-     * Returns the ID of requests of the <code>Attendee</code>>.
+     * Returns a list of IDs of requests of the <code>Attendee</code>>.
      * @return ArrayList representing the UUID of the attendee's submitted requests.
      */
     public ArrayList<UUID> getUserRequests(){
-        return currUser.getRequests();
+        if (currUser.getRequests() != null) {
+            return currUser.getRequests();
+        }
+        ArrayList<UUID> result = new ArrayList<UUID>();
+        return result;
     }
 
     /**
