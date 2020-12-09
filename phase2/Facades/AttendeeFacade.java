@@ -130,11 +130,12 @@ public class AttendeeFacade extends UserFacade {
 
 
     private boolean continuing(){
-        boolean enterAction = true;
+        boolean enterAction = false;
         System.out.println(attendeePresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equals("true")){
-            enterAction = false;
+        String input = scan2.nextLine();
+        if(input.equals("YES") || input.equals("yes") || input.equals("y") || input.equals("Yes")){
+            enterAction = true;
         }
         return enterAction;
     }
