@@ -4,6 +4,7 @@ import Controllers.UserController;
 import UI.AttCancelEnrollmentUI;
 import UI.AttEnrollEventUI;
 import com.mongodb.client.MongoDatabase;
+import UI.UserRequestUI;
 import menuPresenter.AttendeePresenter;
 
 import java.util.Scanner;
@@ -68,39 +69,44 @@ public class AttendeeFacade extends UserFacade {
     private void runMethod(int action) {
         //case 10:
         switch (action) {
-            case 1: viewAvailableSchedules(); break;
-            case 2: viewEnrolledSchedule(); break;
-            case 3: enrollConference(); break;
-            case 4: cancelEnrollment(); break;
-            case 5: sendPrivateMessage(); break;
-            case 6: viewPrivateMessage(); break;
-            case 7: viewGroupMessage(); break;
-            case 8: outputAllUpcomingEventsPdf();  break;
-            case 9: viewStatistic(); break;
+            case 1: viewEnrolledSchedule(); break;
+            case 2: viewAvailableSchedules(); break;
+            case 3: viewStatistic(); break;
+            case 4: enrollEvent(); break;
+            case 5: cancelEnrollment(); break;
+            case 6: sendPrivateMessage(); break;
+            case 7: viewPrivateMessage(); break;
+            case 8: viewGroupMessage(); break;
+            case 9: manageRequests(); break;
+            case 10: outputAllUpcomingEventsPdf(); break;
         }
     }
 
 
     private void addMenu(){
+        availableAction.add("- View your events");
         availableAction.add("- View available events");
-        availableAction.add("- View conferences you have signed up for");
+        availableAction.add("- View top five popular events");
         availableAction.add("- Sign up for an event");
         availableAction.add("- Cancel event registration");
-        availableAction.add("- Send a private message");
+        availableAction.add("- Send private message");
         availableAction.add("- View private messages");
         availableAction.add("- View group messages");
-        availableAction.add("- Generate all upcoming events pdf");
-        availableAction.add("- View top five popular events");
+        availableAction.add("- Manage your requests");
+        availableAction.add("- Generate a PDF of all upcoming events");
+
     }
     //TODO move this to presenter
 
-    protected void enrollConference(){
+    protected void enrollEvent(){
         new AttEnrollEventUI(userController).run();
     }
 
     protected void cancelEnrollment(){
         new AttCancelEnrollmentUI(userController).run();
     }
+
+    protected void manageRequests(){ new UserRequestUI(userController).run(); }
 
 
 
