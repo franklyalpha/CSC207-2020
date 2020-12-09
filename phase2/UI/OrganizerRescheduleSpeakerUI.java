@@ -54,7 +54,7 @@ public class OrganizerRescheduleSpeakerUI extends AbstractUI {
 
     private int typeSelection() {
         while(true){
-            organizerRescheduleSpeakerPresenter.strActivityTypePrompt();
+            System.out.println(organizerRescheduleSpeakerPresenter.strActivityTypePrompt());
             Scanner typeScanner = new Scanner(System.in);
             if(typeScanner.hasNextInt()){
                 Integer choice = determineTypeChoiceValidity(typeScanner);

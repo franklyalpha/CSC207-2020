@@ -114,7 +114,7 @@ public class EventManager implements java.io.Serializable{
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString()};
+                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
             }
         }
         return null;

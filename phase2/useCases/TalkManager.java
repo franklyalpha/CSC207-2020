@@ -35,7 +35,7 @@ public class TalkManager extends EventManager {
     }
 
     public String getSpeaker(UUID actID){
-        return findEvent(actID).getSpeaker(actID);
+        return findEvent(actID).getSpeaker();
     }
 
     public String getTypeStr(){

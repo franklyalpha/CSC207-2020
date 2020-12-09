@@ -21,6 +21,7 @@ public class Panel extends Event {
     public Panel(LocalDateTime[] period, UUID[] chatRoomID,
                  String topic, Integer MaxNum){
         super(period, chatRoomID, topic, MaxNum);
+        speakers = new ArrayList<>();
         type = EventType.PANEL;
     }
 
