@@ -3,7 +3,6 @@ package Facades;
 import Controllers.UserController;
 import UI.AdminCancelEventUI;
 import UI.AdminDeleteMessageUI;
-import com.mongodb.client.MongoDatabase;
 import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
@@ -11,11 +10,9 @@ import java.util.Scanner;
 public class AdministratorFacade extends OrganizerFacade {
 
     private final AdminPresenter presenter = new AdminPresenter();
-    public MongoDatabase database;
 
-    public AdministratorFacade(UserController userController, MongoDatabase database) {
-        super(userController, database);
-        this.database = database;
+    public AdministratorFacade(UserController userController) {
+        super(userController);
     }
 
     @Override
@@ -36,7 +33,7 @@ public class AdministratorFacade extends OrganizerFacade {
             }
             enterAction = continuing();
         }
-        userController.logout(database);
+        userController.logout();
     }
 
     private void runMethod (int action){

@@ -107,10 +107,10 @@ public class LoginController {
      * Note that username is different from the name you put in.
      * Specific format will be determined in Presenter.
      */
-    public String handleCreateNewUser(String username, String password, int type, MongoDatabase database) throws InvalidUserTypeException{
+    public String handleCreateNewUser(String username, String password, int type) throws InvalidUserTypeException{
         UserType userType = UserTypeDistributor(type);
         String name = new UserFactory(userManager).construct(username, password, userType);
-        new GatewayUser().ser(userManager, database);
+        new GatewayUser().ser(userManager);
         return name;
     }
 

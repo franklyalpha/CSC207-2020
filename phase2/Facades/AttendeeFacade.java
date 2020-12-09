@@ -3,7 +3,6 @@ package Facades;
 import Controllers.UserController;
 import UI.AttCancelEnrollmentUI;
 import UI.AttEnrollEventUI;
-import com.mongodb.client.MongoDatabase;
 import menuPresenter.AttendeePresenter;
 
 import java.util.Scanner;
@@ -22,11 +21,9 @@ import java.util.Scanner;
 public class AttendeeFacade extends UserFacade {
 
     final private AttendeePresenter attendeePresenter = new AttendeePresenter();
-    private MongoDatabase database;
 
-    public AttendeeFacade(UserController userController, MongoDatabase database) {
+    public AttendeeFacade(UserController userController) {
         super(userController);
-        this.database = database;
     }
 
     /**
@@ -62,7 +59,7 @@ public class AttendeeFacade extends UserFacade {
             }
             enterAction = continuing();
         }
-        userController.logout(database);
+        userController.logout();
     }
 
     private void runMethod(int action) {
