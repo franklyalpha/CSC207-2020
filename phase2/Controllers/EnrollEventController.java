@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ *
+ */
 public class EnrollEventController extends EventController {
     private ArrayList<String> userName = new ArrayList<>();
     private AttendeeManager attendeeManager;

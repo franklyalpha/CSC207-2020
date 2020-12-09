@@ -4,6 +4,7 @@ import gateways.GatewayUser;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
+import useCases.UserFactory;
 import useCases.UserManager;
 
 import static globallyAccessible.UserType.*;
@@ -107,7 +108,7 @@ public class LoginController {
      */
     public String handleCreateNewUser(String username, String password, int type) throws InvalidUserTypeException{
         UserType userType = UserTypeDistributor(type);
-        String name = userManager.createUser(username, password, userType);
+        String name = new UserFactory(userManager).construct(username, password, userType);
         new GatewayUser().ser(userManager);
         return name;
     }
