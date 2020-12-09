@@ -1,14 +1,14 @@
 package roomRequirementBuilder;
 
-public class PartyAudioSystem extends RoomItem {
+public class Projector extends RoomItem {
 
     @Override
     public String name() {
-        return "Party Audio System";
+        return "Projector";
     }
 
     @Override
     public String toString() {
-        return "Has Party Audio System: yes";
+        return "Has Projector: yes";
     }
 }

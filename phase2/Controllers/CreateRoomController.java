@@ -1,7 +1,6 @@
 package Controllers;
 
 import globallyAccessible.CannotCreateEventException;
-import roomRequirementBuilder.roomItems;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class CreateRoomController extends AbstractController{
      *                  serial number of <>RoomItem</>, and price of <>RoomItem</>.
      * @throws CannotCreateEventException: is thrown when capacity is less than or equal to zero.
      */
-    public void createRoomWithCondition(int capacity, List<List<Object>> roomItems) throws CannotCreateEventException {
+    public void createRoomWithCondition(int capacity, List<Integer> roomItems) throws CannotCreateEventException {
         if (capacity > 0){
             roomManager.addRoom(capacity, roomItems);
         }

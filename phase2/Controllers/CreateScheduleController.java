@@ -4,7 +4,7 @@ import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.EventType;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
-import roomRequirementBuilder.roomItems;
+import roomRequirementBuilder.RoomItems;
 import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
@@ -132,7 +132,7 @@ public class CreateScheduleController extends EventController {
     public List<UUID> getSuggestedRoomList(int projectorNum, int microNum, int djNum, int partyaudioNum){
         List<UUID> suggestedList = new ArrayList<>();
         for(UUID i: freeRooms){
-            roomItems items = roomManager.getRoomItems(i);
+            RoomItems items = roomManager.getRoomItems(i);
             if(items.getQuantityByName("Projector") >= projectorNum &
                     items.getQuantityByName("Microphone") >= microNum &
                     items.getQuantityByName("DJ equipment") >= djNum &

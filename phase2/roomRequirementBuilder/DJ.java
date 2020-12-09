@@ -1,6 +1,6 @@
 package roomRequirementBuilder;
 
-public class DJ extends roomItem{
+public class DJ extends RoomItem {
 
     @Override
     public String name() {

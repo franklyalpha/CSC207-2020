@@ -1,7 +1,6 @@
 package entities;
 
-import roomRequirementBuilder.roomItem;
-import roomRequirementBuilder.roomItems;
+import roomRequirementBuilder.RoomItems;
 
 import java.time.*;
 import java.util.*;
@@ -32,18 +31,25 @@ public class EventRoom implements java.io.Serializable {
      */
     private final HashMap<LocalDateTime[], UUID> schedule;
 
-    private roomItems items;
+    private RoomItems items;
 
 
     /**
      * Creates <code>Room</code> with a randomly generated id, blank schedule, and a capacity we give it.
      * @param capacity is maximum number of <code>User</code> this room can fit in.
      */
-    public EventRoom(int capacity, roomItems roomItems){
+    public EventRoom(int capacity, RoomItems roomItems){
         this.id = UUID.randomUUID(); //assign entities.Room id
         this.capacity = capacity; //assign entities.Room Capacity
         this.schedule = new HashMap<>(); //holds all the schedule times for the entities.Room
         this.items = roomItems;
+    }
+
+    public EventRoom(int capacity){
+        this.id = UUID.randomUUID();
+        this.capacity = capacity;
+        this.schedule = new HashMap<>();
+        this.items = null;
     }
 
     // getter for entities.Room id
@@ -83,7 +89,11 @@ public class EventRoom implements java.io.Serializable {
      */
     public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 
-    public roomItems getRoomItems(){
+    public RoomItems getRoomItems(){
         return this.items;
+    }
+
+    public void setRoomItems(RoomItems itemsTotal){
+        items = itemsTotal;
     }
 }

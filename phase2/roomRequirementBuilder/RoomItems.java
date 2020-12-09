@@ -3,25 +3,25 @@ package roomRequirementBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class roomItems {
-    private List<roomItem> items = new ArrayList<roomItem>();
+public class RoomItems {
+    private List<RoomItem> items = new ArrayList<RoomItem>();
 
 
-    public List<roomItem> getItems(){
+    public List<RoomItem> getItems(){
         return this.items;
     }
 
-    public void addItem(roomItem item){
+    public void addItem(RoomItem item){
         items.add(item);
     }
 
-    public void removeOneItem(roomItem item){
+    public void removeOneItem(RoomItem item){
         items.remove(item);
     }
 
     public int getTotalPrice(){
         int cost = 0;
-        for(roomItem item: items){
+        for(RoomItem item: items){
             cost += item.getPrice() ;
         }
         return cost;
@@ -29,7 +29,7 @@ public class roomItems {
 
     public int getQuantityByName(String itemName){
         int result = 0;
-        for(roomItem item: items){
+        for(RoomItem item: items){
             if (item.name().equals(itemName)){
                 result += 1;
             }
@@ -39,7 +39,7 @@ public class roomItems {
 
     public int getQuantityBySeriesNum(String seriesNum){
         int result = 0;
-        for(roomItem item: items){
+        for(RoomItem item: items){
             if (item.getSeriesNum().equals(seriesNum)){
                 result += 1;
             }
@@ -48,11 +48,14 @@ public class roomItems {
     }
 
 
-    public void showItems(){
-        for (roomItem item: items){
-            System.out.print("Room Item: " + item.name());
-            System.out.print("total rental price: " + getTotalPrice());
+    public String showItems(){
+        String itemsString = "";
+        for (RoomItem item: items){
+            if(item != null){
+                itemsString = itemsString + item.toString() + "\n";
+            }
         }
+        return itemsString;
     }
 
 

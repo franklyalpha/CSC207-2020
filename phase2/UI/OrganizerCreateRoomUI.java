@@ -31,34 +31,22 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     }
 
     private void createNewRoom(CreateRoomController createRoom, OrganizerPresenter organizerPresenter) throws Exception {
-
         System.out.println(organizerPresenter.strCreateRoomPrompt());
         Scanner input = new Scanner(System.in);
-
         int room_capacity = input.nextInt();
         input.nextLine();
-        List<List<Object>> itemList = new ArrayList<>();
-
-        for(int x = 0; x < 4; x++){
+        List<Integer> itemList = new ArrayList<>();
+        for(int x = 0; x < 3; x++){
             if(x==0){
                 System.out.println(organizerPresenter.strNumOfMicrophone());
             }else if(x==1){
                 System.out.println(organizerPresenter.strNumOfProjector());
-            }else if(x==2){
-                System.out.println(organizerPresenter.strNumOfDJEquipment());
             }else{
                 System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
             }
-            List<Object> temp = new ArrayList<>();
             int equipQuantity = input.nextInt();
-            temp.add(equipQuantity);
             if(equipQuantity > 0){
-                input.nextLine();
-                String seriesNum = input.nextLine();
-                int equipPrice = input.nextInt();
-                temp.add(seriesNum);
-                temp.add(equipPrice);
-                itemList.add(temp);
+                itemList.add(equipQuantity);
             }
         }
         createRoom.createRoomWithCondition(room_capacity, itemList);
