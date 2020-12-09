@@ -1,14 +1,9 @@
 package useCases;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import entities.User;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
-import org.bson.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;

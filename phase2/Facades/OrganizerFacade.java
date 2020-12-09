@@ -2,7 +2,6 @@ package Facades;
 
 import Controllers.UserController;
 import UI.*;
-import com.mongodb.client.MongoDatabase;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;

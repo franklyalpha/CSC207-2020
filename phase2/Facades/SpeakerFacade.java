@@ -2,7 +2,6 @@ package Facades;
 
 import Controllers.UserController;
 import UI.SpeSendEventMessagesUI;
-import com.mongodb.client.MongoDatabase;
 import menuPresenter.SpeakerPresenter;
 
 import java.util.Scanner;

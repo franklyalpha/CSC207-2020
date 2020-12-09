@@ -23,7 +23,7 @@ import java.util.UUID;
  *
  */
 
-public class RoomManager implements java.io.Serializable {
+public class RoomManager extends AbstractSerializableManager implements java.io.Serializable {
 
 
     /**

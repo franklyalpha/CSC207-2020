@@ -6,7 +6,6 @@ import Controllers.CreateRoomController;
 import Controllers.CreateSpeakerController;
 import Controllers.UserController;
 import Presenters.Presenter;
-import globallyAccessible.SpeakerAlreadyExistException;
 
 import java.util.Scanner;
 

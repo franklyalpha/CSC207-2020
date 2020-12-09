@@ -6,7 +6,6 @@ import Facades.AdministratorFacade;
 import Facades.AttendeeFacade;
 import Facades.OrganizerFacade;
 import Facades.SpeakerFacade;
-import com.mongodb.client.MongoDatabase;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;

@@ -5,7 +5,6 @@ import UI.AttendeeUI;
 import UI.OrganizerUI;
 import UI.SpeakerUI;
 import entities.User;
-import gateways.GatewayUser;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
 import useCases.UserManager;

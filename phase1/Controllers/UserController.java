@@ -1,9 +1,6 @@
 package Controllers;
 
 import gateways.GatewayActivity;
-import gateways.GatewayChat;
-import gateways.GatewayRoom;
-import gateways.GatewayUser;
 import useCases.ActivityManager;
 import useCases.MessageRoomManager;
 import useCases.RoomManager;

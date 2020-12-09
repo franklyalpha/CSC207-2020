@@ -3,7 +3,6 @@ package Facades;
 import Controllers.UserController;
 import UI.AttCancelEnrollmentUI;
 import UI.AttEnrollEventUI;
-import com.mongodb.client.MongoDatabase;
 import UI.UserRequestUI;
 import menuPresenter.AttendeePresenter;
 
