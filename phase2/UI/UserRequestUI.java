@@ -93,12 +93,14 @@ public class UserRequestUI extends AbstractUI {
      * @param requestController An instance of <code>requestController</code>.
      */
     private void modifyRequest(RequestController requestController) {
-        while(true){
+        int i = 0;
+        while(i < 3){
             try{
+                i = i + 1;
                 UUID selection = chooseRequest(requestController);
                 Scanner chooseSubjectDetail = new Scanner(System.in);
-                System.out.println("What part would you like to modify? (Please enter the corresponding number):\n[1]  " +
-                        "- Subject\n[2] - Description");
+                System.out.println("What part would you like to modify? (Please enter the corresponding number):\n[0] " +
+                        "- Subject\n[1] - Description\n[Q] - Back");
                     String choice = chooseSubjectDetail.nextLine();
                     switch (choice){
                         case "0":  // modify subject
@@ -127,24 +129,33 @@ public class UserRequestUI extends AbstractUI {
      * @return The UUID of the <code>Request</code> they wish to modify.
      * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
      */
-    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException{
-        Scanner requestIDScanner = new Scanner(System.in);
-        System.out.println(requestPresenter.strRequestPromptHelper("modify"));
-        ArrayList<UUID> tmp = requestController.getUserRequests();
-        ArrayList<Request> userReqs = new ArrayList<>();
-        for (UUID req : tmp){
-            userReqs.add(requestController.findRequest(req));
-        }
-        System.out.println(userPresenter.strList(userReqs.toArray()));
-        String selection = requestIDScanner.nextLine();
-        int i = 0;
-        for (Request req : requestController.getAllRequest()){
-            if (i == Integer.parseInt(selection)){
-                return req.getId();
+    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException {
+        int x = 0;
+        while (x < 3) {
+            try {
+                x = x + 1;
+                Scanner requestIDScanner = new Scanner(System.in);
+                System.out.println(requestPresenter.strRequestPromptHelper("modify"));
+                ArrayList<UUID> tmp = requestController.getUserRequests();
+                ArrayList<Request> userReqs = new ArrayList<>();
+                for (UUID req : tmp) {
+                    userReqs.add(requestController.findRequest(req));
+                }
+                System.out.println(userPresenter.strList(userReqs.toArray()));
+                int selection = Integer.parseInt(requestIDScanner.nextLine());
+                if (selection > requestController.getAllRequest().size() - 1) {
+                    System.out.println("Invalid request! Please try again.");
+                } else {
+                    int i = 1;
+                    for (Request req : requestController.getAllRequest()) {
+                        if (i == selection) {
+                            return req.getId();
+                        }
+                        i = i + 1;
+                    }
+                }
             }
-            i = i+1;
         }
-        throw new RequestNotFoundException("Invalid selection!");
     }
 
     /**
