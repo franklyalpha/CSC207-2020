@@ -38,7 +38,11 @@ public class RequestController extends AbstractController {
      */
     public UUID newRequestCreator(String subject, String description){
         String username = userManager.getUsername();
-        return requestManager.createRequest(username, subject, description);
+        UUID result = requestManager.createRequest(username, subject, description);
+        ArrayList<UUID> tmp = attendeeManager.getUserRequests();
+        tmp.add(result);
+        attendeeManager.setUserRequests(tmp);
+        return result;
     }
 
     /**
