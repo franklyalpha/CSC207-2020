@@ -9,7 +9,7 @@ public class GatewaySerialize {
 
     public void serialize(AbstractSerializableManager object) {
         try{
-            MySQL.writeJavaObject(MySQL.getConnection(), object);
+            SQLServer.writeJavaObject(SQLServer.getConnection(), object);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -18,19 +18,19 @@ public class GatewaySerialize {
     public AbstractSerializableManager deserialize(String name) throws CannotSerializeException{
         AbstractSerializableManager serialize;
         try{
-            Connection conn = MySQL.getConnection();
+            Connection conn = SQLServer.getConnection();
             switch (name){
                 case "events":
-                    serialize = (EventManager) MySQL.readJavaObject(conn, "useCases.EventManager");
+                    serialize = (EventManager) SQLServer.readJavaObject(conn, "useCases.EventManager");
                     break;
                 case "chats":
-                    serialize = (MessageRoomManager) MySQL.readJavaObject(conn, "useCases.MessageRoomManager");
+                    serialize = (MessageRoomManager) SQLServer.readJavaObject(conn, "useCases.MessageRoomManager");
                     break;
                 case "requests":
-                    serialize = (RequestManager) MySQL.readJavaObject(conn, "useCases.RequestManager");
+                    serialize = (RequestManager) SQLServer.readJavaObject(conn, "useCases.RequestManager");
                     break;
                 case "rooms":
-                    serialize = (RoomManager) MySQL.readJavaObject(conn, "useCases.RoomManager");
+                    serialize = (RoomManager) SQLServer.readJavaObject(conn, "useCases.RoomManager");
                     break;
                 default:
                     throw new CannotSerializeException("Cannot deserialize!");
@@ -66,7 +66,7 @@ public class GatewaySerialize {
 
     public void serializeUser(UserManager users){
         try{
-            MySQL.writeJavaObject(MySQL.getConnection(), users);
+            SQLServer.writeJavaObject(SQLServer.getConnection(), users);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class GatewaySerialize {
     public UserManager deserializeUser(){
         UserManager serialize;
         try{
-            serialize = (UserManager) MySQL.readJavaObject(MySQL.getConnection(), "useCases.UserManager");
+            serialize = (UserManager) SQLServer.readJavaObject(SQLServer.getConnection(), "useCases.UserManager");
         } catch(Exception e){
             System.out.println("Cannot find user data. Generating new data...");
             serialize = new UserManager();

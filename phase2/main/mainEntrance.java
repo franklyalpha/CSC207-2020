@@ -1,11 +1,11 @@
 package main;
 
 import UI.MainUI;
-import gateways.MySQL;
+import gateways.SQLServer;
 
 public class mainEntrance {
     public static void main(String[] args){
-        MySQL.init();
+        SQLServer.init();
         MainUI mainUI = new MainUI();
         mainUI.run();
     }

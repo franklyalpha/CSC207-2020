@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class MySQL {
+public class SQLServer {
     static final String WRITE_OBJECT_SQL = "INSERT INTO java_objects(name, object_value) VALUES (?, ?)";
     static final String READ_OBJECT_SQL = "SELECT object_value FROM java_objects WHERE name = ?";
     static final private String username = "csc207@csc207";
