@@ -107,7 +107,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
             return new Object[]{EventType.PANEL, freeRooms.get(roomIndex), topic, MaxNumber, speakers};
         }else if(typeNum == 3){
             createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, new ArrayList<>());
-            return new Object[]{EventType.PARTY, freeRooms.get(roomIndex), topic, MaxNumber};
+            return new Object[]{EventType.PARTY, freeRooms.get(roomIndex), topic, MaxNumber, new ArrayList<>()};
         }else{
             throw new WrongEventTypeException("");
         }
