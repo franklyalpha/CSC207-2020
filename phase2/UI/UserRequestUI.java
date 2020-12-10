@@ -3,6 +3,7 @@ package UI;
 import entities.Request;
 import Controllers.RequestController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
@@ -116,10 +117,11 @@ public class UserRequestUI extends AbstractUI {
                             System.out.println(userPresenter.strInvalidInput());
                             break;
                     }
-            }catch(RequestNotFoundException e){
+            }catch(RequestNotFoundException | ExceedingMaxAttemptException e){
                 requestPresenter.strInvalidRequest();
             }
         }
+        return;
     }
 
 
@@ -129,7 +131,7 @@ public class UserRequestUI extends AbstractUI {
      * @return The UUID of the <code>Request</code> they wish to modify.
      * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
      */
-    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException {
+    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException, ExceedingMaxAttemptException {
         int x = 0;
         System.out.println(requestPresenter.strRequestPromptHelper("modify"));
         ArrayList<UUID> tmp = requestController.getUserRequests();
@@ -158,6 +160,7 @@ public class UserRequestUI extends AbstractUI {
                 requestPresenter.strInvalidInput();
             }
         }
+        throw new ExceedingMaxAttemptException("3 times already for input!!!");
     }
 
     /**
