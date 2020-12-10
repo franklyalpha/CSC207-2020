@@ -1,7 +1,5 @@
 package gateways;
 
-import useCases.UserManager;
-
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
