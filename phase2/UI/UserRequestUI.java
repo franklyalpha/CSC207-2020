@@ -145,7 +145,7 @@ public class UserRequestUI extends AbstractUI {
                 x = x + 1;
                 Scanner requestIDScanner = new Scanner(System.in);
                 int selection = 0;
-                while (requestIDScanner.hasNextInt()) {
+                if (requestIDScanner.hasNextInt()) {
                     selection = Integer.parseInt(requestIDScanner.nextLine());
                 }
                 if ( selection > requestController.getAllRequest().size() - 1 || selection < 0) {
