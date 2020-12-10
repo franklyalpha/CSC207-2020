@@ -39,7 +39,7 @@ public class AdminCancelEventUI extends AbstractUI {
     }
 
     private ArrayList<String> printEventsCanCancel(ArrayList<String[]> emptyEvents) {
-        System.out.println("Below are events you can cancel: ");
+        System.out.println("Below are events you can cancel: \n");
         ArrayList<String> eventsID = new ArrayList<>();
         for(String[] events: emptyEvents){
             System.out.println(events[0] + ": " + events[1] + "\n");

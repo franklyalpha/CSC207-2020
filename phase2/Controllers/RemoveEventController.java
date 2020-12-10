@@ -28,10 +28,19 @@ public class RemoveEventController extends CancelEventController {
 
     public void cancelAndUpdate(UUID eventID){
         // need to update the speaker as an array list of speaker;
+        String[] actInfo = eventManager.searchEventByUUID(eventID.toString());
         processCancelSpeaker(eventID.toString());
+        UUID chatID = eventManager.getConferenceChat(eventID);
+        messageRoomManager.deleteGroupChat(chatID);
+        updateRoomEventManager(eventID, actInfo);
         processCancelAttendee(eventID);
-        eventManager.deleteEvent(eventID);
+    }
 
+    private void updateRoomEventManager(UUID eventID, String[] actInfo) {
+        LocalDateTime[] period = getTimeHelper(actInfo);
+        processCancelSpeaker(eventID.toString());
+        eventManager.deleteEvent(eventID);
+        roomManager.CancelRoomEvent(period, eventID, UUID.fromString(actInfo[4]));
     }
 
     private void processCancelAttendee(UUID eventID){
