@@ -2,9 +2,8 @@ package Controllers;
 
 import globallyAccessible.CannotCreateEventException;
 import globallyAccessible.EventType;
-import globallyAccessible.UserNotFoundException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
-import roomRequirementBuilder.RoomItems;
+import globallyAccessible.UserNotFoundException;
 import useCases.OrganizerManager;
 
 import java.time.LocalDateTime;
@@ -61,6 +60,9 @@ public class CreateScheduleController extends EventController {
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
             return new Object[]{freeRooms, freeSpeaker};
         }
+        else if(freeRooms.size() != 0){
+            return new Object[]{freeRooms, new ArrayList<>()};
+        }
         else{
             throw new CannotCreateEventException("Can't create activity");
         }
@@ -103,7 +105,7 @@ public class CreateScheduleController extends EventController {
         UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
         UUID assignedRoom = (UUID) actSettings[0];
         String topic = (String) actSettings[1];
-        Integer MaxNum = (Integer) actSettings[4];
+        Integer MaxNum = (Integer) actSettings[3];
         UUID actID = null;
         if(type == EventType.TALK){
             actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
