@@ -8,29 +8,20 @@ import java.util.ArrayList;
 public class MySQL {
     static final String WRITE_OBJECT_SQL = "INSERT INTO java_objects(name, object_value) VALUES (?, ?)";
     static final String READ_OBJECT_SQL = "SELECT object_value FROM java_objects WHERE name = ?";
-    static final String CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS java_objects (id INT AUTO_INCREMENT, " +
-            "name varchar(128), object_value BLOB, primary key (id))";
-    static final private String username = "newuser";
-    static final private String password = "password";
-
+    static final private String username = "csc207@csc207";
+    static final private String password = "group_0168";
+    static final private String instanceURL = "jdbc:sqlserver://csc207.database.windows.net:1433;database=csc207;user=csc207@csc207;password=group_0168;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     public static void init(){
         Connection conn = null;
-        Statement stmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/csc207", username, password);
-            stmt = conn.createStatement();
-            stmt.executeUpdate(CREATE_TABLE_SQL);
-            stmt.close();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection(instanceURL, username, password);
+            if (conn != null){
+                System.out.println("Connected to database: csc207");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null){
-                    stmt.close();
-                }
-            } catch (SQLException se) {
-                // Noting
-            }
             try {
                 if (conn != null){
                     conn.close();
@@ -42,29 +33,36 @@ public class MySQL {
     }
 
     public static Connection getConnection() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/csc207";
-        Connection conn = DriverManager.getConnection(url, username, password);
-        if (conn != null){
-            System.out.println("Connected to database: csc207");
-        }
+        Connection conn = DriverManager.getConnection(instanceURL, username, password);
         return conn;
     }
 
     public static void writeJavaObject(Connection conn, Object object) throws Exception {
-        String className = object.getClass().getName();
-        PreparedStatement pstmt = conn.prepareStatement(WRITE_OBJECT_SQL, java.sql.Statement.RETURN_GENERATED_KEYS);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(object);
+            out.flush();
+            byte[] objBytes = bos.toByteArray();
+            String className = object.getClass().getName();
+            PreparedStatement pstmt = conn.prepareStatement(WRITE_OBJECT_SQL);
+            // set input parameters
+            pstmt.setString(1, className);
+            pstmt.setObject(2, objBytes);
+            pstmt.executeUpdate();
+            pstmt.execute();
 
-        // set input parameters
-        pstmt.setString(1, className);
-        pstmt.setObject(2, object);
-        pstmt.executeUpdate();
+            pstmt.close();
+            System.out.println(className + " saved in cloud!");
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex){
+                // ignore
+            }
+        }
 
-        // get the generated key for the id
-        ResultSet rs = pstmt.getGeneratedKeys();
-
-        rs.close();
-        pstmt.close();
-        System.out.println(className + " saved!");
     }
 
     public static Object readJavaObject(Connection conn, String name) throws Exception {
@@ -82,7 +80,7 @@ public class MySQL {
 
         rs.close();
         pstmt.close();
-        System.out.println(className + " GET");
+        System.out.println(className + " received from cloud!");
         return object;
     }
 }
