@@ -65,7 +65,7 @@ public class RequestPresenter extends GeneralMenuPresenter {
             put('1', " - View my requests");
             put('2', " - Modify an existing request");
             put('3', " - Remove request");
-            put('Q', " - Quit");
+            put('Q', " - Go back");
         }};
         return strItemizeMenuOption("do", items);
     }
@@ -75,7 +75,7 @@ public class RequestPresenter extends GeneralMenuPresenter {
             put('0', " - View pending requests");
             put('1', " - View all requests");
             put('2', " - Handle a request");
-            put('Q', " - Quit");
+            put('Q', " - Go back");
         }};
         return strItemizeMenuOption("do", items);
     }

@@ -144,8 +144,11 @@ public class UserRequestUI extends AbstractUI {
             try {
                 x = x + 1;
                 Scanner requestIDScanner = new Scanner(System.in);
-                int selection = Integer.parseInt(requestIDScanner.nextLine());
-                if (selection > requestController.getAllRequest().size() - 1) {
+                int selection = 0;
+                while (requestIDScanner.hasNextInt()) {
+                    selection = Integer.parseInt(requestIDScanner.nextLine());
+                }
+                if ( selection > requestController.getAllRequest().size() - 1 || selection < 0) {
                     System.out.println("Invalid request! Please try again.");
                 } else {
                     int i = 1;
@@ -156,11 +159,13 @@ public class UserRequestUI extends AbstractUI {
                         i = i + 1;
                     }
                 }
+                break;
             } catch (IndexOutOfBoundsException e){
+                x = x + 1;
                 requestPresenter.strInvalidInput();
             }
         }
-        throw new ExceedingMaxAttemptException("3 times already for input!!!");
+        throw new ExceedingMaxAttemptException("Maximum attempts exceeded!!");
     }
 
     /**
