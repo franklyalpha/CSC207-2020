@@ -67,6 +67,7 @@ public class OrganizerUI extends UserUI {
             case 9: messageAllAttendee(); break;
             case 10: modifyEvent(); break;
             case 11: removeEvent(); break;
+            case 12: manageRequests(); break;
         }
     }
 
@@ -91,17 +92,18 @@ public class OrganizerUI extends UserUI {
     }
 
     void addMenu(){
-        availableAction.add("create conference room");
-        availableAction.add("create other user account");
-        availableAction.add("schedule conference");
-        availableAction.add("reschedule speaker");
-        availableAction.add("send private message");
-        availableAction.add("view private messages");
-        availableAction.add("send messages in coopChatroom");
-        availableAction.add("view messages from coopChatroom");
-        availableAction.add("message all attendees");
-        availableAction.add("modify activity information");
-//        availableACtion.add("cancel existing event");
+        availableAction.add("- Create new event room");
+        availableAction.add("- Create new user account");
+        availableAction.add("- Create an event");
+        availableAction.add("- Reschedule speaker");
+        availableAction.add("- Send private message");
+        availableAction.add("- View private messages");
+        availableAction.add("- Message the Organizer-Speaker Chatroom");
+        availableAction.add("- View messages in the Organizer-Speaker Chatroom");
+        availableAction.add("- Message all attendees");
+        availableAction.add("- Modify event information");
+        availableAction.add("- Cancel event");
+        availableAction.add("- Manage requests");
     }
     //TODO should move to presenter;
 
@@ -122,7 +124,7 @@ public class OrganizerUI extends UserUI {
         new OrganizerRescheduleSpeakerUI(userController).run();
     }
 
-
+    protected void manageRequests() { new OrganizerRequestUI(userController).run(); }
 
 
 
@@ -142,8 +144,6 @@ public class OrganizerUI extends UserUI {
 
 
 
-
-
     /*
       Providing instructions for user to add a new conference room to the system.
 
@@ -152,6 +152,8 @@ public class OrganizerUI extends UserUI {
 
       @return true iff the room is created (inputting appropriate capacity value). 'false' otherwise.
      */
+
+
 
 
     /*
@@ -164,9 +166,11 @@ public class OrganizerUI extends UserUI {
      */
 
 
+
     /*
       Will printout messages being sent in chats involving only organizers and speakers.
      */
+
 
 
     /*
@@ -177,11 +181,6 @@ public class OrganizerUI extends UserUI {
 
 
 
-
-
-
-
-
     /*
       Provides instructions for user to reassign another speaker for a given conference.
 
@@ -189,15 +188,6 @@ public class OrganizerUI extends UserUI {
       Then will show all speakers who are free during the conference's time period.
       Next asks for user's choice on which speaker to assign.
       Finally will update all information.
-     */
-
-
-
-
-    /**
-     * Provides instructions for sending message to all registered attendee.
-     *
-     * Will ask for messages to send during running.
      */
 
 

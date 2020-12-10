@@ -122,7 +122,7 @@ public class Request implements java.io.Serializable{
              stat = "COMPLETE";
         }
         return "Submitted by: [ " + sender + " ]    Status: [ " + stat + " ]\n------------------------------------------------------\n" +
-                "Subject: " + subject + "\nDetails: " + details + "\n------------------------------------------------------";
+                "Subject: " + subject + "\nDetails: " + details + "\n------------------------------------------------------\n------------------------------------------------------";
     }
 
 
