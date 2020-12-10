@@ -71,10 +71,7 @@ public class UserRequestUI extends AbstractUI {
             Scanner detailScan = new Scanner(System.in);
             System.out.println(requestPresenter.strRequestDetailsPrompt());
             String detail = detailScan.nextLine();
-            UUID newID = requestController.newRequestCreator(subject, detail);
-            ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
-            tmp.add(newID);
-            requestController.attendeeManager.setUserRequests(tmp);
+            requestController.newRequestCreator(subject, detail);
         }
 
     /**
