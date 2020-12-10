@@ -4,10 +4,7 @@ import entities.EventRoom;
 import roomRequirementBuilder.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 //still in progress.
 
@@ -112,8 +109,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     public void CancelRoomEvent(LocalDateTime[] time, UUID actID, UUID roomID){
         EventRoom eventRoom = findRoom(roomID);
         assert eventRoom != null;
-        if (eventRoom.getSchedule().containsKey(time)){
-            eventRoom.getSchedule().remove(time, actID);
+        Set<LocalDateTime[]> schedule = eventRoom.getSchedule().keySet();
+        for (LocalDateTime[] period : schedule){
+            if (period[0].equals(time[0]) && period[1].equals(time[1])){
+                eventRoom.getSchedule().remove(time, actID);
+            }
         }
     }
 

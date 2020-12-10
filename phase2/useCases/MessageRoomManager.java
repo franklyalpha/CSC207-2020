@@ -167,6 +167,10 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
         }
     }
 
+    public void deleteGroupChat(UUID chatID){
+        conferenceChats.removeIf(groupRoom -> groupRoom.getId().equals(chatID));
+    }
+
     /**
      * Searches for a <code>Chatroom</code> object with the specified UUID. If it exists, the <code>Chatroom</code>
      * object is returned; otherwise, <code>findChatroom</code> returns <code>null</code>.
