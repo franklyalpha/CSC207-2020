@@ -13,7 +13,7 @@ public class MySQL {
     static final private String username = "newuser";
     static final private String password = "password";
 
-    public MySQL() {
+    public static void init(){
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -39,7 +39,6 @@ public class MySQL {
                 se.printStackTrace();
             }
         }
-
     }
 
     public static Connection getConnection() throws Exception {
