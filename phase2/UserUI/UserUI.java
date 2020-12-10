@@ -47,11 +47,12 @@ public class UserUI {
     protected void viewStatistic(){new StatisticUI(userController).run();}
 
     protected boolean continuing(){
-        boolean enterAction = true;
+        boolean enterAction = false;
         System.out.println(userPresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equalsIgnoreCase("true")){
-            enterAction = false;
+        String choice = scan2.nextLine();
+        if(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")){
+            enterAction = true;
         }
         return enterAction;
     }

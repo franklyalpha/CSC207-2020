@@ -58,7 +58,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strContinueServicePrompt(){
-        return "Do you want to perform another action? You will be logged out if not. [true / false] ";
+        return "Do you want to perform another action? You will be logged out if not. [YES / NO] ";
     }
     //TODO change this so it match up the input pattern
 
@@ -79,7 +79,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strTimePrompt(String startOrEnd){
-        return "Please input the year, month, day, hour, and minute of the " + startOrEnd + " time (IN THAT ORDER, separated by a space): ";
+        return "Please input the year, month, day, hour, and minute of the " + startOrEnd + " time in number form (yyyy mm dd hh mm): ";
     }
 
     public String strStartTimePrompt(){
