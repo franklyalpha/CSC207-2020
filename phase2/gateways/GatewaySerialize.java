@@ -3,84 +3,59 @@ package gateways;
 import globallyAccessible.CannotSerializeException;
 import useCases.*;
 
-import java.io.*;
+import java.sql.Connection;
 
 public class GatewaySerialize {
 
-    public void serialize(AbstractSerializableManager object){
-        String filename;
+    public void serialize(AbstractSerializableManager object) {
         try{
-            if (object instanceof EventManager){
-                filename = "events.txt";
-            } else if (object instanceof MessageRoomManager){
-                filename = "chats.txt";
-            } else if(object instanceof RequestManager){
-                filename = "requests.txt";
-            } else if (object instanceof RoomManager){
-                filename = "rooms.txt";
-            } else {
-                throw new CannotSerializeException("Cannot serialize!");
-            }
-            File f = new File(filename);
-            ObjectOutputStream oos = null;
-            OutputStream out = new FileOutputStream(f);
-            oos = new ObjectOutputStream(out);
-            oos.writeObject(object);
-            // TODO: apply mysql
-
-            oos.close();
-        }catch (IOException | CannotSerializeException io){
-            io.printStackTrace();
+            MySQL.writeJavaObject(MySQL.getConnection(), object);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
-    public AbstractSerializableManager deserialize(String filename) throws CannotSerializeException{
+    public AbstractSerializableManager deserialize(String name) throws CannotSerializeException{
         AbstractSerializableManager serialize;
         try{
-            File f = new File(filename);
-            InputStream input = new FileInputStream(f);
-            ObjectInputStream oid = new ObjectInputStream(input);
-            switch (filename){
-                case "events.txt":
-                    serialize = (EventManager) oid.readObject();
+            Connection conn = MySQL.getConnection();
+            switch (name){
+                case "events":
+                    serialize = (EventManager) MySQL.readJavaObject(conn, "useCases.EventManager");
                     break;
-                case "chats.txt":
-                    serialize = (MessageRoomManager) oid.readObject();
+                case "chats":
+                    serialize = (MessageRoomManager) MySQL.readJavaObject(conn, "useCases.MessageRoomManager");
                     break;
-                case "requests.txt":
-                    serialize = (RequestManager) oid.readObject();
+                case "requests":
+                    serialize = (RequestManager) MySQL.readJavaObject(conn, "useCases.RequestManager");
                     break;
-                case "rooms.txt":
-                    serialize = (RoomManager) oid.readObject();
+                case "rooms":
+                    serialize = (RoomManager) MySQL.readJavaObject(conn, "useCases.RoomManager");
                     break;
                 default:
                     throw new CannotSerializeException("Cannot deserialize!");
             }
-            oid.close();
-        } catch(EOFException eof) {
-            serialize = newManager(filename);
-        } catch(IOException | ClassNotFoundException io){
-            String reset = "Cannot find " + filename + ". Will reset all settings.";
+        } catch(Exception e){
+            String reset = "Cannot find " + name + ". Will reset all settings.";
             System.out.println(reset);
-            serialize = newManager(filename);
+            serialize = newManager(name);
         }
         return serialize;
     }
 
-    private AbstractSerializableManager newManager(String filename) throws CannotSerializeException {
+    private AbstractSerializableManager newManager(String name) throws CannotSerializeException {
         AbstractSerializableManager serialize;
-        switch (filename){
-            case "events.txt":
+        switch (name){
+            case "events":
                 serialize = new EventManager();
                 break;
-            case "chats.txt":
+            case "chats":
                 serialize = new MessageRoomManager();
                 break;
-            case "requests.txt":
+            case "requests":
                 serialize = new RequestManager();
                 break;
-            case "rooms.txt":
+            case "rooms":
                 serialize = new RoomManager();
                 break;
             default:
@@ -89,38 +64,23 @@ public class GatewaySerialize {
         return serialize;
     }
 
-    public void serializeUser(UserManager tester){
+    public void serializeUser(UserManager users){
         try{
-            File f = new File("users.txt");
-            ObjectOutputStream oos = null;
-            OutputStream out = new FileOutputStream(f);
-            oos = new ObjectOutputStream(out);
-            oos.writeObject(tester);
-            // TODO: apply mysql
-
-            oos.close();
-        }catch (IOException io){
-            io.printStackTrace();
+            MySQL.writeJavaObject(MySQL.getConnection(), users);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     public UserManager deserializeUser(){
         UserManager serialize;
         try{
-            File f = new File("users.txt");
-            InputStream input = new FileInputStream(f);
-            ObjectInputStream oid = new ObjectInputStream(input);
-            serialize = (UserManager)oid.readObject();
-            oid.close();
-        } catch(EOFException eof) {
+            serialize = (UserManager) MySQL.readJavaObject(MySQL.getConnection(), "useCases.UserManager");
+        } catch(Exception e){
+            System.out.println("Cannot find user data. Generating new data...");
             serialize = new UserManager();
-        } catch(IOException | ClassNotFoundException io){
-            System.out.println("Cannot find user file. Will reset all settings. ");
-            serialize = new UserManager();
+            System.out.println("New data generated!");
         }
         return serialize;
-
     }
-
 }
