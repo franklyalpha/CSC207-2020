@@ -87,7 +87,7 @@ public class RequestController extends AbstractController {
      * Outputs all requests made by the user in a list-like format.
      */
     public void viewUserRequests() {
-        ArrayList<Request> output = new ArrayList<>();
+        ArrayList<Object[]> output = new ArrayList<>();
         for (UUID req : attendeeManager.getUserRequests()){
             try {
                 output.add(findRequest(req));
@@ -96,7 +96,8 @@ public class RequestController extends AbstractController {
             }
         }
         int i = 0;
-        for (Request req1 : output){
+        for (Object[] req1 : output){
+            j;ldskajf
             System.out.println("[" + i + "]\n " + req1.toString());
             i = i + 1;
         }
@@ -131,7 +132,7 @@ public class RequestController extends AbstractController {
      * @param requestID UUID of the <code>Request</code> to be retrieved.
      * @return Returns the instance of <code>Request</code> that has the input UUID.
      */
-    public Request findRequest(UUID requestID) throws RequestNotFoundException {
+    public Object[] findRequest(UUID requestID) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(requestID)) {
             return requestManager.findRequest(requestID);
         } else {

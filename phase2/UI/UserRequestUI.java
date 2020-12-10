@@ -138,11 +138,12 @@ public class UserRequestUI extends AbstractUI {
         if(tmp.size() == 0){
             throw new RequestNotFoundException("no requests found");
         }
-        ArrayList<Request> userReqs = new ArrayList<>();
+        ArrayList<Object[]> userReqs = new ArrayList<>();
         for (UUID req : tmp) {
             userReqs.add(requestController.findRequest(req));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
+        fadsfy
         while (x < 3) {
             try {
                 x = x + 1;

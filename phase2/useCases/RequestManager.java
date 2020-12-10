@@ -170,14 +170,14 @@ public class RequestManager extends AbstractSerializableManager implements java.
      * @param requestID UUID of the <code>Request</code> to be retrieved.
      * @return Returns the instance of <code>Request</code> that has the input UUID.
      */
-    public Request findRequest(UUID requestID) {
+    public Object[] findRequest(UUID requestID) {
         ArrayList<Request> tmp = new ArrayList<>(requestList);
         for (Request request1 : tmp) {
             if (request1.getId().equals(requestID)) {   // check the UUID to make sure we have the right entities.Request
-                return request1;
+                return new Object[]{request1.getId(), request1.getDetails(), request1.getSubject(), request1.getStatus()};
             }
         }
-        return null;
+        return new Object[]{};
     }
 
     /**
