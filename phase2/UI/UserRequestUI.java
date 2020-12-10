@@ -131,17 +131,17 @@ public class UserRequestUI extends AbstractUI {
      */
     private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException {
         int x = 0;
+        System.out.println(requestPresenter.strRequestPromptHelper("modify"));
+        ArrayList<UUID> tmp = requestController.getUserRequests();
+        ArrayList<Request> userReqs = new ArrayList<>();
+        for (UUID req : tmp) {
+            userReqs.add(requestController.findRequest(req));
+        }
+        System.out.println(userPresenter.strList(userReqs.toArray()));
         while (x < 3) {
             try {
                 x = x + 1;
                 Scanner requestIDScanner = new Scanner(System.in);
-                System.out.println(requestPresenter.strRequestPromptHelper("modify"));
-                ArrayList<UUID> tmp = requestController.getUserRequests();
-                ArrayList<Request> userReqs = new ArrayList<>();
-                for (UUID req : tmp) {
-                    userReqs.add(requestController.findRequest(req));
-                }
-                System.out.println(userPresenter.strList(userReqs.toArray()));
                 int selection = Integer.parseInt(requestIDScanner.nextLine());
                 if (selection > requestController.getAllRequest().size() - 1) {
                     System.out.println("Invalid request! Please try again.");
@@ -154,6 +154,8 @@ public class UserRequestUI extends AbstractUI {
                         i = i + 1;
                     }
                 }
+            } catch (IndexOutOfBoundsException e){
+                requestPresenter.strInvalidInput();
             }
         }
     }
