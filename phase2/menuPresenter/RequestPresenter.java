@@ -35,7 +35,7 @@ public class RequestPresenter extends GeneralMenuPresenter {
      * @return String prompting the user to input which request they want to act on.
      */
     public String strRequestPromptHelper(String action){
-        return "Please specify which request you wish to " + action + ": ";
+        return "Please specify which request you wish to " + action + ": \n ";
     }
 
     /**

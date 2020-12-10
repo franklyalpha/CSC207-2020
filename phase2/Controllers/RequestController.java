@@ -93,7 +93,7 @@ public class RequestController extends AbstractController {
         }
         int i = 0;
         for (Request req1 : output){
-            System.out.println("[" + i + "]\n" + req1.toString());
+            System.out.println("[" + i + "]\n " + req1.toString());
             i = i + 1;
         }
     }
@@ -105,7 +105,7 @@ public class RequestController extends AbstractController {
         ArrayList<Request> tmp = new ArrayList<>(requestManager.getPendingRequests());
         int i = 0;
         for (Request req : tmp){
-            System.out.println("[" + i + "]\n" + req.toString());
+            System.out.println("[" + i + "]\n " + req.toString());
             i = i + 1;
         }
     }
@@ -117,7 +117,7 @@ public class RequestController extends AbstractController {
         ArrayList<Request> tmp = new ArrayList<>(requestManager.getRequestList());
         int i = 0;
         for (Request req : tmp){
-            System.out.println("[" + i + "]\n" + req.toString());
+            System.out.println("[" + i + "]\n " + req.toString());
             i = i + 1;
         }
     }

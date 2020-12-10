@@ -55,7 +55,7 @@ public class UserRequestUI extends AbstractUI {
                     System.out.println(userPresenter.strInvalidInput());
                     break;
             }
-            notStop = handleWrongInput();
+            notStop = continuing();
         }
     }
 
@@ -100,7 +100,8 @@ public class UserRequestUI extends AbstractUI {
             try{
                 UUID selection = chooseRequest(requestController);
                 Scanner chooseSubjectDetail = new Scanner(System.in);
-                System.out.println("What part would you like to modify? (Please enter the corresponding number):");
+                System.out.println("What part would you like to modify? (Please enter the corresponding number):\n[1]  " +
+                        "- Subject\n[2] - Description");
                     String choice = chooseSubjectDetail.nextLine();
                     switch (choice){
                         case "0":  // modify subject
@@ -109,6 +110,9 @@ public class UserRequestUI extends AbstractUI {
                         case "1":  // modify details
                             modifyDetails(selection);
                             break;
+                        case "Q":
+                        case "q":
+                            return;
                         default:
                             System.out.println(userPresenter.strInvalidInput());
                             break;
@@ -167,7 +171,7 @@ public class UserRequestUI extends AbstractUI {
      */
     private void modifyDetails(UUID request) throws RequestNotFoundException {
         Scanner detailScanner = new Scanner(System.in);
-        System.out.println(requestPresenter.strInputNewSubject());
+        System.out.println(requestPresenter.strInputNewDetails());
         String newDetail = detailScanner.nextLine();
         requestController.modifyRequestDetails(request, newDetail);
     }
@@ -198,29 +202,15 @@ public class UserRequestUI extends AbstractUI {
         }
     }
 
-    /**
-     * Asks the program user whether or not they wish to continue using the program when an invalid input occurs.
-     * @return Boolean value representing whether or not the program is to continue.
-     */
-    private boolean handleWrongInput() {
-        boolean notStop = false;
-        boolean validInput = false;
-        while(!validInput){
-            System.out.println(userPresenter.strInvalidInput());
-            Scanner nextChoice = new Scanner(System.in);
-            String choice = nextChoice.nextLine();
-            if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
-                notStop = true;
-                validInput = true;
-            }
-            else if (choice.equals("N") || choice.equals("No") || choice.equals("n") || choice.equals("no")){
-                validInput = true;
-            }
-            else{
-                System.out.println(userPresenter.strInvalidInput());
-            }
+    protected boolean continuing(){
+        boolean enterAction = false;
+        System.out.println(userPresenter.strContinueServicePrompt());
+        Scanner scan2 = new Scanner(System.in);
+        String choice = scan2.nextLine();
+        if(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")){
+            enterAction = true;
         }
-        return notStop;
+        return enterAction;
     }
 
 }
