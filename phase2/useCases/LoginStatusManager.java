@@ -29,6 +29,9 @@ public class LoginStatusManager implements Serializable {
 
     public LoginStatusManager(){
         allUsers = new HashMap<>();
+        for(UserType type: UserType.values()){
+            allUsers.put(type, new ArrayList<>());
+        }
         num_user = 1;
         userOnAir = null;
     }
