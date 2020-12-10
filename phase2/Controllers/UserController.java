@@ -28,10 +28,10 @@ public class UserController {
     public UserController(UserManager manager) {
         userManager = manager;
         try {
-            messageRoomManager = (MessageRoomManager) new GatewaySerialize().deserialize("chats.txt");
-            eventManager = (EventManager) new GatewaySerialize().deserialize("events.txt");
-            roomManager = (RoomManager) new GatewaySerialize().deserialize("rooms.txt");
-            requestManager = (RequestManager) new GatewaySerialize().deserialize("requests.txt");
+            messageRoomManager = (MessageRoomManager) new GatewaySerialize().deserialize("chats");
+            eventManager = (EventManager) new GatewaySerialize().deserialize("events");
+            roomManager = (RoomManager) new GatewaySerialize().deserialize("rooms");
+            requestManager = (RequestManager) new GatewaySerialize().deserialize("requests");
         } catch (CannotSerializeException e) {
             e.printStackTrace();
         }
