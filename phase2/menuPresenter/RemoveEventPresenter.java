@@ -14,7 +14,7 @@ public class RemoveEventPresenter extends UserPresenter {
     }
 
     public String printIDForTheEventToBeCancelled(ArrayList<String[]> allActivities) {
-        return "Please input the ID of the event that you want to cancel:";
+        return strSchedule(allActivities) + "Please input the ID of the event that you want to cancel:";
     }
 
     public String printNoEvent() {

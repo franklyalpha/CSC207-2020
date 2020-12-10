@@ -15,7 +15,7 @@ public class CancelEventController extends EventController {
     /**
      * An instance of <>OrganizerManager</>.
      */
-    private OrganizerManager organizerManager;
+    protected OrganizerManager organizerManager;
 
     /**
      * The constructor of this controller.
@@ -50,11 +50,12 @@ public class CancelEventController extends EventController {
      */
     public void cancelAndUpdate(String eventID){
         // need to update the speaker as an array list of speaker;
-        eventManager.deleteEvent(UUID.fromString(eventID));
         processCancelSpeaker(eventID);
+        eventManager.deleteEvent(UUID.fromString(eventID));
+
     }
 
-    private void processCancelSpeaker(String eventID){
+    void processCancelSpeaker(String eventID){
         String[] actInfo = eventManager.searchEventByUUID(eventID);
         UUID actID = UUID.fromString(eventID);
         EventType eventType = eventManager.findType(actID);

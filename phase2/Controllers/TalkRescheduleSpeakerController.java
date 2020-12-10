@@ -18,8 +18,9 @@ public class TalkRescheduleSpeakerController extends SpeakerReschedulingControll
     }
 
     public void updateRescheduledSpeaker(String speaker){
+        String originalSpeaker = talkManager.getSpeaker(UUID.fromString(actInfo[0]));
         talkManager.addSpeaker(UUID.fromString(actInfo[0]), speaker);
-        organizerManager.deleteEvent(actInfo[5], actTime);
+        organizerManager.deleteEvent(originalSpeaker, actTime);
         organizerManager.otherAddSchedule(speaker, actTime, UUID.fromString(actInfo[0]));
     }
 

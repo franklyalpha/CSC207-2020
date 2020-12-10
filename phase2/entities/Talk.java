@@ -28,7 +28,7 @@ public class Talk extends Event {
         return true;
     }
 
-    public String getSpeaker(UUID actID){return this.speaker;}
+    public String getSpeaker(){return this.speaker;}
 
     public EventType getEventType(){return type;}
 

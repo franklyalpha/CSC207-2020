@@ -114,7 +114,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString()};
+                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
             }
         }
         return null;
@@ -170,7 +170,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
             for (Event i : allUpcomingEvents()) {
                 String[] temp = {i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString()};
+                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
                 result.add(temp);
             }
         }
@@ -219,7 +219,13 @@ public class EventManager extends AbstractSerializableManager implements java.io
     }
 
     public void deleteEvent(UUID activityID){
-        upcomingEvents.remove(findType(activityID), findEvent(activityID));
+        EventType activityType = findType(activityID);
+        Event potentialCancel = findEvent(activityID);
+        upcomingEvents.get(activityType).remove(potentialCancel);
+    }
+
+    public ArrayList<String> getAttendeeList(UUID activityID){
+        return findEvent(activityID).getAttendeeList();
     }
 
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){

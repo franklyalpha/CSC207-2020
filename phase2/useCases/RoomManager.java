@@ -152,6 +152,9 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
             if (end.isAfter(targetPeriod[0]) && end.isBefore(targetPeriod[1])){
                 return false;
             }
+            if(start.isEqual(targetPeriod[0]) && end.isEqual(targetPeriod[1])){
+                return false;
+            }
         }
         return true;
     }
