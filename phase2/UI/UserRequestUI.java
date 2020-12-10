@@ -177,8 +177,10 @@ public class UserRequestUI extends AbstractUI {
      * Gets user to input which request they wish to remove, and performs the removal.
      */
     private void removeRequest(RequestController requestController) {
-        while(true){
+        int x = 0;
+        while(x < 3){
             try{
+                x = x + 1;
                 Scanner chooseToRemove = new Scanner(System.in);
                 requestController.viewUserRequests();
                 System.out.println("Which request would you like to remove? (Please enter the corresponding number):");
@@ -193,6 +195,7 @@ public class UserRequestUI extends AbstractUI {
                     }
                     i = i + 1;
                 }
+                break;
             }catch(RequestNotFoundException e){
                 requestPresenter.strInvalidRequest();
             }
