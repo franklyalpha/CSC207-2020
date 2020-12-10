@@ -3,7 +3,6 @@ package useCases;
 import entities.Request;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -173,11 +172,39 @@ public class RequestManager extends AbstractSerializableManager implements java.
     public Object[] findRequest(UUID requestID) {
         ArrayList<Request> tmp = new ArrayList<>(requestList);
         for (Request request1 : tmp) {
+            String status = "PENDING";
+            if (request1.getStatus()){
+                status = "DONE";
+            }
             if (request1.getId().equals(requestID)) {   // check the UUID to make sure we have the right entities.Request
-                return new Object[]{request1.getId(), request1.getDetails(), request1.getSubject(), request1.getStatus()};
+                return new Object[]{request1.getId(), request1.getDetails(), request1.getSubject(), status};
             }
         }
         return new Object[]{};
+    }
+
+    /**
+     * Outputs all requests made by any user in a list-like format.
+     */
+    public void viewAllRequests() {
+        ArrayList<Request> tmp = new ArrayList<>(getRequestList());
+        int i = 0;
+        for (Request req : tmp){
+            System.out.println("[" + i + "]\n " + req.toString());
+            i = i + 1;
+        }
+    }
+
+    /**
+     * Outputs all pending requests made by any user in a list-like format.
+     */
+    public void viewPendingRequests() {
+        ArrayList<Request> tmp = new ArrayList<>(getPendingRequests());
+        int i = 0;
+        for (Request req : tmp){
+            System.out.println("[" + i + "]\n " + req.toString());
+            i = i + 1;
+        }
     }
 
     /**

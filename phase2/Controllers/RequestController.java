@@ -34,15 +34,13 @@ public class RequestController extends AbstractController {
      * as the participants.
      * @param subject String representing a short concise description of the nature of this <code>Request</code>.
      * @param description String representing a more detailed description of this <code>Request</code>.
-     * @return the UUID of the newly created <code>Request</code>.
      */
-    public UUID newRequestCreator(String subject, String description){
+    public void newRequestCreator(String subject, String description){
         String username = userManager.getUsername();
         UUID result = requestManager.createRequest(username, subject, description);
         ArrayList<UUID> tmp = attendeeManager.getUserRequests();
         tmp.add(result);
         attendeeManager.setUserRequests(tmp);
-        return result;
     }
 
     /**
@@ -52,6 +50,9 @@ public class RequestController extends AbstractController {
     public void deleteRequest(UUID request) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(request)) {
             requestManager.removeRequest(request);
+            ArrayList<UUID> tmp = attendeeManager.getUserRequests();
+            tmp.remove(request);
+            attendeeManager.setUserRequests(tmp);
         } else {
             throw new RequestNotFoundException("Request not found.");
         }
@@ -88,17 +89,21 @@ public class RequestController extends AbstractController {
      */
     public void viewUserRequests() {
         ArrayList<Object[]> output = new ArrayList<>();
-        for (UUID req : attendeeManager.getUserRequests()){
-            try {
-                output.add(findRequest(req));
-            } catch (RequestNotFoundException ex){
-                System.out.println("Invalid request ID: there is no existing request with that ID.");
+        if (attendeeManager.getUserRequests().isEmpty()) {
+            System.out.println("You have not submitted any requests.");
+        } else {
+            for (UUID req : attendeeManager.getUserRequests()) {
+                try {
+                    output.add(findRequest(req));
+                } catch (RequestNotFoundException ex) {
+                    System.out.println("Invalid request ID: there is no existing request with that ID.");
+                }
             }
-        }
-        int i = 0;
-        for (Object[] req1 : output){
-            System.out.println("[" + i + "]\n " + req1.toString());
-            i = i + 1;
+            int i = 0;
+            for (Object[] req1 : output) {
+                System.out.println("[" + i + "]\n " + toStringHelper(req1));
+                i = i + 1;
+            }
         }
     }
 
@@ -106,30 +111,20 @@ public class RequestController extends AbstractController {
      * Outputs all pending requests made by any user in a list-like format.
      */
     public void viewPendingRequests() {
-        ArrayList<Request> tmp = new ArrayList<>(requestManager.getPendingRequests());
-        int i = 0;
-        for (Request req : tmp){
-            System.out.println("[" + i + "]\n " + req.toString());
-            i = i + 1;
-        }
+        requestManager.viewPendingRequests();
     }
 
     /**
      * Outputs all requests made by any user in a list-like format.
      */
     public void viewAllRequests() {
-        ArrayList<Request> tmp = new ArrayList<>(requestManager.getRequestList());
-        int i = 0;
-        for (Request req : tmp){
-            System.out.println("[" + i + "]\n " + req.toString());
-            i = i + 1;
-        }
+        requestManager.viewAllRequests();
     }
 
     /**
-     * Retrieves the instance of <code>Request</code> corresponding to the specified UUID.
+     * Retrieves information about the <code>Request</code> corresponding to the specified UUID.
      * @param requestID UUID of the <code>Request</code> to be retrieved.
-     * @return Returns the instance of <code>Request</code> that has the input UUID.
+     * @return Returns an array of Objects representing, in String and boolean form, information of the <code>Request</code> that has the input UUID.
      */
     public Object[] findRequest(UUID requestID) throws RequestNotFoundException {
         if (requestManager.isExistingRequest(requestID)) {
@@ -137,6 +132,18 @@ public class RequestController extends AbstractController {
         } else {
             throw new RequestNotFoundException("Request not found.");
         }
+    }
+
+    /**
+     * Helper method to format object array into readable text.
+     * @param req1 Instance of the <code>Object[]</code> to be formatted.
+     * @return String representing the <code>Object[]</code>.
+     */
+    private String toStringHelper(Object[] req1){
+        return "Submitted by: [ " + attendeeManager.getUsername() + " ]    " +
+                "Status: [ " + req1[3] + " ]\n------------------------------------------------------\n" +
+                "Subject: " + req1[2] + "\nDetails: " + req1[1] +
+                "\n------------------------------------------------------\n------------------------------------------------------";
     }
 
     /**

@@ -81,12 +81,10 @@ public class UserRequestUI extends AbstractUI {
      * @param requestController An instance of <code>requestController</code>.
      */
     private void viewRequests(RequestController requestController){
-        if (requestController.getUserRequests().isEmpty()) {
-            System.out.println("You have not submitted any requests.");
-        } else {
+        if (!requestController.getUserRequests().isEmpty()) {
             System.out.println("Here are your requests: ");
-            requestController.viewUserRequests();
         }
+        requestController.viewUserRequests();
     }
 
     /**
@@ -136,13 +134,14 @@ public class UserRequestUI extends AbstractUI {
         System.out.println(requestPresenter.strRequestPromptHelper("modify"));
         ArrayList<UUID> tmp = requestController.getUserRequests();
         if(tmp.size() == 0){
-            throw new RequestNotFoundException("no requests found");
+            throw new RequestNotFoundException("No requests found.");
         }
-        ArrayList<Object[]> userReqs = new ArrayList<>();
+        ArrayList<String> userReqs = new ArrayList<>();
         for (UUID req : tmp) {
-            userReqs.add(requestController.findRequest(req));
+            userReqs.add(toStringHelper(requestController.findRequest(req)));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
+        System.out.println("[Q] - Go back");
         while (x < 3) {
             try {
                 x = x + 1;
@@ -151,7 +150,7 @@ public class UserRequestUI extends AbstractUI {
                 if (requestIDScanner.hasNextInt()) {
                     selection = Integer.parseInt(requestIDScanner.nextLine());
                 }
-                if ( selection > requestController.getAllRequest().size() - 1 || selection < 0) {
+                if ( selection > requestController.getAllRequest().size() || selection < 0) {
                     System.out.println("Invalid request! Please try again.");
                 }
                 else {
@@ -211,20 +210,34 @@ public class UserRequestUI extends AbstractUI {
                 System.out.println("Which request would you like to remove? (Please enter the corresponding number):");
                 String choice = chooseToRemove.nextLine();
                 int i = 0;
+                ArrayList<UUID> toRemove = new ArrayList<>();
                 for (UUID reqID : requestController.getUserRequests()){
                     if (i == Integer.parseInt(choice)){
-                        requestController.deleteRequest(reqID);
-                        ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
-                        tmp.remove(reqID);
-                        requestController.attendeeManager.setUserRequests(tmp);
+                        toRemove.add(reqID);
                     }
                     i = i + 1;
+                }
+                for (UUID id: toRemove){    // to avoid concurrent mod exception
+                    requestController.deleteRequest(id);
+                    ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
+                    tmp.remove(id);
+                    requestController.attendeeManager.setUserRequests(tmp);
                 }
                 break;
             }catch(RequestNotFoundException e){
                 requestPresenter.strInvalidRequest();
             }
         }
+    }
+
+    /**
+     * Helper method to format object array into readable text.
+     * @param req1 Instance of the <code>Object[]</code> to be formatted.
+     * @return String representing the <code>Object[]</code>.
+     */
+    private String toStringHelper(Object[] req1){
+        return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
+        + " ]\n------------------------------------------------------";
     }
 
     protected boolean continuing(){

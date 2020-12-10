@@ -36,7 +36,7 @@ public class AttendeeManager extends UserManager {
      * @param time is the time that needed to be added.
      * @param actID is the ID of the user.
      */
-    public void selfAddSchedule(LocalDateTime[] time, UUID actID){ ;
+    public void selfAddSchedule(LocalDateTime[] time, UUID actID){
         userOnAir.getActivities().put(time, actID);
     }
 
@@ -74,8 +74,7 @@ public class AttendeeManager extends UserManager {
         if (currUser.getRequests() != null) {
             return currUser.getRequests();
         }
-        ArrayList<UUID> result = new ArrayList<UUID>();
-        return result;
+        return new ArrayList<>();
     }
 
     /**
