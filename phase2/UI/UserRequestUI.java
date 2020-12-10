@@ -143,7 +143,6 @@ public class UserRequestUI extends AbstractUI {
             userReqs.add(requestController.findRequest(req));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
-        fadsfy
         while (x < 3) {
             try {
                 x = x + 1;

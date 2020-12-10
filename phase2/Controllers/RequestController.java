@@ -97,7 +97,6 @@ public class RequestController extends AbstractController {
         }
         int i = 0;
         for (Object[] req1 : output){
-            j;ldskajf
             System.out.println("[" + i + "]\n " + req1.toString());
             i = i + 1;
         }
