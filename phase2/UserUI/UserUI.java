@@ -1,4 +1,4 @@
-package Facades;
+package UserUI;
 
 import Controllers.UserController;
 import UI.*;
@@ -7,14 +7,14 @@ import menuPresenter.UserPresenter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserFacade {
+public class UserUI {
     protected ArrayList<String> availableAction = new ArrayList<>();
     protected ArrayList<String> availableMethod = new ArrayList<>();
     protected UserController userController;
     final private UserPresenter userPresenter = new UserPresenter();
 
 
-    public UserFacade(UserController userController){
+    public UserUI(UserController userController){
         this.userController = userController;
     }
 

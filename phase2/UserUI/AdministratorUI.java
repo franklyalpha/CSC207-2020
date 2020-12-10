@@ -1,4 +1,4 @@
-package Facades;
+package UserUI;
 
 import Controllers.UserController;
 import UI.AdminCancelEventUI;
@@ -7,11 +7,11 @@ import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
 
-public class AdministratorFacade extends OrganizerFacade {
+public class AdministratorUI extends OrganizerUI {
 
     private final AdminPresenter presenter = new AdminPresenter();
 
-    public AdministratorFacade(UserController userController) {
+    public AdministratorUI(UserController userController) {
         super(userController);
     }
 

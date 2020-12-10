@@ -1,4 +1,4 @@
-package Facades;
+package UserUI;
 
 import Controllers.UserController;
 import UI.AttCancelEnrollmentUI;
@@ -19,13 +19,13 @@ import java.util.Scanner;
  * enrollConference: responsible for enrolling the user into available conference after checking constraints.
  * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
-public class AttendeeFacade extends UserFacade {
+public class AttendeeUI extends UserUI {
 
     final private AttendeePresenter attendeePresenter = new AttendeePresenter();
 //    private MongoDatabase database;
 
 //    public AttendeeFacade(UserController userController, MongoDatabase database) {
-    public AttendeeFacade(UserController userController) {
+    public AttendeeUI(UserController userController) {
         super(userController);
 //        this.database = database;
     }
