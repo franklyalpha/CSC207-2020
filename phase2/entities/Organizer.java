@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 public class Organizer extends User implements Serializable {
 
-
     /**
      * Creates a new entities.User with given name, password, and type.
      *

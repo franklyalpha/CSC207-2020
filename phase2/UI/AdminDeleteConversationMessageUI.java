@@ -34,8 +34,8 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
 
     private void choosePrivateOrGroup(Scanner choice) {
         switch(choice.nextInt()){
-            case 1: deletePrivateConversation();
-            case 2: deleteSelectedMessages();
+            case 1: deletePrivateConversation(); break;
+            case 2: deleteSelectedMessages(); break;
         }
     }
 

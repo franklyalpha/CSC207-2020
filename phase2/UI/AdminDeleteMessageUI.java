@@ -29,8 +29,8 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
 
     private void deleteChoice(Scanner choice) {
         switch(choice.nextInt()){
-            case 0: deleteOrganizerSpeakerMessage();
-            case 1: deleteEventMessage();
+            case 0: deleteOrganizerSpeakerMessage(); break;
+            case 1: deleteEventMessage(); break;
         }
     }
 

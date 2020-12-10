@@ -28,7 +28,7 @@ public class AdminDeleteMessagePresenter extends UserPresenter {
     }
 
     public String strIndexToDeletePrompt(){
-        return "Please enter the indices of all messages to be deleted, each separated by a space (i.e. 1 3 4):";
+        return "Please enter the indices of all messages to be deleted, each separated by a space (i.e. 1 3 4) and 'end' when finished:";
     }
 
     public String strChatToDeletePrompt(){
@@ -36,6 +36,6 @@ public class AdminDeleteMessagePresenter extends UserPresenter {
     }
 
     public String strChatDisplayHeader(){
-        return "Listed below are conversation IDs paired with the corresponding conversations:";
+        return "Listed below are conversation IDs paired with the corresponding events' topic:";
     }
 }

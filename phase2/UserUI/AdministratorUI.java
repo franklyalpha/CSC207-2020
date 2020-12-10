@@ -2,6 +2,7 @@ package UserUI;
 
 import Controllers.UserController;
 import UI.AdminCancelEventUI;
+import UI.AdminDeleteConversationMessageUI;
 import UI.AdminDeleteMessageUI;
 import menuPresenter.AdminPresenter;
 
@@ -48,7 +49,7 @@ public class AdministratorUI extends OrganizerUI {
     }
 
     private void deleteMessage(){
-        new AdminDeleteMessageUI(userController).run();
+        new AdminDeleteConversationMessageUI(userController).run();
     }
 
     private void deleteEvent(){
