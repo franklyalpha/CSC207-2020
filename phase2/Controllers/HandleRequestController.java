@@ -3,6 +3,7 @@ package Controllers;
 import globallyAccessible.RequestNotFoundException;
 import useCases.RequestManager;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -13,7 +14,7 @@ public class HandleRequestController extends RequestController {
     /**
      * An instance of <code>RequestManager</code>.
      */
-    private RequestManager requestManager;
+    private final RequestManager requestManager;
 
     /**
      * Creates an instance of <code>HandleRequestController</code>.
@@ -21,6 +22,7 @@ public class HandleRequestController extends RequestController {
      */
     public HandleRequestController(UserController userController) {
         super(userController);
+        requestManager = new RequestManager();
     }
 
     /**
@@ -34,5 +36,13 @@ public class HandleRequestController extends RequestController {
         else{
             throw new RequestNotFoundException("Request not found.");
         }
+    }
+
+    /**
+     * Gets the IDs of any pending requests.
+     * @return ArrayList of <code>UUID</code>s of any pending requests.
+     */
+    public ArrayList<UUID> getAllPending(){
+        return requestManager.getPendingIDs();
     }
 }

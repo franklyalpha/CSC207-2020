@@ -1,8 +1,10 @@
 package UI;
 
+import Controllers.RequestController;
 import entities.Request;
 import Controllers.HandleRequestController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
@@ -52,7 +54,7 @@ public class OrganizerRequestUI extends AbstractUI {
                     System.out.println(userPresenter.strInvalidInput());
                     break;
             }
-            notStop = handleWrongInput();
+            notStop = continuing();
         }
     }
 
@@ -88,50 +90,88 @@ public class OrganizerRequestUI extends AbstractUI {
      * Gets user to input which request they wish to handle, and handles it.
      */
     private void handleRequest(HandleRequestController handleRequestController) {
-        while(true){
+        int i = 0;
+        while(i < 3){
             try{
-                Scanner chooseToHandle = new Scanner(System.in);
-                handleRequestController.viewAllRequests();
-                System.out.println("Which request would you like to handle? (Please enter the corresponding number):");
-                String choice = chooseToHandle.nextLine();
-                int i = 0;
-                for (Request req : handleRequestController.getAllRequest()){
-                    if (i == Integer.parseInt(choice)){
-                        UUID reqID = req.getId();
-                        handleRequestController.handleRequest(reqID);
-                        break;
-                    }
-                    i = i + 1;
-                }
-            }catch(RequestNotFoundException e){
-                System.out.println("That is not a valid request.");
+                i = i + 1;
+                UUID selection = chooseRequest(handleRequestController);
+                handleRequestController.handleRequest(selection);
+                break;
+            }catch(RequestNotFoundException | ExceedingMaxAttemptException e){
+                requestPresenter.strInvalidRequest();
             }
         }
+        return;
+    }
+
+
+    /**
+     * Gets info from the user regarding which <code>Request</code> they wish to handle.
+     * @param handleRequestController An instance of <code>requestController</code>.
+     * @return The UUID of the <code>Request</code> they wish to handle.
+     * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
+     */
+    private UUID chooseRequest(HandleRequestController handleRequestController) throws RequestNotFoundException, ExceedingMaxAttemptException {
+        int x = 0;
+        System.out.println(requestPresenter.strRequestPromptHelper("handle"));
+        ArrayList<UUID> pending = handleRequestController.getAllPending();
+        if(pending.size() == 0){
+            throw new RequestNotFoundException("No requests found.");
+        }
+        ArrayList<String> userReqs = new ArrayList<>();
+        for (UUID req : pending) {
+            userReqs.add(toStringHelper(handleRequestController.findRequest(req)));
+        }
+        System.out.println(userPresenter.strList(userReqs.toArray()));
+        System.out.println("[Q] - Go back");
+        while (x < 3) {
+            try {
+                x = x + 1;
+                Scanner requestIDScanner = new Scanner(System.in);
+                int selection = 0;
+                if (requestIDScanner.hasNextInt()) {
+                    selection = Integer.parseInt(requestIDScanner.nextLine());
+                }
+                if ( selection > handleRequestController.getAllRequest().size() || selection < 0) {
+                    System.out.println("Invalid request! Please try again.");
+                }
+                else {
+                    int i = 1;
+                    for (Request req : handleRequestController.getAllRequest()) {
+                        if (i == selection) {
+                            return req.getId();
+                        }
+                        i = i + 1;
+                    }
+                }
+                break;
+            } catch (IndexOutOfBoundsException e){
+                x = x + 1;
+                requestPresenter.strInvalidInput();
+            }
+        }
+        throw new ExceedingMaxAttemptException("Maximum attempts exceeded!!");
+    }
+
+    protected boolean continuing(){
+        boolean enterAction = false;
+        System.out.println(userPresenter.strContinueServicePrompt());
+        Scanner scan2 = new Scanner(System.in);
+        String choice = scan2.nextLine();
+        if(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")){
+            enterAction = true;
+        }
+        return enterAction;
     }
 
     /**
-     * Asks the program user whether or not they wish to continue using the program when an invalid input occurs.
-     * @return Boolean value representing whether or not the program is to continue.
+     * Helper method to format object array into readable text.
+     * @param req1 Instance of the <code>Object[]</code> to be formatted.
+     * @return String representing the <code>Object[]</code>.
      */
-    private boolean handleWrongInput() {
-        boolean notStop = false;
-        boolean validInput = false;
-        while(!validInput){
-            System.out.println(userPresenter.strInvalidInput());
-            Scanner nextChoice = new Scanner(System.in);
-            String choice = nextChoice.nextLine();
-            if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
-                notStop = true;
-                validInput = true;
-            }
-            else if (choice.equals("N") || choice.equals("No") || choice.equals("n") || choice.equals("no")){
-                validInput = true;
-            }
-            else{
-                System.out.println(userPresenter.strInvalidInput());
-            }
-        }
-        return notStop;
+    private String toStringHelper(Object[] req1){
+        return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
+                + " ]\n------------------------------------------------------";
     }
 
 }

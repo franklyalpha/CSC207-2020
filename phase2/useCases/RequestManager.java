@@ -208,6 +208,22 @@ public class RequestManager extends AbstractSerializableManager implements java.
     }
 
     /**
+     * Gets the IDs of any pending requests.
+     * @return ArrayList of <code>UUID</code>s of any pending requests.
+     */
+    public ArrayList<UUID> getPendingIDs() {
+        ArrayList<UUID> result = new ArrayList<>();
+        if (!getPendingRequests().isEmpty()) {
+            for (Request req : getPendingRequests()) {
+                if (!req.getStatus()) {
+                    result.add(req.getId());
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns list of all existing <code>Request</code>s
      * @return ArrayList of existing instances of <code>Request</code>s
      */
