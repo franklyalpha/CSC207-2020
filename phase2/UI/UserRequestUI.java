@@ -135,6 +135,9 @@ public class UserRequestUI extends AbstractUI {
         int x = 0;
         System.out.println(requestPresenter.strRequestPromptHelper("modify"));
         ArrayList<UUID> tmp = requestController.getUserRequests();
+        if(tmp.size() == 0){
+            throw new RequestNotFoundException("no requests found");
+        }
         ArrayList<Request> userReqs = new ArrayList<>();
         for (UUID req : tmp) {
             userReqs.add(requestController.findRequest(req));
@@ -150,7 +153,8 @@ public class UserRequestUI extends AbstractUI {
                 }
                 if ( selection > requestController.getAllRequest().size() - 1 || selection < 0) {
                     System.out.println("Invalid request! Please try again.");
-                } else {
+                }
+                else {
                     int i = 1;
                     for (Request req : requestController.getAllRequest()) {
                         if (i == selection) {
