@@ -55,7 +55,7 @@ public class UserRequestUI extends AbstractUI {
                     System.out.println(userPresenter.strInvalidInput());
                     break;
             }
-            notStop = handleWrongInput();
+            notStop = continuing();
         }
     }
 
@@ -71,10 +71,7 @@ public class UserRequestUI extends AbstractUI {
             Scanner detailScan = new Scanner(System.in);
             System.out.println(requestPresenter.strRequestDetailsPrompt());
             String detail = detailScan.nextLine();
-            UUID newID = requestController.newRequestCreator(subject, detail);
-            ArrayList<UUID> tmp = new ArrayList<>(requestController.getUserRequests());
-            tmp.add(newID);
-            requestController.attendeeManager.setUserRequests(tmp);
+            requestController.newRequestCreator(subject, detail);
         }
 
     /**
@@ -96,11 +93,14 @@ public class UserRequestUI extends AbstractUI {
      * @param requestController An instance of <code>requestController</code>.
      */
     private void modifyRequest(RequestController requestController) {
-        while(true){
+        int i = 0;
+        while(i < 3){
             try{
+                i = i + 1;
                 UUID selection = chooseRequest(requestController);
                 Scanner chooseSubjectDetail = new Scanner(System.in);
-                System.out.println("What part would you like to modify? (Please enter the corresponding number):");
+                System.out.println("What part would you like to modify? (Please enter the corresponding number):\n[0] " +
+                        "- Subject\n[1] - Description\n[Q] - Back");
                     String choice = chooseSubjectDetail.nextLine();
                     switch (choice){
                         case "0":  // modify subject
@@ -109,6 +109,9 @@ public class UserRequestUI extends AbstractUI {
                         case "1":  // modify details
                             modifyDetails(selection);
                             break;
+                        case "Q":
+                        case "q":
+                            return;
                         default:
                             System.out.println(userPresenter.strInvalidInput());
                             break;
@@ -126,24 +129,35 @@ public class UserRequestUI extends AbstractUI {
      * @return The UUID of the <code>Request</code> they wish to modify.
      * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
      */
-    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException{
-        Scanner requestIDScanner = new Scanner(System.in);
+    private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException {
+        int x = 0;
         System.out.println(requestPresenter.strRequestPromptHelper("modify"));
         ArrayList<UUID> tmp = requestController.getUserRequests();
         ArrayList<Request> userReqs = new ArrayList<>();
-        for (UUID req : tmp){
+        for (UUID req : tmp) {
             userReqs.add(requestController.findRequest(req));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
-        String selection = requestIDScanner.nextLine();
-        int i = 0;
-        for (Request req : requestController.getAllRequest()){
-            if (i == Integer.parseInt(selection)){
-                return req.getId();
+        while (x < 3) {
+            try {
+                x = x + 1;
+                Scanner requestIDScanner = new Scanner(System.in);
+                int selection = Integer.parseInt(requestIDScanner.nextLine());
+                if (selection > requestController.getAllRequest().size() - 1) {
+                    System.out.println("Invalid request! Please try again.");
+                } else {
+                    int i = 1;
+                    for (Request req : requestController.getAllRequest()) {
+                        if (i == selection) {
+                            return req.getId();
+                        }
+                        i = i + 1;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e){
+                requestPresenter.strInvalidInput();
             }
-            i = i+1;
         }
-        throw new RequestNotFoundException("Invalid selection!");
     }
 
     /**
@@ -167,7 +181,7 @@ public class UserRequestUI extends AbstractUI {
      */
     private void modifyDetails(UUID request) throws RequestNotFoundException {
         Scanner detailScanner = new Scanner(System.in);
-        System.out.println(requestPresenter.strInputNewSubject());
+        System.out.println(requestPresenter.strInputNewDetails());
         String newDetail = detailScanner.nextLine();
         requestController.modifyRequestDetails(request, newDetail);
     }
@@ -176,8 +190,10 @@ public class UserRequestUI extends AbstractUI {
      * Gets user to input which request they wish to remove, and performs the removal.
      */
     private void removeRequest(RequestController requestController) {
-        while(true){
+        int x = 0;
+        while(x < 3){
             try{
+                x = x + 1;
                 Scanner chooseToRemove = new Scanner(System.in);
                 requestController.viewUserRequests();
                 System.out.println("Which request would you like to remove? (Please enter the corresponding number):");
@@ -192,35 +208,22 @@ public class UserRequestUI extends AbstractUI {
                     }
                     i = i + 1;
                 }
+                break;
             }catch(RequestNotFoundException e){
                 requestPresenter.strInvalidRequest();
             }
         }
     }
 
-    /**
-     * Asks the program user whether or not they wish to continue using the program when an invalid input occurs.
-     * @return Boolean value representing whether or not the program is to continue.
-     */
-    private boolean handleWrongInput() {
-        boolean notStop = false;
-        boolean validInput = false;
-        while(!validInput){
-            System.out.println(userPresenter.strInvalidInput());
-            Scanner nextChoice = new Scanner(System.in);
-            String choice = nextChoice.nextLine();
-            if (choice.equals("Y") || choice.equals("Yes") || choice.equals("y") || choice.equals("yes")){
-                notStop = true;
-                validInput = true;
-            }
-            else if (choice.equals("N") || choice.equals("No") || choice.equals("n") || choice.equals("no")){
-                validInput = true;
-            }
-            else{
-                System.out.println(userPresenter.strInvalidInput());
-            }
+    protected boolean continuing(){
+        boolean enterAction = false;
+        System.out.println(userPresenter.strContinueServicePrompt());
+        Scanner scan2 = new Scanner(System.in);
+        String choice = scan2.nextLine();
+        if(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")){
+            enterAction = true;
         }
-        return notStop;
+        return enterAction;
     }
 
 }

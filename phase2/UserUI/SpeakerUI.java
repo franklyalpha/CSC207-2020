@@ -1,4 +1,4 @@
-package Facades;
+package UserUI;
 
 import Controllers.UserController;
 import UI.SpeSendEventMessagesUI;
@@ -15,11 +15,11 @@ import java.util.Scanner;
  * sendActivityMessage: a method responsible for guiding the user to choose a conference
  * and send message to all attendees enrolled.
  */
-public class SpeakerFacade extends OrganizerFacade {
+public class SpeakerUI extends OrganizerUI {
 
     final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
 
-    public SpeakerFacade(UserController userController) {
+    public SpeakerUI(UserController userController) {
         super(userController);
     }
     /*

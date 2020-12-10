@@ -121,8 +121,8 @@ public class Request implements java.io.Serializable{
         if (this.status) {
              stat = "COMPLETE";
         }
-        return "Submitted by: [ " + sender + " ]    Status: [ " + stat + " ]\n------------------------------------------------\n" +
-                "Subject: " + subject + "\nDetails: " + details + "\n------------------------------------------------";
+        return "Submitted by: [ " + sender + " ]    Status: [ " + stat + " ]\n------------------------------------------------------\n" +
+                "Subject: " + subject + "\nDetails: " + details + "\n------------------------------------------------------\n------------------------------------------------------";
     }
 
 

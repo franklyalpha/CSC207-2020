@@ -2,10 +2,10 @@ package UI;
 
 import Controllers.LoginController;
 import Controllers.UserController;
-import Facades.AdministratorFacade;
-import Facades.AttendeeFacade;
-import Facades.OrganizerFacade;
-import Facades.SpeakerFacade;
+import UserUI.AdministratorUI;
+import UserUI.AttendeeUI;
+import UserUI.OrganizerUI;
+import UserUI.SpeakerUI;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -103,19 +103,19 @@ public class MainUI {
         UserController userController = (UserController) result[1];
         switch((UserType) result[0]){
             case ORGANIZER:
-                OrganizerFacade orgUI = new OrganizerFacade(userController);
+                OrganizerUI orgUI = new OrganizerUI(userController);
                 orgUI.run();
                 break;
             case SPEAKER:
-                SpeakerFacade speUI = new SpeakerFacade(userController);
+                SpeakerUI speUI = new SpeakerUI(userController);
                 speUI.run();
                 break;
             case ATTENDEE:
-                AttendeeFacade attUI = new AttendeeFacade(userController);
+                AttendeeUI attUI = new AttendeeUI(userController);
                 attUI.run();
                 break;
             case ADMINISTRATOR:
-                AdministratorFacade adminUI = new AdministratorFacade(userController);
+                AdministratorUI adminUI = new AdministratorUI(userController);
                 adminUI.run();
                 break;
         }

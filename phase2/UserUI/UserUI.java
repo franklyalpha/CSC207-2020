@@ -1,4 +1,4 @@
-package Facades;
+package UserUI;
 
 import Controllers.UserController;
 import UI.*;
@@ -7,14 +7,14 @@ import menuPresenter.UserPresenter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserFacade {
+public class UserUI {
     protected ArrayList<String> availableAction = new ArrayList<>();
     protected ArrayList<String> availableMethod = new ArrayList<>();
     protected UserController userController;
     final private UserPresenter userPresenter = new UserPresenter();
 
 
-    public UserFacade(UserController userController){
+    public UserUI(UserController userController){
         this.userController = userController;
     }
 
@@ -47,11 +47,12 @@ public class UserFacade {
     protected void viewStatistic(){new StatisticUI(userController).run();}
 
     protected boolean continuing(){
-        boolean enterAction = true;
+        boolean enterAction = false;
         System.out.println(userPresenter.strContinueServicePrompt());
         Scanner scan2 = new Scanner(System.in);
-        if(!scan2.nextLine().equalsIgnoreCase("true")){
-            enterAction = false;
+        String choice = scan2.nextLine();
+        if(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")){
+            enterAction = true;
         }
         return enterAction;
     }

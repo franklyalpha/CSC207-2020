@@ -85,32 +85,69 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
         Scanner moreInfo = new Scanner(System.in);
+        if(freeSpeaker.size() != 0){
+            Object[] roomTopicMaxEnroll = getRoomTopicMaxenroll(moreInfo);
+            System.out.println(organizerAddSchedulePresenter.strTypePrompt());
+            int typeNum = moreInfo.nextInt();
+            return returnInfoByEventType(createSchedule, freeSpeaker, freeRooms, roomTopicMaxEnroll, typeNum);
+        }
+        else{
+            Object[] roomTopicMaxEnroll = getRoomTopicMaxenroll(moreInfo);
+            return getPartyInfo(createSchedule, freeRooms.get((Integer) roomTopicMaxEnroll[0]), roomTopicMaxEnroll);
+        }
+    }
+
+    private Object[] returnInfoByEventType(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker,
+                                           ArrayList<UUID> freeRooms, Object[] roomTopicMaxEnroll, int typeNum)
+            throws UserNotFoundException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
+        if(typeNum == 1){
+            return getTalkInfo(createSchedule, freeSpeaker, freeRooms.get((Integer) roomTopicMaxEnroll[0]), roomTopicMaxEnroll);
+        }else if(typeNum == 2){
+            return getPanelInfo(createSchedule, freeSpeaker, freeRooms.get((Integer) roomTopicMaxEnroll[0]), roomTopicMaxEnroll);
+        }else if(typeNum == 3){
+            return getPartyInfo(createSchedule, freeRooms.get((Integer) roomTopicMaxEnroll[0]), roomTopicMaxEnroll);
+        }else{
+            throw new WrongEventTypeException("");
+        }
+    }
+
+    private Object[] getPartyInfo(CreateScheduleController createSchedule, UUID uuid, Object[] roomTopicMaxEnroll)
+            throws UserNotFoundException, MaxNumberBeyondRoomCapacityException {
+        createSchedule.checkInfoValid(uuid.toString(), (Integer) roomTopicMaxEnroll[2],
+                new ArrayList<>());
+        return new Object[]{EventType.PARTY, uuid, roomTopicMaxEnroll[1],
+                roomTopicMaxEnroll[2], new ArrayList<>()};
+    }
+
+    private Object[] getPanelInfo(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, UUID uuid,
+                                  Object[] roomTopicMaxEnroll) throws UserNotFoundException, MaxNumberBeyondRoomCapacityException {
+        System.out.println(organizerAddSchedulePresenter.strSpeakerPrompt(freeSpeaker));
+        ArrayList<String> speakers = inputMultiSpeaker();
+        createSchedule.checkInfoValid(uuid.toString(), (Integer)roomTopicMaxEnroll[2], speakers);
+        return new Object[]{EventType.PANEL, uuid, roomTopicMaxEnroll[1],
+                roomTopicMaxEnroll[2], speakers};
+    }
+
+    private Object[] getTalkInfo(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, UUID uuid,
+                                 Object[] roomTopicMaxEnroll) throws UserNotFoundException, MaxNumberBeyondRoomCapacityException {
+        System.out.println(organizerAddSchedulePresenter.strSpeakerPrompt(freeSpeaker));
+        ArrayList<String> speaker = inputOneSpeaker();
+        createSchedule.checkInfoValid(uuid.toString(),
+                (Integer)roomTopicMaxEnroll[2], speaker);
+        return new Object[]{EventType.TALK, uuid, roomTopicMaxEnroll[1],
+                roomTopicMaxEnroll[2], speaker};
+    }
+
+    private Object[] getRoomTopicMaxenroll(Scanner moreInfo){
         System.out.println("Please input the room number of which you wish to use: (e.g. No.1, then input '1')");
         int roomIndex = moreInfo.nextInt();
-        moreInfo.nextLine();
-        System.out.println(organizerAddSchedulePresenter.strTypePrompt());
-        int typeNum = moreInfo.nextInt();
         moreInfo.nextLine();
         System.out.println(organizerAddSchedulePresenter.strTopicPrompt());
         String topic = moreInfo.nextLine();
         System.out.println(organizerAddSchedulePresenter.strMaxNumPrompt());
         int MaxNumber = moreInfo.nextInt();
-        if(typeNum == 1){
-            System.out.println(organizerAddSchedulePresenter.strSpeakerPrompt(freeSpeaker));
-            ArrayList<String> speaker = inputOneSpeaker();
-            createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, speaker);
-            return new Object[]{EventType.TALK, freeRooms.get(roomIndex), topic, MaxNumber, speaker};
-        }else if(typeNum == 2){
-            System.out.println(organizerAddSchedulePresenter.strSpeakerPrompt(freeSpeaker));
-            ArrayList<String> speakers = inputMultiSpeaker();
-            createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, speakers);
-            return new Object[]{EventType.PANEL, freeRooms.get(roomIndex), topic, MaxNumber, speakers};
-        }else if(typeNum == 3){
-            createSchedule.checkInfoValid(freeRooms.get(roomIndex).toString(), MaxNumber, new ArrayList<>());
-            return new Object[]{EventType.PARTY, freeRooms.get(roomIndex), topic, MaxNumber, new ArrayList<>()};
-        }else{
-            throw new WrongEventTypeException("");
-        }
+        moreInfo.nextLine();
+        return new Object[]{roomIndex, topic, MaxNumber};
     }
 
     private LocalDateTime[] periodProcessor(){

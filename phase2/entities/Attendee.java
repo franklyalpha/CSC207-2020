@@ -21,6 +21,7 @@ public class Attendee extends User implements Serializable {
      */
     public Attendee(String name, String password) {
         super(name, password, UserType.ATTENDEE);
+        requests = new ArrayList<UUID>();
     }
 
     /**
