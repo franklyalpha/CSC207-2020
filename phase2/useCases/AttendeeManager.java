@@ -8,9 +8,22 @@ import java.util.UUID;
 import entities.Attendee;
 import java.lang.ClassCastException;
 
+/**
+ * Represents a <code>AttendeeManager</code> that is responsible for what the current attendee is doing.
+ * Also contains an instance of <code>Attendee</code> that is the current user.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
 public class AttendeeManager extends UserManager {
     private Attendee currUser;
 
+    /**
+     * Creates an instance of <code>AttendeeManager</code>
+     * @param userManager the <code>UserManager</code> used to create this Manager
+     * @throws ClassCastException when the clase cannot be casted
+     */
     public AttendeeManager(UserManager userManager) throws ClassCastException {
         super(userManager);
             currUser = (Attendee) userOnAir;

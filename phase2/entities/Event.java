@@ -8,14 +8,15 @@ import globallyAccessible.WrongEventTypeException;
 import java.time.*;
 import java.util.*;
 
+/**
+ * Event Class, abstract entity with getters and setters that all types of event entities requires.
+ * All events have an ID, topic, max attendees restriction, conference room location,
+ * Also includes a list of attendees
+ * Start and End time, with the duration that is updated everytime the start/end time changes
+ * and finally a corresponding chatroom ID.
+ */
 public abstract class Event implements java.io.Serializable {
-    /**
-     * Event Class, abstract entity with getters and setters that all types of event entities requires.
-     * All events have an ID, topic, max attendees restriction, conference room location,
-     * Also includes a list of attendees
-     * Start and End time, with the duration that is updated everytime the start/end time changes
-     * and finally a corresponding chatroom ID.
-     */
+
     private ArrayList<String> attendeeList;    // do not set this list as final, since this makes adding impossible
     private Duration duration;
     private LocalDateTime startTime;

@@ -1,13 +1,6 @@
 package Controllers;
 
-import globallyAccessible.EventType;
-import globallyAccessible.NoEventsException;
-import useCases.AttendeeManager;
-import useCases.EventManager;
-import useCases.OrganizerManager;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 

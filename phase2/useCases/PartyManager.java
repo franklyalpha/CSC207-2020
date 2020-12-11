@@ -8,11 +8,16 @@ import globallyAccessible.EventType;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * This manager manages all of the Party events
+ * Not much added functionality to be honest
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class PartyManager extends EventManager {
-    /**
-     * This manager manages all of the Party events
-     * Not much added functionality to be honest
-     */
 
     /**
      * Creates a Party Manager that exclusively have Party Events in it

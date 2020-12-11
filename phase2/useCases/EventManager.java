@@ -21,7 +21,12 @@ import java.util.*;
  * addAttendee: will add an attendee towards participant list of this conference.
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
+
 public class EventManager extends AbstractSerializableManager implements java.io.Serializable{
 
     protected HashMap<EventType,ArrayList<Event>> upcomingEvents;
@@ -172,7 +177,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
      * UUID of assigned room, the event's description, the type of event and name of speaker(s).
      */
     public ArrayList<String[]> viewUpcomingActivities(){
-        ArrayList<String[]> result = new ArrayList<String[]>();
+        ArrayList<String[]> result = new ArrayList<>();
         if (allUpcomingEvents() == null) {
             return result;
         }else{

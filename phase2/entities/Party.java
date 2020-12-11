@@ -5,11 +5,12 @@ import globallyAccessible.EventType;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Party is an event without any speakers.
+ * The added functionality is a more specific toString method.
+ */
+
 public class Party extends Event {
-    /**
-     * Party is an event without any speakers.
-     * The added functionality is a more specific toString method.
-     */
 
     /**
      * Creates <code>Party</code> with specified start time, end time, conference chat id, conference room number,

@@ -112,7 +112,6 @@ public class EventRoom implements java.io.Serializable {
      * Show the information of event room in string.
      * @return the string representation of class <code>EventRoom</code>.
      */
-
     @Override
     public String toString(){
         return "EventRoom{" +
@@ -128,7 +127,6 @@ public class EventRoom implements java.io.Serializable {
      *                   and party audio.
      * @return true if the requirement is met, i.e. has the required room items.
      */
-
     public Boolean checkItemRequirement(Boolean[] constraints){
         Boolean[] availability = new Boolean[]{items.hasProjector(), items.hasMicrophone(), items.hasPartyAudio()};
         for(int i = 0; i < 3; i ++){

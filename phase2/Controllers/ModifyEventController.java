@@ -34,4 +34,4 @@ public class ModifyEventController extends EventController {
         }
         eventManager.changeEventMaxParticipant(activityId, newMaxNum);
     }
-}//TODO part of event retrofit
+}

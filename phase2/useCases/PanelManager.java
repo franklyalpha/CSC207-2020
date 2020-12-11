@@ -7,11 +7,16 @@ import globallyAccessible.EventType;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * The PanelManager manages exclusively the Panel type of events
+ * This has the added functionality of manipulating the speaker lists of each Panel event
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class PanelManager extends EventManager {
-    /**
-     * The PanelManager manages exclusively the Panel type of events
-     * This has the added functionality of manipulating the speaker lists of each Panel event
-     */
 
     /**
      * Creates a PanelManager that contains exclusively the Panel entities.

@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Panel extends Event {
-    /**
-     * Panel is a type of event that has multiple speakers.
-     * These speakers are stored in an arraylist.
-     * Added are the getter and setters for speakers as well as some string processing methods.
-     */
+/**
+ * Panel is a type of event that has multiple speakers.
+ * These speakers are stored in an arraylist.
+ * Added are the getter and setters for speakers as well as some string processing methods.
+ */
 
+public class Panel extends Event {
     /**
      * The ArrayList that stores the reference to speakers.
      */

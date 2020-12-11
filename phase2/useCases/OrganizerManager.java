@@ -10,6 +10,14 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Represents a <code>OrganizerManager</code> that is responsible for any made by <code>Organizer</code>.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class OrganizerManager extends UserManager {
     public OrganizerManager(UserManager userManager){
         super(userManager);
@@ -48,7 +56,7 @@ public class OrganizerManager extends UserManager {
      * @return returns the ArrayList that contains all the speakers that are available.
      */
     public ArrayList<String> availableSpeakers(LocalDateTime[] targetTime){
-        ArrayList<String> freeSpeaker = new ArrayList<String>();
+        ArrayList<String> freeSpeaker = new ArrayList<>();
         for (User users: allUsers.get(UserType.SPEAKER)){
             if (isFree(users, targetTime)){
                 freeSpeaker.add(users.getUsername());
@@ -62,7 +70,7 @@ public class OrganizerManager extends UserManager {
      * @return the ArrayList that contains all the attendees.
      */
     public ArrayList<String> allAttendee(){
-        ArrayList<String> attendees = new ArrayList<String>();
+        ArrayList<String> attendees = new ArrayList<>();
         for (User users : allUsers.get(UserType.ATTENDEE)){
             attendees.add(users.getUsername());
         }

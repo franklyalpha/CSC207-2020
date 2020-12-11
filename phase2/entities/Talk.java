@@ -5,10 +5,14 @@ import globallyAccessible.EventType;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * A type of event that contains only one speaker.
+ * Added functionality are getter and setter for speaker and also more specific toString method.
+ */
 public class Talk extends Event {
+
     /**
-     * A type of event that contains only one speaker.
-     * Added functionality are getter and setter for speaker and also more specific toString method.
+     * Stores the reference to the speaker
      */
     private String speaker;
 

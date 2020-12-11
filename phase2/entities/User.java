@@ -106,8 +106,6 @@ public abstract class User implements java.io.Serializable {
         username = newName;
     }
 
-
-
     /**
      * Changes the password of this user with the given new password.
      * @param  newPassword the new password of this user.

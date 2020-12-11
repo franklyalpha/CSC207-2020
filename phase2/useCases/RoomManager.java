@@ -34,7 +34,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * Creates <code>RoomManager</code> with a blank list of Rooms.
      */
     public RoomManager(){
-        eventRooms = new ArrayList<EventRoom>();
+        eventRooms = new ArrayList<>();
     }
 
     /**
@@ -95,7 +95,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         }
     }
 
-
+    /**
+     * Returns the capacity of the entities.Room with the given ID
+     * @param roomId of the <code>Room</code>
+     * @return the capacity of the entities.Room
+     */
     public int getRoomCapacity(UUID roomId){
         return findRoom(roomId).getCapacity();
     }
@@ -123,7 +127,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * @return a list of <>String[]</> of available room ids and info.
      */
     public ArrayList<String[]> bookingAvailable(LocalDateTime[] targetPeriod){
-        ArrayList<String[]> possibleRooms = new ArrayList<String[]>();
+        ArrayList<String[]> possibleRooms = new ArrayList<>();
         for (EventRoom eventRoom : eventRooms){
             if (checkSingleRoomOK(targetPeriod, eventRoom)){
                 possibleRooms.add(new String[]{eventRoom.getId().toString(), eventRoom.toString()});

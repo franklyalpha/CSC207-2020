@@ -6,11 +6,16 @@ import globallyAccessible.EventType;
 
 import java.util.UUID;
 
+/**
+ * A Manager that manages talks and talks only
+ * Added functionality: viewing, adding, and deleting speaker
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class TalkManager extends EventManager {
-    /**
-     * A Manager that manages talks and talks only
-     * Added functionality: viewing, adding, and deleting speaker
-     */
 
     /**
      * Creates a Talk manager that only have Talk events
