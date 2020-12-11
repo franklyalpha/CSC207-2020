@@ -4,6 +4,7 @@ import Controllers.CancelEventController;
 import Controllers.UserController;
 import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.UserAlreadyExistException;
+import menuPresenter.AdminPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class AdminCancelEventUI extends AbstractUI {
      * @param deleteEvent: an instance of <code>CancelEventController</code> being instantiated.
      */
     private CancelEventController deleteEvent;
+    private AdminPresenter adminPresenter;
 
     /**
      * Instantiates new <code>AdminCancelEventUI</code>.
@@ -24,6 +26,7 @@ public class AdminCancelEventUI extends AbstractUI {
     public AdminCancelEventUI(UserController userController) {
         super(userController);
         deleteEvent = new CancelEventController(userController);
+        adminPresenter = new AdminPresenter();
     }
 
     /**
@@ -35,8 +38,7 @@ public class AdminCancelEventUI extends AbstractUI {
     public void run() throws ExceedingMaxAttemptException {
         ArrayList<String[]> emptyEvents = deleteEvent.findEmptyEvents();
         if (emptyEvents.size() == 0){
-            System.out.println("There are no events being added");
-            return;
+            System.out.println(adminPresenter.strNoEventAdded());
         }
         String cancelEventID = selectEventToCancel(emptyEvents);
         deleteEvent.cancelAndUpdate(cancelEventID);
@@ -45,24 +47,24 @@ public class AdminCancelEventUI extends AbstractUI {
 
     private String selectEventToCancel(ArrayList<String[]> emptyEvents) throws ExceedingMaxAttemptException {
         ArrayList<String> eventsID = printEventsCanCancel(emptyEvents);
-        System.out.println("Please enter the ID of event you want to cancel: ");
+        System.out.println(adminPresenter.strCancelEventIDPrompt());
         for(int i=0; i<3; i++){
             Scanner eventScan = new Scanner(System.in);
             String eventID = eventScan.nextLine();
             if (eventsID.contains(eventID)){
                 return eventID;
             }
-            System.out.println("Invalid input! Try again; ");
+            System.out.println(userPresenter.strInvalidInput() + userPresenter.strPleaseTryAgain());
         }
         throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
 
     private ArrayList<String> printEventsCanCancel(ArrayList<String[]> emptyEvents) {
-        System.out.println("Below are events you can cancel: \n");
+        System.out.println(adminPresenter.strEventCancelHeader());
         ArrayList<String> eventsID = new ArrayList<>();
         for(String[] events: emptyEvents){
-            System.out.println(events[0] + ": " + events[1] + "\n");
+            System.out.println(adminPresenter.strPrintEventInfo(events));
             eventsID.add(events[0]);
         }
         return eventsID;

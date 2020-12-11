@@ -226,7 +226,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
      * users can enroll in this event.
      */
     private Object[] getRoomTopicMaxenroll(Scanner moreInfo){
-        System.out.println("Please input the room number of which you wish to use: (e.g. No.1, then input '1')");
+        System.out.println(organizerAddSchedulePresenter.strRoomNumPrompt());
         int roomIndex = moreInfo.nextInt();
         moreInfo.nextLine();
         System.out.println(organizerAddSchedulePresenter.strTopicPrompt());

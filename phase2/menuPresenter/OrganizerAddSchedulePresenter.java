@@ -50,6 +50,10 @@ public class OrganizerAddSchedulePresenter extends UserPresenter {
         return "Please enter the maximum capacity for this event:";
     }
 
+    public String strRoomNumPrompt(){
+        return "Please input the room number of which you wish to use: (e.g. No.1, then input '1')";
+    }
+
     public String strSpeakerRoomPrompt(ArrayList<String> speakers, ArrayList<UUID> rooms){
         StringBuilder finalList = new StringBuilder("Here are the names of all available speakers: \n");
         finalList.append(strSpeakerList(speakers));

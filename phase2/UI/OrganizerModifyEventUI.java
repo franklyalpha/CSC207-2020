@@ -39,7 +39,7 @@ public class OrganizerModifyEventUI extends AbstractUI {
         }catch (NoEventsException e1){
             System.out.println(presenter.printNoEvent());
         }catch(MaxNumberBeyondRoomCapacityException e2){
-            System.out.println("Invalid max number!!!");
+            System.out.println(presenter.strInvalidMaxNum());
         } catch (Exception e3){
             System.out.println(presenter.strInvalidInput());
         }

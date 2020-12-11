@@ -12,6 +12,10 @@ public class GeneralMenuPresenter {
         return "Invalid " + obj + "!!!";
     }
 
+    public String strPleaseTryAgain(){
+        return " Please try again!";
+    }
+
     String strItemizeMenuOption(String topic, HashMap<Character, String> itemsList){
         StringBuilder finalList = new StringBuilder("What would you like to " + topic + "?\n");
         for(Character item: itemsList.keySet()){
@@ -34,6 +38,10 @@ public class GeneralMenuPresenter {
 
     public String strInvalidUsername(){
         return strInvalidHelper("username");
+    }
+
+    public String strInvalidMaxNum(){
+        return strInvalidHelper("max number");
     }
 
     public String strUsernameConfirmation(String username){

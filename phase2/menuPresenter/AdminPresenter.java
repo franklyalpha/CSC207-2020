@@ -3,6 +3,8 @@ package menuPresenter;
 import java.util.ArrayList;
 
 public class AdminPresenter extends UserPresenter {
+    public AdminPresenter(){super();}
+
     public ArrayList<String> optionMenu(){
         ArrayList<String> availableAction = new ArrayList<>();
         availableAction.add(" - Send a private message");
@@ -13,4 +15,12 @@ public class AdminPresenter extends UserPresenter {
         availableAction.add(" - Delete empty events");
         return availableAction;
     }
+
+    public String strNoEventAdded(){return "There are no events being added";}
+
+    public String strCancelEventIDPrompt(){return "Please enter the ID of event you want to cancel: ";}
+
+    public String strEventCancelHeader(){return "Below are events you can cancel: \n";}
+
+    public String strPrintEventInfo(String[] events){return events[0] + ": " + events[1] + "\n";}
 }

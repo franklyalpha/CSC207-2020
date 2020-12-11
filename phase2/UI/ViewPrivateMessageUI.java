@@ -1,10 +1,8 @@
 package UI;
 
 import Controllers.UserController;
-import functionalityPresenters.Presenter;
 import functionalityPresenters.PrivateMessagePresenter;
 import globallyAccessible.UserNotFoundException;
-import menuPresenter.UserPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +30,7 @@ public class ViewPrivateMessageUI extends AbstractUI {
     private String chooseUserToView(HashMap<String, ArrayList<String>> historyChat) {
         while(true){
             try{
-                Presenter.printContactPrompt("contact"); //TODO Really should change this to an index system
+                System.out.println(userPresenter.strUserContactPrompt());
                 System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
                 return checkContactValid(historyChat);
             }catch(UserNotFoundException e){

@@ -81,8 +81,35 @@ public class RequestPresenter extends GeneralMenuPresenter {
     }
 
     public String strInvalidRequest(){
-        return super.strInvalidHelper("request (it does not exist).");
+        return strInvalidHelper("request");
     }
 
+    public String strRequestHeader(){return "Here are your requests: ";}
 
+    public String strQuitPrompt(){return "[Q] - Go back";}
+
+    public String strRequestRemovePrompt(){return "Which request would you like to remove? (Please enter the corresponding number):";}
+
+    /**
+     * Helper method to format object array into readable text.
+     * @param req1 Instance of the <code>Object[]</code> to be formatted.
+     * @return String representing the <code>Object[]</code>.
+     */
+    public String strRequestObjArrToStr(Object req1[]){
+        return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
+            + " ]\n------------------------------------------------------";
+    }
+
+    public String strModifyMenu(){
+        return "What part would you like to modify? (Please enter the corresponding number):\n[0] " +
+                "- Subject\n[1] - Description\n[Q] - Back";
+    }
+
+    public String strNoPendingRequests(){return "There are currently no pending requests";}
+
+    public String strAllPendingRequestsHeader(){return "Here are all pending requests: ";}
+
+    public String strNoRequestSubmitted(){return "No requests have been submitted yet.";}
+
+    public String strAllRequestSubmittedHeader(){return "Here are all submitted requests: ";}
 }

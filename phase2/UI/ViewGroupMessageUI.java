@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.UserController;
 import functionalityPresenters.GroupMessagePresenter;
-import functionalityPresenters.Presenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,9 +19,9 @@ public class ViewGroupMessageUI extends AbstractUI {
     public void run() {
         HashMap<String, ArrayList<String>> historyChat = groupMessagePresenter.viewGroupMessage();
         if (historyChat == null) {
-            System.out.println("You are not in any events at the moment - there are no announcements.\n ");
+            System.out.println(userPresenter.strHistoryChatNull());
         } else {
-            Presenter.printContactPrompt("event"); //TODO Really should change this to select an index
+            System.out.println(userPresenter.strEventContactPrompt());
             System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
             Scanner scan = new Scanner(System.in);
             String selectedEvent = scan.nextLine();

@@ -1,23 +1,21 @@
 package entities;
 
 import globallyAccessible.EventType;
+import globallyAccessible.MaxNumberBeyondRoomCapacityException;
+import globallyAccessible.UserNotFoundException;
+import globallyAccessible.WrongEventTypeException;
 
 import java.time.*;
 import java.util.*;
 
 public abstract class Event implements java.io.Serializable {
-    /*
-        Variables include:
-        String/Date(require importing) time;
-        String speakerName;
-        Int duration
-        Arraylist<Integer> participantID
-        entities.Chatroom CorrespondingChatroom
-
-        Methods include:
-        Getters and setters;
-    */
-    //private final ArrayList<String> speakers;
+    /**
+     * Event Class, abstract entity with getters and setters that all types of event entities requires.
+     * All events have an ID, topic, max attendees restriction, conference room location,
+     * Also includes a list of attendees
+     * Start and End time, with the duration that is updated everytime the start/end time changes
+     * and finally a corresponding chatroom ID.
+     */
     private ArrayList<String> attendeeList;    // do not set this list as final, since this makes adding impossible
     private Duration duration;
     private LocalDateTime startTime;
@@ -30,14 +28,13 @@ public abstract class Event implements java.io.Serializable {
     protected EventType type;
     //Maybe event tags for easier search?
 
-    //TODO：thinking of making multiple constructors later
-    //basic constructor
     /**
-     * Creates <code>Activity</code> with specified start time, end time, conference chat id, conference room number
-     * and topic.
+     * Creates <code>Activity</code> with specified start time, end time, conference chat id, conference room number,
+     * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Activity</code>.
      * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
      * @param topic the topic of the activity in <code>Activity</code>.
+     * @param MaxNum the maximum number of attendees for this event
      */
     public Event(LocalDateTime[] period, UUID[] chatRoomID,
                  String topic, Integer MaxNum){
@@ -50,11 +47,11 @@ public abstract class Event implements java.io.Serializable {
         this.conferenceRoomNum = chatRoomID[1];
         this.topic = topic;
         this.maxNumAttendee = MaxNum;
-        // consider order of creating activity and corresponding chatroom
     }
 
     /**
      * Determine whether this attendee should be added.
+     * @param attendee the attendee to be added to this event
      * @return <CODE>true</CODE> if this attendee not in the Arraylist of attendees,
      * <CODE>false</CODE> otherwise
      */
@@ -67,7 +64,12 @@ public abstract class Event implements java.io.Serializable {
         }
     }
 
-    //phase 2 may use this method.
+    /**
+     * Determine whether this list of attendee should be added, and then adds is to the attendee list
+     * @param attendeeList list of attendees to be added to this event
+     * @return <CODE>true</CODE> if all attendee are not already in the Arraylist of attendees,
+     * <CODE>false</CODE> otherwise
+     */
     public boolean addAttendeesToList(ArrayList<String> attendeeList){
         boolean addedAll = true;
         for(String i: attendeeList){
@@ -86,20 +88,6 @@ public abstract class Event implements java.io.Serializable {
      * <CODE>false</CODE> otherwise
      */
     public boolean removeAttendee(String attendee){return this.attendeeList.remove(attendee);}
-
-//    public boolean addSpeakers(ArrayList<String> speakers){
-//        boolean addedAll = true;
-//        for(String i: speakers){
-//            if(this.speakers.contains(i)) {
-//                this.speakers.add(i);
-//            }else{
-//                addedAll = false;
-//            }
-//        }
-//        return addedAll;
-//    }
-
-//    public boolean removeSpeaker(String speaker){return this.speakers.remove(speaker);}
 
     /**
      * Changes the topic of this activity with the given new topic.
@@ -158,6 +146,10 @@ public abstract class Event implements java.io.Serializable {
         this.maxNumAttendee = MaxNum;
     }
 
+    /**
+     * Changes the duration of this event.
+     * @param duration the duration that will be given to this event
+     */
     private void changeDuration(Duration duration){
         this.duration = duration;
     }
@@ -221,23 +213,10 @@ public abstract class Event implements java.io.Serializable {
 
     public EventType getEventType(){return this.type;}
 
-
-//    public String toString(){
-//        String description = "Topic: " + this.topic + "\n" +
-//                "Speakers: ";
-//        for(String i: this.speakers){description += (i + " ");}
-//        description += ("\nConference entities.Room " + this.conferenceRoomNum);
-//        description += ("\nFrom " + this.startTime + " to " + this.endTime);
-//        description += ("\nID: " + this.identity);
-//        description += ("\nChat ID: " + this.conferenceChat);
-//        return description;
-//    }
-
     /**
      * This method show the info of activity in string.
      * @return the string of the class Activity
      */
-
     public String toString(){
         String description = "Topic: " + this.topic + "\n" +
                 "Speakers: ";
@@ -249,6 +228,10 @@ public abstract class Event implements java.io.Serializable {
         return description;
     }
 
+    /**
+     * This method returns string to indicate that this event has no speakers
+     * @return the string of speakers, which the default event has none
+     */
     public String speakerToString(){
         return "no speakers";
     }

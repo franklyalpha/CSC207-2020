@@ -124,4 +124,17 @@ public class UserPresenter extends GeneralMenuPresenter {
         return finalList.toString();
     }
 
+    public String strEventContactPrompt(){return "Please select an event by copying and pasting the topic: ";}
+
+    public String strUserContactPrompt(){return "Please select a contact by copying and pasting the username: ";}
+
+    public String strEventNull(){return "You are not in any events at the moment.\n ";}
+
+    public String strHistoryChatNull(){return strEventNull() + "There are no announcements.\n ";}
+
+    public String strNoEventsAvailable(){return "Sorry, there are no events available for registration at the moment. Please check back later.\n ";}
+
+    public String strNoEventsStats(){return "Statistics could not be generated because there are no events yet.\n ";}
+
+    public String strQuitPrompt(){return "[Q] - Go back";}
 }
