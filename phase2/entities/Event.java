@@ -2,7 +2,10 @@ package entities;
 
 import globallyAccessible.EventType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public abstract class Event implements java.io.Serializable {
@@ -222,16 +225,6 @@ public abstract class Event implements java.io.Serializable {
     public EventType getEventType(){return this.type;}
 
 
-//    public String toString(){
-//        String description = "Topic: " + this.topic + "\n" +
-//                "Speakers: ";
-//        for(String i: this.speakers){description += (i + " ");}
-//        description += ("\nConference entities.Room " + this.conferenceRoomNum);
-//        description += ("\nFrom " + this.startTime + " to " + this.endTime);
-//        description += ("\nID: " + this.identity);
-//        description += ("\nChat ID: " + this.conferenceChat);
-//        return description;
-//    }
 
     /**
      * This method show the info of activity in string.
@@ -239,18 +232,21 @@ public abstract class Event implements java.io.Serializable {
      */
 
     public String toString(){
-        String description = "Topic: " + this.topic + "\n" +
-                "Speakers: ";
-        description += ("\nConference Room " + this.conferenceRoomNum);
-        description += ("\nFrom " + this.startTime + " to " + this.endTime);
-        description += ("\nID: " + this.identity);
-        description += ("\nChat ID: " + this.conferenceChat);
+        String description = ("Topic: " + this.topic + "\nSpeakers: [ " + speakerToString() + " ]");
+        description += ("\nConference Room: [ " + this.conferenceRoomNum + " ]");
+        description += ("\nFrom: [ " + startTime + " ]  to  [" + endTime + " ]");
+        description += ("\nEvent ID: [ " + this.identity + " ]");
+        description += ("\nChat ID: [ " + this.conferenceChat + " ]\n ");
         description += speakerToString();
         return description;
     }
 
+    /**
+     * Outputs a string representing the speakers for this <code>Event</code> .
+     * @return String representing this event's speakers.
+     */
     public String speakerToString(){
-        return "no speakers";
+        return "This event has no speakers.";
     }
 
 }
