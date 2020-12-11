@@ -7,7 +7,7 @@ public class StatisticUI extends AbstractUI{
     private StatisticPresenter statistic;
     public StatisticUI(UserController userController) {
         super(userController);
-        StatisticPresenter statistic = new StatisticPresenter(userController);
+        statistic = new StatisticPresenter(userController);
     }
      public void run(){
         if (statistic.popularEvent() == null){

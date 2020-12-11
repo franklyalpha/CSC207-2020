@@ -1,6 +1,7 @@
 package functionalityPresenters;
 
 import Controllers.UserController;
+import menuPresenter.ModifyEventPresenter;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ public class StatisticPresenter extends AbstractPresenter{
         super(userController);
     }
 
-    public ArrayList<String> popularEvent() {
+    public String popularEvent() {
         HashMap<String, Integer> result = new HashMap<>();
         ArrayList<String[]> eventList = eventManager.viewUpcomingActivities();
         for (String[] c : eventList) {
@@ -23,6 +24,14 @@ public class StatisticPresenter extends AbstractPresenter{
             topFive.add(list.get(i).getKey());
             i = i + 1;
         }
-        return topFive;
+        return topFiveInfo(topFive);
+    }
+
+    private String topFiveInfo(ArrayList<String> topfive){
+        ArrayList<String[]> info = new ArrayList<>();
+        for (String actID: topfive){
+            info.add(eventManager.searchEventByUUID(actID));
+        }
+        return new ModifyEventPresenter().strSchedule(info);
     }
 }
