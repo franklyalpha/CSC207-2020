@@ -16,7 +16,8 @@ public class OrganizerCreateUserUI extends AbstractUI {
 
     /**
      * @param presenter: an instance of <code>OrganizerPresenter</code> being instantiated.
-     * @param createUser;: an instance of <code>CreateUserController</code> being instantiated which
+     * @param createUser;: an instance of <code>CreateUserController</code> being instantiated which contains method
+     * to create different type of user.
      */
     private OrganizerPresenter presenter;
     private CreateUserController createUser;
