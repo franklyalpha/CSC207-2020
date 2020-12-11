@@ -120,7 +120,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     /**
      * get list of available <code>Room</code> in given time period.
      * @param targetPeriod is the time period we want to check.
-     * @return a list of available room ids.
+     * @return a list of <>String[]</> of available room ids and info.
      */
     public ArrayList<String[]> bookingAvailable(LocalDateTime[] targetPeriod){
         ArrayList<String[]> possibleRooms = new ArrayList<String[]>();

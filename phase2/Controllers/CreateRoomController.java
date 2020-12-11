@@ -22,8 +22,7 @@ public class CreateRoomController extends AbstractController{
     /**
      * Creates room with given capacity and technical requirement.
      * @param capacity an integer representing number of people this room can contain at maximum.
-     * @param roomItems a list containing information of <>roomItems</>. Each sublist contains: quantity of <>RoomItem</>,
-     *                  serial number of <>RoomItem</>, and price of <>RoomItem</>.
+     * @param roomItems a list containing quantities of <>roomItems</> as <>Integer</>.
      * @throws CannotCreateEventException: is thrown when capacity is less than or equal to zero.
      */
     public UUID createRoomWithCondition(int capacity, List<Integer> roomItems) throws CannotCreateEventException {

@@ -159,8 +159,8 @@ public class EventManager extends AbstractSerializableManager implements java.io
     /**
      * return info of all upcoming activities.
      * @return an <code>ArrayList</code> of array of <code>String</code>, where each array of
-     * String has six elements, represents: UUID of this activity, topic, start time, end time,
-     * UUID of assigned room and name of speaker.
+     * String has 8 elements, represents: UUID of this activity, topic, start time, end time,
+     * UUID of assigned room, the event's description, the type of event and name of speaker(s).
      */
     public ArrayList<String[]> viewUpcomingActivities(){
         ArrayList<String[]> result = new ArrayList<String[]>();

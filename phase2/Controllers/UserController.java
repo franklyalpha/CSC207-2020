@@ -21,7 +21,7 @@ public class UserController {
     protected RequestManager requestManager;
 
     /**
-     * Creates a <code>UserController</code> with a new chatroomManager, activityManager, and roomManager, and specified userManager.
+     * Creates a <code>UserController</code> instance.
      * @param manager <code>UserManager</code> object to be stored.
      */
 
@@ -38,13 +38,16 @@ public class UserController {
     }
 
     /**
-     * Abstract run method to be overridden.
+     * return a list of all <>Managers</> this controller contains.
+     * @return an instance of <>Object[]</> containing all managers stored by this controller.
      */
-
     public Object[] extractManagers(){
         return new Object[]{messageRoomManager, eventManager, userManager, roomManager, requestManager};
     }
 
+    /**
+     * updates information and save file when <>User</> using the program is about to quit this system.
+     */
     public void logout(){
 
         userManager.logout();

@@ -21,7 +21,7 @@ import static globallyAccessible.UserType.*;
  */
 public class LoginController {
     /**
-     * userManager: an instance of UserManager being instantiated and used for checking
+     * @param userManager: an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
     private final UserManager userManager = new GatewaySerialize().deserializeUser();
@@ -32,13 +32,6 @@ public class LoginController {
       want to do and call corresponding method, such as sign up as a user, or log in or just quit.
      */
 
-
-    /**
-     * Check whether the user account is correct to login in this <code>LoginController</code>.
-     * @param username the name of user currently logging in.
-     * @param password the password user has input to login.
-     * @return A strings corresponding to type of user if password is correct, "invalid" otherwise.
-     */
     private UserType checkLoginCondition(String username, String password) throws UserNotFoundException {
         return userManager.loginCheck(username, password);
     }
@@ -49,12 +42,11 @@ public class LoginController {
      */
 
     /**
-     * Handle the sign up system for users to sign up.
-     * Information include: usertype want to signup, name, and password.
-     * Note that username is different from the name you put in.
-     * Specific format will be determined in Presenter.
+     * return the appropriate <>UserType</> given <>Integer</> as input.
+     * @param type the <>Integer</> corresponding to a certain <>UserType</>.
+     * @return the corresponding <>UserType</> associated with the <>Integer</>.
+     * @throws InvalidUserTypeException is thrown when inputted <>Integer</> is not associate with any <>UserType</>.
      */
-
     private UserType UserTypeDistributor(int type) throws InvalidUserTypeException {
         switch (type) {
             case 0 : {
@@ -72,9 +64,11 @@ public class LoginController {
 
     /**
      * handle the login system for user to log in.
-     * Information include: username to login, and password to log in.
-     * Note that username is different from the name you put in.
-     * Specific format will be determined in Presenter.
+     * @param userName the username of potential <>User</> to log in to the system.
+     * @param password the password entered to login.
+     * @return An instance of <>Object</> array containing <>UserType</> of <>User</> who has logged in, and an instance of
+     * <>UserController</>.
+     * @throws UserNotFoundException: is thrown when login fails.
      */
     public Object[] handleLogin(String userName, String password) throws UserNotFoundException{
         UserType loginCondition = checkLoginCondition(userName, password);
@@ -100,11 +94,14 @@ public class LoginController {
         }
     }
 
+
     /**
-     * handle create new user.
-     * Information include: username to login, and usertype also created.
-     * Note that username is different from the name you put in.
-     * Specific format will be determined in Presenter.
+     * Responsible for updates of info for the system regarding new <>User</> registration.
+     * @param username the username of new potential <>User</>.
+     * @param password the password of new potential <>User</>.
+     * @param type the type of new potential <>User</>.
+     * @return a <>String</> of username of new <>User</> the system assigns.
+     * @throws InvalidUserTypeException is thrown when the <>UserType</> is not the one in the system.
      */
     public String handleCreateNewUser(String username, String password, int type) throws InvalidUserTypeException{
         UserType userType = UserTypeDistributor(type);

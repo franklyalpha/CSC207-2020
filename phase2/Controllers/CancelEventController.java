@@ -45,7 +45,7 @@ public class CancelEventController extends EventController {
 
 
     /**
-     * Deletes an event given its ID, and update <>User</>'s schedule and <>MessageRoom</> associated with this event.
+     * Deletes an event given its ID, and update <>User</>'s schedule and <>MessageRoom</>, <>room</> associated with this event.
      * @param eventID The ID of given event wants to be cancelled.
      */
     public void cancelAndUpdate(String eventID){
@@ -59,11 +59,21 @@ public class CancelEventController extends EventController {
         roomManager.CancelRoomEvent(period, UUID.fromString(eventID), UUID.fromString(actInfo[4]));
     }
 
-    void processCancelSpeaker(String eventID){
+    /**
+     * Updates all speaker's schedule so they will be free at original event's period,
+     * after the event is cancelled.
+     * @param eventID the ID of event wish to cancel.
+     */
+    protected void processCancelSpeaker(String eventID){
         String[] actInfo = eventManager.searchEventByUUID(eventID);
+        if(actInfo == null) return;
         UUID actID = UUID.fromString(eventID);
         EventType eventType = eventManager.findType(actID);
         LocalDateTime[] period = getTimeHelper(actInfo);
+        cancelUserSchedule(actID, eventType, period);
+    }
+
+    private void cancelUserSchedule(UUID actID, EventType eventType, LocalDateTime[] period) {
         if(eventType == EventType.TALK){
             String speaker = talkManager.getSpeaker(actID);
             organizerManager.deleteEvent(speaker, period);

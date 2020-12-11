@@ -33,7 +33,7 @@ public class AttEnrollEventUI extends AbstractUI {
         while(true){
             try{
                 String actID = getAvailableEventID(availables);
-                enroll.chooseActToEnroll(availables, actID);
+                enroll.enrollEvent(availables, actID);
                 break;
             }catch(EventNotFoundException e){
                 System.out.println(attendeePresenter.strInvalidEventID());

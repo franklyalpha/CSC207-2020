@@ -11,24 +11,28 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 
+/**
+ * Responsible for removing an event and updating all relevant information.
+ */
 public class RemoveEventController extends CancelEventController {
 
 
+    /**
+     * the constructor of this class;
+     * @param userController: an instance of <>UserController</>.
+     */
     public RemoveEventController(UserController userController) {
         super(userController);
     }
 
-    public ArrayList<String[]> getAllActivities() throws NoEventsException {
-        ArrayList<String[]> allActivities = eventManager.viewUpcomingActivities();
-        if (allActivities.size() == 0) {
-            throw new NoEventsException("No activities created yet");
-        }
-        return allActivities;
-    }
-
+    /**
+     * responsible for deleting an existing <>Event</> and updating all relevant info.
+     * @param eventID the <>UUID</> of <>Event</> about to be cancelled.
+     */
     public void cancelAndUpdate(UUID eventID){
         // need to update the speaker as an array list of speaker;
         String[] actInfo = eventManager.searchEventByUUID(eventID.toString());
+        if(actInfo == null) return;
         processCancelSpeaker(eventID.toString());
         UUID chatID = eventManager.getConferenceChat(eventID);
         messageRoomManager.deleteGroupChat(chatID);

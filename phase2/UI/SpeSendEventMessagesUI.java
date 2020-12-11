@@ -42,7 +42,6 @@ public class SpeSendEventMessagesUI extends AbstractUI {
         }
         System.out.println(speakerPresenter.strEnrolledMenuDes());
         System.out.println(speakerPresenter.strSchedule(info));
-
         return info;
     }
 

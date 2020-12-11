@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- *
+ * Outputs all upcoming events as a PDF file.
  */
 public class OutputConferenceInfoController extends EventController {
 

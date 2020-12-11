@@ -1,10 +1,18 @@
 package Controllers;
 
+import globallyAccessible.NoEventsException;
+
 import java.util.ArrayList;
 
+/**
+ * This controller is extended by all controllers modifying events-associated tasks.
+ */
 public class EventController extends AbstractController{
 
-
+    /**
+     * The constructor of this controller.
+     * @param userController An instance of <>UserController</>.
+     */
     public EventController(UserController userController) {
         super(userController);
     }
@@ -23,21 +31,17 @@ public class EventController extends AbstractController{
     }
 
     /**
-     * Helper function for formatting user-inputted times.
-     * @param scheduleInfo String representing user-inputted time information, to be formatted.
-     * @return Returns the formatted time information in LocalDateTime format.
+     * returns information of all existing events of this system.
+     * @return An instance of <>ArrayList</> containing <>String[]</> of ebent's info, each <>String[]</> includes:
+     * UUID of this activity, topic, start time, end time, UUID of assigned room, the event's description,
+     * the type of event and name of speaker(s).
+     * @throws NoEventsException is thrown when no events has yet being stored in the system.
      */
-
-
-    /**
-     * Print out the schedule of all activities this attendee can sign in.
-     * Information include: topic of activity, start time and end time, ID of assigned room,
-     * ID of this activity and name of speaker.
-     * Specific format will be determined in Presenter.
-     */
-
-
-
-
-
+    public ArrayList<String[]> getAllActivities() throws NoEventsException {
+        ArrayList<String[]> allActivities = eventManager.viewUpcomingActivities();
+        if (allActivities.size() == 0) {
+            throw new NoEventsException("No activities created yet");
+        }
+        return allActivities;
+    }
 }
