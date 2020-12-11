@@ -15,6 +15,7 @@ import java.util.Scanner;
  * Includes:
  * Own presenter
  * Own constructor
+ * run: the method for receiving user's inputs for actions and call corresponding method.
  * sendPrivateMessage(): responsible for sending private messages to a particular user.
  * viewPrivateMessage(): responsible for gathering all private messages sent to a particular user
  * and print them out.
@@ -22,21 +23,7 @@ import java.util.Scanner;
  *   particular Organizer-Speaker Chatroom.
  * viewCoopChat(): responsible for viewing messages from a chatroom with only organizers and speakers.
  * deleteMessage(): responsible for deleting messages for a particular user.
- * deleteEvent():
- * createRoom(): responsible for creating a new event room.
- * createUser(): responsible for creating a new user account.
- * addSchedule(): responsible for creating a new event.
- * rescheduleSpeaker(): responsible for replacing the speaker with another for a given event.
- * endPrivateMessage(): send private message to a user.
- * viewPrivateMessage(): responsible for gathering all available private messages sent to a user
- *  and print out.
- * sendCoopMessage(): responsible for sending message to all other organizers and speakers in a \
- * particular Organizer-Speaker Chatroom.
- * viewCoopChat(): responsible for viewing messages from the chatroom with only organizers and speakers;
- * messageAllAttendee(): responsible for sending message to all registered attendees at a given event.
- * modifyEvent(): responsible for modifying information for a given event.
- * removeEvent(): responsible for cancelling a particular event
- * manageRequests(): responsible for managing all requests from a particular user.
+ * deleteEvent(): responosible for cancellinga particular event.
  */
 public class AdministratorUI extends OrganizerUI {
 
@@ -47,6 +34,12 @@ public class AdministratorUI extends OrganizerUI {
     }
 
     @Override
+    /*
+      This method allows users to do actions corresponding to administrator's allowed actions.
+      Will print out a list of actions the user can implement, ask for choice of action the user
+      want to do and call corresponding method.
+     */
+
     public void run() {
         availableAction = presenter.optionMenu();
         int action;
