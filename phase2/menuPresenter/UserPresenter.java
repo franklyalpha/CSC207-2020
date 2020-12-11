@@ -42,9 +42,11 @@ public class UserPresenter extends GeneralMenuPresenter {
 
     public String strSchedule(ArrayList<String[]> schedule){
         StringBuilder scheduleInfo = new StringBuilder();
+        int j = 1;
         for(String[] i: schedule){
-            scheduleInfo.append("Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " +
+            scheduleInfo.append("Event No." + j + ": \n" +"Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " +
                     i[4] + ", \nSpeakers: " + i[7] + ", \nActivity ID: " + i[0] + "\n\n");
+            j += 1;
         }
         return scheduleInfo.toString();
     }
