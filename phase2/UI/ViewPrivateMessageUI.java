@@ -21,7 +21,7 @@ public class ViewPrivateMessageUI extends AbstractUI {
     @Override
     public void run() {
         HashMap<String, ArrayList<String>> historyChat = messagePresenter.viewPrivateMessage();
-        if(historyChat.isEmpty()){
+        if(historyChat == null){
             return;
         }
         String contactUser = chooseUserToView(historyChat);
