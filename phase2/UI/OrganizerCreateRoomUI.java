@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This is a UI for <code>Organizer</code> to create room. Organizers can set the capacity and <code>RoomItem</code> in
+ * This is the UI for <code>Organizer</code> to create room. Organizers can set the capacity and <code>RoomItem</code> in
  * this room.
  */
 public class OrganizerCreateRoomUI extends AbstractUI {
@@ -29,7 +29,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     }
 
     /**
-     * Run method for this UI.
+     * Create new room with information given by the <code>Organizer</code>.
      * Will give instructions for invalid inputs.
      */
     @Override
@@ -46,7 +46,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     }
 
     /**
-     *
+     * Create new event room with Organizer given capacity and number of 3 different room items.
      * @param createRoom A instance of <code>CreateRoomController</code>.
      * @param organizerPresenter An instance of <code>OrganizerPresenter</code>.
      * @throws Exception when room capacity is less than or equal to zero.

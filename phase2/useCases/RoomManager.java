@@ -67,7 +67,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     }
 
     /**
-     * find the <code>Room</code> by given rome id.
+     * find the <code>Room</code> by given room id.
      * @param roomID is the id of the room we are searching for.
      * @return a room or nothing if it is not in the list of rooms of our <code>RoomManager</code>
      */
@@ -159,15 +159,24 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         return true;
     }
 
+    /**
+     * Get <code>RoomItems</code> of a room by given room id.
+     * @param id the room id of the target room.
+     * @return an instance of <code>RoomItems</code>
+     */
     public RoomItems getRoomItems(UUID id){
         return findRoom(id).getRoomItems();
     }
 
-    public boolean checkRoomItems(UUID eventID, Boolean[] itemChoice){
-        return findRoom(eventID).checkItemRequirement(itemChoice);
+    /**
+     * Check whether this room meets all the technical requirement of the event.
+     * @param roomID is <>UUID</> of this room.
+     * @param itemChoice is the event's technical requirement for possible rooms.
+     * @return True if this room meets the technical requirement.
+     */
+    public boolean checkRoomItems(UUID roomID, Boolean[] itemChoice){
+        return findRoom(roomID).checkItemRequirement(itemChoice);
     }
 
-//    public showItems(){
-//
-//    }
+
 }
