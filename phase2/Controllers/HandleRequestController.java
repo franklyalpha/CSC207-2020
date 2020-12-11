@@ -12,17 +12,11 @@ import java.util.UUID;
 public class HandleRequestController extends RequestController {
 
     /**
-     * An instance of <code>RequestManager</code>.
-     */
-    private final RequestManager requestManager;
-
-    /**
      * Creates an instance of <code>HandleRequestController</code>.
      * @param userController Instance of <code>UserController</code> for superconstructor use.
      */
     public HandleRequestController(UserController userController) {
         super(userController);
-        requestManager = new RequestManager();
     }
 
     /**
