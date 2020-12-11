@@ -8,18 +8,26 @@ import java.util.Scanner;
 
 
 /**
- * Represents a <code>OrganizerController</code> extends from <code>UserController</code>.
+ * Represents a <code>OrganizerUI</code> extends from <code>UserUI</code>.
  * Is specific for <code>Organizer</code> type usage.
  *
  * Includes:
+ * Own presenter
  * Own constructor
- * createRoom: responsible for creating a conference room.
- * createSpeaker: responsible for creating a speaker for the conference.
- * addSchedule: responsible for creating a completely new conference.
- * rescheduleSpeaker: responsible for replacing the speaker with another for a particular conference.
- * sendCoopMessage: responsible for sending messages to all other organizers and speakers in a particular group;
- * viewCoopChat: responsible for viewing messages from the group with only organizers and speakers;
- * messageAllAttendee: responsible for sending messages to all registered attendee.
+ * createRoom(): responsible for creating a new event room.
+ * createUser(): responsible for creating a new user account.
+ * addSchedule(): responsible for creating a new event.
+ * rescheduleSpeaker(): responsible for replacing the speaker with another for a given event.
+ * endPrivateMessage(): send private message to a user.
+ * viewPrivateMessage(): responsible for gathering all available private messages sent to a user
+ *  and print out.
+ * sendCoopMessage(): responsible for sending message to all other organizers and speakers in a \
+ * particular Organizer-Speaker Chatroom.
+ * viewCoopChat(): responsible for viewing messages from the chatroom with only organizers and speakers.
+ * messageAllAttendee(): responsible for sending message to all registered attendees at a given event.
+ * modifyEvent(): responsible for modifying information for a given event.
+ * removeEvent(): responsible for cancelling a particular event
+ * manageRequests(): responsible for managing all requests from a particular user.
  */
 public class OrganizerUI extends UserUI {
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
@@ -130,65 +138,7 @@ public class OrganizerUI extends UserUI {
 
 
 
-    /*
-      provides instructions for the user to create a new conference and store it in <code>ChatroomManager</code>.
 
-      Will ask for specific time period first. Then display available rooms and speakers during that time period,
-      to allow user make choices. Then will ask user to fill in extra info(such as topic). Finally will update
-      all data in use-case classes.
-
-      @return true iff the schedule is added successfully. 'false' otherwise.
-     */
-
-    //check speaker, positive number.
-
-
-
-    /*
-      Providing instructions for user to add a new conference room to the system.
-
-      Will ask for capacity of the room when running the program. Then ask RoomManager to
-      create the new room.
-
-      @return true iff the room is created (inputting appropriate capacity value). 'false' otherwise.
-     */
-
-
-
-
-    /*
-      Providing instructions for creating a new speaker.
-
-      Will ask user to input the name and password of speaker; will printout
-      the username of speaker after creation.
-
-      @return true iff the speaker is created successfully (the speaker is new).
-     */
-
-
-
-    /*
-      Will printout messages being sent in chats involving only organizers and speakers.
-     */
-
-
-
-    /*
-      Provides instructions for guiding user to send messages to all organizers and speakers.
-
-      Will ask user to input the message want to send during running.
-     */
-
-
-
-    /*
-      Provides instructions for user to reassign another speaker for a given conference.
-
-      Will first printout all conferences and ask the user to make a choice.
-      Then will show all speakers who are free during the conference's time period.
-      Next asks for user's choice on which speaker to assign.
-      Finally will update all information.
-     */
 
 
 }
