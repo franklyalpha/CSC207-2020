@@ -2,6 +2,7 @@ package Controllers;
 
 import useCases.*;
 
+import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -71,6 +72,7 @@ public class AbstractController {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime[] time = {LocalDateTime.parse(scheduleInfo[2], df),
                 LocalDateTime.parse(scheduleInfo[3], df)};
+
         return time;
     }
 
