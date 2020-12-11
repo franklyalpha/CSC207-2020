@@ -2,6 +2,7 @@ package UI;
 
 import Controllers.DeletePrivateConversationController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.AdminDeleteMessagePresenter;
 
@@ -28,17 +29,14 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
      * Does the action deleting conversation message. Run the method in this UI.
      */
     @Override
-    public void run() {
+    public void run() throws ExceedingMaxAttemptException {
         chooseChatOrMessage();
     }
 
-    /**
-     * Lets <code>Administrator</code> choose chat or message they wants to delete.
-     * Give instruction for invalid input.
-     */
-    private void chooseChatOrMessage(){
+
+    private void chooseChatOrMessage() throws ExceedingMaxAttemptException {
         System.out.println(adminDeleteMessagePresenter.strMessageActionMenu());
-        while(true){
+        for(int i=0; i<3; i++){
             Scanner choice = new Scanner(System.in);
             if(choice.hasNextInt()){
                 choosePrivateOrGroup(choice);
@@ -46,21 +44,19 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
             }
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+
     }
 
-    /**
-     * Lets <code>Administrator</code> choose whether they want to delete private conversation or message.
-     */
-    private void choosePrivateOrGroup(Scanner choice) {
+
+    private void choosePrivateOrGroup(Scanner choice) throws ExceedingMaxAttemptException {
         switch(choice.nextInt()){
             case 1: deletePrivateConversation(); break;
             case 2: deleteSelectedMessages(); break;
         }
     }
 
-    /**
-     * Deletes private conversation <code>Administrator</code> selected.
-     */
+
     private void deletePrivateConversation(){
         while(true){
             try{
@@ -74,10 +70,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
         }
     }
 
-    /**
-     * @param deletePrivate An controller that response for delete Private Conversation.
-     * @throws UserNotFoundException when there is not exist a private conversation between Users.
-     */
+
     private void inputAndDeletePrivate(DeletePrivateConversationController deletePrivate) throws UserNotFoundException {
         Scanner users = new Scanner(System.in);
         String username1 = users.nextLine();
@@ -86,11 +79,9 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
         deletePrivate.deletePrivateConversation();
     }
 
-    /**
-     * Deletes message <code>Administrator</code> selected.
-     */
+
     // followings can be placed in another UI
-    private void deleteSelectedMessages(){
+    private void deleteSelectedMessages() throws ExceedingMaxAttemptException {
         new AdminDeleteMessageUI(userController).run();
     }
 

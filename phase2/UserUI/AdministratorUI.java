@@ -4,6 +4,7 @@ import Controllers.UserController;
 import UI.AdminCancelEventUI;
 import UI.AdminDeleteConversationMessageUI;
 import UI.AdminDeleteMessageUI;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AdminPresenter;
 
 import java.util.Scanner;
@@ -40,7 +41,7 @@ public class AdministratorUI extends OrganizerUI {
       want to do and call corresponding method.
      */
 
-    public void run() {
+    public void run(){
         availableAction = presenter.optionMenu();
         int action;
         // replace with try-catch in while loop
@@ -58,26 +59,36 @@ public class AdministratorUI extends OrganizerUI {
             enterAction = continuing();
         }
         userController.logout();
+
     }
 
     private void runMethod (int action){
-        switch (action) {
-            case 1 : sendPrivateMessage(); break;
-            case 2 : viewPrivateMessage(); break;
-            case 3 : sendCoopMessage(); break;
-            case 4 : viewCoopChat(); break;
-            case 5 : deleteMessage(); break;
-            case 6 : deleteEvent(); break;
+        try{
+            switch (action) {
+                case 1 : sendPrivateMessage(); break;
+                case 2 : viewPrivateMessage(); break;
+                case 3 : sendCoopMessage(); break;
+                case 4 : viewCoopChat(); break;
+                case 5 : deleteMessage(); break;
+                case 6 : deleteEvent(); break;
+            }
+        }
+        catch (ExceedingMaxAttemptException e){
+            e.printStackTrace();
         }
     }
 
-    private void deleteMessage(){
+
+
+
+    private void deleteMessage() throws ExceedingMaxAttemptException {
         new AdminDeleteConversationMessageUI(userController).run();
     }
 
-    private void deleteEvent(){
-        new AdminCancelEventUI(userController).run();
-    }
+    private void deleteEvent() throws ExceedingMaxAttemptException {
 
+        new AdminCancelEventUI(userController).run();
+
+    }
 
 }

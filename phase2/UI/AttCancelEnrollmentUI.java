@@ -4,6 +4,7 @@ import Controllers.QuitEventController;
 import Controllers.UserController;
 import functionalityPresenters.EnrolledSchedulePresenter;
 import globallyAccessible.EventNotFoundException;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AttendeePresenter;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class AttCancelEnrollmentUI extends AbstractUI{
      * Does the all action needed to cancel certain event.Runs the method in this UI.
      */
     @Override
-    public void run() {
+    public void run() throws ExceedingMaxAttemptException {
         ArrayList<String[]> enrolled = enrolledPresenter.viewEnrolledSchedule();
         if (enrolled.size() == 0){
             return;
@@ -46,13 +47,9 @@ public class AttCancelEnrollmentUI extends AbstractUI{
         inputAndQuitEvent(enrolled);
     }
 
-    /**
-     * Cancels the user into their chosen event.
-     * @param enrolled ArrayList of strings of information about all events this user currently enrolled.
-     * @throws EventNotFoundException when input event IDs is not found in events user can cancel.
-     */
-    private void inputAndQuitEvent(ArrayList<String[]> enrolled) {
-        while (true){
+
+    private void inputAndQuitEvent(ArrayList<String[]> enrolled) throws ExceedingMaxAttemptException {
+        for(int i=0; i<3; i++){
             try{
                 String activityID = getEnrolledEventID(enrolled);
                 quit.chooseActToCancel(enrolled, activityID);
@@ -61,13 +58,10 @@ public class AttCancelEnrollmentUI extends AbstractUI{
                 System.out.println(attendeePresenter.strInvalidEventID());
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
-    /**
-     * Get user input for which event they want to cancel.
-     * @param availables ArrayList of strings of information about all events this user currently enrolled.
-     * @return An IDs showing as String that is <code>Attendee</code> selected to cancel.
-     */
+
     private String getEnrolledEventID(ArrayList<String[]> availables) {
         Scanner scan = new Scanner(System.in);
         System.out.println(attendeePresenter.strEnrolledMenuDes());

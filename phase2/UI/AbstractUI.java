@@ -4,6 +4,7 @@ import Controllers.SendPrivateMessageController;
 import Controllers.UserController;
 import functionalityPresenters.*;
 import Controllers.OutputConferenceInfoController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.UserPresenter;
 
@@ -35,7 +36,7 @@ public class AbstractUI {
     /**
      * Abstract run method to be overridden.
      */
-    public void run() {}
+    public void run() throws ExceedingMaxAttemptException {}
 
 
 

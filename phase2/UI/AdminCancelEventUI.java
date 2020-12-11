@@ -2,6 +2,8 @@ package UI;
 
 import Controllers.CancelEventController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
+import globallyAccessible.UserAlreadyExistException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,7 +31,7 @@ public class AdminCancelEventUI extends AbstractUI {
      * Gives instructions for invalid inputs.
      */
     @Override
-    public void run() {
+    public void run() throws ExceedingMaxAttemptException {
         ArrayList<String[]> emptyEvents = deleteEvent.findEmptyEvents();
         if (emptyEvents.size() == 0){
             System.out.println("There are no events being added");
@@ -39,15 +41,11 @@ public class AdminCancelEventUI extends AbstractUI {
         deleteEvent.cancelAndUpdate(cancelEventID);
     }
 
-    /**
-     * Lets <code>Administrator</code> select the event they want to cancel .
-     * @param emptyEvents: events they can select to cancel.
-     * @return Event IDs that <code>Administrator</code> cancel.
-     */
-    private String selectEventToCancel(ArrayList<String[]> emptyEvents){
+
+    private String selectEventToCancel(ArrayList<String[]> emptyEvents) throws ExceedingMaxAttemptException {
         ArrayList<String> eventsID = printEventsCanCancel(emptyEvents);
         System.out.println("Please enter the ID of event you want to cancel: ");
-        while(true){
+        for(int i=0; i<3; i++){
             Scanner eventScan = new Scanner(System.in);
             String eventID = eventScan.nextLine();
             if (eventsID.contains(eventID)){
@@ -55,13 +53,10 @@ public class AdminCancelEventUI extends AbstractUI {
             }
             System.out.println("Invalid input! Try again; ");
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
-    /**
-     * Prints A list of String showing the events <code>Administrator</code> could cancel .
-     * @param emptyEvents: events they can cancel
-     * @return A list of Event IDs that <code>Administrator</code> could cancel.
-     */
+
     private ArrayList<String> printEventsCanCancel(ArrayList<String[]> emptyEvents) {
         System.out.println("Below are events you can cancel: \n");
         ArrayList<String> eventsID = new ArrayList<>();
