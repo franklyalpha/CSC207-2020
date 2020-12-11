@@ -22,7 +22,7 @@ public class EnrolledSchedulePresenter extends AbstractPresenter{
 
     /**
      * Show all enrolled events in string representation.
-     * @return a list of list of strings contains information about all enrolled events.
+     * @return a <>ArrayList</> containing information of all enrolled events.
      */
     public ArrayList<String[]> viewEnrolledSchedule() {
         HashMap<LocalDateTime[], UUID> schedules = userManager.schedules();
