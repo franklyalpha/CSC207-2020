@@ -1,5 +1,13 @@
 package menuPresenter;
 
+/**
+ * Represents a OrganizerPresenter
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class OrganizerPresenter extends UserPresenter {
 
     public OrganizerPresenter(){super();}
@@ -24,6 +32,10 @@ public class OrganizerPresenter extends UserPresenter {
         return "Please input the room capacity";
     }
 
+    /**
+     * @param a the capacity we want to display
+     * @return the confirmation in String form
+     */
     public String strRoomCapacityConfirmation(int a){
         return "Successfully created a new room with a capacity of " + a + ".";
     }

@@ -10,6 +10,10 @@ import java.util.UUID;
  * Panel is a type of event that has multiple speakers.
  * These speakers are stored in an arraylist.
  * Added are the getter and setters for speakers as well as some string processing methods.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
 
 public class Panel extends Event {

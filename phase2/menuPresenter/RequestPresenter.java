@@ -4,7 +4,12 @@ import java.util.HashMap;
 
 /**
  * Presenter dealing with any prompts or actions with <code>Request</code> interactions.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
+
 public class RequestPresenter extends GeneralMenuPresenter {
 
     /**
@@ -95,7 +100,7 @@ public class RequestPresenter extends GeneralMenuPresenter {
      * @param req1 Instance of the <code>Object[]</code> to be formatted.
      * @return String representing the <code>Object[]</code>.
      */
-    public String strRequestObjArrToStr(Object req1[]){
+    public String strRequestObjArrToStr(Object[] req1){
         return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
             + " ]\n------------------------------------------------------";
     }

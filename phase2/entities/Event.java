@@ -14,7 +14,12 @@ import java.util.*;
  * Also includes a list of attendees
  * Start and End time, with the duration that is updated everytime the start/end time changes
  * and finally a corresponding chatroom ID.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
+
 public abstract class Event implements java.io.Serializable {
 
     private ArrayList<String> attendeeList;    // do not set this list as final, since this makes adding impossible

@@ -8,6 +8,10 @@ import java.util.UUID;
 /**
  * Party is an event without any speakers.
  * The added functionality is a more specific toString method.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
 
 public class Party extends Event {
