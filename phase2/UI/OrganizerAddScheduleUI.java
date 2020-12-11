@@ -103,7 +103,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     /**
      * Gets IDs of given free rooms.
      * @param freeRooms is a list of free rooms' string representation.
-     * @return
+     * @return a <>ArrayList</> of room IDs.
      */
     private ArrayList<UUID> extractRoomID(ArrayList<String[]> freeRooms) {
         ArrayList<UUID> freeRoomsID = new ArrayList<>();
@@ -185,7 +185,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
      * @param createSchedule A <code>CreateScheduleController</code>.
      * @param uuid id of the room.
      * @param roomTopicMaxEnroll
-     * @return
+     * @return information of a party event.
      * @throws UserNotFoundException when the speaker with this username is not free.
      * @throws MaxNumberBeyondRoomCapacityException when party's maximum number of people can enrolled in is beyond given
      * room's capacity.
@@ -217,6 +217,12 @@ public class OrganizerAddScheduleUI extends AbstractUI {
                 roomTopicMaxEnroll[2], speaker};
     }
 
+    /**
+     * Gets Organizer's setting for the event.
+     * @param moreInfo is organizer's input
+     * @return an Array containing Organizer's selection of the room to hold the event, the topic and maximum number of
+     * users can enroll in this event.
+     */
     private Object[] getRoomTopicMaxenroll(Scanner moreInfo){
         System.out.println("Please input the room number of which you wish to use: (e.g. No.1, then input '1')");
         int roomIndex = moreInfo.nextInt();
