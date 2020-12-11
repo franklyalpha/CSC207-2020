@@ -5,11 +5,27 @@ import menuPresenter.ModifyEventPresenter;
 
 import java.util.*;
 
+/**
+ * StatisticPresenter
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
 public class StatisticPresenter extends AbstractPresenter{
+
+    /**
+     * Creates a StatisticPresenter
+     * @param userController contains managers
+     */
     public StatisticPresenter(UserController userController) {
         super(userController);
     }
 
+    /**
+     * Returns the info of popular events
+     * @return a string that contains the info of the events
+     */
     public String popularEvent() {
         HashMap<String, Integer> result = new HashMap<>();
         ArrayList<String[]> eventList = eventManager.viewUpcomingActivities();
@@ -27,6 +43,11 @@ public class StatisticPresenter extends AbstractPresenter{
         return topFiveInfo(topFive);
     }
 
+    /**
+     * Helper function to extract the info of the events
+     * @param topfive contains the top five events
+     * @return the information after formatting
+     */
     private String topFiveInfo(ArrayList<String> topfive){
         ArrayList<String[]> info = new ArrayList<>();
         for (String actID: topfive){
