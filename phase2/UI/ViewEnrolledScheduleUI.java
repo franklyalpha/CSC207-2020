@@ -24,7 +24,10 @@ public class ViewEnrolledScheduleUI extends AbstractUI {
         enrolledSchedulePresenter = new EnrolledSchedulePresenter(userController);
     }
 
-
+    /**
+     * Show all enrolled events in string representation.
+     * Will give instructions if have not enrolled any events.
+     */
     @Override
     public void run() {
         ArrayList<String[]> schedules = enrolledSchedulePresenter.viewEnrolledSchedule();
