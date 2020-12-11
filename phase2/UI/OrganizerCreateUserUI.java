@@ -2,25 +2,42 @@ package UI;
 
 import Controllers.CreateUserController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.UserAlreadyExistException;
 import globallyAccessible.UserType;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
 
+/**
+ * UI for <code>Organizer</code> to create different type of <code>User</code>.
+ */
 public class OrganizerCreateUserUI extends AbstractUI {
+
+    /**
+     * @param presenter: an instance of <code>OrganizerPresenter</code> being instantiated.
+     * @param createUser;: an instance of <code>CreateUserController</code> being instantiated which
+     */
     private OrganizerPresenter presenter;
     private CreateUserController createUser;
 
+    /**
+     * Instantiates new <code>OrganizerCreateUserUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public OrganizerCreateUserUI(UserController userController) {
         super(userController);
         presenter = new OrganizerPresenter();
         createUser = new CreateUserController(userController);
     }
 
+    /**
+     * Lets <code>Organizer</code> choose the type of user they want to create and create such user.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
+     */
     @Override
-    public void run() {
-        while(true){
+    public void run() throws ExceedingMaxAttemptException {
+        for(int i=0; i<3; i++){
             try{
                 int type = acquireUserType();
                 Scanner input0 = new Scanner(System.in);
@@ -30,6 +47,7 @@ public class OrganizerCreateUserUI extends AbstractUI {
                 System.out.println(presenter.strSpeakerExistWarning());
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
     private void createUserWithGivenType(CreateUserController createUser, int type, Scanner input0)
