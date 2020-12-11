@@ -6,14 +6,29 @@ import menuPresenter.AdminDeleteMessagePresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * UI for <code>Administrator</code> to delete message.
+ */
 
 public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
+    /**
+     * @param adminDeleteMessagePresenter : an instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
+     */
+
     final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
 
+    /**
+     * Instantiates new <code> AdminDeleteMessageUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public AdminDeleteMessageUI(UserController userController) {
         super(userController);
     }
 
+    /**
+     * Does the action delete message. Run the method in this UI.
+     *Gives instructions for invalid inputs.
+     */
     @Override
     public void run() {
         System.out.println(adminDeleteMessagePresenter.strGroupActionMenu());
@@ -27,6 +42,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+    /**
+     * Lets <code>Administrator</code> choose whether they want to delete organizer speaker message or event message.
+     */
     private void deleteChoice(Scanner choice) {
         switch(choice.nextInt()){
             case 0: deleteOrganizerSpeakerMessage(); break;
@@ -34,6 +52,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+    /**
+     * Deletes organizer speaker message which <code>Administrator</code> selected.
+     */
     private void deleteOrganizerSpeakerMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
         ArrayList<String> history = deleteMessage.getOrganizerSpeakerMessage();
@@ -42,6 +63,11 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+    /**
+     * Choose the line of message<code>Administrator</code> wants to selected.
+     *  @param deleteMessage An controller that response for delete message.
+     *  @param history A list of String that showing the history messages.
+     */
     private void chooseLinesToDelete(DeleteSelectedMessagesController deleteMessage, ArrayList<String> history) {
         System.out.println(adminDeleteMessagePresenter.strDisplayMessageHistory(history));
         Scanner lines = new Scanner(System.in);
@@ -52,7 +78,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
         deleteMessage.deleteMessage(targetedDeletion);
     }
-
+    /**
+     * Deletes event message which <code>Administrator</code> selected.
+     */
     private void deleteEventMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
         ArrayList<String> ids = viewAllGroupConversation(deleteMessage);
@@ -62,6 +90,13 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+    /**
+     * Lets <code>Administrator</code>  select the group conversation wants to return the history message of this
+     * conversation.
+     *  @param deleteMessage An controller that response for delete message.
+     *  @param ids A list of String that contains the IDS of all groups conversation.
+     *  @return A list of string that is the history message of this conversation.
+     */
     private ArrayList<String> selectGroupConversation(DeleteSelectedMessagesController deleteMessage, ArrayList<String> ids){
         System.out.println(adminDeleteMessagePresenter.strChatToDeletePrompt());
         while(true){
@@ -74,6 +109,12 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+
+    /**
+     * Shows the IDs of all group conversation.
+     * @param deleteMessage An controller that response for delete message.
+     * @return A list of String that are the IDs of all group conversation.
+     */
     private ArrayList<String> viewAllGroupConversation(DeleteSelectedMessagesController deleteMessage) {
         ArrayList<String[]> groupConversationId = deleteMessage.groupChatIDs();
         System.out.println(adminDeleteMessagePresenter.strChatDisplayHeader());
