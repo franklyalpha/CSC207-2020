@@ -28,7 +28,7 @@ public class ModifyEventPresenter extends UserPresenter{
     }
 
     public String printSuggestedRoomPrompt(List<String[]> suggestedList){
-        String output = "This is the suggested room list that match all your requirements:";
+        String output = "This is the suggested room list that match all your requirements: \n";
         output = getString(suggestedList, output);
         return output;
     }

@@ -52,7 +52,6 @@ public class UserController {
 
         userManager.logout();
         new GatewaySerialize().serializeUser(userManager);
-
         new GatewaySerialize().serialize(roomManager);
         new GatewaySerialize().serialize(messageRoomManager);
         new GatewaySerialize().serialize(eventManager);
