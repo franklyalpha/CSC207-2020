@@ -5,13 +5,25 @@ import functionalityPresenters.EnrolledSchedulePresenter;
 
 import java.util.ArrayList;
 
+/**
+ * A UI allows Users to view their enrolled events.
+ */
 public class ViewEnrolledScheduleUI extends AbstractUI {
+
+    /**
+     * An instance of <code>EnrolledSchedulePresenter</code>.
+     */
     private EnrolledSchedulePresenter enrolledSchedulePresenter;
 
+    /**
+     * the constructor for <code>ViewEnrolledScheduleUI</code>.
+     * @param userController A instance of <code>UserController</code>.
+     */
     public ViewEnrolledScheduleUI(UserController userController) {
         super(userController);
         enrolledSchedulePresenter = new EnrolledSchedulePresenter(userController);
     }
+
 
     @Override
     public void run() {

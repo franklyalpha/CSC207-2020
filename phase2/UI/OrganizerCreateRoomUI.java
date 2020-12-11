@@ -8,15 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * This is a UI for <code>Organizer</code> to create room. Organizers can set the capacity and <code>RoomItem</code> in
+ * this room.
+ */
 public class OrganizerCreateRoomUI extends AbstractUI {
+
+    /**
+     * A instance of <code>CreateRoomController</code>.
+     */
     private CreateRoomController createRoom;
 
+    /**
+     * the constructor for this UI.
+     * @param userController an instance of <code>UserController</code>.
+     */
     public OrganizerCreateRoomUI(UserController userController) {
         super(userController);
         createRoom = new CreateRoomController(userController);
     }
 
+    /**
+     * Run method for this UI.
+     * Will give instructions for invalid inputs.
+     */
     @Override
     public void run() {
         OrganizerPresenter organizerPresenter = new OrganizerPresenter();
@@ -30,6 +45,12 @@ public class OrganizerCreateRoomUI extends AbstractUI {
         }
     }
 
+    /**
+     *
+     * @param createRoom A instance of <code>CreateRoomController</code>.
+     * @param organizerPresenter An instance of <code>OrganizerPresenter</code>.
+     * @throws Exception when room capacity is less than or equal to zero.
+     */
     private void createNewRoom(CreateRoomController createRoom, OrganizerPresenter organizerPresenter) throws Exception {
         System.out.println(organizerPresenter.strCreateRoomPrompt());
         Scanner input = new Scanner(System.in);

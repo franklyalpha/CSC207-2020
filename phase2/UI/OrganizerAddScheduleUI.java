@@ -9,18 +9,32 @@ import menuPresenter.OrganizerAddSchedulePresenter;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * This is a UI for <code>Organizer</code> to add an event to the schedule usage. Organizers can create a new event and
+ * add particular technical requirement for this event. Then organizers will get a list of suggested rooms which meets the
+ * requirement. Then organizers can select a event room to hold the event and set topic, maximum capacity for the event.
+ * And if there are speakers available, we can set event to be a specific type of events and set speakers for it.
+ */
 public class OrganizerAddScheduleUI extends AbstractUI {
 
     private final OrganizerAddSchedulePresenter organizerAddSchedulePresenter = new OrganizerAddSchedulePresenter();
     private CreateScheduleController createSchedule;
     private ModifyEventPresenter modifyEventPresenter;
 
+    /**
+     * The constructor for this UI.
+     * @param userController is an instance of UserController.
+     */
     public OrganizerAddScheduleUI(UserController userController) {
         super(userController);
         createSchedule = new CreateScheduleController(userController);
         modifyEventPresenter = new ModifyEventPresenter();
     }
 
+    /**
+     * Run method for this UI.
+     * Will display instructions if the input time period is invalid or other invalid inout.
+     */
     @Override
     public void run() {
         while(true){
@@ -35,6 +49,10 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
+    /**
+     *
+     * @throws CannotCreateEventException when there is no room or speakers free during given period.
+     */
     private void majorProcessor() throws CannotCreateEventException {
         LocalDateTime[] targetPeriod = periodProcessor();
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
@@ -43,6 +61,12 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         createSchedule.newEventSetter((EventType) speakerRoom[0], targetPeriod, actSetting);
     }
 
+    /**
+     *
+     * @param speakersRooms
+     * @param createSchedule
+     * @return
+     */
     private Object[] getSpeakerRoomTopic(Object[] speakersRooms, CreateScheduleController createSchedule) {
         while(true){
             try{
@@ -82,6 +106,17 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return createSchedule.getSuggestedRoomList(hasProjector, hasMicrophone, hasPartyAudio);
     }
 
+    /**
+     *
+     * @param createSchedule A <code>CreateScheduleController</code>.
+     * @param freeSpeaker a list of names of free speakers.
+     * @param freeRooms a list of IDs of free event rooms.
+     * @return
+     * @throws UserNotFoundException
+     * @throws InputMismatchException
+     * @throws MaxNumberBeyondRoomCapacityException
+     * @throws WrongEventTypeException
+     */
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
         Scanner moreInfo = new Scanner(System.in);
@@ -97,6 +132,18 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
+    /**
+     *
+     * @param createSchedule A <code>CreateScheduleController</code>.
+     * @param freeSpeaker a list of names of free speakers.
+     * @param freeRooms a list of IDs of free event rooms.
+     * @param roomTopicMaxEnroll
+     * @param typeNum the number representation of different type of events.
+     * @return
+     * @throws UserNotFoundException
+     * @throws MaxNumberBeyondRoomCapacityException
+     * @throws WrongEventTypeException
+     */
     private Object[] returnInfoByEventType(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker,
                                            ArrayList<UUID> freeRooms, Object[] roomTopicMaxEnroll, int typeNum)
             throws UserNotFoundException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
@@ -111,6 +158,15 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
+    /**
+     *
+     * @param createSchedule A <code>CreateScheduleController</code>.
+     * @param uuid id of the room.
+     * @param roomTopicMaxEnroll
+     * @return
+     * @throws UserNotFoundException
+     * @throws MaxNumberBeyondRoomCapacityException
+     */
     private Object[] getPartyInfo(CreateScheduleController createSchedule, UUID uuid, Object[] roomTopicMaxEnroll)
             throws UserNotFoundException, MaxNumberBeyondRoomCapacityException {
         createSchedule.checkInfoValid(uuid.toString(), (Integer) roomTopicMaxEnroll[2],
@@ -150,6 +206,10 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new Object[]{roomIndex, topic, MaxNumber};
     }
 
+    /**
+     * Organizers input the start time and end time of the event.
+     * @return A Array which contains the start time and end time of the event.
+     */
     private LocalDateTime[] periodProcessor(){
         Scanner start = new Scanner(System.in);
         System.out.println(organizerAddSchedulePresenter.strStartTimePrompt());
@@ -162,6 +222,10 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new LocalDateTime[]{startDateTime, endDateTime};
     }
 
+    /**
+     * Instructing the organizer to input one name of a speaker and collect the name.
+     * @return a list of string which contains the speaker's name.
+     */
     private ArrayList<String> inputOneSpeaker(){
         System.out.println(organizerAddSchedulePresenter.strSingleSpeakerPrompt());
         Scanner moreInfo = new Scanner(System.in);
@@ -171,6 +235,10 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return speaker;
     }
 
+    /**
+     * Instructing the organizer to input multiple name of a speaker and collect the names.
+     * @return a list of speaker names.
+     */
     private ArrayList<String> inputMultiSpeaker(){
         System.out.println(organizerAddSchedulePresenter.strMultiSpeakerPrompt());
         Scanner moreInfo = new Scanner(System.in);
