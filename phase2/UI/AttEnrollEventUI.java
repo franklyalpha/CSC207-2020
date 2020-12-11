@@ -29,8 +29,12 @@ public class AttEnrollEventUI extends AbstractUI {
         inputAndEnrollEvent(availables);
     }
 
+    /**
+     * Enrolls the user into their chosen event.
+     * @param availables ArrayList of strings of information about all events this user can register for.
+     */
     private void inputAndEnrollEvent(ArrayList<String[]> availables) {
-        while(true){
+        for (int i = 0; i < 3; i++){
             try{
                 String actID = getAvailableEventID(availables);
                 enroll.enrollEvent(availables, actID);
@@ -41,6 +45,11 @@ public class AttEnrollEventUI extends AbstractUI {
         }
     }
 
+    /**
+     * Get user input for which event they want to enroll.
+     * @param availables ArrayList of strings of information about all events this user can register for.
+     * @return
+     */
     private String getAvailableEventID(ArrayList<String[]> availables) {
         Scanner scan = new Scanner(System.in);
         System.out.println(attendeePresenter.strEnrollMenuDes());

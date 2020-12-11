@@ -36,7 +36,7 @@ public class ModifyEventPresenter extends UserPresenter{
     private String getString(List<String[]> suggestedList, String output) {
         int i = 0;
         for (String[] roomInfo: suggestedList){
-            String newInfo = "Room No." + i + ": \n" + roomInfo[1] + "\n" + "eventID: "+ roomInfo[0];
+            String newInfo = "Room No. " + i + ": \n" + roomInfo[1] + "\n" + "eventID: "+ roomInfo[0];
             output += newInfo + "\n";
             i += 1;
         }

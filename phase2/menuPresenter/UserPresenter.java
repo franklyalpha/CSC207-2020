@@ -44,8 +44,8 @@ public class UserPresenter extends GeneralMenuPresenter {
         StringBuilder scheduleInfo = new StringBuilder();
         int j = 1;
         for(String[] i: schedule){
-            scheduleInfo.append("Event No." + j + ": \n" +"Topic: " + i[1] + ", \nStart Time: " + i[2] + ", \nEnd Time: " + i[3] + ", \nRoom: " +
-                    i[4] + ", \nSpeakers: " + i[7] + ", \nActivity ID: " + i[0] + "\n\n");
+            scheduleInfo.append("[ Event No ] " + j + ": \n" +"[ Topic ] " + i[1] + ", \n[ Start Time ] " + i[2] + ", \n[ End Time ] " + i[3] + ", \n[Room ] " +
+                    i[4] + ", \n[ Speakers ]\n " + i[7] + "\nActivity ID: " + i[0] + "---------------------------------------------------------\n");
             j += 1;
         }
         return scheduleInfo.toString();
