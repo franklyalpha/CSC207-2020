@@ -27,6 +27,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
 
     /**
      * Does the action deleting conversation message. Run the method in this UI.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run() throws ExceedingMaxAttemptException {

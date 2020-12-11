@@ -2,6 +2,7 @@ package UI;
 
 import Controllers.CreateRoomController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.ArrayList;
@@ -31,11 +32,12 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     /**
      * Create new room with information given by the <code>Organizer</code>.
      * Will give instructions for invalid inputs.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
-    public void run() {
+    public void run() throws ExceedingMaxAttemptException {
         OrganizerPresenter organizerPresenter = new OrganizerPresenter();
-        while(true){
+        for (int i = 0; i < 3; i++){
             try {
                 createNewRoom(createRoom, organizerPresenter);
                 break;
@@ -43,6 +45,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
                 System.out.println(organizerPresenter.strInvalidInput());
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
     /**

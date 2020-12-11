@@ -27,8 +27,8 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
     }
 
     /**
-     * Does the action delete message. Run the method in this UI.
-     *Gives instructions for invalid inputs.
+     * Does the action delete message. Run the method in this UI. And Gives instructions for invalid inputs.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run()throws ExceedingMaxAttemptException {

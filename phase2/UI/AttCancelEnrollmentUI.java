@@ -26,7 +26,7 @@ public class AttCancelEnrollmentUI extends AbstractUI{
     private QuitEventController quit;
 
     /**
-     * Instantiates new <code> AttEnrollEventUI</code>.
+     * Instantiates new <code>AttCancelEnrollmentUI</code>.
      * @param userController: An instance of <>UserController</>.
      */
     public AttCancelEnrollmentUI(UserController userController) {
@@ -37,6 +37,7 @@ public class AttCancelEnrollmentUI extends AbstractUI{
 
     /**
      * Does the all action needed to cancel certain event.Runs the method in this UI.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run() throws ExceedingMaxAttemptException {

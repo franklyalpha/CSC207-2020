@@ -35,6 +35,7 @@ public class AbstractUI {
 
     /**
      * Abstract run method to be overridden.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt entering things.
      */
     public void run() throws ExceedingMaxAttemptException {}
 

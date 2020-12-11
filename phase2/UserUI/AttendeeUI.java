@@ -4,6 +4,7 @@ import Controllers.UserController;
 import UI.AttCancelEnrollmentUI;
 import UI.AttEnrollEventUI;
 import UI.UserRequestUI;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AttendeePresenter;
 
 import java.util.Scanner;
@@ -84,18 +85,24 @@ public class AttendeeUI extends UserUI {
 
     private void runMethod(int action) {
         //case 10:
-        switch (action) {
-            case 1: viewEnrolledSchedule(); break;
-            case 2: viewAvailableSchedules(); break;
-            case 3: viewStatistic(); break;
-            case 4: enrollEvent(); break;
-            case 5: cancelEnrollment(); break;
-            case 6: sendPrivateMessage(); break;
-            case 7: viewPrivateMessage(); break;
-            case 8: viewGroupMessage(); break;
-            case 9: manageRequests(); break;
-            case 10: outputAllUpcomingEventsPdf(); break;
+        try{
+            switch (action) {
+                case 1: viewEnrolledSchedule(); break;
+                case 2: viewAvailableSchedules(); break;
+                case 3: viewStatistic(); break;
+                case 4: enrollEvent(); break;
+                case 5: cancelEnrollment(); break;
+                case 6: sendPrivateMessage(); break;
+                case 7: viewPrivateMessage(); break;
+                case 8: viewGroupMessage(); break;
+                case 9: manageRequests(); break;
+                case 10: outputAllUpcomingEventsPdf(); break;
+            }
         }
+        catch (ExceedingMaxAttemptException e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -114,11 +121,11 @@ public class AttendeeUI extends UserUI {
     }
     //TODO move this to presenter
 
-    protected void enrollEvent(){
+    protected void enrollEvent() throws ExceedingMaxAttemptException {
         new AttEnrollEventUI(userController).run();
     }
 
-    protected void cancelEnrollment(){
+    protected void cancelEnrollment() throws ExceedingMaxAttemptException {
         new AttCancelEnrollmentUI(userController).run();
     }
 
@@ -138,10 +145,10 @@ public class AttendeeUI extends UserUI {
      */
 
 
-    /**
-     * Provides instructions for user to cancel conferences this user enrolled.
-     * Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
-     * wish to cancel.
+    /*
+      Provides instructions for user to cancel conferences this user enrolled.
+      Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
+      wish to cancel.
      */
 
 

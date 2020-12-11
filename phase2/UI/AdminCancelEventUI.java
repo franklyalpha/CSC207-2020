@@ -29,6 +29,7 @@ public class AdminCancelEventUI extends AbstractUI {
     /**
      * Does the action delete event. Run the method in this UI
      * Gives instructions for invalid inputs.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run() throws ExceedingMaxAttemptException {

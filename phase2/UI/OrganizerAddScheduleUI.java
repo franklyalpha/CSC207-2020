@@ -45,10 +45,11 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     /**
      * Create event with given input.
      * Will display instructions if the input time period is invalid or has other invalid input.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
-    public void run() {
-        while(true){
+    public void run() throws ExceedingMaxAttemptException {
+        for (int i = 0; i < 3; i++){
             try{
                 majorProcessor();
                 break;
@@ -58,6 +59,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
                 System.out.println(organizerAddSchedulePresenter.strInvalidInput());
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
     /**

@@ -2,6 +2,7 @@ package UserUI;
 
 import Controllers.UserController;
 import UI.*;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;
@@ -70,20 +71,27 @@ public class OrganizerUI extends UserUI {
      */
 
     private void runMethod (int action){
-        switch (action) {
-            case 1: createRoom(); break;
-            case 2: createUser(); break;
-            case 3: addSchedule();break;
-            case 4: rescheduleSpeaker();break;
-            case 5: sendPrivateMessage(); break;
-            case 6: viewPrivateMessage(); break;
-            case 7: sendCoopMessage(); break;
-            case 8: viewCoopChat(); break;
-            case 9: messageAllAttendee(); break;
-            case 10: modifyEvent(); break;
-            case 11: removeEvent(); break;
-            case 12: manageRequests(); break;
+        try{
+            switch (action) {
+                case 1: createRoom(); break;
+                case 2: createUser(); break;
+                case 3: addSchedule();break;
+                case 4: rescheduleSpeaker();break;
+                case 5: sendPrivateMessage(); break;
+                case 6: viewPrivateMessage(); break;
+                case 7: sendCoopMessage(); break;
+                case 8: viewCoopChat(); break;
+                case 9: messageAllAttendee(); break;
+                case 10: modifyEvent(); break;
+                case 11: removeEvent(); break;
+                case 12: manageRequests(); break;
+            }
+
         }
+        catch (ExceedingMaxAttemptException e){
+            e.printStackTrace();
+        }
+
     }
 
     protected void sendCoopMessage(){
@@ -122,16 +130,16 @@ public class OrganizerUI extends UserUI {
     }
     //TODO should move to presenter;
 
-    protected void createRoom(){
+    protected void createRoom() throws ExceedingMaxAttemptException {
         new OrganizerCreateRoomUI(userController).run();
     }
 
-    protected void createUser(){
+    protected void createUser() throws ExceedingMaxAttemptException {
         new OrganizerCreateUserUI(userController).run();
     }
 
 
-    protected void addSchedule() {
+    protected void addSchedule() throws ExceedingMaxAttemptException {
         new OrganizerAddScheduleUI(userController).run();
     }
 

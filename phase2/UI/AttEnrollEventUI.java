@@ -35,6 +35,7 @@ public class AttEnrollEventUI extends AbstractUI {
 
     /**
      * Does the all action needed to enroll in certain event. Runs the method in this UI.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run() throws ExceedingMaxAttemptException {
