@@ -92,7 +92,7 @@ public class AttendeeUI extends UserUI {
         availableAction.add("- Cancel event registration");
         availableAction.add("- Send private message");
         availableAction.add("- View private messages");
-        availableAction.add("- View group messages");
+        availableAction.add("- View event announcements");
         availableAction.add("- Manage your requests");
         availableAction.add("- Generate a PDF of all upcoming events");
 

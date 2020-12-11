@@ -11,10 +11,10 @@ public class Presenter {
     //TODO we are only keeping this here for now, will need to be deleted
     public static void printContactPrompt(String item){
         if (item.equals("event")){
-            System.out.println("Please select a " + item + " by copying and pasting the topic: ");
+            System.out.println("Please select an " + item + " by copying and pasting the topic: ");
         }
         else {
-            System.out.println("Please select a " + item + " by copying and pasting the name: ");
+            System.out.println("Please select a " + item + " by copying and pasting the username: ");
         }
     }
 
