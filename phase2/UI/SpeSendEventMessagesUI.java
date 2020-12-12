@@ -6,16 +6,32 @@ import menuPresenter.SpeakerPresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * UI for <code>Speaker<code/> send event message.
+ */
 public class SpeSendEventMessagesUI extends AbstractUI {
+    /**
+     * An instance of <code>SpeakerPresenter</code> being instantiated.
+     */
     private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
+
+    /**
+     * An instance of <code>SendEventMessageController</code> being instantiated.
+     */
     private SendEventMessageController eventMessager;
 
+    /**
+     * Instantiates new <code>SpeSendEventMessagesUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public SpeSendEventMessagesUI(UserController userController) {
         super(userController);
         eventMessager = new SendEventMessageController(userController);
     }
 
+    /**
+     * Gets event the <code>Speaker<code/> and sends the message for people attending this event.
+     */
     @Override
     public void run() {
         ArrayList<String[]> info = presentEnrolledActivities(eventMessager);
