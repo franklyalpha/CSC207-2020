@@ -110,7 +110,7 @@ public class OrganizerUI extends UserUI {
         new OrganizerModifyEventUI(userController).run();
     }
 
-    private void removeEvent() {
+    private void removeEvent() throws ExceedingMaxAttemptException {
         new OrganizerRemoveEventUI(userController).run();
     }
 
@@ -143,7 +143,7 @@ public class OrganizerUI extends UserUI {
         new OrganizerAddScheduleUI(userController).run();
     }
 
-    protected void rescheduleSpeaker(){
+    protected void rescheduleSpeaker() throws ExceedingMaxAttemptException {
         new OrganizerRescheduleSpeakerUI(userController).run();
     }
 

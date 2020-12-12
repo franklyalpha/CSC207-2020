@@ -14,9 +14,14 @@ import java.util.Scanner;
 
 public class AdminCancelEventUI extends AbstractUI {
     /**
-     * @param deleteEvent: an instance of <code>CancelEventController</code> being instantiated.
+     * an instance of <code>CancelEventController</code> being instantiated.
      */
     private CancelEventController deleteEvent;
+
+    /**
+     * an instance of <code>AdminPresenter</code> being instantiated.
+     */
+
     private AdminPresenter adminPresenter;
 
     /**

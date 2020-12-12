@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class OrganizerModifyEventUI extends AbstractUI {
     /**
-     * @param modifyEvent: an instance of <code>ModifyEventController</code> being instantiated.
+     * an instance of <code>ModifyEventController</code> being instantiated.
      */
     private ModifyEventController modifyEvent;
 

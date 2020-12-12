@@ -15,11 +15,15 @@ import java.util.Scanner;
 public class OrganizerCreateUserUI extends AbstractUI {
 
     /**
-     * @param presenter: an instance of <code>OrganizerPresenter</code> being instantiated.
-     * @param createUser;: an instance of <code>CreateUserController</code> being instantiated which contains method
+     * an instance of <code>OrganizerPresenter</code> being instantiated.
+     * an instance of <code>CreateUserController</code> being instantiated which contains method
      * to create different type of user.
      */
     private OrganizerPresenter presenter;
+    /**
+     * an instance of <code>CreateUserController</code> being instantiated which contains method
+     * to create different type of user.
+     */
     private CreateUserController createUser;
 
     /**

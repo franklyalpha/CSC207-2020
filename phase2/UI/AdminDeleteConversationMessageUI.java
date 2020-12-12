@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class AdminDeleteConversationMessageUI extends AbstractUI {
     /**
-     * @param adminDeleteMessagePresenter : an instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
+     * An instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
      */
 
     final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
@@ -50,7 +50,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
     }
 
 
-    private void choosePrivateOrGroup(Scanner choice) throws ExceedingMaxAttemptException {
+    private void choosePrivateOrGroup(Scanner choice){
         switch(choice.nextInt()){
             case 1: deletePrivateConversation(); break;
             case 2: deleteSelectedMessages(); break;
@@ -82,7 +82,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
 
 
     // followings can be placed in another UI
-    private void deleteSelectedMessages() throws ExceedingMaxAttemptException {
+    private void deleteSelectedMessages(){
         new AdminDeleteMessageUI(userController).run();
     }
 

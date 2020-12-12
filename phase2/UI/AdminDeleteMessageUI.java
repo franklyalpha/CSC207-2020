@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
     /**
-     * @param adminDeleteMessagePresenter : an instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
+     * An instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
      */
 
     final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
@@ -40,7 +40,6 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
             }
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }
-        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
 

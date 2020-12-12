@@ -26,18 +26,19 @@ import java.util.Scanner;
  */
 public class MainUI {
     /**
-     * @param loginController: an instance of <code>LoginController</code> being instantiated.
-     * @param loginPresenter;: an instance of <code>LoginPresenter</code> being instantiated.
+     *an instance of <code>LoginController</code> being instantiated.
      */
 
     final private LoginController loginController = new LoginController();
+    /**
+     * an instance of <code>LoginPresenter</code> being instantiated.
+     */
     private LoginPresenter loginPresenter = new LoginPresenter();
 
     /**
      * the main method for printing out instructions to guide user for login and sign up.
-     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
-    public void run() throws ExceedingMaxAttemptException {
+    public void run(){
         boolean notStop = true;
         while(notStop){
             Scanner singUPORLogin = new Scanner(System.in);
