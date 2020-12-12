@@ -40,7 +40,6 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
             }
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }
-        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
 
