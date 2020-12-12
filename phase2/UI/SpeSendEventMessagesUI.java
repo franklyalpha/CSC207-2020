@@ -40,14 +40,15 @@ public class SpeSendEventMessagesUI extends AbstractUI {
     }
 
     private void majorProcessor(ArrayList<String[]> info) {
-        while(true){
+        for(int i = 0; i < 3; i++){
             try{
                 findAndSendMessage(eventMessager, info);
-                break;
+                return;
             }catch(IndexOutOfBoundsException e){
                 System.out.println(speakerPresenter.strInvalidIndex());
             }
         }
+        System.out.println("Run out of max attempts");
     }
 
     private ArrayList<String[]> presentEnrolledActivities(SendEventMessageController activityMessager) {
