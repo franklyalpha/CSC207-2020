@@ -2,22 +2,39 @@ package UI;
 
 import Controllers.PanelRescheduleSpeakerController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.NoEventsException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * UI for <code>Organizer</code> to reschedule event for panel speaker.
+ */
+
 public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
+    /**
+     * an instance of <code>PanelRescheduleSpeakerController</code>
+     * being instantiated.
+     */
     private PanelRescheduleSpeakerController panelRescheduleSpeakerController;
 
+    /**
+     * Instantiates new <code>OrganizerPanelSpeakerUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public OrganizerPanelSpeakerUI(UserController userController) {
         super(userController);
         panelRescheduleSpeakerController = new PanelRescheduleSpeakerController(userController);
     }
 
+    /**
+     * Lets <code>Organizer</code> choose to add or delete panel speaker
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
+     */
     @Override
-    public void run() {
-        while(true){
+    public void run() throws ExceedingMaxAttemptException {
+        for(int i=0; i<3; i++){
             try{
                 chooseAddDelete();
                 break;
@@ -25,6 +42,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
                 e.printStackTrace();
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
     private void chooseAddDelete() throws Exception {
@@ -39,7 +57,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
         }
     }
 
-    private void addPanelSpeaker(){
+    private void addPanelSpeaker() throws ExceedingMaxAttemptException {
         try{
             String actID = eventSelect();
             ArrayList<String> availableSpeakers = panelRescheduleSpeakerController.availableSpeakers(actID);
@@ -57,7 +75,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
         return inputSelection(allActivities, panelRescheduleSpeakerController);
     }
 
-    private void deletePanelSpeaker(){
+    private void deletePanelSpeaker() throws ExceedingMaxAttemptException {
         try{
             String actID = eventSelect();
             ArrayList<String> existingSpeakers = panelRescheduleSpeakerController.enrolledSpeakers(actID);
