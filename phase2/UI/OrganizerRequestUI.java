@@ -65,9 +65,9 @@ public class OrganizerRequestUI extends AbstractUI {
      */
     private void viewPendingRequests(HandleRequestController requestController){
         if (requestController.getAllRequest().isEmpty()) {
-            System.out.println("There are currently no pending requests");
+            System.out.println(requestPresenter.strNoPendingRequests());
         } else {
-            System.out.println("Here are all pending requests: ");
+            System.out.println(requestPresenter.strAllPendingRequestsHeader());
             requestController.viewPendingRequests();
         }
     }
@@ -79,9 +79,9 @@ public class OrganizerRequestUI extends AbstractUI {
      */
     private void viewAllRequests(HandleRequestController requestController){
         if (requestController.getAllRequest().isEmpty()) {
-            System.out.println("No requests have been submitted yet.");
+            System.out.println(requestPresenter.strNoRequestSubmitted());
         } else {
-            System.out.println("Here are all submitted requests: ");
+            System.out.println(requestPresenter.strAllRequestSubmittedHeader());
             requestController.viewAllRequests();
         }
     }
@@ -101,7 +101,6 @@ public class OrganizerRequestUI extends AbstractUI {
                 requestPresenter.strInvalidRequest();
             }
         }
-        return;
     }
 
 
@@ -120,10 +119,10 @@ public class OrganizerRequestUI extends AbstractUI {
         }
         ArrayList<String> userReqs = new ArrayList<>();
         for (UUID req : pending) {
-            userReqs.add(toStringHelper(handleRequestController.findRequest(req)));
+            userReqs.add(requestPresenter.strRequestObjArrToStr(handleRequestController.findRequest(req)));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
-        System.out.println("[Q] - Go back");
+        System.out.println(requestPresenter.strQuitPrompt());
         while (x < 3) {
             try {
                 x = x + 1;
@@ -133,7 +132,7 @@ public class OrganizerRequestUI extends AbstractUI {
                     selection = Integer.parseInt(requestIDScanner.nextLine());
                 }
                 if ( selection > handleRequestController.getAllRequest().size() || selection < 0) {
-                    System.out.println("Invalid request! Please try again.");
+                    System.out.println(requestPresenter.strInvalidRequest() + requestPresenter.strPleaseTryAgain());
                 }
                 else {
                     int i = 1;
@@ -162,16 +161,6 @@ public class OrganizerRequestUI extends AbstractUI {
             enterAction = true;
         }
         return enterAction;
-    }
-
-    /**
-     * Helper method to format object array into readable text.
-     * @param req1 Instance of the <code>Object[]</code> to be formatted.
-     * @return String representing the <code>Object[]</code>.
-     */
-    private String toStringHelper(Object[] req1){
-        return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
-                + " ]\n------------------------------------------------------";
     }
 
 }

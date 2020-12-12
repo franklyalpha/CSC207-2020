@@ -34,7 +34,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * Creates <code>RoomManager</code> with a blank list of Rooms.
      */
     public RoomManager(){
-        eventRooms = new ArrayList<EventRoom>();
+        eventRooms = new ArrayList<>();
     }
 
     /**
@@ -67,7 +67,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     }
 
     /**
-     * find the <code>Room</code> by given rome id.
+     * find the <code>Room</code> by given room id.
      * @param roomID is the id of the room we are searching for.
      * @return a room or nothing if it is not in the list of rooms of our <code>RoomManager</code>
      */
@@ -95,7 +95,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         }
     }
 
-
+    /**
+     * Returns the capacity of the entities.Room with the given ID
+     * @param roomId of the <code>Room</code>
+     * @return the capacity of the entities.Room
+     */
     public int getRoomCapacity(UUID roomId){
         return findRoom(roomId).getCapacity();
     }
@@ -123,7 +127,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * @return a list of <>String[]</> of available room ids and info.
      */
     public ArrayList<String[]> bookingAvailable(LocalDateTime[] targetPeriod){
-        ArrayList<String[]> possibleRooms = new ArrayList<String[]>();
+        ArrayList<String[]> possibleRooms = new ArrayList<>();
         for (EventRoom eventRoom : eventRooms){
             if (checkSingleRoomOK(targetPeriod, eventRoom)){
                 possibleRooms.add(new String[]{eventRoom.getId().toString(), eventRoom.toString()});
@@ -159,15 +163,24 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         return true;
     }
 
+    /**
+     * Get <code>RoomItems</code> of a room by given room id.
+     * @param id the room id of the target room.
+     * @return an instance of <code>RoomItems</code>
+     */
     public RoomItems getRoomItems(UUID id){
         return findRoom(id).getRoomItems();
     }
 
-    public boolean checkRoomItems(UUID eventID, Boolean[] itemChoice){
-        return findRoom(eventID).checkItemRequirement(itemChoice);
+    /**
+     * Check whether this room meets all the technical requirement of the event.
+     * @param roomID is <>UUID</> of this room.
+     * @param itemChoice is the event's technical requirement for possible rooms.
+     * @return True if this room meets the technical requirement.
+     */
+    public boolean checkRoomItems(UUID roomID, Boolean[] itemChoice){
+        return findRoom(roomID).checkItemRequirement(itemChoice);
     }
 
-//    public showItems(){
-//
-//    }
+
 }

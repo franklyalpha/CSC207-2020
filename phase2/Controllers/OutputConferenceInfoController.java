@@ -13,12 +13,6 @@ import java.util.ArrayList;
 public class OutputConferenceInfoController extends EventController {
 
     private static final String DEST = "./eventsInfo.pdf";
-    private static final int ID = 0;
-    private static final int TOPIC = 1;
-    private static final int START = 2;
-    private static final int END = 3;
-    private static final int ROOMNUM = 4;
-    private static final int SPEAKER = 5;
 
 
     private final ArrayList<String[]> upcomingEvents;
@@ -59,40 +53,6 @@ public class OutputConferenceInfoController extends EventController {
     }
 
     private void writeSingleEvent(String[] event, Document document) {
-        /*
-        String eventHeader = eventHeader(event);
-        String eventTime = eventTime(event);
-        String eventLocation = eventLocation(event);
-        String endOfEvent = "\n";
-
-        document.add(new Paragraph(eventHeader));
-        document.add(new Paragraph(eventTime));
-        document.add(new Paragraph(eventLocation));
-        document.add(new Paragraph(endOfEvent));
-        */
         document.add(new Paragraph(event[5]));
     }
-
-    /*
-    private String eventHeader(String[] event){
-        String id = event[ID];
-        String topic = event[TOPIC];
-        String speaker = event[SPEAKER];
-
-        return topic + " hold by " + speaker + " (#" + id + ")";
-    }//TODO Part of event retrofit
-
-    private String eventTime(String[] event){
-        String startTime = event[START];
-        String endTime = event[END];
-
-        return "Start at: " + startTime + ", end at: " + endTime;
-    }
-
-    private String eventLocation(String[] event){
-        String roomNum = event[ROOMNUM];
-
-        return "Location: Conference Room #" + roomNum;
-    }
-    */
 }

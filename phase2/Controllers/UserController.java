@@ -24,7 +24,6 @@ public class UserController {
      * Creates a <code>UserController</code> instance.
      * @param manager <code>UserManager</code> object to be stored.
      */
-
     public UserController(UserManager manager) {
         userManager = manager;
         try {

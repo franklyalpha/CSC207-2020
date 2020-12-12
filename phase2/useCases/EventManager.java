@@ -21,7 +21,12 @@ import java.util.*;
  * addAttendee: will add an attendee towards participant list of this conference.
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
  */
+
 public class EventManager extends AbstractSerializableManager implements java.io.Serializable{
 
     protected HashMap<EventType,ArrayList<Event>> upcomingEvents;
@@ -43,6 +48,12 @@ public class EventManager extends AbstractSerializableManager implements java.io
         archivedEvents.put(EventType.PARTY, new ArrayList<>());
     }
 
+    /**
+     * Constructor used by the subclasses as we do not want to store any other type of Events
+     * @param type The type that the subclass is handling
+     * @param upcoming An ArrayList of upcoming Events that contains exclusively that type of event
+     * @param archived An ArrayList of archived Events that contains exclusively that type of event
+     */
     public EventManager(EventType type, ArrayList<Event> upcoming, ArrayList<Event> archived){
         this.upcomingEvents = new HashMap<>();
         upcomingEvents.put(type, upcoming);
@@ -50,11 +61,26 @@ public class EventManager extends AbstractSerializableManager implements java.io
         archivedEvents.put(type, archived);
     }
 
+    /**
+     * Creating a event through factory design pattern
+     * @param period LocalDateTime of start & end time in <code>Activity</code>.
+     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
+     * @param topic the topic of the activity in <code>Activity</code>.
+     * @param MaxNum the maximum number of attendees for this event
+     * @param eventType the type of event we want to create
+     * @return the UUID of the event we just created
+     */
     public UUID createEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic,
                               Integer MaxNum, EventType eventType) {
         return new EventFactory(this).construct(period, chatRoomID, topic, MaxNum, eventType);
     }
 
+    /**
+     * Add the recently created event to upcoming events
+     * @param event the event we are adding to upcoming events
+     * @param type the type of that event
+     * @return the UUID of the event
+     */
     public UUID addEvent(Event event, EventType type){
         if (!upcomingEvents.containsKey(type)){
             upcomingEvents.put(type, new ArrayList<>());
@@ -63,6 +89,10 @@ public class EventManager extends AbstractSerializableManager implements java.io
         return event.getIdentity();
     }
 
+    /**
+     * returns all of the upcoming events
+     * @return an ArrayList of all upcoming events
+     */
     public ArrayList<Event> allUpcomingEvents(){
         ArrayList<Event> finalList = new ArrayList<>();
         for(ArrayList<Event> i: upcomingEvents.values()){
@@ -70,37 +100,6 @@ public class EventManager extends AbstractSerializableManager implements java.io
         }
         return finalList;
     }
-/*
-    public boolean markActivityDone(Activity act){
-        if(upcomingActivities.contains(act)){
-            archivedActivities.add(act);
-            upcomingActivities.remove(act);
-            return true;
-        }else{
-            return false;
-        }
-    }
-*/
-    //TODO full and condensed search system
-    /*public ArrayList<Activity> searchActivityByTopic(String topic){
-        ArrayList<Activity> results = new ArrayList<Activity>();
-        for(Activity i: this.upcomingActivities){
-            if(i.getTopic().equals(topic)){
-                results.add(i);
-            }
-        }
-        return results;
-    }
-
-    public ArrayList<Activity> searchActivityBySpeaker(String speaker){
-        ArrayList<Activity> results = new ArrayList<Activity>();
-        for(Activity i: this.upcomingActivities){
-            if(i.getSpeakersList().contains(speaker)){
-                results.add(i);
-            }
-        }
-        return results;
-    }*/
 
     /**
      * Will return the description of activity in an array of strings.
@@ -120,6 +119,11 @@ public class EventManager extends AbstractSerializableManager implements java.io
         return null;
     }
 
+    /**
+     * a private helper to get the start and end time of this event.
+     * @param act the event in question
+     * @return the Array containing the start and end time of this event
+     */
     private LocalDateTime[] timeProcessing(Event act){
         LocalDateTime[] time = new LocalDateTime[2];
         time[0] = act.getStartTime();
@@ -127,6 +131,11 @@ public class EventManager extends AbstractSerializableManager implements java.io
         return time;
     }
 
+    /**
+     * Finds the event in all upcoming events with the same UUID
+     * @param actID the ID of event we want to find
+     * @return the event with the same actID
+     */
     protected Event findEvent(UUID actID){
         for (Event act : allUpcomingEvents()){
             if (actID.equals(act.getIdentity())){
@@ -136,6 +145,11 @@ public class EventManager extends AbstractSerializableManager implements java.io
         return null;
     }
 
+    /**
+     * Find the type of the event with the same ID
+     * @param actID the ID of the event we want to find
+     * @return the type of that event
+     */
     public EventType findType(UUID actID){
         for (Event act : allUpcomingEvents()){
             if (actID.equals(act.getIdentity())){
@@ -163,7 +177,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
      * UUID of assigned room, the event's description, the type of event and name of speaker(s).
      */
     public ArrayList<String[]> viewUpcomingActivities(){
-        ArrayList<String[]> result = new ArrayList<String[]>();
+        ArrayList<String[]> result = new ArrayList<>();
         if (allUpcomingEvents() == null) {
             return result;
         }else{
@@ -177,9 +191,12 @@ public class EventManager extends AbstractSerializableManager implements java.io
         return result;
     }
 
-    public void addSpeaker(UUID actID, String speakerName){
-
-    }
+    /**
+     * The method that is being overridden in the subclass to condense functionality in the controller layer
+     * @param actID ID of event
+     * @param speakerName Name of the speaker
+     */
+    public void addSpeaker(UUID actID, String speakerName){}
 
     /**
      * will add the given attendee's name into participant list.
@@ -218,24 +235,41 @@ public class EventManager extends AbstractSerializableManager implements java.io
 
     }
 
+    /**
+     * Delete the event with the activityID
+     * @param activityID the ID of the target event
+     */
     public void deleteEvent(UUID activityID){
         EventType activityType = findType(activityID);
         Event potentialCancel = findEvent(activityID);
         upcomingEvents.get(activityType).remove(potentialCancel);
     }
 
+    /**
+     * returns the attendee list for this event
+     * @param activityID ID used to search the event
+     * @return the attendee list
+     */
     public ArrayList<String> getAttendeeList(UUID activityID){
         return findEvent(activityID).getAttendeeList();
     }
 
+    /**
+     * Used to modify the max participant limit on events
+     * @param activityId ID of such event
+     * @param newMaxNum the new max limit
+     */
     public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){
         Objects.requireNonNull(findEvent(activityId)).setMaxNumAttendee(newMaxNum);
     }
 
+    /**
+     * Used to get the MaxNum of attendees for the event
+     * @param activityId ID used to search the event
+     * @return the MaxNum of the event
+     */
     public int getEventMaxParticipant(UUID activityId){
         return findEvent(activityId).getMaxNumAttendee();
     }
 
-    //speaker identity duration topic roomnum starttime
-    //public ArrayList<entities.Activity> searchActivityByParameter(E parameter, char paraType, boolean ArchivedYN){}
 }

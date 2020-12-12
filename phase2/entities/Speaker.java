@@ -6,6 +6,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Represents a <code>Speaker</code>.
+ * Also contains an instance of <code>Chatroom</code> that contains all speakers and organizers at a conference.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Speaker extends User implements Serializable {
 
     /**

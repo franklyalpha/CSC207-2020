@@ -49,10 +49,6 @@ public class UserManager extends LoginStatusManager implements java.io.Serializa
     }
 
     /**
-     * should consider using DEPENDENCY INJECTION PATTERN in phase two, in which
-     * an independent account creator class would be implemented, and only the function
-     * 'add user would be kept, and being made public'
-     *
      * Creates a <code>createUser</code> and add it to the list of Users of the <code>UserManager</code>
      * @param username is the username for the newly constructed <code>User</code>.
      * @param password is the password for the newly constructed <code>User</code>.

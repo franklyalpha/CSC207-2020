@@ -82,7 +82,7 @@ public class UserRequestUI extends AbstractUI {
      */
     private void viewRequests(RequestController requestController){
         if (!requestController.getUserRequests().isEmpty()) {
-            System.out.println("Here are your requests: ");
+            System.out.println(requestPresenter.strRequestHeader());
         }
         requestController.viewUserRequests();
     }
@@ -98,8 +98,7 @@ public class UserRequestUI extends AbstractUI {
                 i = i + 1;
                 UUID selection = chooseRequest(requestController);
                 Scanner chooseSubjectDetail = new Scanner(System.in);
-                System.out.println("What part would you like to modify? (Please enter the corresponding number):\n[0] " +
-                        "- Subject\n[1] - Description\n[Q] - Back");
+                System.out.println(requestPresenter.strModifyMenu());
                     String choice = chooseSubjectDetail.nextLine();
                     switch (choice){
                         case "0":  // modify subject
@@ -119,7 +118,6 @@ public class UserRequestUI extends AbstractUI {
                 requestPresenter.strInvalidRequest();
             }
         }
-        return;
     }
 
 
@@ -138,10 +136,10 @@ public class UserRequestUI extends AbstractUI {
         }
         ArrayList<String> userReqs = new ArrayList<>();
         for (UUID req : tmp) {
-            userReqs.add(toStringHelper(requestController.findRequest(req)));
+            userReqs.add(requestPresenter.strRequestObjArrToStr(requestController.findRequest(req)));
         }
         System.out.println(userPresenter.strList(userReqs.toArray()));
-        System.out.println("[Q] - Go back");
+        System.out.println(userPresenter.strQuitPrompt());
         while (x < 3) {
             try {
                 x = x + 1;
@@ -151,7 +149,7 @@ public class UserRequestUI extends AbstractUI {
                     selection = Integer.parseInt(requestIDScanner.nextLine());
                 }
                 if ( selection > requestController.getAllRequest().size() || selection < 0) {
-                    System.out.println("Invalid request! Please try again.");
+                    System.out.println(requestPresenter.strInvalidRequest() + requestPresenter.strPleaseTryAgain());
                 }
                 else {
                     int i = 1;
@@ -207,7 +205,7 @@ public class UserRequestUI extends AbstractUI {
                 x = x + 1;
                 Scanner chooseToRemove = new Scanner(System.in);
                 requestController.viewUserRequests();
-                System.out.println("Which request would you like to remove? (Please enter the corresponding number):");
+                System.out.println(requestPresenter.strRequestRemovePrompt());
                 String choice = chooseToRemove.nextLine();
                 int i = 0;
                 ArrayList<UUID> toRemove = new ArrayList<>();
@@ -228,16 +226,6 @@ public class UserRequestUI extends AbstractUI {
                 requestPresenter.strInvalidRequest();
             }
         }
-    }
-
-    /**
-     * Helper method to format object array into readable text.
-     * @param req1 Instance of the <code>Object[]</code> to be formatted.
-     * @return String representing the <code>Object[]</code>.
-     */
-    private String toStringHelper(Object[] req1){
-        return  "\n------------------------------------------------------\nSubject: " + req1[2] + "\nStatus: [ " + req1[3]
-        + " ]\n------------------------------------------------------";
     }
 
     protected boolean continuing(){

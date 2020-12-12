@@ -1,5 +1,13 @@
 package menuPresenter;
 
+/**
+ * Represents a OrganizerRescheduleSpeakerPresenter
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class OrganizerRescheduleSpeakerPresenter extends UserPresenter {
 
     public OrganizerRescheduleSpeakerPresenter(){super();}
@@ -8,6 +16,10 @@ public class OrganizerRescheduleSpeakerPresenter extends UserPresenter {
         return strPromptHelper("the ID of the event for which you wish to change the speaker of: ");
     }
 
+    /**
+     * @param action the action to fill in the prompt
+     * @return the prompt String
+     */
     public String strSpeakerAssignPrompt(String action){
         return "Please input the speaker you wish to " + action + ": ";
     }

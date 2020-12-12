@@ -133,6 +133,10 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
         }
     }
 
+    /**
+     * Delete this private conversation
+     * @param conversationID UUID of the <code>Chatroom</code> we want to delete
+     */
     public void deletePrivateConversation(UUID conversationID){
         privateChats.removeIf(conversation -> conversation.getId().equals(conversationID));
     }
@@ -167,6 +171,10 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
         }
     }
 
+    /**
+     * Delete this group chat
+     * @param chatID UUID of the <code>Chatroom</code> we want to delete
+     */
     public void deleteGroupChat(UUID chatID){
         conferenceChats.removeIf(groupRoom -> groupRoom.getId().equals(chatID));
     }
@@ -179,7 +187,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      */
     private MessageRoom findChatroom(UUID chatID){
         MessageRoom returns = null;
-        ArrayList<MessageRoom> allChats = new ArrayList<MessageRoom>(privateChats);
+        ArrayList<MessageRoom> allChats = new ArrayList<>(privateChats);
         allChats.addAll(conferenceChats);
         allChats.add(coopRoom);
         for (MessageRoom chatrooms : allChats){

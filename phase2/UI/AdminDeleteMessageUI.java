@@ -2,22 +2,38 @@ package UI;
 
 import Controllers.DeleteSelectedMessagesController;
 import Controllers.UserController;
+import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AdminDeleteMessagePresenter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * UI for <code>Administrator</code> to delete message.
+ */
 
 public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
+    /**
+     * @param adminDeleteMessagePresenter : an instance of <code>AdminDeleteMessagePresenter</code> being instantiated.
+     */
+
     final private AdminDeleteMessagePresenter adminDeleteMessagePresenter = new AdminDeleteMessagePresenter();
 
+    /**
+     * Instantiates new <code> AdminDeleteMessageUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public AdminDeleteMessageUI(UserController userController) {
         super(userController);
     }
 
+    /**
+     * Does the action delete message. Run the method in this UI. And Gives instructions for invalid inputs.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
+     */
     @Override
-    public void run() {
+    public void run()throws ExceedingMaxAttemptException {
         System.out.println(adminDeleteMessagePresenter.strGroupActionMenu());
-        while(true){
+        for(int i=0; i<3; i++){
             Scanner choice = new Scanner(System.in);
             if(choice.hasNextInt()) {
                 deleteChoice(choice);
@@ -25,7 +41,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
             }
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
+
 
     private void deleteChoice(Scanner choice) {
         switch(choice.nextInt()){
@@ -34,6 +52,7 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+
     private void deleteOrganizerSpeakerMessage(){
         DeleteSelectedMessagesController deleteMessage = new DeleteSelectedMessagesController(userController);
         ArrayList<String> history = deleteMessage.getOrganizerSpeakerMessage();
@@ -41,6 +60,7 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
             chooseLinesToDelete(deleteMessage, history);
         }
     }
+
 
     private void chooseLinesToDelete(DeleteSelectedMessagesController deleteMessage, ArrayList<String> history) {
         System.out.println(adminDeleteMessagePresenter.strDisplayMessageHistory(history));
@@ -62,6 +82,7 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
         }
     }
 
+
     private ArrayList<String> selectGroupConversation(DeleteSelectedMessagesController deleteMessage, ArrayList<String> ids){
         System.out.println(adminDeleteMessagePresenter.strChatToDeletePrompt());
         while(true){
@@ -73,6 +94,8 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }
     }
+
+
 
     private ArrayList<String> viewAllGroupConversation(DeleteSelectedMessagesController deleteMessage) {
         ArrayList<String[]> groupConversationId = deleteMessage.groupChatIDs();

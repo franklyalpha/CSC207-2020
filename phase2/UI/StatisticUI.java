@@ -11,7 +11,7 @@ public class StatisticUI extends AbstractUI{
     }
      public void run(){
         if (statistic.popularEvent() == null){
-            System.out.println("Statistics could not be generated because there are no events yet.\n ");
+            System.out.println(userPresenter.strNoEventsStats());
         } else {
             System.out.println(statistic.popularEvent());
         }

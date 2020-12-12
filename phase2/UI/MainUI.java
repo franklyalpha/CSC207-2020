@@ -6,6 +6,7 @@ import UserUI.AdministratorUI;
 import UserUI.AttendeeUI;
 import UserUI.OrganizerUI;
 import UserUI.SpeakerUI;
+import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
@@ -24,11 +25,19 @@ import java.util.Scanner;
  *
  */
 public class MainUI {
+    /**
+     * @param loginController: an instance of <code>LoginController</code> being instantiated.
+     * @param loginPresenter;: an instance of <code>LoginPresenter</code> being instantiated.
+     */
 
     final private LoginController loginController = new LoginController();
     private LoginPresenter loginPresenter = new LoginPresenter();
 
-    public void run(){
+    /**
+     * the main method for printing out instructions to guide user for login and sign up.
+     * @throws ExceedingMaxAttemptException when user exceed max attempt.
+     */
+    public void run() throws ExceedingMaxAttemptException {
         boolean notStop = true;
         while(notStop){
             Scanner singUPORLogin = new Scanner(System.in);
@@ -81,7 +90,7 @@ public class MainUI {
         System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
 
-    private void handleLogIn(){
+    private void handleLogIn() throws ExceedingMaxAttemptException {
         for (int i = 0; i < 3; i++) {
             try {
                 Scanner type = new Scanner(System.in);
@@ -97,6 +106,7 @@ public class MainUI {
                 System.out.println(loginPresenter.strInvalidLogin());
             }
         }
+        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
     }
 
     private void runUserUIs(Object[] result){

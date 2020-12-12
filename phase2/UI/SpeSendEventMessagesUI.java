@@ -37,7 +37,7 @@ public class SpeSendEventMessagesUI extends AbstractUI {
     private ArrayList<String[]> presentEnrolledActivities(SendEventMessageController activityMessager) {
         ArrayList<String[]> info = activityMessager.showEnrolledSchedule();
         if (info.size() == 0){
-            System.out.println("No events enrolled yet");
+            System.out.println(speakerPresenter.strEventNull());
             return null;
         }
         System.out.println(speakerPresenter.strEnrolledMenuDes());

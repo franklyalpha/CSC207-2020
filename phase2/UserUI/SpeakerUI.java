@@ -7,14 +7,29 @@ import menuPresenter.SpeakerPresenter;
 import java.util.Scanner;
 
 /**
- * Represents a <code>SpeakerController</code> extends from <code>UserController</code>.
+ * Represents a <code>SpeakerUI</code> extends from <code>OrganizerUI </code>.
  * Is specific for <code>Speaker</code> type usage.
  *
  * Includes:
+ * Own presenter
  * Own constructor
+ * run: the method for receiving user's inputs for actions and call corresponding method.
  * sendActivityMessage: a method responsible for guiding the user to choose a conference
  * and send message to all attendees enrolled.
+ * sendPrivateMessage(): responsible for sending private messages to a user.
+ * viewPrivateMessage(): responsible for gathering all the private messages sent to user
+ * and print the out.
+ * viewGroupMessage(): responsible for gathering message within users in a particular chatroom.
+ * sendEventMessage(): responsible for sending message to registered users for a particular event.
+ * sendCoopMessage(): responsible for sending message to all other organizers and speakers in the
+ *   particular Organizer-Speaker Chatroom.
+ * viewCoopChat(): responsible for gathering all messages from the chatroom with only organizers and
+ *  speakers and print them out.
+ * viewEnrolledSchedule(): responsible for gathering all events that the user has been enrolled in
+ *  as a speaker and print out.
  */
+
+
 public class SpeakerUI extends OrganizerUI {
 
     final private SpeakerPresenter speakerPresenter = new SpeakerPresenter();
@@ -37,6 +52,7 @@ public class SpeakerUI extends OrganizerUI {
      * Will print out a list of actions the user can implement, ask for choice of action the user
      * want to do and call corresponding method.
      */
+
     public void run() {
         addMenu();
         int action;

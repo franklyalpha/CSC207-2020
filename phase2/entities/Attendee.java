@@ -6,6 +6,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Represents a <code>Attendee</code>.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Attendee extends User implements Serializable {
 
     /**
@@ -21,7 +29,7 @@ public class Attendee extends User implements Serializable {
      */
     public Attendee(String name, String password) {
         super(name, password, UserType.ATTENDEE);
-        requests = new ArrayList<UUID>();
+        requests = new ArrayList<>();
     }
 
     /**

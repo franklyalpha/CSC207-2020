@@ -4,6 +4,14 @@ import globallyAccessible.UserType;
 
 import java.io.Serializable;
 
+/**
+ * Represents a <code>Organizer</code>.
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Organizer extends User implements Serializable {
 
     /**

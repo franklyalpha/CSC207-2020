@@ -7,13 +7,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * Processes the Group Chat Messages for presentation
+ * @author Group 0168
+ * @author CSC207 - Fall 2020
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class GroupMessagePresenter extends AbstractPresenter {
 
-
+    /**
+     * Creates a GroupMessagePresenter
+     * @param userController the UserController containing the managers
+     */
     public GroupMessagePresenter(UserController userController) {
         super(userController);
     }
 
+    /**
+     * Returns the chat history of the group chat
+     * @return the chat history in a hashmap
+     */
     public HashMap<String, ArrayList<String>> viewGroupMessage() {
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
@@ -29,9 +44,5 @@ public class GroupMessagePresenter extends AbstractPresenter {
             historyChat.put(topic, chatMessage);
         }
         return historyChat;
-    }
-
-    private void groupPrinting(HashMap<String, ArrayList<String>> historyChat){
-
     }
 }
