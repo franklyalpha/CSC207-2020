@@ -25,7 +25,6 @@ public class OutputUpcomingEventsPDFUI extends AbstractUI {
 
     /**
      * Outputs PDF that showing all upcoming events.
-     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
     public void run() {
