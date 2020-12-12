@@ -48,7 +48,7 @@ public class OrganizerCreateUserUI extends AbstractUI {
                 System.out.println(presenter.strSpeakerExistWarning());
             }
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     private void createUserWithGivenType(CreateUserController createUser, int type, Scanner input0)

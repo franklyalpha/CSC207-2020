@@ -57,7 +57,7 @@ public class AttEnrollEventUI extends AbstractUI {
                 System.out.println(attendeePresenter.strInvalidEventID());
             }
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
 

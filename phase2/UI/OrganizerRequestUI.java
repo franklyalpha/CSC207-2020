@@ -149,7 +149,7 @@ public class OrganizerRequestUI extends AbstractUI {
                 requestPresenter.strInvalidInput();
             }
         }
-        throw new ExceedingMaxAttemptException("Maximum attempts exceeded!!");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     protected boolean continuing(){

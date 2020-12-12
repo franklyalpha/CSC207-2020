@@ -59,7 +59,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
                 System.out.println(organizerAddSchedulePresenter.strInvalidInput());
             }
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     /**

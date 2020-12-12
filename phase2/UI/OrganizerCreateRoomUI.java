@@ -45,7 +45,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
                 System.out.println(organizerPresenter.strInvalidInput());
             }
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     /**

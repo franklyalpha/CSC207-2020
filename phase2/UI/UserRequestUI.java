@@ -166,7 +166,7 @@ public class UserRequestUI extends AbstractUI {
                 requestPresenter.strInvalidInput();
             }
         }
-        throw new ExceedingMaxAttemptException("Maximum attempts exceeded!!");
+        throw new ExceedingMaxAttemptException("MMaximum number of attempts exceeded");
     }
 
     /**

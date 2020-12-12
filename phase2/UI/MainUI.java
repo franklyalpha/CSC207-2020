@@ -106,7 +106,7 @@ public class MainUI {
                 System.out.println(loginPresenter.strInvalidLogin());
             }
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     private void runUserUIs(Object[] result){

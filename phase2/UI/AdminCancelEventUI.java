@@ -56,7 +56,7 @@ public class AdminCancelEventUI extends AbstractUI {
             }
             System.out.println(userPresenter.strInvalidInput() + userPresenter.strPleaseTryAgain());
         }
-        throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
+        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
 
