@@ -41,7 +41,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
             Scanner choice = new Scanner(System.in);
             if(choice.hasNextInt()){
                 choosePrivateOrGroup(choice);
-                break;
+                return;
             }
             System.out.println(adminDeleteMessagePresenter.strInvalidInput());
         }

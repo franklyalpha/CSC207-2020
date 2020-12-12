@@ -43,7 +43,7 @@ public class OrganizerCreateUserUI extends AbstractUI {
                 int type = acquireUserType();
                 Scanner input0 = new Scanner(System.in);
                 createUserWithGivenType(createUser, type, input0);
-                break;
+                return;
             }catch (UserAlreadyExistException e){
                 System.out.println(presenter.strSpeakerExistWarning());
             }

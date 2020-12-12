@@ -40,7 +40,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
         for (int i = 0; i < 3; i++){
             try {
                 createNewRoom(createRoom, organizerPresenter);
-                break;
+                return;
             }catch(Exception e) {
                 System.out.println(organizerPresenter.strInvalidInput());
             }

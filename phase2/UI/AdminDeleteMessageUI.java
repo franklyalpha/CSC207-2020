@@ -28,10 +28,9 @@ public class AdminDeleteMessageUI extends AdminDeleteConversationMessageUI{
 
     /**
      * Does the action delete message. Run the method in this UI. And Gives instructions for invalid inputs.
-     * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
     @Override
-    public void run()throws ExceedingMaxAttemptException {
+    public void run(){
         System.out.println(adminDeleteMessagePresenter.strGroupActionMenu());
         for(int i=0; i<3; i++){
             Scanner choice = new Scanner(System.in);

@@ -54,7 +54,7 @@ public class AttCancelEnrollmentUI extends AbstractUI{
             try{
                 String activityID = getEnrolledEventID(enrolled);
                 quit.chooseActToCancel(enrolled, activityID);
-                break;
+                return;
             }catch(EventNotFoundException e){
                 System.out.println(attendeePresenter.strInvalidEventID());
             }

@@ -52,7 +52,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         for (int i = 0; i < 3; i++){
             try{
                 majorProcessor();
-                break;
+                return;
             }catch(CannotCreateEventException e){
                 System.out.println(organizerAddSchedulePresenter.strInvalidTimePeriod());
             }catch(Exception e){

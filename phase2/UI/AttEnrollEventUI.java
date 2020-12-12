@@ -52,7 +52,7 @@ public class AttEnrollEventUI extends AbstractUI {
             try{
                 String actID = getAvailableEventID(availables);
                 enroll.enrollEvent(availables, actID);
-                break;
+                return;
             }catch(EventNotFoundException e){
                 System.out.println(attendeePresenter.strInvalidEventID());
             }

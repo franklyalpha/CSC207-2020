@@ -90,7 +90,7 @@ public class MainUI {
         System.out.println(loginPresenter.strUsernameConfirmation(newName));
     }
 
-    private void handleLogIn() throws ExceedingMaxAttemptException {
+    private void handleLogIn() {
         for (int i = 0; i < 3; i++) {
             try {
                 Scanner type = new Scanner(System.in);
@@ -106,7 +106,6 @@ public class MainUI {
                 System.out.println(loginPresenter.strInvalidLogin());
             }
         }
-        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
     private void runUserUIs(Object[] result){

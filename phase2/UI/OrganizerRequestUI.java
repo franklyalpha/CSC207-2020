@@ -143,7 +143,6 @@ public class OrganizerRequestUI extends AbstractUI {
                         i = i + 1;
                     }
                 }
-                break;
             } catch (IndexOutOfBoundsException e){
                 x = x + 1;
                 requestPresenter.strInvalidInput();
