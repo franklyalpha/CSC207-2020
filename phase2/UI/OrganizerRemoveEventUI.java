@@ -40,7 +40,7 @@ public class OrganizerRemoveEventUI extends AbstractUI {
             RemoveEventPresenter presenter = new RemoveEventPresenter();
             try{
                 inputAndUpdateModification(presenter);
-                break;
+                return;
             }catch (NoEventsException e){
                 System.out.println(presenter.printNoEvent());
             }catch(IllegalArgumentException e2){
