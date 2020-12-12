@@ -1,9 +1,7 @@
 package entities;
 
 import globallyAccessible.EventType;
-import globallyAccessible.MaxNumberBeyondRoomCapacityException;
-import globallyAccessible.UserNotFoundException;
-import globallyAccessible.WrongEventTypeException;
+
 
 import java.time.*;
 import java.util.*;
