@@ -16,7 +16,7 @@ public class ViewEnrolledScheduleUI extends AbstractUI {
     private EnrolledSchedulePresenter enrolledSchedulePresenter;
 
     /**
-     * the constructor for <code>ViewEnrolledScheduleUI</code>.
+     * The constructor for <code>ViewEnrolledScheduleUI</code>.
      * @param userController A instance of <code>UserController</code>.
      */
     public ViewEnrolledScheduleUI(UserController userController) {

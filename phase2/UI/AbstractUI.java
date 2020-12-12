@@ -18,8 +18,8 @@ import java.util.*;
  */
 public class AbstractUI {
     /**
-     * an instance of <code>UserController</code> being instantiated.
-     * an instance of <code>UserPresenter</code> being instantiated that used to present thing on screen.
+     * An instance of <code>UserController</code> being instantiated.
+     * An instance of <code>UserPresenter</code> being instantiated that used to present thing on screen.
      */
 
     protected UserController userController;

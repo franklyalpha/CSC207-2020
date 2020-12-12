@@ -16,12 +16,12 @@ import java.util.Scanner;
 public class OrganizerCreateRoomUI extends AbstractUI {
 
     /**
-     * A instance of <code>CreateRoomController</code>.
+     * An instance of <code>CreateRoomController</code>.
      */
     private CreateRoomController createRoom;
 
     /**
-     * the constructor for this UI.
+     * The constructor for this UI.
      * @param userController an instance of <code>UserController</code>.
      */
     public OrganizerCreateRoomUI(UserController userController) {
@@ -30,7 +30,7 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     }
 
     /**
-     * Create new room with information given by the <code>Organizer</code>.
+     * Creates new room with information given by the <code>Organizer</code>.
      * Will give instructions for invalid inputs.
      * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */

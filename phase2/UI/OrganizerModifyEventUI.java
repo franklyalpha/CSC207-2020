@@ -14,12 +14,12 @@ import java.util.UUID;
  */
 public class OrganizerModifyEventUI extends AbstractUI {
     /**
-     * an instance of <code>ModifyEventController</code> being instantiated.
+     * An instance of <code>ModifyEventController</code> being instantiated.
      */
     private ModifyEventController modifyEvent;
 
     /**
-     * Instantiates new <code>OrganizerCreateUserUI</code>.
+     * Instantiates new <code>OrganizerModifyEventUI</code>.
      * @param userController: An instance of <>UserController</>.
      */
     public OrganizerModifyEventUI(UserController userController) {

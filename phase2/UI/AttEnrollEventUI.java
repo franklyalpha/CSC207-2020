@@ -14,17 +14,17 @@ import java.util.Scanner;
  */
 public class AttEnrollEventUI extends AbstractUI {
     /**
-     * an instance of <code>AttendeePresenter</code> being instantiated.
+     * An instance of <code>AttendeePresenter</code> being instantiated.
      */
     private AttendeePresenter attendeePresenter = new AttendeePresenter();
     /**
-     * an instance of <code>AvailableSchedulePresenter</code> being instantiated which
+     * An instance of <code>AvailableSchedulePresenter</code> being instantiated which
      * helps to prints the schedule.
      */
 
     private AvailableSchedulePresenter schedulePresenter;
     /**
-     * an instance of <code>EnrollEventController </code> being instantiated.
+     * An instance of <code>EnrollEventController </code> being instantiated.
      */
     private EnrollEventController enroll;
 

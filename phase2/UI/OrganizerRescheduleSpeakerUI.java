@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class OrganizerRescheduleSpeakerUI extends AbstractUI {
     /**
-     *  an instance of <code>OrganizerRescheduleSpeakerPresenter</code>
+     * An instance of <code>OrganizerRescheduleSpeakerPresenter</code>
      * being instantiated.
      */
     final protected OrganizerRescheduleSpeakerPresenter organizerRescheduleSpeakerPresenter;

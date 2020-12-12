@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
     /**
-     * an instance of <code>PanelRescheduleSpeakerController</code>
+     * An instance of <code>PanelRescheduleSpeakerController</code>
      * being instantiated.
      */
     private PanelRescheduleSpeakerController panelRescheduleSpeakerController;

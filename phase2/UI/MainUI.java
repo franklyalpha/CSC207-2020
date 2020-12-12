@@ -26,12 +26,12 @@ import java.util.Scanner;
  */
 public class MainUI {
     /**
-     *an instance of <code>LoginController</code> being instantiated.
+     *An instance of <code>LoginController</code> being instantiated.
      */
 
     final private LoginController loginController = new LoginController();
     /**
-     * an instance of <code>LoginPresenter</code> being instantiated.
+     * An instance of <code>LoginPresenter</code> being instantiated.
      */
     private LoginPresenter loginPresenter = new LoginPresenter();
 
