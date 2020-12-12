@@ -43,7 +43,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     }
 
     /**
-     * Create event with given input.
+     * Creates event with given input.
      * Will display instructions if the input time period is invalid or has other invalid input.
      * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */

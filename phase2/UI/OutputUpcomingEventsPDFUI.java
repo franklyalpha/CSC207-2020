@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class OutputUpcomingEventsPDFUI extends AbstractUI {
     /**
-     * an instance of <code>OutputConferenceInfoController</code> being instantiated.
+     * An instance of <code>OutputConferenceInfoController</code> being instantiated.
      */
     private OutputConferenceInfoController pdf;
     /**

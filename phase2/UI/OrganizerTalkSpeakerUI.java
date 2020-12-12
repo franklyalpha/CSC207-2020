@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class OrganizerTalkSpeakerUI extends OrganizerRescheduleSpeakerUI {
 
     /**
-     * an instance of <code>TalkRescheduleSpeakerController</code> being instantiated.
+     * An instance of <code>TalkRescheduleSpeakerController</code> being instantiated.
      */
     private TalkRescheduleSpeakerController talkRescheduleSpeaker;
 
