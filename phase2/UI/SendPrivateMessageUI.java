@@ -5,15 +5,27 @@ import Controllers.UserController;
 import globallyAccessible.UserNotFoundException;
 
 import java.util.Scanner;
-
+/**
+ * UI for sending private messages.
+ */
 public class SendPrivateMessageUI extends AbstractUI {
+    /**
+     * An instance of <code>SendPrivateMessageController</code> being instantiated.
+     */
     private SendPrivateMessageController sendPrivateController;
 
+    /**
+     * Instantiates new <code>SendPrivateMessageUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public SendPrivateMessageUI(UserController userController) {
         super(userController);
         sendPrivateController = new SendPrivateMessageController(userController);
     }
 
+    /**
+     * Gets the message and send it.
+     */
     @Override
     public void run() {
         int i = 3;

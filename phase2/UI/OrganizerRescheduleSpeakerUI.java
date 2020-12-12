@@ -23,7 +23,7 @@ public class OrganizerRescheduleSpeakerUI extends AbstractUI {
     final protected OrganizerRescheduleSpeakerPresenter organizerRescheduleSpeakerPresenter;
 
     /**
-     * Instantiates new <code>OrganizerCreateUserUI</code>.
+     * Instantiates new <code>OrganizerRescheduleSpeakerUI</code>.
      * @param userController: An instance of <>UserController</>.
      */
     public OrganizerRescheduleSpeakerUI(UserController userController) {

@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public class OrganizerRemoveEventUI extends AbstractUI {
     /**
-     * an instance of <codeRemoveEventController</code>
+     * an instance of <code>RemoveEventController</code>
      * being instantiated.
      */
     private final RemoveEventController removeEvent;

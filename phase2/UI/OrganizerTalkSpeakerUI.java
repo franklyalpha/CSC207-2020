@@ -14,11 +14,14 @@ import java.util.ArrayList;
 public class OrganizerTalkSpeakerUI extends OrganizerRescheduleSpeakerUI {
 
     /**
-     * Instantiates new <code>OrganizerRemoveEventUI</code>.
-     * @param userController: An instance of <>UserController</>.
+     * an instance of <code>TalkRescheduleSpeakerController</code> being instantiated.
      */
     private TalkRescheduleSpeakerController talkRescheduleSpeaker;
 
+    /**
+     * Instantiates new <codeOrganizerTalkSpeakerUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public OrganizerTalkSpeakerUI(UserController userController) {
         super(userController);
         talkRescheduleSpeaker = new TalkRescheduleSpeakerController(userController);

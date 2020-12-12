@@ -7,15 +7,27 @@ import globallyAccessible.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
+/**
+ * UI for viewing private messages.
+ */
 public class ViewPrivateMessageUI extends AbstractUI {
+    /**
+     * An instance of <code>PrivateMessagePresenter</code> being instantiated.
+     */
     private PrivateMessagePresenter messagePresenter;
 
+    /**
+     * Instantiates new <code>ViewPrivateMessageUI</code>.
+     * @param userController: An instance of <>UserController</>.
+     */
     public ViewPrivateMessageUI(UserController userController) {
         super(userController);
         messagePresenter = new PrivateMessagePresenter(userController);
     }
 
+    /**
+     * Shows the history message from certain user.
+     */
     @Override
     public void run() {
         HashMap<String, ArrayList<String>> historyChat = messagePresenter.viewPrivateMessage();
