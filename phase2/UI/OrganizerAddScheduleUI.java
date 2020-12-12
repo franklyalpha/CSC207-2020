@@ -143,14 +143,13 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
         Scanner moreInfo = new Scanner(System.in);
+        Object[] roomTopicMaxEnroll = getRoomTopicMaxenroll(moreInfo);
         if(freeSpeaker.size() != 0){
-            Object[] roomTopicMaxEnroll = getRoomTopicMaxenroll(moreInfo);
             System.out.println(organizerAddSchedulePresenter.strTypePrompt());
             int typeNum = moreInfo.nextInt();
             return returnInfoByEventType(createSchedule, freeSpeaker, freeRooms, roomTopicMaxEnroll, typeNum);
         }
         else{
-            Object[] roomTopicMaxEnroll = getRoomTopicMaxenroll(moreInfo);
             return getPartyInfo(createSchedule, freeRooms.get((Integer) roomTopicMaxEnroll[0]), roomTopicMaxEnroll);
         }
     }

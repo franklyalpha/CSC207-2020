@@ -63,9 +63,7 @@ public class CreateScheduleController extends EventController {
         else if(freeRooms.size() != 0){
             return new Object[]{freeRooms, new ArrayList<>()};
         }
-        else{
-            throw new CannotCreateEventException("Can't create activity");
-        }
+        throw new CannotCreateEventException("Can't create activity");
     }
 
     /**
@@ -82,7 +80,6 @@ public class CreateScheduleController extends EventController {
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
         UUID RoomID = UUID.fromString(room);
         int RoomCapacity = roomManager.getRoomCapacity(RoomID);
-
         for(String speaker: speakers){
             if (!freeSpeaker.contains(speaker)){
                 throw new UserNotFoundException("");
@@ -119,8 +116,7 @@ public class CreateScheduleController extends EventController {
 
     private UUID panelSetter(EventType type, LocalDateTime[] period, Object actSetting, UUID assignedChat,
                              UUID assignedRoom, String topic, Integer maxNum) {
-        UUID actID;
-        actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
+        UUID actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
         ArrayList<String> speakers = (ArrayList<String>) actSetting;
         for(String speaker: speakers){
             panelManager.addSpeaker(actID, speaker);
@@ -132,8 +128,7 @@ public class CreateScheduleController extends EventController {
 
     private UUID talkSetter(EventType type, LocalDateTime[] period, Object actSetting, UUID assignedChat,
                             UUID assignedRoom, String topic, Integer maxNum) {
-        UUID actID;
-        actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
+        UUID actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
         ArrayList<String> speakers = (ArrayList<String>) actSetting;
         talkManager.addSpeaker(actID, speakers.get(0));
         organizerManager.otherAddSchedule(speakers.get(0), period, actID);

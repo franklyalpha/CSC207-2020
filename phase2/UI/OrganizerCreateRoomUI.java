@@ -51,27 +51,22 @@ public class OrganizerCreateRoomUI extends AbstractUI {
     /**
      * Create new event room with Organizer given capacity and number of 3 different room items.
      * @param createRoom A instance of <code>CreateRoomController</code>.
-     * @param organizerPresenter An instance of <code>OrganizerPresenter</code>.
+     * @param presenter An instance of <code>OrganizerPresenter</code>.
      * @throws Exception when room capacity is less than or equal to zero.
      */
-    private void createNewRoom(CreateRoomController createRoom, OrganizerPresenter organizerPresenter) throws Exception {
-        System.out.println(organizerPresenter.strCreateRoomPrompt());
+    private void createNewRoom(CreateRoomController createRoom, OrganizerPresenter presenter) throws Exception {
+        System.out.println(presenter.strCreateRoomPrompt());
         Scanner input = new Scanner(System.in);
         int room_capacity = input.nextInt();
         input.nextLine();
         List<Integer> itemList = new ArrayList<>();
+        String[] techPrompts = new String[]{presenter.strNumOfMicrophone(), presenter.strNumOfProjector(), presenter.strNumOfPartyAudioSystem()};
         for(int x = 0; x < 3; x++){
-            if(x==0){
-                System.out.println(organizerPresenter.strNumOfMicrophone());
-            }else if(x==1){
-                System.out.println(organizerPresenter.strNumOfProjector());
-            }else{
-                System.out.println(organizerPresenter.strNumOfPartyAudioSystem());
-            }
+            System.out.println(techPrompts[x]);
             int equipQuantity = input.nextInt();
             itemList.add(equipQuantity);
         }
         createRoom.createRoomWithCondition(room_capacity, itemList);
-        System.out.println(organizerPresenter.strRoomCapacityConfirmation(room_capacity));
+        System.out.println(presenter.strRoomCapacityConfirmation(room_capacity));
     }
 }
