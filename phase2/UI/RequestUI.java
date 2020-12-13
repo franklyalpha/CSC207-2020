@@ -34,46 +34,41 @@ public class RequestUI extends AbstractUI {
      * @throws ExceedingMaxAttemptException if the user attempts to input invalid inputs three or more times.
      */
     public UUID chooseRequest(RequestController requestController, String action) throws RequestNotFoundException, ExceedingMaxAttemptException {
-        ArrayList<UUID> reqList;
+        ArrayList<UUID> reqList = new ArrayList<>();
+        reqList = displayReqListHelper(requestController, reqList, action);
+        for (int i = 0; i< 3; i++) {
+            try {
+                Scanner requestIDScanner = new Scanner(System.in);
+                int selection = 0;
+                if (requestIDScanner.hasNextInt()) { selection = Integer.parseInt(requestIDScanner.nextLine()); }
+                if ( selection > reqList.size() || selection < 0) {
+                    System.out.println(requestPresenter.strInvalidRequest() + requestPresenter.strPleaseTryAgain());
+                }
+                else {
+                    int x = 1;
+                    for (Request req : requestController.getAllRequest()) {
+                        if (x == selection) { return req.getId(); }
+                        x = x + 1;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e){ requestPresenter.strInvalidInput(); }
+        } throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
+    }
+
+    private ArrayList<UUID> displayReqListHelper (RequestController requestController, ArrayList<UUID> reqList, String action) throws RequestNotFoundException {
         if (requestController instanceof HandleRequestController){
             reqList = getListHelper((HandleRequestController) requestController);
         } else {
             reqList = getListHelper(requestController);
         }
-        int x = 0;
         System.out.println(requestPresenter.strRequestPromptHelper(action));
         if(reqList.size() == 0){
             throw new RequestNotFoundException("No requests found.");
         }
-       getPrintReqList(requestController, reqList);
-        while (x < 3) {
-            try {
-                x = x + 1;
-                Scanner requestIDScanner = new Scanner(System.in);
-                int selection = 0;
-                if (requestIDScanner.hasNextInt()) {
-                    selection = Integer.parseInt(requestIDScanner.nextLine());
-                }
-                if ( selection > reqList.size() || selection < 0) {
-                    System.out.println(requestPresenter.strInvalidRequest() + requestPresenter.strPleaseTryAgain());
-                }
-                else {
-                    int i = 1;
-                    for (Request req : requestController.getAllRequest()) {
-                        if (i == selection) {
-                            return req.getId();
-                        }
-                        i = i + 1;
-                    }
-                }
-            } catch (IndexOutOfBoundsException e){
-                x = x + 1;
-                requestPresenter.strInvalidInput();
-            }
-        }
-        throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
+        getPrintReqList(requestController, reqList);
+        return reqList;
     }
-    
+
     private ArrayList<UUID> getListHelper(RequestController requestController){
         return requestController.getUserRequests();
     }
@@ -90,5 +85,4 @@ public class RequestUI extends AbstractUI {
         System.out.println(userPresenter.strList(userReqs.toArray()));
         System.out.println(requestPresenter.strQuitPrompt());
     }
-
 }
