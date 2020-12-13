@@ -1,23 +1,16 @@
 package UI;
 
-import entities.Request;
 import Controllers.RequestController;
 import Controllers.UserController;
 import globallyAccessible.ExceedingMaxAttemptException;
-import menuPresenter.RequestPresenter;
 import globallyAccessible.RequestNotFoundException;
 import java.util.*;
 
-public class UserRequestUI extends AbstractUI {
+public class UserRequestUI extends RequestUI {
     /**
      * Instance of <code>CreateRequestController</code>
      */
     private final RequestController requestController;
-
-    /**
-     * Instance of <code>UserPresenter</code>
-     */
-    private final RequestPresenter requestPresenter;
 
     /**
      * Creates an instance of <code>UserRequestUI</code>.
@@ -26,7 +19,6 @@ public class UserRequestUI extends AbstractUI {
     public UserRequestUI(UserController userController) {
         super(userController);
         requestController = new RequestController(userController);
-        requestPresenter = new RequestPresenter();
     }
 
     @Override
@@ -59,7 +51,6 @@ public class UserRequestUI extends AbstractUI {
             notStop = continuing();
         }
     }
-
 
     /**
      * Takes user input for information required to create a new <code>Request</code>: subject, details.
@@ -120,7 +111,6 @@ public class UserRequestUI extends AbstractUI {
         }
     }
 
-
     /**
      * Gets info from the user regarding which <code>Request</code> they wish to modify.
      * @param requestController An instance of <code>requestController</code>.
@@ -128,44 +118,7 @@ public class UserRequestUI extends AbstractUI {
      * @throws RequestNotFoundException if the input UUID does not belong to any existing <code>Request</code>
      */
     private UUID chooseRequest(RequestController requestController) throws RequestNotFoundException, ExceedingMaxAttemptException {
-        int x = 0;
-        System.out.println(requestPresenter.strRequestPromptHelper("modify"));
-        ArrayList<UUID> tmp = requestController.getUserRequests();
-        if(tmp.size() == 0){
-            throw new RequestNotFoundException("No requests found.");
-        }
-        ArrayList<String> userReqs = new ArrayList<>();
-        for (UUID req : tmp) {
-            userReqs.add(requestPresenter.strRequestObjArrToStr(requestController.findRequest(req)));
-        }
-        System.out.println(userPresenter.strList(userReqs.toArray()));
-        System.out.println(userPresenter.strQuitPrompt());
-        while (x < 3) {
-            try {
-                x = x + 1;
-                Scanner requestIDScanner = new Scanner(System.in);
-                int selection = 0;
-                if (requestIDScanner.hasNextInt()) {
-                    selection = Integer.parseInt(requestIDScanner.nextLine());
-                }
-                if ( selection > requestController.getAllRequest().size() || selection < 0) {
-                    System.out.println(requestPresenter.strInvalidRequest() + requestPresenter.strPleaseTryAgain());
-                }
-                else {
-                    int i = 1;
-                    for (Request req : requestController.getAllRequest()) {
-                        if (i == selection) {
-                            return req.getId();
-                        }
-                        i = i + 1;
-                    }
-                }
-            } catch (IndexOutOfBoundsException e){
-                x = x + 1;
-                requestPresenter.strInvalidInput();
-            }
-        }
-        throw new ExceedingMaxAttemptException("MMaximum number of attempts exceeded");
+        return chooseRequest(requestController, "modify");
     }
 
     /**

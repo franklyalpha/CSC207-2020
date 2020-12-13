@@ -1,10 +1,8 @@
 package useCases;
 
 import entities.User;
-import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
