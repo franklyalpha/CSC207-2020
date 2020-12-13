@@ -1,0 +1,21 @@
+Design pattern used:
+1: Factory design pattern. Classes involved:
+    Creating event: EventFactory; Party, Panel, Talk;
+    Creating user: UserFactory; Organizer, Speaker, Attendee, Administrator;
+    Creating room items: ItemFactory; Microphone, PartyAudioSystem, Projector;
+
+    Using factory pattern allows more customization from users, and makes adding another type of object more easier by
+    simply modifying the choices available.
+
+2: Builder design pattern. Classes involved:
+    Creating room: RoomBuilder, ItemFactory; Room;
+
+    Since in phase 2, 'Room' is a complicated object with various types of technical equipments; thus using a builder
+    allows a room to be constructed step-by-step, which allows better control on process of creating an instance.
+
+3: Dependency Injection Pattern. Classes involved:
+    Creating User: ExtendedUserManager; UserFactory; User
+    Creating Event: EventManager; EventFactory; Event
+
+    Dependency injection looses dependency of use case classes from entities, making testing easier and also allows
+    more customization.

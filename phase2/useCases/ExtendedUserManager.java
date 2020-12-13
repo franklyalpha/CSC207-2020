@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LoginStatusManager implements Serializable {
+public class ExtendedUserManager implements Serializable {
     /**
      * A list contains all Users with all types <code>User</code>
      * */
@@ -27,7 +27,7 @@ public class LoginStatusManager implements Serializable {
 //    private ArrayList<entities.User>[] typearray = [organi]
 
 
-    public LoginStatusManager(){
+    public ExtendedUserManager(){
         allUsers = new HashMap<>();
         for(UserType type: UserType.values()){
             allUsers.put(type, new ArrayList<>());

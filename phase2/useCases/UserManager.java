@@ -27,7 +27,7 @@ import java.util.UUID;
  * a method to store data(either implements serializable or use a gateway interface for fileIO)
  * (being able to reset userOnAir, in case the user wants to log out - phase 2)
  */
-public class UserManager extends LoginStatusManager implements java.io.Serializable{
+public class UserManager extends ExtendedUserManager implements java.io.Serializable{
 
 //    /**
 //     * will consider adding another type-indicator String[], stores all possible type names.
