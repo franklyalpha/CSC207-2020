@@ -54,7 +54,7 @@ public class ModifyEventPresenter extends UserPresenter{
         int i = 0;
         StringBuilder outputBuilder = new StringBuilder(output);
         for (String[] roomInfo: suggestedList){
-            String newInfo = "Room No. " + i + ": \n" + roomInfo[1] + "\n" + "eventID: "+ roomInfo[0];
+            String newInfo = "Room No. " + i + ": \n" + roomInfo[1] + "\n" + "RoomID: "+ roomInfo[0];
             outputBuilder.append(newInfo).append("\n");
             i += 1;
         }

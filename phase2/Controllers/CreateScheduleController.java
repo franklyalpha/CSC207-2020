@@ -33,6 +33,8 @@ public class CreateScheduleController extends EventController {
      */
     private OrganizerManager organizerManager;
 
+    private LocalDateTime[] period;
+
     /**
      * The constructor of this controller.
      * @param userController An instance of UserController.
@@ -42,6 +44,7 @@ public class CreateScheduleController extends EventController {
         freeSpeaker = new ArrayList<>();
         freeRooms = new ArrayList<>();
         organizerManager = new OrganizerManager(userManager);
+        period = new LocalDateTime[]{};
     }
 
 
@@ -55,6 +58,7 @@ public class CreateScheduleController extends EventController {
      * the exception will be thrown.
      */
     public Object[] checkTimePeriodValidity(LocalDateTime[] targetPeriod) throws CannotCreateEventException {
+        period = targetPeriod;
         freeSpeaker = organizerManager.availableSpeakers(targetPeriod);
         freeRooms = roomManager.bookingAvailable(targetPeriod);
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
@@ -94,29 +98,28 @@ public class CreateScheduleController extends EventController {
     /**
      * Sets the new event with all given information.
      * @param type: the type of this event.
-     * @param period: the time period this event happens.
      * @param actSettings: all the information for setting an event, including: the type of event, the UUID of assigned room,
      *                   the topic in String, the maximum attendee can participate and list of speakers.
      */
-    public void newEventSetter(EventType type, LocalDateTime[] period, Object[] actSettings){
+    public void newEventSetter(EventType type, Object[] actSettings){
         UUID assignedChat = messageRoomManager.createChatroom(new ArrayList<>());
         UUID assignedRoom = (UUID) actSettings[0];
         String topic = (String) actSettings[1];
         Integer MaxNum = (Integer) actSettings[3];
         UUID actID = null;
         if(type == EventType.TALK){
-            actID = talkSetter(type, period, actSettings[2], assignedChat, assignedRoom, topic, MaxNum);
+            actID = talkSetter(actSettings[2], assignedChat, assignedRoom, topic, MaxNum);
         }else if(type == EventType.PANEL){
-            actID = panelSetter(type, period, actSettings[2], assignedChat, assignedRoom, topic, MaxNum);
+            actID = panelSetter(actSettings[2], assignedChat, assignedRoom, topic, MaxNum);
         }else if(type == EventType.PARTY){
             actID = partyManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
         }
         roomManager.BookRoom(period, actID, assignedRoom);
     }
 
-    private UUID panelSetter(EventType type, LocalDateTime[] period, Object actSetting, UUID assignedChat,
+    private UUID panelSetter(Object actSetting, UUID assignedChat,
                              UUID assignedRoom, String topic, Integer maxNum) {
-        UUID actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
+        UUID actID = panelManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, EventType.PANEL);
         ArrayList<String> speakers = (ArrayList<String>) actSetting;
         for(String speaker: speakers){
             panelManager.addSpeaker(actID, speaker);
@@ -126,9 +129,9 @@ public class CreateScheduleController extends EventController {
         return actID;
     }
 
-    private UUID talkSetter(EventType type, LocalDateTime[] period, Object actSetting, UUID assignedChat,
+    private UUID talkSetter(Object actSetting, UUID assignedChat,
                             UUID assignedRoom, String topic, Integer maxNum) {
-        UUID actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, type);
+        UUID actID = talkManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, maxNum, EventType.TALK);
         ArrayList<String> speakers = (ArrayList<String>) actSetting;
         talkManager.addSpeaker(actID, speakers.get(0));
         organizerManager.otherAddSchedule(speakers.get(0), period, actID);
