@@ -95,13 +95,17 @@ public class OrganizerAddScheduleUI extends AbstractUI {
             Scanner type = new Scanner(System.in);
             System.out.println(organizerAddSchedulePresenter.strTypePrompt());
             int typeNum = type.nextInt();
-            if(typeNum == 1){
-                new OrganizerAddTalkUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
-            }else if(typeNum == 2){
-                new OrganizerAddPanelUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
-            }else{
-                new OrganizerAddPartyUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
-            }
+            createByType(typeNum);
+        }
+    }
+
+    private void createByType(int typeNum) throws ExceedingMaxAttemptException {
+        if(typeNum == 1){
+            new OrganizerAddTalkUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
+        }else if(typeNum == 2){
+            new OrganizerAddPanelUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
+        }else{
+            new OrganizerAddPartyUI(userController, new Object[]{freeSpeakers, freeRooms}, createSchedule).run();
         }
     }
 
