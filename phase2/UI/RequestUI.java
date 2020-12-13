@@ -34,8 +34,7 @@ public class RequestUI extends AbstractUI {
      * @throws ExceedingMaxAttemptException if the user attempts to input invalid inputs three or more times.
      */
     public UUID chooseRequest(RequestController requestController, String action) throws RequestNotFoundException, ExceedingMaxAttemptException {
-        ArrayList<UUID> reqList = new ArrayList<>();
-        reqList = displayReqListHelper(requestController, reqList, action);
+        ArrayList<UUID> reqList = displayReqListHelper(requestController, action);
         for (int i = 0; i< 3; i++) {
             try {
                 Scanner requestIDScanner = new Scanner(System.in);
@@ -55,7 +54,8 @@ public class RequestUI extends AbstractUI {
         } throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
-    private ArrayList<UUID> displayReqListHelper (RequestController requestController, ArrayList<UUID> reqList, String action) throws RequestNotFoundException {
+    private ArrayList<UUID> displayReqListHelper(RequestController requestController, String action) throws RequestNotFoundException {
+        ArrayList<UUID> reqList;
         if (requestController instanceof HandleRequestController){
             reqList = getListHelper((HandleRequestController) requestController);
         } else {
