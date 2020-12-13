@@ -43,7 +43,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     }
 
     /**
-     * Creates event with given input.
+     * Creates event with given <code>Organizer</code> input.
      * Will display instructions if the input time period is invalid or has other invalid input.
      * @throws ExceedingMaxAttemptException when user exceed max attempt.
      */
@@ -62,10 +62,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
-    /**
-     *
-     * @throws CannotCreateEventException when there is no room or speakers free during given period.
-     */
+
     private void majorProcessor() throws CannotCreateEventException {
         LocalDateTime[] targetPeriod = periodProcessor();
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
@@ -74,13 +71,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         createSchedule.newEventSetter((EventType) speakerRoom[0], targetPeriod, actSetting);
     }
 
-    /**
-     * Gets all the information for setting a event.
-     * Will give instruction for invalid input.
-     * @param speakersRooms
-     * @param createSchedule
-     * @return A instance of <>Object[]</>
-     */
+
     private Object[] getSpeakerRoomTopic(Object[] speakersRooms, CreateScheduleController createSchedule) {
         while(true){
             try{
@@ -102,11 +93,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
-    /**
-     * Gets IDs of given free rooms.
-     * @param freeRooms is a list of free rooms' string representation.
-     * @return a <>ArrayList</> of room IDs.
-     */
+
     private ArrayList<UUID> extractRoomID(ArrayList<String[]> freeRooms) {
         ArrayList<UUID> freeRoomsID = new ArrayList<>();
         for (String[] roomInfo: freeRooms){
@@ -116,10 +103,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return freeRoomsID;
     }
 
-    /**
-     * Get a list of information of rooms that meets the technical requirement.
-     * @return A <>List<String[]></> containing room's id and information of required room items.
-     */
+
     private List<String[]> getSuggestedRoom() {
         Scanner input = new Scanner(System.in);
         System.out.println(modifyEventPresenter.askForRequirementPrompt());
@@ -129,17 +113,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return createSchedule.getSuggestedRoomList(hasProjector, hasMicrophone, hasPartyAudio);
     }
 
-    /**
-     *
-     * @param createSchedule A <code>CreateScheduleController</code>.
-     * @param freeSpeaker a list of names of free speakers.
-     * @param freeRooms a list of IDs of free event rooms.
-     * @return
-     * @throws UserNotFoundException
-     * @throws InputMismatchException
-     * @throws MaxNumberBeyondRoomCapacityException
-     * @throws WrongEventTypeException
-     */
+
     private Object[] inputTypeSpeakerRoomTopic(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker, ArrayList<UUID> freeRooms)
             throws UserNotFoundException, InputMismatchException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
         Scanner moreInfo = new Scanner(System.in);
@@ -154,19 +128,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
-    /**
-     *
-     * @param createSchedule A <code>CreateScheduleController</code>.
-     * @param freeSpeaker a list of names of free speakers.
-     * @param freeRooms a list of IDs of free event rooms.
-     * @param roomTopicMaxEnroll
-     * @param typeNum the number representation of different type of events.
-     * @return
-     * @throws UserNotFoundException when the speaker with this username is not free.
-     * @throws MaxNumberBeyondRoomCapacityException when party's maximum number of people can enrolled in is beyond given
-     * room's capacity.
-     * @throws WrongEventTypeException when the given type number is not 1, 2 or 3.
-     */
+
     private Object[] returnInfoByEventType(CreateScheduleController createSchedule, ArrayList<String> freeSpeaker,
                                            ArrayList<UUID> freeRooms, Object[] roomTopicMaxEnroll, int typeNum)
             throws UserNotFoundException, MaxNumberBeyondRoomCapacityException, WrongEventTypeException {
@@ -181,16 +143,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         }
     }
 
-    /**
-     *
-     * @param createSchedule A <code>CreateScheduleController</code>.
-     * @param uuid id of the room.
-     * @param roomTopicMaxEnroll
-     * @return information of a party event.
-     * @throws UserNotFoundException when the speaker with this username is not free.
-     * @throws MaxNumberBeyondRoomCapacityException when party's maximum number of people can enrolled in is beyond given
-     * room's capacity.
-     */
+
     private Object[] getPartyInfo(CreateScheduleController createSchedule, UUID uuid, Object[] roomTopicMaxEnroll)
             throws UserNotFoundException, MaxNumberBeyondRoomCapacityException {
         createSchedule.checkInfoValid(uuid.toString(), (Integer) roomTopicMaxEnroll[2],
@@ -218,12 +171,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
                 roomTopicMaxEnroll[2], speaker};
     }
 
-    /**
-     * Gets Organizer's setting for the event.
-     * @param moreInfo is organizer's input
-     * @return an Array containing Organizer's selection of the room to hold the event, the topic and maximum number of
-     * users can enroll in this event.
-     */
+
     private Object[] getRoomTopicMaxenroll(Scanner moreInfo){
         System.out.println(organizerAddSchedulePresenter.strRoomNumPrompt());
         int roomIndex = moreInfo.nextInt();
@@ -236,10 +184,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new Object[]{roomIndex, topic, MaxNumber};
     }
 
-    /**
-     * Organizers input the start time and end time of the event.
-     * @return A Array which contains the start time and end time of the event.
-     */
+
     private LocalDateTime[] periodProcessor(){
         Scanner start = new Scanner(System.in);
         System.out.println(organizerAddSchedulePresenter.strStartTimePrompt());
@@ -252,10 +197,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new LocalDateTime[]{startDateTime, endDateTime};
     }
 
-    /**
-     * Instructing the organizer to input one name of a speaker and collect the name.
-     * @return a <>ArrayList</> of string which contains the speaker's name.
-     */
+
     private ArrayList<String> inputOneSpeaker(){
         System.out.println(organizerAddSchedulePresenter.strSingleSpeakerPrompt());
         Scanner moreInfo = new Scanner(System.in);
@@ -265,10 +207,7 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return speaker;
     }
 
-    /**
-     * Instructing the organizer to input multiple name of a speaker and collect the names.
-     * @return a list of speaker names.
-     */
+
     private ArrayList<String> inputMultiSpeaker(){
         System.out.println(organizerAddSchedulePresenter.strMultiSpeakerPrompt());
         Scanner moreInfo = new Scanner(System.in);
