@@ -49,12 +49,7 @@ public class ModifyEventPresenter extends UserPresenter{
         return output;
     }
 
-    /**
-     * the helper to format the String
-     * @param suggestedList suggested list of rooms
-     * @param output the base String
-     * @return recommendation in String format
-     */
+
     private String getString(List<String[]> suggestedList, String output) {
         int i = 0;
         StringBuilder outputBuilder = new StringBuilder(output);

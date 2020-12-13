@@ -22,7 +22,7 @@ public class ModifyEventController extends EventController {
     }
 
     /**
-     * updates maximum number of participannt of a given event.
+     * updates maximum number of participant of a given event.
      * @param activityId the ID of event in which the changes will be applied.
      * @param newMaxNum the new maximum number of participant of an event.
      * @throws MaxNumberBeyondRoomCapacityException is thrown when given maximum participants is greater than room capacity.
