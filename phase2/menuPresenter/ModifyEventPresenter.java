@@ -22,16 +22,16 @@ public class ModifyEventPresenter extends UserPresenter{
      * @return the String
      */
     public String printMaxNumEventPrompt_1(ArrayList<String[]> upcomingActivities){
-        return "Here are the information of all the available activities:\n " + getEventString(upcomingActivities, "") + "\n" +
-                "Please input the Activity Id you want to modify:";
+        return "Here are the information of all the available events:\n " + getEventString(upcomingActivities, "") + "\n" +
+                "Please input the Event Id you want to modify:";
     }
 
     public String printMaxNumEventPrompt_2(){
-        return "Please input the new Maximum number of people for the activity :";
+        return "Please input the new Maximum number of people for the event :";
     }
 
     public String printNoEvent(){
-        return "No activities created yet";
+        return "No events created yet";
     }
 
     public String askForRequirementPrompt(){

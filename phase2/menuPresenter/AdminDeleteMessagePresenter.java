@@ -30,7 +30,7 @@ public class AdminDeleteMessagePresenter extends UserPresenter {
     public String strGroupActionMenu(){
         HashMap<Character, String> items = new HashMap<Character, String>() {{
             put('0', "Delete Message in Organizer-Speaker Conversation");
-            put('1', "Go to Activity-Group Messages");
+            put('1', "Go to Event-Group Messages");
         }};
         return strItemizeMenuOption("do next", items);
     }

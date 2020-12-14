@@ -76,7 +76,7 @@ public class OrganizerAddSchedulePresenter extends UserPresenter {
         String finalList = "Here are the names of all available speakers: \n" + strSpeakerList(speakers) +
                 "Here are the IDs of all available rooms: \n" +
                 strRoomList(rooms) +
-                "Please input the topic, speaker, room index and maximum capacity for this activity\n" +
+                "Please input the topic, speaker, room index and maximum capacity for this event\n" +
                 "IN THAT ORDER and on different lines: (if an invalid room is given, the first room will be used by default.";
         return finalList;
     }

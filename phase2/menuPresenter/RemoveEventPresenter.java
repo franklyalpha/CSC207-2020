@@ -25,6 +25,6 @@ public class RemoveEventPresenter extends UserPresenter {
     }
 
     public String printNoEvent() {
-        return "No activities available to be cancelled now";
+        return "No events available to be cancelled now";
     }
 }

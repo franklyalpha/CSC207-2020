@@ -27,7 +27,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strInvalidEventID(){
-        return strInvalidHelper("activity ID");
+        return strInvalidHelper("event ID");
     }
 
     public String strInvalidSpeaker(){
@@ -70,11 +70,11 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     public String strEnrolledMenuDes(){
-        return "Here are activities you have enrolled: ";
+        return "Here are events you have enrolled: ";
     }
 
     public String strAllEventMenuDes(){
-        return "Here are all the activities: ";
+        return "Here are all the events: ";
     }
 
     public String strContinueServicePrompt(){
