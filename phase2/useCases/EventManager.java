@@ -15,10 +15,10 @@ import java.util.*;
  * Own constructor;
  * addNewActivity: will create and store a new activity.
  * searchActivityByUUID: will return a description of certain activity, searched by by UUID.
- * addSpeaker: will add/replace speakers of a conference.
- * getConferenceChat: will return the UUID of unique chat associated with this confernece.
+ * addSpeaker: will add/replace speakers of a event.
+ * getEventChat: will return the UUID of unique chat associated with this confernece.
  * viewUpcommingActivites: will provide info for all activities not yet begun.
- * addAttendee: will add an attendee towards participant list of this conference.
+ * addAttendee: will add an attendee towards participant list of this event.
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
  * @author Group 0168
@@ -113,7 +113,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
             if(ID.equals(i.getIdentity().toString())){
                 return new String[]{i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
+                        i.getEventRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
             }
         }
         return null;
@@ -160,11 +160,11 @@ public class EventManager extends AbstractSerializableManager implements java.io
     }
 
     /**
-     * Will return the UUID of conference assigned chat with given conference.
+     * Will return the UUID of event assigned chat with given event.
      * @param actID <code>UUID</code> of activity requiring info of corresponding activity chat.
      * @return <code>UUID</code> of corresponding chat.
      */
-    public UUID getConferenceChat(UUID actID){
+    public UUID getEventChat(UUID actID){
         Event targetAct = findEvent(actID);
         assert targetAct != null;
         return targetAct.getChatID();
@@ -184,7 +184,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
             for (Event i : allUpcomingEvents()) {
                 String[] temp = {i.getIdentity().toString(), i.getTopic(),
                         i.getStartTime().toString(), i.getEndTime().toString(),
-                        i.getConferenceRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
+                        i.getEventRoomNum().toString(), i.toString(), i.getEventType().toString(), i.speakerToString()};
                 result.add(temp);
             }
         }

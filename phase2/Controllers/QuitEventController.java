@@ -53,7 +53,7 @@ public class QuitEventController extends EventController {
     private void cancelEnrollmentUpdate(ArrayList<String> userName, String activityID){
         UUID actID = UUID.fromString(activityID);
         eventManager.removeAttendee(actID, userManager.currentUsername());
-        messageRoomManager.removeUser(userName, eventManager.getConferenceChat(actID));
+        messageRoomManager.removeUser(userName, eventManager.getEventChat(actID));
         String[] actInfo = eventManager.searchEventByUUID(activityID);
         LocalDateTime[] time = getTimeHelper(actInfo);
         attendeeManager.deleteEvent(time);

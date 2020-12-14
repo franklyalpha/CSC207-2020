@@ -37,7 +37,7 @@ public class SendEventMessageController extends MessagingController {
      * @return Returns the UUID of the groupchat associated with the specified event.
      */
     public UUID findRightChat(int activity){
-        return eventManager.getConferenceChat(
+        return eventManager.getEventChat(
                 UUID.fromString(info.get(activity - 1)[0]));
     }
 
