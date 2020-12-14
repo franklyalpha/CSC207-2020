@@ -43,13 +43,13 @@ public class AdministratorUI extends OrganizerUI {
 
     public void run(){
         availableAction = presenter.optionMenu();
-        int action;
+        int action = 0;
         // replace with try-catch in while loop
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
             System.out.println(presenter.strAvailableActions(availableAction));
-            action = scan.nextInt();
+            if (scan.hasNextInt()) action = scan.nextInt();
             if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }

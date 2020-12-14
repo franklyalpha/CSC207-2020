@@ -46,13 +46,15 @@ public class OrganizerUI extends UserUI {
      */
     public void run() {
         addMenu();
-        int action;
+        int action = 0;
         // replace with try-catch in while loop
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
             System.out.println(organizerPresenter.strAvailableActions(availableAction));
-            action = scan.nextInt();
+            if (scan.hasNextInt()){
+                action = scan.nextInt();
+            }
             if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }

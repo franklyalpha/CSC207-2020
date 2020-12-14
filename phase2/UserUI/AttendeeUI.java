@@ -53,14 +53,10 @@ public class AttendeeUI extends UserUI {
      */
     public void run(){
         addMenu();
-        int action;
+        int action = 0;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
-            /*System.out.println("Services apply\n");
-            for(String a: availableAction){
-                System.out.println(availableAction.indexOf(a)+1 + " " + a);
-            }*/
             System.out.println(attendeePresenter.strAvailableActions(availableAction));
             if (scan.hasNextInt()){   //if the input is an integer
                 action = scan.nextInt();    //set input to action

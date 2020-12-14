@@ -46,12 +46,12 @@ public class SpeakerUI extends OrganizerUI {
 
     public void run() {
         addMenu();
-        int action;
+        int action = 0;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);
             System.out.println(speakerPresenter.strAvailableActions(availableAction));
-            action = scan.nextInt();
+            if (scan.hasNextInt()) action = scan.nextInt();
             if (0 < action && action <= availableAction.size()) {
                 runMethod(action);
             }
