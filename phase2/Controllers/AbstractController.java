@@ -13,7 +13,7 @@ public class AbstractController {
     /**
      * an instance of <>RoomManager</>.
      */
-    protected RoomManager roomManager;
+    protected EventRoomManager eventRoomManager;
 
     /**
      * an instance of <>EventManager</>.
@@ -48,7 +48,7 @@ public class AbstractController {
     public AbstractController(UserController userController){
         Object[] managers = userController.extractManagers();
         requestManager = (RequestManager) managers[4];
-        roomManager = (RoomManager) managers[3];
+        eventRoomManager = (EventRoomManager) managers[3];
         eventManager = (EventManager) managers[1];
         userManager = (UserManager) managers[2];
         messageRoomManager = (MessageRoomManager) managers[0];

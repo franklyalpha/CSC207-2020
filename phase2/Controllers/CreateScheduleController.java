@@ -60,7 +60,7 @@ public class CreateScheduleController extends EventController {
     public Object[] checkTimePeriodValidity(LocalDateTime[] targetPeriod) throws CannotCreateEventException {
         period = targetPeriod;
         freeSpeaker = organizerManager.availableSpeakers(targetPeriod);
-        freeRooms = roomManager.bookingAvailable(targetPeriod);
+        freeRooms = eventRoomManager.bookingAvailable(targetPeriod);
         if (freeRooms.size() != 0 && freeSpeaker.size() != 0){
             return new Object[]{freeRooms, freeSpeaker};
         }
@@ -83,7 +83,7 @@ public class CreateScheduleController extends EventController {
     public void checkInfoValid(String room, int MaxNumber, ArrayList<String> speakers)
             throws UserNotFoundException, IndexOutOfBoundsException, MaxNumberBeyondRoomCapacityException {
         UUID RoomID = UUID.fromString(room);
-        int RoomCapacity = roomManager.getRoomCapacity(RoomID);
+        int RoomCapacity = eventRoomManager.getRoomCapacity(RoomID);
         for(String speaker: speakers){
             if (!freeSpeaker.contains(speaker)){
                 throw new UserNotFoundException("");
@@ -114,7 +114,7 @@ public class CreateScheduleController extends EventController {
         }else if(type == EventType.PARTY){
             actID = partyManager.createEvent(period, new UUID[]{assignedChat, assignedRoom}, topic, MaxNum, type);
         }
-        roomManager.BookRoom(period, actID, assignedRoom);
+        eventRoomManager.BookRoom(period, actID, assignedRoom);
     }
 
     private UUID panelSetter(Object actSetting, UUID assignedChat,
@@ -151,7 +151,7 @@ public class CreateScheduleController extends EventController {
         List<String[]> suggestedList = new ArrayList<>();
         for(String[] i: freeRooms){
             UUID roomID = UUID.fromString(i[0]);
-            if (roomManager.checkRoomItems(roomID, new Boolean[]{hasProjector, hasMicrophone, hasPartyAudio})){
+            if (eventRoomManager.checkEventRoomItems(roomID, new Boolean[]{hasProjector, hasMicrophone, hasPartyAudio})){
                 suggestedList.add(i);
             }
         }

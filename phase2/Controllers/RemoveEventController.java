@@ -38,7 +38,7 @@ public class RemoveEventController extends CancelEventController {
         LocalDateTime[] period = getTimeHelper(actInfo);
         processCancelSpeaker(eventID.toString());
         eventManager.deleteEvent(eventID);
-        roomManager.CancelRoomEvent(period, eventID, UUID.fromString(actInfo[4]));
+        eventRoomManager.CancelRoomEvent(period, eventID, UUID.fromString(actInfo[4]));
     }
 
     private void processCancelAttendee(UUID eventID){

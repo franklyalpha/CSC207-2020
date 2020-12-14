@@ -38,11 +38,9 @@ public class Talk extends Event {
     /**
      * Sets the speaker for this Talk event.
      * @param speaker the target speaker we want to have for this talk
-     * @return if the speaker is correctly set.
      */
-    public boolean setSpeaker(String speaker){
+    public void setSpeaker(String speaker){
         this.speaker = speaker;
-        return true;
     }
 
     /**

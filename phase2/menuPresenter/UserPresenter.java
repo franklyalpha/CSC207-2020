@@ -63,8 +63,7 @@ public class UserPresenter extends GeneralMenuPresenter {
         StringBuilder scheduleInfo = new StringBuilder();
         int j = 1;
         for(String[] i: schedule){
-            scheduleInfo.append("[ Event #" + j + "   ]\n" +"[ Topic      ] " + i[1] + ", \n[ Start Time ] " + i[2] + ", \n[ End Time   ] " + i[3] + ", \n[ Room       ] " +
-                    i[4] + ", \n[ Speakers   ]\n " + i[7] + "\nActivity ID: " + i[0] + "\n---------------------------------------------------------\n \n ");
+            scheduleInfo.append("[ Event #").append(j).append("   ]\n").append("[ Topic      ] ").append(i[1]).append(", \n[ Start Time ] ").append(i[2]).append(", \n[ End Time   ] ").append(i[3]).append(", \n[ Room       ] ").append(i[4]).append(", \n[ Speakers   ]\n ").append(i[7]).append("\nActivity ID: ").append(i[0]).append("\n---------------------------------------------------------\n \n ");
             j += 1;
         }
         return scheduleInfo.toString();
@@ -95,7 +94,7 @@ public class UserPresenter extends GeneralMenuPresenter {
     }
 
     /**
-     * @param groupConversationId contains all of the info for groupchats
+     * @param groupConversationId contains all of the info for group chats
      * @return all of the group chats in String format
      */
     public String strDisplayChatGroups(ArrayList<String[]> groupConversationId){

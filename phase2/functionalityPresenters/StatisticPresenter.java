@@ -45,12 +45,12 @@ public class StatisticPresenter extends AbstractPresenter{
 
     /**
      * Helper function to extract the info of the events
-     * @param topfive contains the top five events
+     * @param topFive contains the top five events
      * @return the information after formatting
      */
-    private String topFiveInfo(ArrayList<String> topfive){
+    private String topFiveInfo(ArrayList<String> topFive){
         ArrayList<String[]> info = new ArrayList<>();
-        for (String actID: topfive){
+        for (String actID: topFive){
             info.add(eventManager.searchEventByUUID(actID));
         }
         return new ModifyEventPresenter().strSchedule(info);

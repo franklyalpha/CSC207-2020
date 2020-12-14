@@ -68,10 +68,10 @@ public class AttCancelEnrollmentUI extends AbstractUI{
     }
 
 
-    private String getEnrolledEventID(ArrayList<String[]> availables) {
+    private String getEnrolledEventID(ArrayList<String[]> available) {
         Scanner scan = new Scanner(System.in);
         System.out.println(attendeePresenter.strEnrolledMenuDes());
-        System.out.println(attendeePresenter.strSchedule(availables));
+        System.out.println(attendeePresenter.strSchedule(available));
         System.out.println(attendeePresenter.strCancelPrompt());
         return scan.nextLine();
     }

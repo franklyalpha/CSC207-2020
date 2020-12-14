@@ -16,13 +16,13 @@ public class RequestController extends AbstractController {
 
     /**
      * Constructor for an instance of <code>RequestController</code>
-     * @param userController Instance of <code>UserController</code> to use the superconstructor.
+     * @param userController Instance of <code>UserController</code> to use the super constructor.
      */
     public RequestController(UserController userController) {
         super(userController);
         try{
             attendeeManager = new AttendeeManager(userManager);
-        } catch (ClassCastException e){ }
+        } catch (ClassCastException e){ e.printStackTrace(); }
 
     }
 

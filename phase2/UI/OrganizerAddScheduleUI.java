@@ -126,14 +126,13 @@ public class OrganizerAddScheduleUI extends AbstractUI {
     }
 
     protected Object[] inputRoomTopic()
-            throws InputMismatchException,
-            MaxNumberBeyondRoomCapacityException{
+            throws InputMismatchException{
         Scanner moreInfo = new Scanner(System.in);
         System.out.println(modifyEventPresenter.printSuggestedRoomPrompt(freeRooms));
-        return getRoomTopicMaxenroll(moreInfo);
+        return getRoomTopicMaxEnroll(moreInfo);
     }
 
-    private Object[] getRoomTopicMaxenroll(Scanner moreInfo){
+    private Object[] getRoomTopicMaxEnroll(Scanner moreInfo){
         System.out.println(organizerAddSchedulePresenter.strRoomNumPrompt());
         int roomIndex = moreInfo.nextInt();
         moreInfo.nextLine();

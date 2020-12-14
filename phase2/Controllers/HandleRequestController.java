@@ -13,7 +13,7 @@ public class HandleRequestController extends RequestController {
 
     /**
      * Creates an instance of <code>HandleRequestController</code>.
-     * @param userController Instance of <code>UserController</code> for superconstructor use.
+     * @param userController Instance of <code>UserController</code> for super constructor use.
      */
     public HandleRequestController(UserController userController) {
         super(userController);

@@ -19,27 +19,27 @@ import java.util.*;
  *
  */
 
-public class RoomManager extends AbstractSerializableManager implements java.io.Serializable {
+public class EventRoomManager extends AbstractSerializableManager implements java.io.Serializable {
 
 
     /**
-     * a Arraylist of <code>Room</code>
+     * a Arraylist of <code>EventRoom</code>
      */
     private ArrayList<EventRoom> eventRooms;
 
     private ItemFactory itemFactory;
 
     /**
-     * Creates <code>RoomManager</code> with a blank list of Rooms.
+     * Creates <code>EventRoomManager</code> with a blank list of event rooms.
      */
-    public RoomManager(){
+    public EventRoomManager(){
         eventRooms = new ArrayList<>();
     }
 
     /**
-     * Creates a <code>Room</code> and add it to the list of rooms of the <code>RoomManager</code>
-     * @param capacity is the capacity for the newly constructed <code>Room</code>.
-     * @return the id of the newly constructed <code>Room</code>.
+     * Creates a <code>EventRoom</code> and add it to the list of event rooms of the <code>EventRoomManager</code>
+     * @param capacity is the capacity for the newly constructed <code>EventRoom</code>.
+     * @return the id of the newly constructed <code>EventRoom</code>.
      */
     public UUID addRoom(int capacity, List<Integer> roomItems){
         EventRoomBuilder builder = new EventRoomBuilder(capacity);
@@ -51,12 +51,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         return newEventRoom.getId();
     }
 
-    // Check the Fullness for the room
 
     /**
      * Check whether a <code>Room</code> have the capacity to hold a given <code>Activity</code>
      * @param UserNum is the number of <code>User</code> attending the activity.
-     * @param roomID is the id of the room we want to chsck.
+     * @param roomID is the id of the room we want to check.
      * @return True if the room have the ability to hold this activity.
      */
     public boolean CheckRoomFullness(Integer UserNum, UUID roomID){
@@ -96,7 +95,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
 
     /**
      * Returns the capacity of the entities.Room with the given ID
-     * @param roomId of the <code>Room</code>
+     * @param roomId of the <code>EventRoom</code>
      * @return the capacity of the entities.Room
      */
     public int getRoomCapacity(UUID roomId){
@@ -104,12 +103,12 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     }
 
     /**
-     * Remove an activity in the entities.Room schedule
-     * @param time of the <code>Activity</code>
-     * @param actID id of the <code>Activity</code>
-     * @param roomID of the <code>Room</code>
+     * Remove an event in the entities.Room schedule
+     * @param time of the <code>Event</code>
+     * @param eventID id of the <code>Activity</code>
+     * @param roomID of the <code>EventRoom</code>
      */
-    public void CancelRoomEvent(LocalDateTime[] time, UUID actID, UUID roomID){
+    public void CancelRoomEvent(LocalDateTime[] time, UUID eventID, UUID roomID){
         EventRoom eventRoom = findRoom(roomID);
         assert eventRoom != null;
         Set<LocalDateTime[]> schedule = eventRoom.getSchedule().keySet();
@@ -119,11 +118,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
                 deletePeriod = period;
             }
         }
-        eventRoom.getSchedule().remove(deletePeriod, actID);
+        eventRoom.getSchedule().remove(deletePeriod, eventID);
     }
 
     /**
-     * get list of available <code>Room</code> in given time period.
+     * get list of available <code>EventRoom</code> in given time period.
      * @param targetPeriod is the time period we want to check.
      * @return a list of <>String[]</> of available room ids and info.
      */
@@ -145,9 +144,9 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      */
     private boolean checkSingleRoomOK(LocalDateTime[] targetPeriod, EventRoom eventRoom){
         HashMap<LocalDateTime[], UUID> roomBooked = eventRoom.getSchedule();
-        for(LocalDateTime[] interv: roomBooked.keySet()){
-            LocalDateTime start = interv[0];
-            LocalDateTime end = interv[1];
+        for(LocalDateTime[] interval: roomBooked.keySet()){
+            LocalDateTime start = interval[0];
+            LocalDateTime end = interval[1];
             if (start.isBefore(targetPeriod[0]) && end.isAfter(targetPeriod[1])){
                 return false;
             }
@@ -165,11 +164,11 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
     }
 
     /**
-     * Get <code>RoomItems</code> of a room by given room id.
-     * @param id the room id of the target room.
-     * @return an instance of <code>RoomItems</code>
+     * Get <code>EventRoomItems</code> of a event room by given room id.
+     * @param id the event room id of the target room.
+     * @return an instance of <code>EventRoomItems</code>
      */
-    public EventRoomItems getRoomItems(UUID id){
+    public EventRoomItems getEventRoomItems(UUID id){
         return findRoom(id).getRoomItems();
     }
 
@@ -179,7 +178,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * @param itemChoice is the event's technical requirement for possible rooms.
      * @return True if this room meets the technical requirement.
      */
-    public boolean checkRoomItems(UUID roomID, Boolean[] itemChoice){
+    public boolean checkEventRoomItems(UUID roomID, Boolean[] itemChoice){
         return findRoom(roomID).checkItemRequirement(itemChoice);
     }
 

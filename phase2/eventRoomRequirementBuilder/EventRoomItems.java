@@ -9,7 +9,7 @@ import java.util.List;
 public class EventRoomItems implements java.io.Serializable {
 
 
-    private List<EventRoomItem> items = new ArrayList<EventRoomItem>();
+    private List<EventRoomItem> items = new ArrayList<>();
 
     /**
      * Get the event room items
@@ -84,13 +84,13 @@ public class EventRoomItems implements java.io.Serializable {
      * @return a string contains all the event room items' string representation.
      */
     public String showItems(){
-        String itemsString = "";
+        StringBuilder itemsString = new StringBuilder();
         for (EventRoomItem item: items){
             if(item != null){
-                itemsString = itemsString + item.toString() + "\n";
+                itemsString.append(item.toString()).append("\n");
             }
         }
-        return itemsString;
+        return itemsString.toString();
     }
 
     /**

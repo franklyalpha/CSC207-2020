@@ -23,7 +23,7 @@ import java.util.Scanner;
  *   particular Organizer-Speaker Chatroom.
  * viewCoopChat(): responsible for viewing messages from a chatroom with only organizers and speakers.
  * deleteMessage(): responsible for deleting messages for a particular user.
- * deleteEvent(): responosible for cancellinga particular event.
+ * deleteEvent(): responsible for cancelling particular event.
  */
 public class AdministratorUI extends OrganizerUI {
 

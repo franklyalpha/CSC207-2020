@@ -44,19 +44,19 @@ public class AttEnrollEventUI extends AbstractUI {
      */
     @Override
     public void run() throws ExceedingMaxAttemptException {
-        ArrayList<String[]> availables = schedulePresenter.viewAvailableSchedules();
-        if (availables.size() == 0){
+        ArrayList<String[]> available = schedulePresenter.viewAvailableSchedules();
+        if (available.size() == 0){
             return;
         }
-        inputAndEnrollEvent(availables);
+        inputAndEnrollEvent(available);
     }
 
 
-    private void inputAndEnrollEvent(ArrayList<String[]> availables) throws ExceedingMaxAttemptException {
+    private void inputAndEnrollEvent(ArrayList<String[]> available) throws ExceedingMaxAttemptException {
         for (int i = 0; i < 3; i++){
             try{
-                String actID = getAvailableEventID(availables);
-                enroll.enrollEvent(availables, actID);
+                String actID = getAvailableEventID(available);
+                enroll.enrollEvent(available, actID);
                 return;
             }catch(EventNotFoundException e){
                 System.out.println(attendeePresenter.strInvalidEventID());
@@ -66,10 +66,10 @@ public class AttEnrollEventUI extends AbstractUI {
     }
 
 
-    private String getAvailableEventID(ArrayList<String[]> availables) {
+    private String getAvailableEventID(ArrayList<String[]> available) {
         Scanner scan = new Scanner(System.in);
         System.out.println(attendeePresenter.strEnrollMenuDes());
-        System.out.println(attendeePresenter.strSchedule(availables));
+        System.out.println(attendeePresenter.strSchedule(available));
         System.out.println(attendeePresenter.strEnrollPrompt());
         return scan.nextLine();
     }

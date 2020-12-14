@@ -21,7 +21,7 @@ import static globallyAccessible.UserType.*;
  */
 public class LoginController {
     /**
-     * @param userManager: an instance of UserManager being instantiated and used for checking
+     * an instance of UserManager being instantiated and used for checking
      *                   login and sign up.
      */
     private final UserManager userManager = new GatewaySerialize().deserializeUser();

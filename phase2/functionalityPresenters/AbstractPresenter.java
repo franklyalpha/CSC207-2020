@@ -3,7 +3,7 @@ package functionalityPresenters;
 import Controllers.UserController;
 import useCases.EventManager;
 import useCases.MessageRoomManager;
-import useCases.RoomManager;
+import useCases.EventRoomManager;
 import useCases.UserManager;
 //import useCases.RequestManager;
 
@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class AbstractPresenter {
-    protected RoomManager roomManager;
+    protected EventRoomManager eventRoomManager;
     protected EventManager eventManager;
     protected UserManager userManager;
     protected MessageRoomManager messageRoomManager;
@@ -30,7 +30,7 @@ public class AbstractPresenter {
      */
     public AbstractPresenter(UserController userController){
         Object[] managers = userController.extractManagers();
-        roomManager = (RoomManager) managers[3];
+        eventRoomManager = (EventRoomManager) managers[3];
         eventManager = (EventManager) managers[1];
         userManager = (UserManager) managers[2];
         messageRoomManager = (MessageRoomManager) managers[0];

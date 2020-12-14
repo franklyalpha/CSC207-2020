@@ -38,10 +38,8 @@ public class SQLServer {
     }
 
     public static void writeJavaObject(Connection conn, Object object) throws Exception {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream out = null;
-        try {
-            out = new ObjectOutputStream(bos);
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            ObjectOutputStream out = new ObjectOutputStream(bos);
             out.writeObject(object);
             out.flush();
             byte[] objBytes = bos.toByteArray();
@@ -55,12 +53,6 @@ public class SQLServer {
 
             pstmt.close();
             System.out.println(className + " saved in cloud!");
-        } finally {
-            try {
-                bos.close();
-            } catch (IOException ex){
-                // ignore
-            }
         }
 
     }

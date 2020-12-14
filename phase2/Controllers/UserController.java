@@ -17,7 +17,7 @@ public class UserController {
     protected UserManager userManager;
     protected MessageRoomManager messageRoomManager;
     protected EventManager eventManager;
-    protected RoomManager roomManager;
+    protected EventRoomManager eventRoomManager;
     protected RequestManager requestManager;
 
     /**
@@ -29,7 +29,7 @@ public class UserController {
         try {
             messageRoomManager = (MessageRoomManager) new GatewaySerialize().deserialize("chats");
             eventManager = (EventManager) new GatewaySerialize().deserialize("events");
-            roomManager = (RoomManager) new GatewaySerialize().deserialize("rooms");
+            eventRoomManager = (EventRoomManager) new GatewaySerialize().deserialize("rooms");
             requestManager = (RequestManager) new GatewaySerialize().deserialize("requests");
         } catch (CannotSerializeException e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class UserController {
      * @return an instance of <>Object[]</> containing all managers stored by this controller.
      */
     public Object[] extractManagers(){
-        return new Object[]{messageRoomManager, eventManager, userManager, roomManager, requestManager};
+        return new Object[]{messageRoomManager, eventManager, userManager, eventRoomManager, requestManager};
     }
 
     /**
@@ -51,7 +51,7 @@ public class UserController {
 
         userManager.logout();
         new GatewaySerialize().serializeUser(userManager);
-        new GatewaySerialize().serialize(roomManager);
+        new GatewaySerialize().serialize(eventRoomManager);
         new GatewaySerialize().serialize(messageRoomManager);
         new GatewaySerialize().serialize(eventManager);
         new GatewaySerialize().serialize(requestManager);

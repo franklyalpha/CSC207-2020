@@ -53,7 +53,7 @@ public class AttendeeUI extends UserUI {
      */
     public void run(){
         addMenu();
-        int action = 0;
+        int action;
         boolean enterAction = true;
         while(enterAction){
             Scanner scan = new Scanner(System.in);

@@ -55,24 +55,24 @@ public class AttendeeManager extends UserManager {
 
     /**
      * Creates a <code>isFree</code> and check whether the user is free during some time.
-     * @param actinterv is the time that needed to be checked.
+     * @param eventInterval is the time that needed to be checked.
      * @return returns 1 if the user is free during the time and returns 0 otherwise.
      */
-    public boolean isFree(LocalDateTime[] actinterv){
+    public boolean isFree(LocalDateTime[] eventInterval){
         HashMap<LocalDateTime[], UUID> userSchedule = currentUser.getEvents();
-        for(LocalDateTime[] interv: userSchedule.keySet()){
-            LocalDateTime start = interv[0];
-            LocalDateTime end = interv[1];
-            if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
+        for(LocalDateTime[] interval: userSchedule.keySet()){
+            LocalDateTime start = interval[0];
+            LocalDateTime end = interval[1];
+            if (start.isBefore(eventInterval[0]) && end.isAfter(eventInterval[1])){
                 return false;
             }
-            if (start.isAfter(actinterv[0]) && start.isBefore(actinterv[1])){
+            if (start.isAfter(eventInterval[0]) && start.isBefore(eventInterval[1])){
                 return false;
             }
-            if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
+            if (end.isAfter(eventInterval[0]) && end.isBefore(eventInterval[1])){
                 return false;
             }
-            if (start.isEqual(actinterv[0]) && end.isEqual(actinterv[1])){
+            if (start.isEqual(eventInterval[0]) && end.isEqual(eventInterval[1])){
                 return false;
             }
         }

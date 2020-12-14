@@ -26,7 +26,7 @@ public class ModifyEventController extends EventController {
      */
     public void changeEventMaxNumPeople(UUID activityId, Integer newMaxNum) throws MaxNumberBeyondRoomCapacityException {
         UUID roomID = UUID.fromString(eventManager.searchEventByUUID(activityId.toString())[4]);
-        if(roomManager.getRoomCapacity(roomID) < newMaxNum){
+        if(eventRoomManager.getRoomCapacity(roomID) < newMaxNum){
             throw new MaxNumberBeyondRoomCapacityException("invalid maximum enrollment");
         }
         eventManager.changeEventMaxParticipant(activityId, newMaxNum);

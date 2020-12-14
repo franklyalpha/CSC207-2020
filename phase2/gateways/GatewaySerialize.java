@@ -30,7 +30,7 @@ public class GatewaySerialize {
                     serialize = (RequestManager) SQLServer.readJavaObject(conn, "useCases.RequestManager");
                     break;
                 case "rooms":
-                    serialize = (RoomManager) SQLServer.readJavaObject(conn, "useCases.RoomManager");
+                    serialize = (EventRoomManager) SQLServer.readJavaObject(conn, "useCases.RoomManager");
                     break;
                 default:
                     throw new CannotSerializeException("Cannot deserialize!");
@@ -56,7 +56,7 @@ public class GatewaySerialize {
                 serialize = new RequestManager();
                 break;
             case "rooms":
-                serialize = new RoomManager();
+                serialize = new EventRoomManager();
                 break;
             default:
                 throw new CannotSerializeException("Cannot deserialize!");

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * the controller being extended by other controllers dealing with messaging and updates regardng messaging.
+ * the controller being extended by other controllers dealing with messaging and updates regarding messaging.
  */
 public class MessagingController extends AbstractController{
     /**

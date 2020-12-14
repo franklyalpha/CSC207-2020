@@ -26,24 +26,24 @@ public class OrganizerManager extends UserManager {
     /**
      * Creates a <code>isFree</code> and check if the speaker is free during the time period.
      * @param speaker is the speaker that needed to be checked.
-     * @param actinterv is the time that needed to be checked.
+     * @param eventInterval is the time that needed to be checked.
      * @return returns 1 if the speaker is free during the time and returns 0 otherwise.
      */
-    private boolean isFree(User speaker, LocalDateTime[] actinterv){
+    private boolean isFree(User speaker, LocalDateTime[] eventInterval){
         HashMap<LocalDateTime[], UUID> userSchedule = speaker.getEvents();
-        for(LocalDateTime[] interv: userSchedule.keySet()){
-            LocalDateTime start = interv[0];
-            LocalDateTime end = interv[1];
-            if (start.isBefore(actinterv[0]) && end.isAfter(actinterv[1])){
+        for(LocalDateTime[] interval: userSchedule.keySet()){
+            LocalDateTime start = interval[0];
+            LocalDateTime end = interval[1];
+            if (start.isBefore(eventInterval[0]) && end.isAfter(eventInterval[1])){
                 return false;
             }
-            if (start.isAfter(actinterv[0]) && start.isBefore(actinterv[1])){
+            if (start.isAfter(eventInterval[0]) && start.isBefore(eventInterval[1])){
                 return false;
             }
-            if (end.isAfter(actinterv[0]) && end.isBefore(actinterv[1])){
+            if (end.isAfter(eventInterval[0]) && end.isBefore(eventInterval[1])){
                 return false;
             }
-            if (start.isEqual(actinterv[0]) && end.isEqual(actinterv[1])){
+            if (start.isEqual(eventInterval[0]) && end.isEqual(eventInterval[1])){
                 return false;
             }
         }

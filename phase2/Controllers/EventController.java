@@ -32,7 +32,7 @@ public class EventController extends AbstractController{
 
     /**
      * returns information of all existing events of this system.
-     * @return An instance of <>ArrayList</> containing <>String[]</> of ebent's info, each <>String[]</> includes:
+     * @return An instance of <>ArrayList</> containing <>String[]</> of event's info, each <>String[]</> includes:
      * UUID of this activity, topic, start time, end time, UUID of assigned room, the event's description,
      * the type of event and name of speaker(s).
      * @throws NoEventsException is thrown when no events has yet being stored in the system.

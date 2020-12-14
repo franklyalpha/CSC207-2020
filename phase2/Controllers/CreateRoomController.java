@@ -27,7 +27,7 @@ public class CreateRoomController extends AbstractController{
      */
     public UUID createRoomWithCondition(int capacity, List<Integer> roomItems) throws CannotCreateEventException {
         if (capacity > 0){
-            return roomManager.addRoom(capacity, roomItems);
+            return eventRoomManager.addRoom(capacity, roomItems);
         }
         else{
             throw new CannotCreateEventException("Invalid capacity!!!");

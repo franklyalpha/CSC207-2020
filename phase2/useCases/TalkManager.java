@@ -27,31 +27,31 @@ public class TalkManager extends EventManager {
 
     /**
      * adding a speaker
-     * @param actID ID of event
+     * @param eventID ID of event
      * @param speakerName Name of the speaker
      */
     @Override
-    public void addSpeaker(UUID actID, String speakerName){
-        Talk targetAct = findEvent(actID);
+    public void addSpeaker(UUID eventID, String speakerName){
+        Talk targetAct = findEvent(eventID);
         targetAct.setSpeaker(speakerName);
     }
 
     /**
      * Deleting the speaker
-     * @param actID ID of event
+     * @param eventID ID of event
      */
-    public void deleteSpeaker(UUID actID){
-        Talk targetAct = findEvent(actID);
+    public void deleteSpeaker(UUID eventID){
+        Talk targetAct = findEvent(eventID);
         targetAct.setSpeaker(null);
     }
 
     /**
      * get the speaker from the talk
-     * @param actID ID of event
+     * @param eventID ID of event
      * @return the String representing the speaker
      */
-    public String getSpeaker(UUID actID){
-        return findEvent(actID).getSpeaker();
+    public String getSpeaker(UUID eventID){
+        return findEvent(eventID).getSpeaker();
     }
 
     /**
@@ -64,14 +64,14 @@ public class TalkManager extends EventManager {
 
     /**
      * Find the event this ID is representing
-     * @param actID the ID of event we want to find
+     * @param eventID the ID of event we want to find
      * @return the Talk event
      */
     @Override
-    protected Talk findEvent(UUID actID) {
+    protected Talk findEvent(UUID eventID) {
         Talk targetAct =  null;
         for(Event i: this.upcomingEvents.get(EventType.TALK)){
-            if(i.getIdentity().equals(actID)){
+            if(i.getIdentity().equals(eventID)){
                 targetAct = (Talk) i;
             }
         }

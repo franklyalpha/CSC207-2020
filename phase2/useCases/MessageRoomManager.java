@@ -25,7 +25,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
     /**
      * ArrayList of all instances of <code>Chatroom</code> associated with activities happening.
      */
-    private ArrayList<MessageRoom> conferenceChats;
+    private ArrayList<MessageRoom> eventChats;
 
     /**
      * ArrayList of all instances of private <code>Chatroom</code> (i.e. <code>Chatroom</code> with two participants).
@@ -34,22 +34,22 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
 
 
     /**
-     * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
+     * Creates <code>ChatroomManager</code> with a blank list of conference messageRooms, blank list of private messageRooms, and an empty <code>MessageRoom</code> (i.e. no organizers or speakers yet).
      */
     public MessageRoomManager(){
         coopRoom = new MessageRoom();
-        conferenceChats = new ArrayList<>();
+        eventChats = new ArrayList<>();
         privateChats = new ArrayList<>();
 
     }
 
     /**
-     * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and a <code>Chatroom</code> with the specified organizers and speakers as participants.
+     * Creates <code>ChatroomManager</code> with a blank list of conference messageRooms, blank list of private messageRooms, and a <code>Chatroom</code> with the specified organizers and speakers as participants.
      * @param organizerSpeakers ArrayList of usernames of organizers and speakers to be put into the coopRoom <code>Chatroom</code>.
      */
     public MessageRoomManager(ArrayList<String> organizerSpeakers) {
         coopRoom = new MessageRoom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
-        conferenceChats = new ArrayList<>();
+        eventChats = new ArrayList<>();
         privateChats = new ArrayList<>();
     }
 
@@ -70,7 +70,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
             privateChats.add(newRoom);  // add to privateChats list if there's only 2 users in the room (i.e. its private)
         }
         else{
-            conferenceChats.add(newRoom); // add chatroom to conferenceChats !!!!!!!      This is NOT how conferenceChats should be used but this is until we can guarantee we won't try to create private groupchats
+            eventChats.add(newRoom); // add chatroom to conferenceChats !!!!!!!      This is NOT how conferenceChats should be used but this is until we can guarantee we won't try to create private group chats
         }
         return newRoom.getId();
     }
@@ -89,7 +89,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      * @param chat UUID of the <code>Chatroom</code> we want to add the specified users to.
      */
     public void addUser(ArrayList<String> users, UUID chat) {
-        ArrayList<MessageRoom> tmp = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> tmp = new ArrayList<>(eventChats);
         tmp.add(coopRoom);
         for (MessageRoom room : tmp){
             if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
@@ -107,7 +107,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      */
 
     public void addUser(String username, UUID chat) {
-        ArrayList<MessageRoom> tmp = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> tmp = new ArrayList<>(eventChats);
         tmp.add(coopRoom);
         for (MessageRoom room : tmp){
             if (room.getId().equals(chat)){               // check the UUID to make sure we have the right entities.Chatroom
@@ -124,7 +124,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      * @param chat UUID of the <code>Chatroom</code> we want to remove the specified users from.
      */
     public void removeUser(ArrayList<String> users, UUID chat) {
-        for (MessageRoom room : conferenceChats) {
+        for (MessageRoom room : eventChats) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
                 for (String userID : users) {
                     room.getUsersInvolved().remove(userID);  // remove users to the usersInvolved in this chat
@@ -148,7 +148,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      * @param chat UUID of the <code>Chatroom</code> we want to send the message to.
      */
     public void sendMessage(String message, UUID chat){
-        ArrayList<MessageRoom> groupChat = new ArrayList<>(conferenceChats);
+        ArrayList<MessageRoom> groupChat = new ArrayList<>(eventChats);
         groupChat.add(coopRoom);
         for (MessageRoom room : groupChat) {
             if (room.getId().equals(chat)) {               // check the UUID to make sure we have the right entities.Chatroom
@@ -176,7 +176,7 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
      * @param chatID UUID of the <code>Chatroom</code> we want to delete
      */
     public void deleteGroupChat(UUID chatID){
-        conferenceChats.removeIf(groupRoom -> groupRoom.getId().equals(chatID));
+        eventChats.removeIf(groupRoom -> groupRoom.getId().equals(chatID));
     }
 
     /**
@@ -188,11 +188,11 @@ public class MessageRoomManager extends AbstractSerializableManager implements j
     private MessageRoom findChatroom(UUID chatID){
         MessageRoom returns = null;
         ArrayList<MessageRoom> allChats = new ArrayList<>(privateChats);
-        allChats.addAll(conferenceChats);
+        allChats.addAll(eventChats);
         allChats.add(coopRoom);
-        for (MessageRoom chatrooms : allChats){
-            if (chatrooms.getId().equals(chatID)){
-                returns = chatrooms;
+        for (MessageRoom messageRooms : allChats){
+            if (messageRooms.getId().equals(chatID)){
+                returns = messageRooms;
             }
         }
         return returns;

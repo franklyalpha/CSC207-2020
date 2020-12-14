@@ -60,7 +60,7 @@ public class AvailableSchedulePresenter extends AbstractPresenter{
      * @return if the user is free
      */
     private boolean checkIsConflict(String[] info){
-        if (!roomManager.CheckRoomFullness(eventManager.numAttendee(UUID.fromString(info[0])),
+        if (!eventRoomManager.CheckRoomFullness(eventManager.numAttendee(UUID.fromString(info[0])),
                 UUID.fromString(info[4]))){
             return true;
         }

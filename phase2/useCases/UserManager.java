@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.UUID;
 
-//public class use_cases.UserManager implements java.io.Serializable
+
 
 /**
  * Represents a <code>USerManager</code> that is responsible for any interactions with <code>User</code> entities.
@@ -29,11 +29,6 @@ import java.util.UUID;
  */
 public class UserManager extends ExtendedUserManager implements java.io.Serializable{
 
-//    /**
-//     * will consider adding another type-indicator String[], stores all possible type names.
-//     * therefore modify below all strings of types as: TypeString[0], TypeString[1],TypeString[2].
-//     */
-    // call modification and reset
 
     /**
      * Creates a <code>UserManager</code> with blank list of organizers, speakers, attendee.
