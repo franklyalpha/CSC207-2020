@@ -8,8 +8,8 @@ package roomRequirementBuilder;
 
 public class ItemFactory {
     /**
-     * Create a new <code>Projector</code> with identical price and series number.
-     * @return a new projector.
+     * Construct a new <code>Projector</code> with identical price and series number.
+     * @return an instance of projector.
      */
     public Projector constructProjector(){
         Projector projector = new Projector();
@@ -19,8 +19,8 @@ public class ItemFactory {
     }
 
     /**
-     * Create a new <code>Microphone</code> with identical price and series number.
-     * @return a new microphone.
+     * Construct a new <code>Microphone</code> with identical price and series number.
+     * @return an instance of microphone.
      */
     public MicroPhone constructMicrophone(int quantity){
         MicroPhone microPhone = new MicroPhone(quantity);
@@ -30,8 +30,8 @@ public class ItemFactory {
     }
 
     /**
-     * Create a new <code>PartyAudio</code> with identical price and series number.
-     * @return a new party audio system.
+     * Construct a new <code>PartyAudio</code> with identical price and series number.
+     * @return an instance of party audio system.
      */
     public PartyAudioSystem constructPartyAudio(){
         PartyAudioSystem partyAudioSystem = new PartyAudioSystem();

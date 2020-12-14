@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 /**
- * The controller responsible for updating information (in particularm the maximum number of
+ * The controller responsible for updating information (in particular the maximum number of
  * participants) of existing events.
  */
 public class ModifyEventController extends EventController {
