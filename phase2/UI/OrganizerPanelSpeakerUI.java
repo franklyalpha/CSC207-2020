@@ -69,7 +69,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
     }
 
     private String eventSelect() throws NoEventsException {
-        ArrayList<String[]> allActivities = panelRescheduleSpeakerController.getAllActivities();
+        ArrayList<String[]> allActivities = panelRescheduleSpeakerController.getAllEvents();
         System.out.println(organizerRescheduleSpeakerPresenter.strAllEventMenuDes());
         System.out.println(organizerRescheduleSpeakerPresenter.strSchedule(allActivities));
         return inputSelection(allActivities, panelRescheduleSpeakerController);

@@ -32,7 +32,7 @@ public class GroupMessagePresenter extends AbstractPresenter {
     public HashMap<String, ArrayList<String>> viewGroupMessage() {
         // may add particular user for viewing;
         // should call presenter to display; but will acquire data here;
-        HashMap<LocalDateTime[], UUID> act = userManager.getActivities();
+        HashMap<LocalDateTime[], UUID> act = userManager.getEvents();
         if (act.size() == 0){
             return null;
         }

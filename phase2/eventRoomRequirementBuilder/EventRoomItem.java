@@ -1,4 +1,4 @@
-package roomRequirementBuilder;
+package eventRoomRequirementBuilder;
 
 /**
  * Represents room items in the room.
@@ -7,20 +7,20 @@ package roomRequirementBuilder;
  * @version 1.0
  */
 
-public class RoomItem implements java.io.Serializable{
+public class EventRoomItem implements java.io.Serializable{
 
     /**
-     * price for each room item.
+     * price for each event room item.
      */
     public int price;
 
     /**
-     * series number for each room item.
+     * series number for each event room item.
      */
     public String seriesNum;
 
     /**
-     * Get the name for this room item.
+     * Get the name for this event room item.
      * @return null, Needs to override.
      */
     public String name() {
@@ -28,7 +28,7 @@ public class RoomItem implements java.io.Serializable{
     }
 
     /**
-     * Gets the price for this <code>RoomItem</code>
+     * Gets the price for this <code>EventRoomItem</code>
      * @return the price.
      */
     public int getPrice() {
@@ -36,7 +36,7 @@ public class RoomItem implements java.io.Serializable{
     }
 
     /**
-     * Change the price of this <code>RoomItem</code> with given new price.
+     * Change the price of this <code>EventRoomItem</code> with given new price.
      * @param newPrice the new price.
      */
     public void setPrice(int newPrice){
@@ -44,7 +44,7 @@ public class RoomItem implements java.io.Serializable{
     }
 
     /**
-     * Get the series number of this <code>RoomItem</code>.
+     * Get the series number of this <code>EventRoomItem</code>.
      * @return the series number.
      */
     public String getSeriesNum() {
@@ -52,7 +52,7 @@ public class RoomItem implements java.io.Serializable{
     }
 
     /**
-     * Change the series number of this <code>RoomItem</code> with given new series number.
+     * Change the series number of this <code>EventRoomItem</code> with given new series number.
      * @param newSeriesNum the new series number.
      */
     public void setSeriesNum(String newSeriesNum) {

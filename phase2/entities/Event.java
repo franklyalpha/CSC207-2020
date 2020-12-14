@@ -30,25 +30,25 @@ public abstract class Event implements java.io.Serializable {
     private String topic;
     private Integer maxNumAttendee;
     protected EventType type;
-    //Maybe event tags for easier search?
+
 
     /**
-     * Creates <code>Activity</code> with specified start time, end time, conference chat id, conference room number,
+     * Creates <code>Event</code> with specified start time, end time, conference chat id, conference room number,
      * max attendees, and topic.
-     * @param period LocalDateTime of start & end time in <code>Activity</code>.
-     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
-     * @param topic the topic of the activity in <code>Activity</code>.
+     * @param period LocalDateTime of start & end time in <code>Event</code>.
+     * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.
+     * @param topic the topic of the activity in <code>Event</code>.
      * @param MaxNum the maximum number of attendees for this event
      */
-    public Event(LocalDateTime[] period, UUID[] chatRoomID,
+    public Event(LocalDateTime[] period, UUID[] roomID,
                  String topic, Integer MaxNum){
         this.attendeeList = new ArrayList<>();
         this.startTime = period[0];
         this.endTime = period[1];
         this.duration = Duration.between(startTime, endTime);
-        this.conferenceChat = chatRoomID[0];
+        this.conferenceChat = roomID[0];
         this.identity = UUID.randomUUID();
-        this.conferenceRoomNum = chatRoomID[1];
+        this.conferenceRoomNum = roomID[1];
         this.topic = topic;
         this.maxNumAttendee = MaxNum;
     }
@@ -94,20 +94,20 @@ public abstract class Event implements java.io.Serializable {
     public boolean removeAttendee(String attendee){return this.attendeeList.remove(attendee);}
 
     /**
-     * Changes the topic of this activity with the given new topic.
-     * @param  topic the new topic of this activity.
+     * Changes the topic of this event with the given new topic.
+     * @param  topic the new topic of this event.
      */
     public void setTopic(String topic){this.topic = topic;}
 
     /**
-     * Changes the conference room number of this activity with the given new conference room number.
-     * @param  conferenceRoomNum the new conference room number of this activity.
+     * Changes the conference room number of this event with the given new conference room number.
+     * @param  conferenceRoomNum the new conference room number of this event.
      */
     public void setRoom(UUID conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
 
     /**
-     * Changes the start time of this activity with the given new start time.
-     * @param  startTime the new start time of this activity.
+     * Changes the start time of this event with the given new start time.
+     * @param  startTime the new start time of this event.
      */
     public boolean setStartTime(LocalDateTime startTime){
         if(startTime.isAfter(this.endTime)){
@@ -120,8 +120,8 @@ public abstract class Event implements java.io.Serializable {
     }
 
     /**
-     * Changes the end time of this activity with the given new end time.
-     * @param  endTime the new start time of this activity.
+     * Changes the end time of this event with the given new end time.
+     * @param  endTime the new start time of this event.
      */
     public boolean setEndTime(LocalDateTime endTime){
         if(endTime.isBefore(this.startTime)){
@@ -134,8 +134,8 @@ public abstract class Event implements java.io.Serializable {
     }
 
     /**
-     * Changes the duration of this activity with the given new duration.
-     * @param  duration the new duration of this activity.
+     * Changes the duration of this event with the given new duration.
+     * @param  duration the new duration of this event.
      */
     public void setDuration(Duration duration){
         changeDuration(duration);
@@ -144,7 +144,7 @@ public abstract class Event implements java.io.Serializable {
 
     /**
      * Changes the Maximum Number of attendees with the given new integer.
-     * @param  MaxNum the new Maximum number of attendees of this activity.
+     * @param  MaxNum the new Maximum number of attendees of this event.
      */
     public void setMaxNumAttendee(int MaxNum){
         this.maxNumAttendee = MaxNum;
@@ -159,67 +159,71 @@ public abstract class Event implements java.io.Serializable {
     }
 
     /**
-     * Gets an attendees list in this <code>Activity</code>.
+     * Gets an attendees list in this <code>Event</code>.
      * @return A list of strings corresponding to the attendees of <code>attendees</code> in this
      * <code>Activity</code>.
      */
     public ArrayList<String> getAttendeeList(){return this.attendeeList;}
 
     /**
-     * Gets the start time for this <code>Activity</code>.
-     * @return The LocalDateTime corresponding to the start time of this <code>Activity</code>.
+     * Gets the start time for this <code>Event</code>.
+     * @return The LocalDateTime corresponding to the start time of this <code>Event</code>.
      */
     public LocalDateTime getStartTime(){return this.startTime;}
 
     /**
-     * Gets the end time for this <code>Activity</code>.
-     * @return The LocalDateTime corresponding to the end time of this <code>Activity</code>.
+     * Gets the end time for this <code>Event</code>.
+     * @return The LocalDateTime corresponding to the end time of this <code>Event</code>.
      */
     public LocalDateTime getEndTime(){return this.endTime;}
 
     /**
-     * Gets the duration for this <code>Activity</code>.
-     * @return The Duration corresponding to the duration of this <code>Activity</code>.
+     * Gets the duration for this <code>Event</code>.
+     * @return The Duration corresponding to the duration of this <code>Event</code>.
      */
     public Duration getDuration(){return this.duration;}
 
     /**
-     * Gets the unique identifier for this <code>Activity</code>.
-     * @return The UUID corresponding to this <code>Activity</code>.
+     * Gets the unique identifier for this <code>Event</code>.
+     * @return The UUID corresponding to this <code>Event</code>.
      */
     public UUID getChatID(){return this.conferenceChat;}
 
     /**
-     * Gets the Maximum Number of attendees for this <code>Activity</code>.
-     * @return The integer corresponding to this <code>Activity</code>.
+     * Gets the Maximum Number of attendees for this <code>Event</code>.
+     * @return The integer corresponding to this <code>Event</code>.
      */
     public Integer getMaxNumAttendee(){
         return this.maxNumAttendee;
     }
 
     /**
-     * Gets an identity in this <code>Activity</code>.
-     * @return A UUID corresponding to the identity in this <code>Activity</code>.
+     * Gets an identity in this <code>Event</code>.
+     * @return A UUID corresponding to the identity in this <code>Event</code>.
      */
     public UUID getIdentity(){return this.identity;}
 
     /**
-     * Gets a conference room number in this <code>Activity</code>.
-     * @return A UUID corresponding to the number of the conference room in this <code>Activity</code>.
+     * Gets a conference room number in this <code>Event</code>.
+     * @return A UUID corresponding to the number of the conference room in this <code>Event</code>.
      */
     public UUID getConferenceRoomNum(){return this.conferenceRoomNum;}
 
     /**
-     * Gets a topic in this <code>Activity</code>.
-     * @return A string corresponding to the topic in this <code>Activity</code>.
+     * Gets a topic in this <code>Event</code>.
+     * @return A string corresponding to the topic in this <code>Event</code>.
      */
     public String getTopic(){return this.topic;}
 
+    /**
+     * Gets a event type in this <code>Event</code>.
+     * @return A event type corresponding to the type if the event in this <code>Event</code>.
+     */
     public EventType getEventType(){return this.type;}
 
     /**
-     * This method show the info of activity in string.
-     * @return the string of the class Activity
+     * This method show the info of event in string.
+     * @return the string of the class event.
      */
     public String toString(){
         String description = ("Topic: " + this.topic + "\nSpeakers: [ " + speakerToString() + " ]");

@@ -22,7 +22,7 @@ public class AttendeeManager extends UserManager {
     /**
      * Creates an instance of <code>AttendeeManager</code>
      * @param userManager the <code>UserManager</code> used to create this Manager
-     * @throws ClassCastException when the clase cannot be casted
+     * @throws ClassCastException when the class cannot be casted
      */
     public AttendeeManager(UserManager userManager) throws ClassCastException {
         super(userManager);
@@ -30,14 +30,14 @@ public class AttendeeManager extends UserManager {
     }
 
     /**
-     * Creates a <code>deleteActivity</code> and delete the activity.
+     * Creates a <code>deleteEvent</code> and delete the event.
      * @param time is the time of the activity that needed to be delete.
      */
     public boolean deleteEvent(LocalDateTime[] time){
-        Set<LocalDateTime[]> period = userOnAir.getActivities().keySet();
+        Set<LocalDateTime[]> period = userOnAir.getEvents().keySet();
         for (LocalDateTime[] target : period){
             if (target[0].equals(time[0]) && target[1].equals(time[1])){
-                userOnAir.getActivities().remove(target);
+                userOnAir.getEvents().remove(target);
                 return true;
             }
         }
@@ -45,12 +45,12 @@ public class AttendeeManager extends UserManager {
     }
 
     /**
-     * Creates a <code>selfAddSchedule</code> and add the time of the activity to the user's schedule.
+     * Creates a <code>selfAddSchedule</code> and add the time of the event to the user's schedule.
      * @param time is the time that needed to be added.
      * @param actID is the ID of the user.
      */
     public void selfAddSchedule(LocalDateTime[] time, UUID actID){
-        userOnAir.getActivities().put(time, actID);
+        userOnAir.getEvents().put(time, actID);
     }
 
     /**
@@ -59,7 +59,7 @@ public class AttendeeManager extends UserManager {
      * @return returns 1 if the user is free during the time and returns 0 otherwise.
      */
     public boolean isFree(LocalDateTime[] actinterv){
-        HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getActivities();
+        HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getEvents();
         for(LocalDateTime[] interv: userSchedule.keySet()){
             LocalDateTime start = interv[0];
             LocalDateTime end = interv[1];

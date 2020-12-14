@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.ModifyEventController;
 import Controllers.UserController;
-import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
 import globallyAccessible.NoEventsException;
 import menuPresenter.ModifyEventPresenter;
@@ -47,7 +46,7 @@ public class OrganizerModifyEventUI extends AbstractUI {
 
     private void inputAndUpdateModification(ModifyEventController modifyActivity, ModifyEventPresenter presenter)
             throws NoEventsException, IllegalArgumentException, MaxNumberBeyondRoomCapacityException {
-        System.out.println(presenter.printMaxNumEventPrompt_1(modifyActivity.getAllActivities()));
+        System.out.println(presenter.printMaxNumEventPrompt_1(modifyActivity.getAllEvents()));
         Scanner input_1 = new Scanner(System.in);
         UUID activityId = UUID.fromString(input_1.nextLine());
         System.out.println(presenter.printMaxNumEventPrompt_2());

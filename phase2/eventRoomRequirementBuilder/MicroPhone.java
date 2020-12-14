@@ -1,4 +1,4 @@
-package roomRequirementBuilder;
+package eventRoomRequirementBuilder;
 
 /**
  * Represents Microphones as a <code>RoomItem</code> in the room.
@@ -7,7 +7,7 @@ package roomRequirementBuilder;
  * @version 1.0
  */
 
-public class MicroPhone extends RoomItem implements java.io.Serializable {
+public class MicroPhone extends EventRoomItem implements java.io.Serializable {
     /**
      * numbers of microphones.
      */

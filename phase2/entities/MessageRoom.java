@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Represents a Chatroom where <code>Users</code> can send messages to one another.
+ * Represents a Message Room where <code>Users</code> can send messages to one another.
  * @author Group 0168
  * @author CSC207 - Fall 2020
  * @version 1.0
@@ -69,8 +69,7 @@ public class MessageRoom implements java.io.Serializable{
         return this.historicalChats;
     }
 
-    // no setters: we don't want to be able to modify the entities.Chatroom ID.
-    // We will 'get' the lists in the UseCase modify the ArrayLists there.
+
 
 }
 

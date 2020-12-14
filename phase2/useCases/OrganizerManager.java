@@ -30,7 +30,7 @@ public class OrganizerManager extends UserManager {
      * @return returns 1 if the speaker is free during the time and returns 0 otherwise.
      */
     private boolean isFree(User speaker, LocalDateTime[] actinterv){
-        HashMap<LocalDateTime[], UUID> userSchedule = speaker.getActivities();
+        HashMap<LocalDateTime[], UUID> userSchedule = speaker.getEvents();
         for(LocalDateTime[] interv: userSchedule.keySet()){
             LocalDateTime start = interv[0];
             LocalDateTime end = interv[1];
@@ -85,10 +85,10 @@ public class OrganizerManager extends UserManager {
     public boolean deleteEvent(String username, LocalDateTime[] time){
         User target = findUser(username);
         assert target != null;
-        Set<LocalDateTime[]> period = target.getActivities().keySet();
+        Set<LocalDateTime[]> period = target.getEvents().keySet();
         for (LocalDateTime[] enrolled : period){
             if (enrolled[0].equals(time[0]) && enrolled[1].equals(time[1])){
-                target.getActivities().remove(enrolled);
+                target.getEvents().remove(enrolled);
                 return true;
             }
         }
@@ -104,6 +104,6 @@ public class OrganizerManager extends UserManager {
     public void otherAddSchedule(String username, LocalDateTime[] time, UUID actID){
         User targetUser = findUser(username);
         assert targetUser != null;
-        targetUser.getActivities().put(time, actID);
+        targetUser.getEvents().put(time, actID);
     }
 }

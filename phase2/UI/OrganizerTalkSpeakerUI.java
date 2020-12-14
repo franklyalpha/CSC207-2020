@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.TalkRescheduleSpeakerController;
 import Controllers.UserController;
-import globallyAccessible.EventNotFoundException;
 import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.NoEventsException;
 
@@ -52,7 +51,7 @@ public class OrganizerTalkSpeakerUI extends OrganizerRescheduleSpeakerUI {
     }
 
     private String eventSelect() throws NoEventsException {
-        ArrayList<String[]> allActivities = talkRescheduleSpeaker.getAllActivities();
+        ArrayList<String[]> allActivities = talkRescheduleSpeaker.getAllEvents();
         System.out.println(organizerRescheduleSpeakerPresenter.strAllEventMenuDes());
         System.out.println(organizerRescheduleSpeakerPresenter.strSchedule(allActivities));
         return inputSelection(allActivities, talkRescheduleSpeaker);

@@ -1,6 +1,5 @@
 package entities;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.time.*;
 import globallyAccessible.*;
@@ -31,33 +30,27 @@ public abstract class User implements java.io.Serializable {
     private final UserType type;
 
     /**
-     * a HashMap which holds the id of the <code>Chatroom</code> this user attended and their description.
+     * a HashMap which holds the id of the <code>MessageRoom</code> this user attended and their description.
      */
-    private final HashMap<String, UUID> chatroom;
+    private final HashMap<String, UUID> MessageRoom;
 
     /**
-     * a HashMap which holds the id of the <code>Event</code> this user signed in and their description.
+     * a HashMap which holds the id of the <code>Event</code> this user signed in and their time.
      */
-    private final HashMap<LocalDateTime[], UUID> activities;
-
-    // in phase 2, will create a clone corresponding activities for
-    // new modified schedules;  will be a shallow copy
-
-    // need setter;
-    // including ArrayList.remove()
+    private final HashMap<LocalDateTime[], UUID> events;
 
     /**
      * Creates a new entities.User with given name, password, and type.
-     * @param name the valid name of this user, which help to identify.
+     * @param name the valid name of this user, which helps to identify.
      * @param password the valid password of this user.
-     * @param type the type of this user: Attendee, Organizer, Speaker.
+     * @param type the type of this user: Attendee, Organizer, Speaker, Administrator.
      */
     public User(String name, String password, UserType type) {
         username = name;
         this.type = type;
         this.password = password;
-        chatroom = new HashMap<>();
-        activities = new HashMap<>();
+        MessageRoom = new HashMap<>();
+        events = new HashMap<>();
     }
 
     /**
@@ -78,26 +71,26 @@ public abstract class User implements java.io.Serializable {
 
     /**
      * Gets the type of this user.
-     * @return the user's type as organizer, speaker, or attendee.
+     * @return the user's type as organizer, speaker, attendee, or administrator.
      */
     public UserType getUserType(){
         return this.type;
     }
 
     /**
-     * Gets the chatroom which this user belong to.
-     * @return the Map of a description of the chatroom and the name of the chatroom.
+     * Gets the Message Room which this user belong to.
+     * @return the Map of a id of the Message Room and the name of the Message Room.
      */
-    public HashMap<String, UUID> getChatroom() {
-        return chatroom;
+    public HashMap<String, UUID> getMessageRoom() {
+        return MessageRoom;
     }
 
     /**
-     * Gets the Activity which this user belong to.
-     * @return the Map of a description of the Activity and the name of the chatroom.
+     * Gets the Event which this user belong to.
+     * @return the Map of a period of the Event and the id of the Message Room.
      */
-    public HashMap<LocalDateTime[], UUID> getActivities() {
-        return activities;
+    public HashMap<LocalDateTime[], UUID> getEvents() {
+        return events;
     }
 
     /**
@@ -113,8 +106,4 @@ public abstract class User implements java.io.Serializable {
      * @param  newPassword the new password of this user.
      */
     public void setPassword(String newPassword){ password = newPassword;}
-    /*
-     * will set arraylists and hashmaps in use-case class. however, when returning something outside use-case,
-     * it would be safer to make a DEEP copy of variable so that any possible modifications won't affect original data.
-     */
 }
