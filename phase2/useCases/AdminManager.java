@@ -27,6 +27,6 @@ public class AdminManager extends UserManager {
     public void deleteContact(String deleter, String deleted){
         User targetedUser = findUser(deleter);
         assert targetedUser != null;
-        targetedUser.getChatroom().remove(deleted);
+        targetedUser.getMessageRoom().remove(deleted);
     }
 }

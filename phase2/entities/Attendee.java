@@ -17,14 +17,14 @@ import java.util.UUID;
 public class Attendee extends User implements Serializable {
 
     /**
-     * List of <code>UUID</code> corresponding to  requests submitted by this user.
+     * List of <code>UUID</code> corresponding to requests submitted by this user.
      */
     private ArrayList<UUID> requests;
 
     /**
-     * Creates a new entities.User with given name, password, and type.
+     * Creates a new entities.Attendee with given name, password, and type.
      *
-     * @param name     the valid name of this user, which help to identify.
+     * @param name     the valid name of this user, which helps to identify.
      * @param password the valid password of this user.
      */
     public Attendee(String name, String password) {

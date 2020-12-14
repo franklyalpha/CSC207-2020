@@ -19,14 +19,14 @@ public class Party extends Event {
     /**
      * Creates <code>Party</code> with specified start time, end time, conference chat id, conference room number,
      * max attendees, and topic.
-     * @param period LocalDateTime of start & end time in <code>Activity</code>.
-     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
-     * @param topic the topic of the activity in <code>Activity</code>.
+     * @param period LocalDateTime of start & end time in <code>Event</code>.
+     * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.
+     * @param topic the topic of the activity in <code>Event</code>.
      * @param MaxNum the maximum number of attendees for this event
      */
-    public Party(LocalDateTime[] period, UUID[] chatRoomID,
+    public Party(LocalDateTime[] period, UUID[] roomID,
                  String topic, Integer MaxNum){
-        super(period, chatRoomID, topic, MaxNum);
+        super(period, roomID, topic, MaxNum);
         type = EventType.PARTY;
     }
 

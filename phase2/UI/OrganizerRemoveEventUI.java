@@ -6,7 +6,6 @@ import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.NoEventsException;
 import menuPresenter.RemoveEventPresenter;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -52,7 +51,7 @@ public class OrganizerRemoveEventUI extends AbstractUI {
 
     private void inputAndUpdateModification(RemoveEventPresenter presenter)
             throws NoEventsException, IllegalArgumentException {
-        presenter.printIDForTheEventToBeCancelled(removeEvent.getAllActivities());
+        presenter.printIDForTheEventToBeCancelled(removeEvent.getAllEvents());
         Scanner input_1 = new Scanner(System.in);
         UUID actID = UUID.fromString(input_1.nextLine());
         removeEvent.cancelAndUpdate(actID);

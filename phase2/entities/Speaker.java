@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /**
  * Represents a <code>Speaker</code>.
- * Also contains an instance of <code>Chatroom</code> that contains all speakers and organizers at a conference.
+ * Also contains an instance of <code>MessageRoom</code> that contains all speakers and organizers at a conference.
  * @author Group 0168
  * @author CSC207 - Fall 2020
  * @version 1.0

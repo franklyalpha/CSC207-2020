@@ -25,14 +25,14 @@ public class Panel extends Event {
     /**
      * Creates <code>Panel</code> with specified start time, end time, conference chat id, conference room number,
      * max attendees, and topic.
-     * @param period LocalDateTime of start & end time in <code>Activity</code>.
-     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
-     * @param topic the topic of the activity in <code>Activity</code>.
-     * @param MaxNum the maximum number of attendees for this event
+     * @param period LocalDateTime of start & end time in <code>Event</code>.
+     * @param roomID UUID of assigned message room ID in <code>Event</code>.
+     * @param topic the topic of the event in <code>Event</code>.
+     * @param MaxNum the maximum number of attendees for this event.
      */
-    public Panel(LocalDateTime[] period, UUID[] chatRoomID,
+    public Panel(LocalDateTime[] period, UUID[] roomID,
                  String topic, Integer MaxNum){
-        super(period, chatRoomID, topic, MaxNum);
+        super(period, roomID, topic, MaxNum);
         speakers = new ArrayList<>();
         type = EventType.PANEL;
     }

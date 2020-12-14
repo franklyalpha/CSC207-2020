@@ -71,7 +71,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return returns 1 if the user can be contact and returns 0 otherwise.
      */
     public boolean contactable(String username){
-        HashMap<String, UUID> contacts = userOnAir.getChatroom();
+        HashMap<String, UUID> contacts = userOnAir.getMessageRoom();
         return contacts.containsKey(username);
     }
 
@@ -80,13 +80,13 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return returns the chatroom that can contact other users.
      */
     public HashMap<String, UUID> contacts(){
-        return userOnAir.getChatroom();
+        return userOnAir.getMessageRoom();
     }
 
     public HashMap<String, UUID> otherContacts(String username){
         User targetedUser = findUser(username);
         assert targetedUser != null;
-        return targetedUser.getChatroom();
+        return targetedUser.getMessageRoom();
     }
 
     /**
@@ -94,7 +94,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return the schedule that contains the users' all activities.
      */
     public HashMap<LocalDateTime[], UUID> schedules(){
-        return userOnAir.getActivities();
+        return userOnAir.getEvents();
     }
 
     /**
@@ -109,7 +109,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @param chatID is the ID of the chat.
      */
     public void selfAddChatroom(String userName, UUID chatID){
-        userOnAir.getChatroom().put(userName, chatID);
+        userOnAir.getMessageRoom().put(userName, chatID);
     }
 
     /**
@@ -121,14 +121,14 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
         User targetedUser = findUser(userName);
         //require further modification;
         assert targetedUser != null;
-        targetedUser.getChatroom().put(userOnAir.getUsername(), chatID);
+        targetedUser.getMessageRoom().put(userOnAir.getUsername(), chatID);
     }
 
     /**
      * Creates a <code>getActivities</code> and get the activity that user have added.
      * @return returns the activity that user have added.
      */
-    public HashMap<LocalDateTime[], UUID> getActivities() {
-        return userOnAir.getActivities();
+    public HashMap<LocalDateTime[], UUID> getEvents() {
+        return userOnAir.getEvents();
     }
 }

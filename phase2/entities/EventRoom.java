@@ -87,7 +87,7 @@ public class EventRoom implements java.io.Serializable {
 
     /**
      * Gets the schedule for this <code>Room</code>
-     * @return a Hashmap corresponding to the activities take place in this room indexed by their scheduled time.
+     * @return a Hashmap corresponding to the events take place in this room indexed by their scheduled time.
      */
     public HashMap<LocalDateTime[], UUID> getSchedule(){ return schedule; }
 
