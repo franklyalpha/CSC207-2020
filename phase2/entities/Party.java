@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Party extends Event {
 
     /**
-     * Creates <code>Party</code> with specified start time, end time, conference chat id, conference room number,
+     * Creates <code>Party</code> with specified start time, end time, event chat id, event room number,
      * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Event</code>.
      * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.

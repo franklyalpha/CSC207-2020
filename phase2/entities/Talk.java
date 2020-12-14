@@ -22,7 +22,7 @@ public class Talk extends Event {
     private String speaker;
 
     /**
-     * Creates <code>Talk</code> with specified start time, end time, conference chat id, conference room number,
+     * Creates <code>Talk</code> with specified start time, end time, event chat id, event room number,
      * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Event</code>.
      * @param roomID UUID of assigned chatroom ID and room ID <code>Event</code>.
