@@ -1,7 +1,7 @@
 package useCases;
 
 import entities.EventRoom;
-import roomRequirementBuilder.*;
+import eventRoomRequirementBuilder.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -43,7 +43,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * @return the id of the newly constructed <code>Room</code>.
      */
     public UUID addRoom(int capacity, List<Integer> roomItems){
-        RoomBuilder builder = new RoomBuilder(capacity);
+        EventRoomBuilder builder = new EventRoomBuilder(capacity);
         builder.buildMicrophone(roomItems.get(0));
         builder.buildProjector(roomItems.get(1));
         builder.buildPartyAudio(roomItems.get(2));
@@ -168,7 +168,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
      * @param id the room id of the target room.
      * @return an instance of <code>RoomItems</code>
      */
-    public RoomItems getRoomItems(UUID id){
+    public EventRoomItems getRoomItems(UUID id){
         return findRoom(id).getRoomItems();
     }
 

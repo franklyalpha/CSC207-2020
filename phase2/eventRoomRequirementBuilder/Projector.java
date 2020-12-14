@@ -1,4 +1,4 @@
-package roomRequirementBuilder;
+package eventRoomRequirementBuilder;
 
 /**
  * Represents Projector as a <code>RoomItem</code> in the room.
@@ -6,7 +6,7 @@ package roomRequirementBuilder;
  * @author CSC207 - Fall 2020
  * @version 1.0
  */
-public class Projector extends RoomItem implements java.io.Serializable {
+public class Projector extends EventRoomItem implements java.io.Serializable {
 
     /**
      * Get the name of Projector.

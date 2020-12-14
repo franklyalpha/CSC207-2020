@@ -1,4 +1,4 @@
-package roomRequirementBuilder;
+package eventRoomRequirementBuilder;
 
 /**
  * Represents a party audio system as a <code>RoomItem</code> in the room.
@@ -8,7 +8,7 @@ package roomRequirementBuilder;
  * @since 1.0
  */
 
-public class PartyAudioSystem extends RoomItem implements java.io.Serializable {
+public class PartyAudioSystem extends EventRoomItem implements java.io.Serializable {
 
     /**
      * Get the name of party audio system.

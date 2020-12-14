@@ -1,4 +1,4 @@
-package roomRequirementBuilder;
+package eventRoomRequirementBuilder;
 
 /**
  * ItemFactory builds <code>RoomItem</code>.
