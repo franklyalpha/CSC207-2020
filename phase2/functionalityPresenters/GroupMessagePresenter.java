@@ -38,7 +38,7 @@ public class GroupMessagePresenter extends AbstractPresenter {
         }
         HashMap<String, ArrayList<String>> historyChat = new HashMap<>();
         for (LocalDateTime[] period : act.keySet()){
-            UUID chatID = eventManager.getConferenceChat(act.get(period));
+            UUID chatID = eventManager.getEventChat(act.get(period));
             ArrayList<String> chatMessage = messageRoomManager.getHistoricalChats(chatID);
             String topic = eventManager.searchEventByUUID(act.get(period).toString())[1];
             historyChat.put(topic, chatMessage);

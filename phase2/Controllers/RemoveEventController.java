@@ -27,7 +27,7 @@ public class RemoveEventController extends CancelEventController {
         String[] actInfo = eventManager.searchEventByUUID(eventID.toString());
         if(actInfo == null) return;
         processCancelSpeaker(eventID.toString());
-        UUID chatID = eventManager.getConferenceChat(eventID);
+        UUID chatID = eventManager.getEventChat(eventID);
         messageRoomManager.deleteGroupChat(chatID);
         updateRoomEventManager(eventID, actInfo);
         processCancelAttendee(eventID);

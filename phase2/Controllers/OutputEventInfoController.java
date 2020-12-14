@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Outputs all upcoming events as a PDF file.
  */
-public class OutputConferenceInfoController extends EventController {
+public class OutputEventInfoController extends EventController {
 
     private static final String DEST = "./eventsInfo.pdf";
 
@@ -21,7 +21,7 @@ public class OutputConferenceInfoController extends EventController {
      * A class to output desired pdf file.
      * @param userController get the upcomingEvents from userController.
      */
-    public OutputConferenceInfoController(UserController userController){
+    public OutputEventInfoController(UserController userController){
         super(userController);
         this.upcomingEvents = eventManager.viewUpcomingActivities();
     }

@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Event Class, abstract entity with getters and setters that all types of event entities requires.
- * All events have an ID, topic, max attendees restriction, conference room location,
+ * All events have an ID, topic, max attendees restriction, event room location,
  * Also includes a list of attendees
  * Start and End time, with the duration that is updated everytime the start/end time changes
  * and finally a corresponding chatroom ID.
@@ -25,15 +25,15 @@ public abstract class Event implements java.io.Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private final UUID identity;
-    private final UUID conferenceChat;
-    private UUID conferenceRoomNum; //will adjust accordingly when they actually implements it.
+    private final UUID eventChat;
+    private UUID eventRoomNum; //will adjust accordingly when they actually implements it.
     private String topic;
     private Integer maxNumAttendee;
     protected EventType type;
 
 
     /**
-     * Creates <code>Event</code> with specified start time, end time, conference chat id, conference room number,
+     * Creates <code>Event</code> with specified start time, end time, event chat id, event room number,
      * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Event</code>.
      * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.
@@ -46,9 +46,9 @@ public abstract class Event implements java.io.Serializable {
         this.startTime = period[0];
         this.endTime = period[1];
         this.duration = Duration.between(startTime, endTime);
-        this.conferenceChat = roomID[0];
+        this.eventChat = roomID[0];
         this.identity = UUID.randomUUID();
-        this.conferenceRoomNum = roomID[1];
+        this.eventRoomNum = roomID[1];
         this.topic = topic;
         this.maxNumAttendee = MaxNum;
     }
@@ -100,10 +100,10 @@ public abstract class Event implements java.io.Serializable {
     public void setTopic(String topic){this.topic = topic;}
 
     /**
-     * Changes the conference room number of this event with the given new conference room number.
-     * @param  conferenceRoomNum the new conference room number of this event.
+     * Changes the event room number of this event with the given new event room number.
+     * @param  eventRoomNum the new event room number of this event.
      */
-    public void setRoom(UUID conferenceRoomNum){this.conferenceRoomNum = conferenceRoomNum;}
+    public void setRoom(UUID eventRoomNum){this.eventRoomNum = eventRoomNum;}
 
     /**
      * Changes the start time of this event with the given new start time.
@@ -187,7 +187,7 @@ public abstract class Event implements java.io.Serializable {
      * Gets the unique identifier for this <code>Event</code>.
      * @return The UUID corresponding to this <code>Event</code>.
      */
-    public UUID getChatID(){return this.conferenceChat;}
+    public UUID getChatID(){return this.eventChat;}
 
     /**
      * Gets the Maximum Number of attendees for this <code>Event</code>.
@@ -204,10 +204,10 @@ public abstract class Event implements java.io.Serializable {
     public UUID getIdentity(){return this.identity;}
 
     /**
-     * Gets a conference room number in this <code>Event</code>.
-     * @return A UUID corresponding to the number of the conference room in this <code>Event</code>.
+     * Gets a event room number in this <code>Event</code>.
+     * @return A UUID corresponding to the number of the event room in this <code>Event</code>.
      */
-    public UUID getConferenceRoomNum(){return this.conferenceRoomNum;}
+    public UUID getEventRoomNum(){return this.eventRoomNum;}
 
     /**
      * Gets a topic in this <code>Event</code>.
@@ -227,10 +227,10 @@ public abstract class Event implements java.io.Serializable {
      */
     public String toString(){
         String description = ("Topic: " + this.topic + "\nSpeakers: [ " + speakerToString() + " ]");
-        description += ("\nConference Room: [ " + this.conferenceRoomNum + " ]");
+        description += ("\nEvent Room: [ " + this.eventRoomNum + " ]");
         description += ("\nFrom: [ " + startTime + " ]  to  [" + endTime + " ]");
         description += ("\nEvent ID: [ " + this.identity + " ]");
-        description += ("\nChat ID: [ " + this.conferenceChat + " ]\n ");
+        description += ("\nChat ID: [ " + this.eventChat + " ]\n ");
         description += speakerToString();
         return description;
     }

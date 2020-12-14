@@ -1,8 +1,7 @@
 package UI;
 
-import Controllers.OutputConferenceInfoController;
+import Controllers.OutputEventInfoController;
 import Controllers.UserController;
-import globallyAccessible.ExceedingMaxAttemptException;
 
 import java.io.IOException;
 /**
@@ -13,14 +12,14 @@ public class OutputUpcomingEventsPDFUI extends AbstractUI {
     /**
      * An instance of <code>OutputConferenceInfoController</code> being instantiated.
      */
-    private OutputConferenceInfoController pdf;
+    private OutputEventInfoController pdf;
     /**
      * Instantiates new <code>OutputUpcomingEventsPDFUI</code>.
      * @param userController: An instance of <>UserController</>.
      */
     public OutputUpcomingEventsPDFUI(UserController userController) {
         super(userController);
-        pdf = new OutputConferenceInfoController(userController);
+        pdf = new OutputEventInfoController(userController);
     }
 
     /**

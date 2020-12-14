@@ -23,7 +23,7 @@ public class Panel extends Event {
     private ArrayList<String> speakers;
 
     /**
-     * Creates <code>Panel</code> with specified start time, end time, conference chat id, conference room number,
+     * Creates <code>Panel</code> with specified start time, end time, event chat id, event room number,
      * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Event</code>.
      * @param roomID UUID of assigned message room ID in <code>Event</code>.
