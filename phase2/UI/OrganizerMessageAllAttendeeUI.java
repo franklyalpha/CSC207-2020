@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.MessageAllAttendeeController;
 import Controllers.UserController;
-import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.OrganizerPresenter;
 
 import java.util.Scanner;

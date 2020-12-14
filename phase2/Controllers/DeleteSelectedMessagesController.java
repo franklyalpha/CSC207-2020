@@ -45,7 +45,7 @@ public class DeleteSelectedMessagesController extends AbstractController {
      * topic and corresponding group chat of all events.
      */
     public ArrayList<String[]> groupChatIDs(){
-        ArrayList<String[]> actInfo = eventManager.viewUpcomingActivities();
+        ArrayList<String[]> actInfo = eventManager.viewUpcomingEvents();
         ArrayList<String[]> groupConversationIDs = new ArrayList<>();
         for (String[] info: actInfo){
             UUID eventID = UUID.fromString(info[0]);

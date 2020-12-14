@@ -1,9 +1,7 @@
 package Controllers;
 
-import globallyAccessible.NoEventsException;
-import useCases.TalkManager;
 
-import java.util.ArrayList;
+import useCases.TalkManager;
 import java.util.UUID;
 
 /**

@@ -6,7 +6,6 @@ import eventRoomRequirementBuilder.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-//still in progress.
 
 /**
  * Represents a <code>RoomManager</code> that is responsible for any interactions with <code>Room</code> entities.

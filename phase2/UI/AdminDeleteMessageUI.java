@@ -2,7 +2,6 @@ package UI;
 
 import Controllers.DeleteSelectedMessagesController;
 import Controllers.UserController;
-import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AdminDeleteMessagePresenter;
 
 import java.util.ArrayList;

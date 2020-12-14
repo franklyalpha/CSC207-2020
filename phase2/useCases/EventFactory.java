@@ -2,9 +2,6 @@ package useCases;
 
 import entities.*;
 import globallyAccessible.EventType;
-import globallyAccessible.InvalidUserTypeException;
-import globallyAccessible.UserType;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,7 +27,7 @@ public class EventFactory {
     /**
      * Constructs a Event entity and stores it into the EventManager.
      * @param period period this event is going to be hosted through
-     * @param roomID ID of the message room
+     * @param roomID ID of the message room and event room
      * @param topic topic of this event
      * @param MaxNum Max number of attendees
      * @param eventType type of the event

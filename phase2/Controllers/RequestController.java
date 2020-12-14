@@ -3,9 +3,6 @@ package Controllers;
 import entities.Request;
 import globallyAccessible.RequestNotFoundException;
 import useCases.AttendeeManager;
-import useCases.RequestManager;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 

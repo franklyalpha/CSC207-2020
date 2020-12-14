@@ -3,7 +3,6 @@ package UI;
 import Controllers.CancelEventController;
 import Controllers.UserController;
 import globallyAccessible.ExceedingMaxAttemptException;
-import globallyAccessible.UserAlreadyExistException;
 import menuPresenter.AdminPresenter;
 
 import java.util.ArrayList;

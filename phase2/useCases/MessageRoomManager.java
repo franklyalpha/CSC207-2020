@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.UUID;
 
 /**
- * Represents a <code>ChatroomManager</code> that is responsible for any interactions with <code>Chatroom</code> entities.
- * Also contains an instance of <code>Chatroom</code> that contains all speakers and organizers at a conference.
+ * Represents a <code>MessageRoomManager</code> that is responsible for any interactions with <code>MessageRoom</code> entities.
+ * Also contains an instance of <code>MessageRoom</code> that contains all speakers and organizers at a event.
  * @author Group 0168
  * @author CSC207 - Fall 2020
  * @version 1.0
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class MessageRoomManager extends AbstractSerializableManager implements java.io.Serializable{
 
     /**
-     * A <code>Chatroom</code> with all speakers and organizers at a conference.
+     * A <code>MessageRoom</code> with all speakers and organizers at a event.
      */
     private MessageRoom coopRoom;
 

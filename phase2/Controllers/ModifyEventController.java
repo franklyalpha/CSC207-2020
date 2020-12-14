@@ -1,9 +1,6 @@
 package Controllers;
 
 import globallyAccessible.MaxNumberBeyondRoomCapacityException;
-import globallyAccessible.NoEventsException;
-
-import java.util.ArrayList;
 import java.util.UUID;
 
 

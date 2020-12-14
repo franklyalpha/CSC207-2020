@@ -45,7 +45,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
     public UserManager(UserManager userManager) {
         this.allUsers = userManager.allUsers;
         this.num_user = userManager.num_user;
-        this.userOnAir = userManager.userOnAir;  // user that is currently logged in
+        this.currentUser = userManager.currentUser;  // user that is currently logged in
     }
 
     /**
@@ -71,7 +71,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return returns 1 if the user can be contact and returns 0 otherwise.
      */
     public boolean contactable(String username){
-        HashMap<String, UUID> contacts = userOnAir.getMessageRoom();
+        HashMap<String, UUID> contacts = currentUser.getMessageRoom();
         return contacts.containsKey(username);
     }
 
@@ -80,7 +80,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return returns the chatroom that can contact other users.
      */
     public HashMap<String, UUID> contacts(){
-        return userOnAir.getMessageRoom();
+        return currentUser.getMessageRoom();
     }
 
     public HashMap<String, UUID> otherContacts(String username){
@@ -94,14 +94,14 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return the schedule that contains the users' all activities.
      */
     public HashMap<LocalDateTime[], UUID> schedules(){
-        return userOnAir.getEvents();
+        return currentUser.getEvents();
     }
 
     /**
      * Returns the username of the user.
      * @return String representing the user's username
      */
-    public String getUsername(){return userOnAir.getUsername();}
+    public String getUsername(){return currentUser.getUsername();}
 
     /**
      * Creates a <code>selfAddChatroom</code> and add the user in the chatroom.
@@ -109,7 +109,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @param chatID is the ID of the chat.
      */
     public void selfAddChatroom(String userName, UUID chatID){
-        userOnAir.getMessageRoom().put(userName, chatID);
+        currentUser.getMessageRoom().put(userName, chatID);
     }
 
     /**
@@ -121,7 +121,7 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
         User targetedUser = findUser(userName);
         //require further modification;
         assert targetedUser != null;
-        targetedUser.getMessageRoom().put(userOnAir.getUsername(), chatID);
+        targetedUser.getMessageRoom().put(currentUser.getUsername(), chatID);
     }
 
     /**
@@ -129,6 +129,6 @@ public class UserManager extends ExtendedUserManager implements java.io.Serializ
      * @return returns the activity that user have added.
      */
     public HashMap<LocalDateTime[], UUID> getEvents() {
-        return userOnAir.getEvents();
+        return currentUser.getEvents();
     }
 }

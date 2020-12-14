@@ -19,10 +19,9 @@ public class ExtendedUserManager implements Serializable {
     protected int num_user;
 
     /**
-     *
+     * The user who is currently using the program.
      * */
-    protected User userOnAir;
-//    private ArrayList<entities.User>[] typearray = [organi]
+    protected User currentUser;
 
 
     public ExtendedUserManager(){
@@ -31,11 +30,11 @@ public class ExtendedUserManager implements Serializable {
             allUsers.put(type, new ArrayList<>());
         }
         num_user = 1;
-        userOnAir = null;
+        currentUser = null;
     }
 
     /**
-     * Creates a <code>assUser</code> and add Users to the corresponding TypeList if the Users are not inside and
+     * Creates a <code>addUser</code> and add Users to the corresponding TypeList if the Users are not inside and
      * update the num_user.
      * @param users is the user that needs to be added in the list.
      * @param type is the UserType for the user that needs to be added in the list.
@@ -84,7 +83,7 @@ public class ExtendedUserManager implements Serializable {
         for (User currUser : allExistingUser) {
             if (currUser.getUsername().equals(username) &&
                     currUser.getPassword().equals(passcode)) {
-                userOnAir = currUser;
+                currentUser = currUser;
                 return currUser.getUserType();
             }
         }
@@ -96,7 +95,7 @@ public class ExtendedUserManager implements Serializable {
      * @return current UserName of the user.
      */
     public String currentUsername(){
-        return userOnAir.getUsername();
+        return currentUser.getUsername();
     }
 
     /**
@@ -113,16 +112,17 @@ public class ExtendedUserManager implements Serializable {
     }
 
     /**
-     * Creates a <code>setpassword</code> and set the password of the user's account.
-     * @param newpassword is the new password the user want to set.
+     * Creates a <code>setPassword</code> and set the password of the user's account.
+     * @param newPassword is the new password the user want to set.
      */
-    public void setpassword(String newpassword){userOnAir.setPassword(newpassword);}
+    public void setPassword(String newPassword){
+        currentUser.setPassword(newPassword);}
 
     /**
      * Creates a <code>logout</code> and set the status of user's account to be logout.
      */
     public void logout(){
-        userOnAir = null;
+        currentUser = null;
     }
 
 }

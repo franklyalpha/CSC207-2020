@@ -1,12 +1,9 @@
 package UI;
 
-import Controllers.PanelRescheduleSpeakerController;
 import Controllers.SpeakerReschedulingController;
-import Controllers.TalkRescheduleSpeakerController;
 import Controllers.UserController;
 import globallyAccessible.EventNotFoundException;
 import globallyAccessible.ExceedingMaxAttemptException;
-import globallyAccessible.NoEventsException;
 import globallyAccessible.UserNotFoundException;
 import menuPresenter.OrganizerRescheduleSpeakerPresenter;
 

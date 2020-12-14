@@ -6,7 +6,6 @@ import UserUI.AdministratorUI;
 import UserUI.AttendeeUI;
 import UserUI.OrganizerUI;
 import UserUI.SpeakerUI;
-import globallyAccessible.ExceedingMaxAttemptException;
 import globallyAccessible.InvalidUserTypeException;
 import globallyAccessible.UserNotFoundException;
 import globallyAccessible.UserType;

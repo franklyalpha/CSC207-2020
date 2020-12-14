@@ -2,10 +2,7 @@ package useCases;
 
 import entities.Event;
 import entities.Party;
-import entities.Talk;
 import globallyAccessible.EventType;
-
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**

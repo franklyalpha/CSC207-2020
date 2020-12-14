@@ -23,7 +23,7 @@ public class OutputEventInfoController extends EventController {
      */
     public OutputEventInfoController(UserController userController){
         super(userController);
-        this.upcomingEvents = eventManager.viewUpcomingActivities();
+        this.upcomingEvents = eventManager.viewUpcomingEvents();
     }
 
     /**

@@ -26,7 +26,7 @@ public class AttendeeManager extends UserManager {
      */
     public AttendeeManager(UserManager userManager) throws ClassCastException {
         super(userManager);
-            currUser = (Attendee) userOnAir;
+            currUser = (Attendee) currentUser;
     }
 
     /**
@@ -34,10 +34,10 @@ public class AttendeeManager extends UserManager {
      * @param time is the time of the activity that needed to be delete.
      */
     public boolean deleteEvent(LocalDateTime[] time){
-        Set<LocalDateTime[]> period = userOnAir.getEvents().keySet();
+        Set<LocalDateTime[]> period = currentUser.getEvents().keySet();
         for (LocalDateTime[] target : period){
             if (target[0].equals(time[0]) && target[1].equals(time[1])){
-                userOnAir.getEvents().remove(target);
+                currentUser.getEvents().remove(target);
                 return true;
             }
         }
@@ -50,7 +50,7 @@ public class AttendeeManager extends UserManager {
      * @param actID is the ID of the user.
      */
     public void selfAddSchedule(LocalDateTime[] time, UUID actID){
-        userOnAir.getEvents().put(time, actID);
+        currentUser.getEvents().put(time, actID);
     }
 
     /**
@@ -59,7 +59,7 @@ public class AttendeeManager extends UserManager {
      * @return returns 1 if the user is free during the time and returns 0 otherwise.
      */
     public boolean isFree(LocalDateTime[] actinterv){
-        HashMap<LocalDateTime[], UUID> userSchedule = userOnAir.getEvents();
+        HashMap<LocalDateTime[], UUID> userSchedule = currentUser.getEvents();
         for(LocalDateTime[] interv: userSchedule.keySet()){
             LocalDateTime start = interv[0];
             LocalDateTime end = interv[1];

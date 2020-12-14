@@ -3,7 +3,6 @@ package UserUI;
 import Controllers.UserController;
 import UI.AdminCancelEventUI;
 import UI.AdminDeleteConversationMessageUI;
-import UI.AdminDeleteMessageUI;
 import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.AdminPresenter;
 

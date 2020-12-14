@@ -25,7 +25,7 @@ public class Talk extends Event {
      * Creates <code>Talk</code> with specified start time, end time, event chat id, event room number,
      * max attendees, and topic.
      * @param period LocalDateTime of start & end time in <code>Event</code>.
-     * @param roomID UUID of assigned chatroom ID and room ID <code>Event</code>.
+     * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.
      * @param topic the topic of the activity in <code>Event</code>.
      * @param MaxNum the maximum number of attendees for this event
      */

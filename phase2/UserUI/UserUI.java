@@ -2,7 +2,6 @@ package UserUI;
 
 import Controllers.UserController;
 import UI.*;
-import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.UserPresenter;
 
 import java.util.ArrayList;

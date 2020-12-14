@@ -8,16 +8,16 @@ import java.util.*;
 
 
 /**
- * Represents a <code>ActivityManager</code> that is responsible for any change with <code>Activity</code> entities.
- * Also contains an instance of <code>Activity</code> that contains all time, topic, attendents at an activity.
+ * Represents a <code>EventManager</code> that is responsible for any change with <code>Event</code> entities.
+ * Also contains an instance of <code>Event</code> that contains all time, topic, attendees at an activity.
  *
  * Include:
  * Own constructor;
- * addNewActivity: will create and store a new activity.
- * searchActivityByUUID: will return a description of certain activity, searched by by UUID.
+ * addNewEvent: will create and store a new activity.
+ * searchEventByUUID: will return a description of certain activity, searched by by UUID.
  * addSpeaker: will add/replace speakers of a event.
- * getEventChat: will return the UUID of unique chat associated with this confernece.
- * viewUpcommingActivites: will provide info for all activities not yet begun.
+ * getEventChat: will return the UUID of unique chat associated with this event.
+ * viewUpcomingEvents: will provide info for all events not yet begun.
  * addAttendee: will add an attendee towards participant list of this event.
  * numAttendee: will return the number of participants currently have.
  * removeAttendee: will remove an attendee from participant list.
@@ -34,7 +34,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
     protected HashMap<EventType,ArrayList<Event>> archivedEvents;
 
     /**
-     * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
+     * Constructor of <code>EventManager</code>, will create blank array lists for upcoming activities and
      * archived activities.
      */
     public EventManager(){
@@ -63,16 +63,16 @@ public class EventManager extends AbstractSerializableManager implements java.io
 
     /**
      * Creating a event through factory design pattern
-     * @param period LocalDateTime of start & end time in <code>Activity</code>.
-     * @param chatRoomID UUID of assigned chatroom ID and room ID <code>Activity</code>.
-     * @param topic the topic of the activity in <code>Activity</code>.
+     * @param period LocalDateTime of start & end time in <code>Event</code>.
+     * @param roomID UUID of assigned message room ID and event room ID <code>Event</code>.
+     * @param topic the topic of the event in <code>Event</code>.
      * @param MaxNum the maximum number of attendees for this event
      * @param eventType the type of event we want to create
      * @return the UUID of the event we just created
      */
-    public UUID createEvent(LocalDateTime[] period, UUID[] chatRoomID, String topic,
+    public UUID createEvent(LocalDateTime[] period, UUID[] roomID, String topic,
                               Integer MaxNum, EventType eventType) {
-        return new EventFactory(this).construct(period, chatRoomID, topic, MaxNum, eventType);
+        return new EventFactory(this).construct(period, roomID, topic, MaxNum, eventType);
     }
 
     /**
@@ -107,7 +107,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
      * Will return the description of activity in an array of strings.
      * @param ID the <code>String</code> form of UUID of given activity.
      * @return an array of <code>String</code>, with six elements; each one is:
-     * UUID of this activity (in string), topic, start time, end time, room's UUID,
+     * UUID of this event (in string), topic, start time, end time, room's UUID,
      * and username of speaker.
      */
     public String[] searchEventByUUID(String ID){
@@ -163,7 +163,7 @@ public class EventManager extends AbstractSerializableManager implements java.io
 
     /**
      * Will return the UUID of event assigned chat with given event.
-     * @param actID <code>UUID</code> of activity requiring info of corresponding activity chat.
+     * @param actID <code>UUID</code> of event requiring info of corresponding event chat.
      * @return <code>UUID</code> of corresponding chat.
      */
     public UUID getEventChat(UUID actID){
@@ -175,10 +175,10 @@ public class EventManager extends AbstractSerializableManager implements java.io
     /**
      * return info of all upcoming activities.
      * @return an <code>ArrayList</code> of array of <code>String</code>, where each array of
-     * String has 8 elements, represents: UUID of this activity, topic, start time, end time,
+     * String has 8 elements, represents: UUID of this event, topic, start time, end time,
      * UUID of assigned room, the event's description, the type of event and name of speaker(s).
      */
-    public ArrayList<String[]> viewUpcomingActivities(){
+    public ArrayList<String[]> viewUpcomingEvents(){
         ArrayList<String[]> result = new ArrayList<>();
         if (allUpcomingEvents() == null) {
             return result;
@@ -202,76 +202,76 @@ public class EventManager extends AbstractSerializableManager implements java.io
 
     /**
      * will add the given attendee's name into participant list.
-     * @param activity the UUID of activity requiring adding an attendee.
-     * @param attendee the username of attendee who is going to enroll into the given activity.
+     * @param eventID the UUID of event requiring adding an attendee.
+     * @param attendee the username of attendee who is going to enroll into the given event.
      * @return true iff the attendee is added successfully. 'false' otherwise.
      */
     //method that add attendees
-    public boolean addAttendee(UUID activity,String attendee){
-        Event a = findEvent(activity);
+    public boolean addAttendee(UUID eventID,String attendee){
+        Event a = findEvent(eventID);
         return a.addAttendeesToList(attendee);
     }
 
     /**
      * return the number of existing attendees participated in given activity.
-     * @param activity the UUID of activity that the user wants to know about number of participants.
-     * @return an <code>int</code> representing number of participants for this activity.
+     * @param eventID the UUID of event that the user wants to know about number of participants.
+     * @return an <code>int</code> representing number of participants for this event.
      */
     //method that get the num of attendees in certain activity.
-    public int numAttendee(UUID activity){
-        Event a = findEvent(activity);
+    public int numAttendee(UUID eventID){
+        Event a = findEvent(eventID);
         return a.getAttendeeList().size();
     }
 
     /**
-     * Will remove the given attendee from given activity represented by UUID.
-     * @param activity: <code>UUID</code> of given activity requiring removing attendee.
+     * Will remove the given attendee from given event represented by UUID.
+     * @param eventID: <code>UUID</code> of given event requiring removing attendee.
      * @param attendee: a <code>String</code> representing the username of attendee
      *                 needed to be deleted.
      * @return true iff the attendee is deleted successfully. (false otherwise)
      */
     //method that remove the attendee from certain activity.
-    public boolean removeAttendee(UUID activity,String attendee) {
-        Event a = findEvent(activity);
+    public boolean removeAttendee(UUID eventID,String attendee) {
+        Event a = findEvent(eventID);
         return a.removeAttendee(attendee);
 
     }
 
     /**
-     * Delete the event with the activityID
-     * @param activityID the ID of the target event
+     * Delete the event with the eventID
+     * @param eventID the ID of the target event
      */
-    public void deleteEvent(UUID activityID){
-        EventType activityType = findType(activityID);
-        Event potentialCancel = findEvent(activityID);
+    public void deleteEvent(UUID eventID){
+        EventType activityType = findType(eventID);
+        Event potentialCancel = findEvent(eventID);
         upcomingEvents.get(activityType).remove(potentialCancel);
     }
 
     /**
      * returns the attendee list for this event
-     * @param activityID ID used to search the event
+     * @param eventID ID used to search the event
      * @return the attendee list
      */
-    public ArrayList<String> getAttendeeList(UUID activityID){
-        return findEvent(activityID).getAttendeeList();
+    public ArrayList<String> getAttendeeList(UUID eventID){
+        return findEvent(eventID).getAttendeeList();
     }
 
     /**
      * Used to modify the max participant limit on events
-     * @param activityId ID of such event
+     * @param eventId ID of such event
      * @param newMaxNum the new max limit
      */
-    public void changeEventMaxParticipant(UUID activityId, Integer newMaxNum){
-        Objects.requireNonNull(findEvent(activityId)).setMaxNumAttendee(newMaxNum);
+    public void changeEventMaxParticipant(UUID eventId, Integer newMaxNum){
+        Objects.requireNonNull(findEvent(eventId)).setMaxNumAttendee(newMaxNum);
     }
 
     /**
      * Used to get the MaxNum of attendees for the event
-     * @param activityId ID used to search the event
+     * @param eventId ID used to search the event
      * @return the MaxNum of the event
      */
-    public int getEventMaxParticipant(UUID activityId){
-        return findEvent(activityId).getMaxNumAttendee();
+    public int getEventMaxParticipant(UUID eventId){
+        return findEvent(eventId).getMaxNumAttendee();
     }
 
 }

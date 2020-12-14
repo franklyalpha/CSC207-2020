@@ -38,7 +38,7 @@ public class EventController extends AbstractController{
      * @throws NoEventsException is thrown when no events has yet being stored in the system.
      */
     public ArrayList<String[]> getAllEvents() throws NoEventsException {
-        ArrayList<String[]> allEvents = eventManager.viewUpcomingActivities();
+        ArrayList<String[]> allEvents = eventManager.viewUpcomingEvents();
         if (allEvents.size() == 0) {
             throw new NoEventsException("No events created yet");
         }
