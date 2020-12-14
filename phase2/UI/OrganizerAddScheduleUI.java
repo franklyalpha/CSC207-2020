@@ -71,7 +71,6 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 
-
     private void majorProcessor() throws CannotCreateEventException, ExceedingMaxAttemptException {
         LocalDateTime[] targetPeriod = periodProcessor();
         Object[] speakersRooms = createSchedule.checkTimePeriodValidity(targetPeriod);
@@ -117,7 +116,6 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return freeRoomsID;
     }
 
-
     protected List<String[]> getSuggestedRoom() {
         Scanner input = new Scanner(System.in);
         System.out.println(modifyEventPresenter.askForRequirementPrompt());
@@ -126,7 +124,6 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         boolean hasPartyAudio = input.nextBoolean();
         return createSchedule.getSuggestedRoomList(hasProjector, hasMicrophone, hasPartyAudio);
     }
-
 
     protected Object[] inputRoomTopic()
             throws InputMismatchException,
@@ -148,16 +145,16 @@ public class OrganizerAddScheduleUI extends AbstractUI {
         return new Object[]{freeRoomsID.get(roomIndex), topic, MaxNumber, new ArrayList<>()};
     }
 
-
-    private LocalDateTime[] periodProcessor(){
+    private LocalDateTime[] periodProcessor() throws CannotCreateEventException {
         Scanner start = new Scanner(System.in);
         System.out.println(organizerAddSchedulePresenter.strStartTimePrompt());
-        LocalDateTime startDateTime = LocalDateTime.of(start.nextInt(),
-                start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt());
+        LocalDateTime startDateTime = LocalDateTime.of(start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt(), start.nextInt());
         Scanner end = new Scanner(System.in);
         System.out.println(organizerAddSchedulePresenter.strEndTimePrompt());
-        LocalDateTime endDateTime = LocalDateTime.of(end.nextInt(),
-                end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
+        LocalDateTime endDateTime = LocalDateTime.of(end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt(), end.nextInt());
+        if(endDateTime.isEqual(startDateTime)){
+            throw new CannotCreateEventException("invalid time period!");
+        }
         return new LocalDateTime[]{startDateTime, endDateTime};
     }
 }

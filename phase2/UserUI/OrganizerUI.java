@@ -121,8 +121,8 @@ public class OrganizerUI extends UserUI {
         availableAction.add("- Reschedule speaker");
         availableAction.add("- Send private message");
         availableAction.add("- View private messages");
-        availableAction.add("- Message the Organizer-Speaker Chatroom");
-        availableAction.add("- View messages in the Organizer-Speaker Chatroom");
+        availableAction.add("- Message the Organizer-Speaker MessageRoom");
+        availableAction.add("- View messages in the Organizer-Speaker MessageRoom");
         availableAction.add("- Message all attendees");
         availableAction.add("- Modify event information");
         availableAction.add("- Cancel event");
