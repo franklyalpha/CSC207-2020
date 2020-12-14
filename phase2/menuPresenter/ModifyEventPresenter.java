@@ -22,7 +22,7 @@ public class ModifyEventPresenter extends UserPresenter{
      * @return the String
      */
     public String printMaxNumEventPrompt_1(ArrayList<String[]> upcomingActivities){
-        return "Here are the information of all the available activities:\n " + getString(upcomingActivities, "") + "\n" +
+        return "Here are the information of all the available activities:\n " + getEventString(upcomingActivities, "") + "\n" +
                 "Please input the Activity Id you want to modify:";
     }
 
@@ -55,6 +55,18 @@ public class ModifyEventPresenter extends UserPresenter{
         StringBuilder outputBuilder = new StringBuilder(output);
         for (String[] roomInfo: suggestedList){
             String newInfo = "Room No. " + i + ": \n" + roomInfo[1] + "\n" + "RoomID: "+ roomInfo[0];
+            outputBuilder.append(newInfo).append("\n");
+            i += 1;
+        }
+        output = outputBuilder.toString();
+        return output;
+    }
+
+    private String getEventString(List<String[]> suggestedList, String output) {
+        int i = 0;
+        StringBuilder outputBuilder = new StringBuilder(output);
+        for (String[] eventInfo: suggestedList){
+            String newInfo = "Event No. " + i + ": \n" + eventInfo[1] + "\n" + "EventID: "+ eventInfo[0];
             outputBuilder.append(newInfo).append("\n");
             i += 1;
         }

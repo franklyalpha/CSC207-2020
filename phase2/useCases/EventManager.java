@@ -96,8 +96,9 @@ public class EventManager extends AbstractSerializableManager implements java.io
     public ArrayList<Event> allUpcomingEvents(){
         ArrayList<Event> finalList = new ArrayList<>();
         for(ArrayList<Event> i: upcomingEvents.values()){
-            for(Event j: i)
-            finalList.add(j);
+            for(Event j: i){
+                finalList.add(j);
+            }
         }
         return finalList;
     }

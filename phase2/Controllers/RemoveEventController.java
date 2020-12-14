@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -29,8 +30,8 @@ public class RemoveEventController extends CancelEventController {
         processCancelSpeaker(eventID.toString());
         UUID chatID = eventManager.getEventChat(eventID);
         messageRoomManager.deleteGroupChat(chatID);
-        updateRoomEventManager(eventID, actInfo);
         processCancelAttendee(eventID);
+        updateRoomEventManager(eventID, actInfo);
     }
 
     private void updateRoomEventManager(UUID eventID, String[] actInfo) {
@@ -41,7 +42,9 @@ public class RemoveEventController extends CancelEventController {
     }
 
     private void processCancelAttendee(UUID eventID){
-        for(String attendee: eventManager.getAttendeeList(eventID)){
+        ArrayList<String> attendeeList = eventManager.getAttendeeList(eventID);
+        if(attendeeList.size() == 0) return;
+        for(String attendee: attendeeList){
             String[] actInfo = eventManager.searchEventByUUID(eventID.toString());
             LocalDateTime[] period = getTimeHelper(actInfo);
             organizerManager.deleteEvent(attendee, period);

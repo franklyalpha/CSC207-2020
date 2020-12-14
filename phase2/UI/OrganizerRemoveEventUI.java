@@ -51,7 +51,7 @@ public class OrganizerRemoveEventUI extends AbstractUI {
 
     private void inputAndUpdateModification(RemoveEventPresenter presenter)
             throws NoEventsException, IllegalArgumentException {
-        presenter.printIDForTheEventToBeCancelled(removeEvent.getAllEvents());
+        System.out.println(presenter.printIDForTheEventToBeCancelled(removeEvent.getAllEvents()));
         Scanner input_1 = new Scanner(System.in);
         UUID actID = UUID.fromString(input_1.nextLine());
         removeEvent.cancelAndUpdate(actID);

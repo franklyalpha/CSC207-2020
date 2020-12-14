@@ -10,5 +10,4 @@ public class mainEntrance {
         MainUI mainUI = new MainUI();
         mainUI.run();
     }
-
 }

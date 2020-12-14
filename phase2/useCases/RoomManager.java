@@ -116,7 +116,7 @@ public class RoomManager extends AbstractSerializableManager implements java.io.
         Set<LocalDateTime[]> schedule = eventRoom.getSchedule().keySet();
         for (LocalDateTime[] period : schedule){
             if (period[0].equals(time[0]) && period[1].equals(time[1])){
-                eventRoom.getSchedule().remove(time, actID);
+                eventRoom.getSchedule().remove(period, actID);
             }
         }
     }

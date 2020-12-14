@@ -33,15 +33,18 @@ public class OrganizerModifyEventUI extends AbstractUI {
     @Override
     public void run() {
         ModifyEventPresenter presenter = new ModifyEventPresenter();
-        try{
-            inputAndUpdateModification(modifyEvent, presenter);
-        }catch (NoEventsException e1){
-            System.out.println(presenter.printNoEvent());
-        }catch(MaxNumberBeyondRoomCapacityException e2){
-            System.out.println(presenter.strInvalidMaxNum());
-        } catch (Exception e3){
-            System.out.println(presenter.strInvalidInput());
+        for(int i = 0; i < 3; i ++){
+            try{
+                inputAndUpdateModification(modifyEvent, presenter);
+            }catch (NoEventsException e1){
+                System.out.println(presenter.printNoEvent());
+            }catch(MaxNumberBeyondRoomCapacityException e2){
+                System.out.println(presenter.strInvalidMaxNum());
+            } catch (Exception e3){
+                System.out.println(presenter.strInvalidInput());
+            }
         }
+        System.out.println("You've used up maximum number of attempts!!!");
     }
 
     private void inputAndUpdateModification(ModifyEventController modifyActivity, ModifyEventPresenter presenter)
