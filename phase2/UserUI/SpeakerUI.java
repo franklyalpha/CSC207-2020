@@ -37,15 +37,6 @@ public class SpeakerUI extends OrganizerUI {
     public SpeakerUI(UserController userController) {
         super(userController);
     }
-    /*
-      an Arraylist of <code>availableAction</code>;
-      an Arraylist of <code>availableMethod</code>;
-     */
-    /*
-    require implementation:
-    (view enrolled schedule is implemented in general userController)
-    send group message
-     */
 
     /**
      * This method allows users to do actions corresponding to speaker's allowed actions.
@@ -107,26 +98,6 @@ public class SpeakerUI extends OrganizerUI {
     protected void sendEventMessage(){
         new SpeSendEventMessagesUI(userController).run();
     }
-
-
-
-    /*
-      This method add actions to the class attribute availableMethod.
-     */
-
-
-
-    /**
-     * The method providing instructions for user to choose a conference they've assigned/enrolled
-     * and send a message to all other users participated in this activity.
-     */
-
-
-
-
-
-
-
 }
 
 

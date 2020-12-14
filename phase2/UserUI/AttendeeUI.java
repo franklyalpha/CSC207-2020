@@ -105,7 +105,6 @@ public class AttendeeUI extends UserUI {
 
     }
 
-
     private void addMenu(){
         availableAction.add("- View your events");
         availableAction.add("- View available events");
@@ -117,7 +116,6 @@ public class AttendeeUI extends UserUI {
         availableAction.add("- View event announcements");
         availableAction.add("- Manage your requests");
         availableAction.add("- Generate a PDF of all upcoming events");
-
     }
     //TODO move this to presenter
 
