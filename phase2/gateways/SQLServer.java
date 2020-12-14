@@ -4,6 +4,9 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * SQLServer to save/read data to/from server.
+ */
 
 public class SQLServer {
     static final String WRITE_OBJECT_SQL = "INSERT INTO java_objects(name, object_value) VALUES (?, ?)";
@@ -11,6 +14,10 @@ public class SQLServer {
     static final private String username = "csc207@csc207";
     static final private String password = "group_0168";
     static final private String instanceURL = "jdbc:sqlserver://csc207.database.windows.net:1433;database=csc207;user=csc207@csc207;password=group_0168;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+
+    /**
+     * Check connection with azure server.
+     */
     public static void init(){
         Connection conn = null;
         try {
@@ -32,11 +39,22 @@ public class SQLServer {
         }
     }
 
+    /**
+     * Establish a connection to SQL server.
+     * @return connection to the SQL server
+     * @throws Exception when cannot connect
+     */
     public static Connection getConnection() throws Exception {
         Connection conn = DriverManager.getConnection(instanceURL, username, password);
         return conn;
     }
 
+    /**
+     * Save java object to SQL server.
+     * @param conn a connection to SQL server.
+     * @param object the java object to save and upload to server.
+     * @throws Exception when there's error writing java object
+     */
     public static void writeJavaObject(Connection conn, Object object) throws Exception {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -56,6 +74,14 @@ public class SQLServer {
         }
 
     }
+
+    /**
+     * Read java object from SQL server.
+     * @param conn a connection to SQL server.
+     * @param name the actual class name of the java object to fetch from the server.
+     * @return the java object we fetched from server.
+     * @throws Exception when there's error reading java object.
+     */
 
     public static Object readJavaObject(Connection conn, String name) throws Exception {
         PreparedStatement pstmt = conn.prepareStatement(READ_OBJECT_SQL);
