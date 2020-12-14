@@ -30,23 +30,23 @@ public class EventFactory {
     /**
      * Constructs a Event entity and stores it into the EventManager.
      * @param period period this event is going to be hosted through
-     * @param chatRoomID ID of the chatroom
+     * @param roomID ID of the message room
      * @param topic topic of this event
-     * @param MaxNum Max number of attendants
+     * @param MaxNum Max number of attendees
      * @param eventType type of the event
      * @return UUID of the event
      */
-    public UUID construct(LocalDateTime[] period, UUID[] chatRoomID, String topic,
+    public UUID construct(LocalDateTime[] period, UUID[] roomID, String topic,
                           Integer MaxNum, EventType eventType){
         switch (eventType) {
             case TALK:
-                Talk newTalk = new Talk(period, chatRoomID, topic, MaxNum);
+                Talk newTalk = new Talk(period, roomID, topic, MaxNum);
                 return eventManager.addEvent(newTalk, EventType.TALK);
             case PANEL:
-                Panel newPanel = new Panel(period, chatRoomID, topic, MaxNum);
+                Panel newPanel = new Panel(period, roomID, topic, MaxNum);
                 return eventManager.addEvent(newPanel, EventType.PANEL);
             case PARTY:
-                Party newParty = new Party(period, chatRoomID, topic, MaxNum);
+                Party newParty = new Party(period, roomID, topic, MaxNum);
                 return eventManager.addEvent(newParty, EventType.PARTY);
         }
         return null;
