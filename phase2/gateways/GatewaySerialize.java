@@ -5,8 +5,15 @@ import useCases.*;
 
 import java.sql.Connection;
 
+/**
+ * The entry to serialize and deserialize java object.
+ */
 public class GatewaySerialize {
 
+    /**
+     * Serialize object with the type AbstractSerializableManager.
+     * @param object to serialize
+     */
     public void serialize(AbstractSerializableManager object) {
         try{
             SQLServer.writeJavaObject(SQLServer.getConnection(), object);
@@ -15,6 +22,10 @@ public class GatewaySerialize {
         }
     }
 
+    /**
+     * Deserialize the object to the actual type with the super class AbstractSerializableManager.
+     * @return the actual object with the super class AbstractSerializableManager.
+     */
     public AbstractSerializableManager deserialize(String name) throws CannotSerializeException{
         AbstractSerializableManager serialize;
         try{
@@ -64,6 +75,10 @@ public class GatewaySerialize {
         return serialize;
     }
 
+    /**
+     * Serialize object with the type UserManager.
+     * @param users to serialize
+     */
     public void serializeUser(UserManager users){
         try{
             SQLServer.writeJavaObject(SQLServer.getConnection(), users);
@@ -72,6 +87,10 @@ public class GatewaySerialize {
         }
     }
 
+    /**
+     * Deserialize the object to the type UserManager.
+     * @return the userManager.
+     */
     public UserManager deserializeUser(){
         UserManager serialize;
         try{
