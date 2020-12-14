@@ -29,7 +29,7 @@ public class EventRoom implements java.io.Serializable {
     /**
      * Holds all <code>Activity</code> this room will take place and its scheduled time.
      */
-    private final HashMap<LocalDateTime[], UUID> schedule;
+    private HashMap<LocalDateTime[], UUID> schedule;
 
     /**
      * <code>RoomItems</code> in this room.

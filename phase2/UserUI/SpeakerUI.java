@@ -88,10 +88,10 @@ public class SpeakerUI extends OrganizerUI {
     protected void addMenu(){
         availableAction.add("send private message");
         availableAction.add("view private messages");
-        availableAction.add("view group messages");
-        availableAction.add("send group messages");
-        availableAction.add("send messages in coopChatroom");
-        availableAction.add("view messages from coopChatroom");
+        availableAction.add("view event group messages");
+        availableAction.add("send event group messages");
+        availableAction.add("Message the Organizer-Speaker MessageRoom");
+        availableAction.add("View messages in the Organizer-Speaker MessageRoom");
         availableAction.add("view signed conferences");
     }
 
