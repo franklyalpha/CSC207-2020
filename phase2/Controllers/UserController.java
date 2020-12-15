@@ -4,7 +4,6 @@ import gateways.*;
 import globallyAccessible.CannotSerializeException;
 import useCases.*;
 
-//public abstract class controllers.UserController
 
 /**
  * Controller for <code>User</code>-related functions, calling the appropriate methods.

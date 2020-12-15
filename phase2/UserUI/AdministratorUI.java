@@ -21,11 +21,6 @@ public class AdministratorUI extends OrganizerUI {
     }
 
     @Override
-    /*
-      This method allows users to do actions corresponding to administrator's allowed actions.
-      Will print out a list of actions the user can implement, ask for choice of action the user
-      want to do and call corresponding method.
-     */
 
     public void run(){
         availableAction = presenter.optionMenu();
