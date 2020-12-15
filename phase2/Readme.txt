@@ -1,6 +1,8 @@
 To run this program, first clone the repository to local (so that files can be saved) and mark phase1 as 'src' if
-applicable, then open the java file under package 'main' named 'mainEntrance.java'. Then right click that file and
-choose 'Run 'mainEntrance.main()''
+applicable. Before running the program, you need first install the required dependencies. First open the
+'project structure' at the right top corner, then 'Modules' -> '+' (at the bottom), then add TWO different
+dependencies separately (in the dependencies folder). After clicking 'apply', open the java file under package 'main' named 'mainEntrance.java'.
+Then right click that file and choose 'Run 'mainEntrance.main()'' to run the program.
 
 After running there would be a line showing 'user' file not found. You can ignore that since it is no data at this point.
 You can now start sign up for an account (follow instructions provided on the screen, they are pretty straightforward).
