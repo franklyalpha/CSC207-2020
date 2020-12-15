@@ -61,8 +61,7 @@ public class Talk extends Event {
      */
     @Override
     public String toString() {
-        return "Type: Talk\n" +
-                "Speakers: " + speaker +
+        return "Type: [Talk]\n" +
                 super.toString();
     }
 

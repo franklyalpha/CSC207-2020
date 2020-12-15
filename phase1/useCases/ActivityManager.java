@@ -24,31 +24,33 @@ import java.util.*;
 public class ActivityManager implements java.io.Serializable{
 
     /**
-     * Represents activities that have not yet begun.
-    */
+     * ArrayList of all instances of <code>Activity</code> have not begun yet.
+     */
     private final ArrayList<Activity> upcomingActivities;
 
-     /**
-     * Represents activities that have already been completed.
+    /**
+     * ArrayList of all instances of <code>Activity</code> that have been finished.
      */
     private final ArrayList<Activity> archivedActivities;
     // consider modifying as Hashmaps
 
 
     /**
-     * Constructor of <code>ActivityManager</code>, will create blank array lists for upcoming activities and
-     * archived activities.
+     * Creates <code>ActivityManager</code> to create two empty arraylist for the \
+     * <code>upcomingActivity</code> and
+     * <code>archivedActivity</code>list respectively.
      */
     public ActivityManager(){
-        this.upcomingActivities = new ArrayList<Activity>();
-        this.archivedActivities = new ArrayList<Activity>();
+        this.upcomingActivities = new ArrayList<>();
+        this.archivedActivities = new ArrayList<>();
     }
 
     /**
      * will create and store a new activity with given parameters.
-     * @param period an array storing <code>LocalDateTime</code> of start time and end time;
-     * @param chatRoomID an array storing <code>UUID</code> of assigned chat and assigned room.
-     * @param topic a <code>String</code> representing the topic of this activity.
+     * @param period is time period the activity, i.e. an array storing <code>LocalDateTime</code> of start time and end time;
+     * @param chatRoomID is the id of the chatroom for the activity, \
+     *                   i.e. an array storing <code>UUID</code> of assigned chat and assigned room.
+     * @param topic is the topic of the activity, i.e. a <code>String</code> representing the topic of this activity.
      * @return UUID of newly created activity.
      */
     public UUID addNewActivity(LocalDateTime[] period, UUID[] chatRoomID, String topic){
@@ -89,9 +91,14 @@ public class ActivityManager implements java.io.Serializable{
     }*/
 
     /**
+     * get list of available identity, string, topic, StartTime, EndTime, ConferenceRoomNum,
+     * SpeakerList for the given ID if possible.
      * Will return the description of activity in an array of strings.
-     * @param ID the <code>String</code> form of UUID of given activity.
-     * @return an array of <code>String</code>, with six elements; each one is:
+     * @param ID the identity we want to search information for, \
+     *           i.e. the <code>String</code> form of UUID of given activity.
+     * @return a list of available dentity, string, topic, StartTime, EndTime, ConferenceRoomNum,
+     *           SpeakerList if possible and return null otherwise. \
+     *      i.e. an array of <code>String</code>, with six elements; each one is:
      * UUID of this activity (in string), topic, start time, end time, room's UUID,
      * and username of speaker.
      */
@@ -106,6 +113,11 @@ public class ActivityManager implements java.io.Serializable{
         return null;
     }
 
+
+    /**
+     * create list of <code>LocalDateTime</code> for the given <code>Activity</code> instance.
+     * @return the list of time containing both the startTime and the EndTime of the given activity.
+     */
     private LocalDateTime[] timeProcessing(Activity act){
         LocalDateTime[] time = new LocalDateTime[2];
         time[0] = act.getStartTime();
@@ -118,11 +130,20 @@ public class ActivityManager implements java.io.Serializable{
      * @param actID an <code>UUID</code> representing the activity requiring assigning a speaker;
      * @param speakerName a <code>String</code> representing the username of speaker needed to be assigned.
      */
+
     public void addSpeaker(UUID actID, String speakerName){
         Activity targetAct = findActivity(actID);
         assert targetAct != null;
         targetAct.addSpeakers(speakerName);
     }
+
+
+    /**
+     * check if the activity for a specific <code>actID</code> is in the
+     * <code>upcomingActivities</code> list.
+     * @param actID is the identity for the target parameter.
+     * @return the activity if we can find in the list and return null if we cannot.
+     */
 
     private Activity findActivity(UUID actID){
         for (Activity act : upcomingActivities){
@@ -153,7 +174,7 @@ public class ActivityManager implements java.io.Serializable{
     // method that get all upcomming Activites.
     //TODO remove the typo in all instance of this method
     public ArrayList<String[]> viewUpcommingActivites(){
-        ArrayList<String[]> result = new ArrayList<String[]>();
+        ArrayList<String[]> result = new ArrayList<>();
         for(Activity i: this.upcomingActivities){
             String[] temp = {i.getIdentity().toString(), i.getTopic(),
                     i.getStartTime().toString(), i.getEndTime().toString(),
@@ -164,31 +185,39 @@ public class ActivityManager implements java.io.Serializable{
     }
 
     /**
+     * check if a specific attendent should be added to a specific activity and
      * will add the given attendee's name into participant list.
-     * @param activity the UUID of activity requiring adding an attendee.
-     * @param attendee the username of attendee who is going to enroll into the given activity.
-     * @return true iff the attendee is added successfully. 'false' otherwise.
+     * @param activity the UUID of target activity requiring adding an attendee.
+     * @param attendee the username of target attendee who is going to enroll into the given activity.
+     * @return true iff the attendee is added to the activity successfully. 'false' otherwise.
      */
     //method that add attendees
     public boolean addAttendee(UUID activity,String attendee){
         Activity a = findActivity(activity);
+        assert a != null;
         return a.addAttendeesToList(attendee);
     }
 
     /**
-     * return the number of existing attendees participated in given activity.
-     * @param activity the UUID of activity that the user wants to know about number of participants.
-     * @return an <code>int</code> representing number of participants for this activity.
+     * get the num of attendees in certain activity
+     * @param activity the UUID of target activity that the user wants to know about number of participants.
+     * @return the number of existing attendants participated in the given activity, \
+     * i.e. an <code>int</code> representing number of participants for this activity
      */
     //method that get the num of attendees in certain activity.
     public int numAttendee(UUID activity){
         Activity a = findActivity(activity);
+        assert a != null;
         return a.getAttendeeList().size();
     }
 
     /**
+     //method that remove the attendee from certain activity.
+     /**
+     * remove the attendee from certain activity
      * Will remove the given attendee from given activity represented by UUID.
-     * @param activity: <code>UUID</code> of given activity requiring removing attendee.
+     * @param activity: the target activity we want to remove attendant from, i.e. \
+     *                <code>UUID</code> of given activity requiring removing attendee.
      * @param attendee: a <code>String</code> representing the username of attendee
      *                 needed to be deleted.
      * @return true iff the attendee is deleted successfully. (false otherwise)
@@ -196,6 +225,7 @@ public class ActivityManager implements java.io.Serializable{
     //method that remove the attendee from certain activity.
     public boolean removeAttendee(UUID activity,String attendee) {
         Activity a = findActivity(activity);
+        assert a != null;
         return a.removeAttendee(attendee);
 
     }

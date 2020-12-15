@@ -42,7 +42,7 @@ public class Party extends Event {
      */
     @Override
     public String toString() {
-        return "Type: Party\n" +
+        return "Type: [Party]\n" +
                 super.toString();
     }
 }
