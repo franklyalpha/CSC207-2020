@@ -22,7 +22,9 @@ public class RequestController extends AbstractController {
         super(userController);
         try{
             attendeeManager = new AttendeeManager(userManager);
-        } catch (ClassCastException e){ e.printStackTrace(); }
+        } catch (ClassCastException e){
+            // do nothing.
+        }
 
     }
 
