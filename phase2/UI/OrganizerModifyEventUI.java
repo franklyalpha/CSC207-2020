@@ -36,6 +36,7 @@ public class OrganizerModifyEventUI extends AbstractUI {
         for(int i = 0; i < 3; i ++){
             try{
                 inputAndUpdateModification(modifyEvent, presenter);
+                return;
             }catch (NoEventsException e1){
                 System.out.println(presenter.printNoEvent());
             }catch(MaxNumberBeyondRoomCapacityException e2){
