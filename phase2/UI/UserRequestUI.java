@@ -106,7 +106,7 @@ public class UserRequestUI extends RequestUI {
                             break;
                     }
             }catch(RequestNotFoundException | ExceedingMaxAttemptException e){
-                requestPresenter.strInvalidRequest();
+                System.out.println(requestPresenter.strInvalidRequest());
             }
         }
     }
@@ -175,7 +175,7 @@ public class UserRequestUI extends RequestUI {
                 }
                 break;
             }catch(RequestNotFoundException e){
-                requestPresenter.strInvalidRequest();
+                System.out.println(requestPresenter.strInvalidRequest());
             }
         }
     }

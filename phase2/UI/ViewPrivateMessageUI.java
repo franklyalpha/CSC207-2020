@@ -46,7 +46,7 @@ public class ViewPrivateMessageUI extends AbstractUI {
                 System.out.println(userPresenter.strList(historyChat.keySet().toArray()));
                 return checkContactValid(historyChat);
             }catch(UserNotFoundException e){
-                e.printStackTrace();
+                System.out.println(userPresenter.strInvalidUsername());
             }
         }
     }

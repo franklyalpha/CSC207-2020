@@ -90,7 +90,7 @@ public class OrganizerUI extends UserUI {
             }
         }
         catch (ExceedingMaxAttemptException e){
-            e.printStackTrace();
+            System.out.println("Exceeded maximum attempts allowed!!!");
         }
     }
 

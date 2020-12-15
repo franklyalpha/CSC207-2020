@@ -39,7 +39,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
                 chooseAddDelete();
                 break;
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println();
             }
         }
         throw new ExceedingMaxAttemptException("Exceeding maximum attempt times");
@@ -64,7 +64,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
             String speaker = chooseSpeaker(availableSpeakers, "assign");
             panelRescheduleSpeakerController.addNewSpeaker(speaker);
         } catch(NoEventsException e) {
-            e.printStackTrace();
+            System.out.println(organizerRescheduleSpeakerPresenter.strInvalidEventID());
         }
     }
 
@@ -82,7 +82,7 @@ public class OrganizerPanelSpeakerUI extends OrganizerRescheduleSpeakerUI {
             String speaker = chooseSpeaker(existingSpeakers, "delete");
             panelRescheduleSpeakerController.deleteSpeaker(speaker);
         } catch(NoEventsException e) {
-            e.printStackTrace();
+            System.out.println(organizerRescheduleSpeakerPresenter.strInvalidEventID());
         }
     }
 }

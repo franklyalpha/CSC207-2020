@@ -50,7 +50,7 @@ public class RequestUI extends AbstractUI {
                         x = x + 1;
                     }
                 }
-            } catch (IndexOutOfBoundsException e){ requestPresenter.strInvalidInput(); }
+            } catch (IndexOutOfBoundsException e){ System.out.println(requestPresenter.strInvalidInput()); }
         } throw new ExceedingMaxAttemptException("Maximum number of attempts exceeded");
     }
 

@@ -96,7 +96,7 @@ public class AttendeeUI extends UserUI {
             }
         }
         catch (ExceedingMaxAttemptException e){
-            e.printStackTrace();
+            System.out.println("Exceeded maximum attempts allowed!!!");
         }
 
     }
@@ -124,28 +124,4 @@ public class AttendeeUI extends UserUI {
     }
 
     protected void manageRequests(){ new UserRequestUI(userController).run(); }
-
-
-
-
-    //check whether the room is full, and whether this user is currently enroll.
-
-    //add a new activity to this user, and add this user to the corresponding conference chat.
-    /*
-      Provides instructions to the user to enroll in conferences available. Available means having space
-      and doesn't conflict with schedule of this user.
-      Will print out available conferences the user can enroll, and ask user to input the UUID of
-      conference the user wish to enroll.
-     */
-
-
-    /*
-      Provides instructions for user to cancel conferences this user enrolled.
-      Will print all conferences the user enrolled, and ask user to input the UUID of conference the user
-      wish to cancel.
-     */
-
-
-
-
 }
