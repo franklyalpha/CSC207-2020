@@ -26,20 +26,10 @@ public class LoginController {
      */
     private final UserManager userManager = new GatewaySerialize().deserializeUser();
 
-    /*
-      This method allow people to do actions corresponding to allowed actions.
-      Will print out a list of actions people can implement, ask for choice of action the people
-      want to do and call corresponding method, such as sign up as a user, or log in or just quit.
-     */
 
     private UserType checkLoginCondition(String username, String password) throws UserNotFoundException {
         return userManager.loginCheck(username, password);
     }
-    /*
-      Determine whether the input is wrong.
-      @return <CODE>true</CODE> if the input is right:
-     * otherwise
-     */
 
     /**
      * return the appropriate <>UserType</> given <>Integer</> as input.

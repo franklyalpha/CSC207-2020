@@ -4,7 +4,6 @@ import Controllers.UserController;
 import globallyAccessible.ExceedingMaxAttemptException;
 import menuPresenter.UserPresenter;
 
-//public abstract class controllers.UserController
 
 /**
  *This is an abstract UI which will be extended for all other UIs.

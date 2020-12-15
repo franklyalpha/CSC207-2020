@@ -81,7 +81,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
     }
 
 
-    // followings can be placed in another UI
+
     private void deleteSelectedMessages(){
         new AdminDeleteMessageUI(userController).run();
     }
