@@ -2,12 +2,9 @@ package Controllers;
 
 import globallyAccessible.ActivityNotFoundException;
 import globallyAccessible.NoActivitiesException;
-import globallyAccessible.UserNotFoundException;
-import Presenters.Presenter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class RescheduleSpeakerController extends ActivityController {

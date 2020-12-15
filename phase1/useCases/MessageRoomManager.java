@@ -16,26 +16,27 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class MessageRoomManager implements java.io.Serializable{
+    public class MessageRoomManager implements java.io.Serializable{
 
     /**
      * A <code>Chatroom</code> with all speakers and organizers at a conference.
      */
-    private MessageRoom coopRoom;
+    private final MessageRoom coopRoom;
 
     /**
      * ArrayList of all instances of <code>Chatroom</code> associated with activities happening.
      */
-    private ArrayList<MessageRoom> conferenceChats;
+    private final ArrayList<MessageRoom> conferenceChats;
 
     /**
      * ArrayList of all instances of private <code>Chatroom</code> (i.e. <code>Chatroom</code> with two participants).
      */
-    private ArrayList<MessageRoom> privateChats;
+    private final ArrayList<MessageRoom> privateChats;
 
 
     /**
-     * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
+     * Creates <code>ChatroomManager</code> with a blank list
+     * of conference chat rooms, blank list of private chat rooms, and an empty <code>Chatroom</code> (i.e. no organizers or speakers yet).
      */
     public MessageRoomManager(){
         coopRoom = new MessageRoom();
@@ -45,8 +46,10 @@ public class MessageRoomManager implements java.io.Serializable{
     }
 
     /**
-     * Creates <code>ChatroomManager</code> with a blank list of conference chatrooms, blank list of private chatrooms, and a <code>Chatroom</code> with the specified organizers and speakers as participants.
-     * @param organizerSpeakers ArrayList of usernames of organizers and speakers to be put into the coopRoom <code>Chatroom</code>.
+     * Creates <code>ChatroomManager</code> with a blank list of conference chat rooms, blank list of private
+     * chat rooms, and a <code>Chatroom</code> with the specified organizers and speakers as participants.
+     * @param organizerSpeakers ArrayList of usernames of organizers and speakers to be put into the
+     *                          coopRoom <code>Chatroom</code>.
      */
     public MessageRoomManager(ArrayList<String> organizerSpeakers) {
         coopRoom = new MessageRoom(organizerSpeakers); //initialize instance of coopRoom with all Speakers and Organizers
@@ -71,7 +74,9 @@ public class MessageRoomManager implements java.io.Serializable{
             privateChats.add(newRoom);  // add to privateChats list if there's only 2 users in the room (i.e. its private)
         }
         else{
-            conferenceChats.add(newRoom); // add chatroom to conferenceChats !!!!!!!      This is NOT how conferenceChats should be used but this is until we can guarantee we won't try to create private groupchats
+            conferenceChats.add(newRoom); // add chatroom to conferenceChats !!!!!!!
+            // This is NOT how conferenceChats should be used but this is until we can guarantee we won't
+            // try to create private group chats
         }
         return newRoom.getId();
     }
@@ -172,12 +177,12 @@ public class MessageRoomManager implements java.io.Serializable{
      */
     private MessageRoom findChatroom(UUID chatID){
         MessageRoom returns = null;
-        ArrayList<MessageRoom> allChats = new ArrayList<MessageRoom>(privateChats);
+        ArrayList<MessageRoom> allChats = new ArrayList<>(privateChats);
         allChats.addAll(conferenceChats);
         allChats.add(coopRoom);
-        for (MessageRoom chatrooms : allChats){
-            if (chatrooms.getId().equals(chatID)){
-                returns = chatrooms;
+        for (MessageRoom chatRooms : allChats){
+            if (chatRooms.getId().equals(chatID)){
+                returns = chatRooms;
             }
         }
         return returns;

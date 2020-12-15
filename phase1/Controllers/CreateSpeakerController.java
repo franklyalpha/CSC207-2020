@@ -1,9 +1,6 @@
 package Controllers;
 
 import globallyAccessible.UserType;
-import Presenters.Presenter;
-
-import java.util.Scanner;
 
 public class CreateSpeakerController extends AbstractController {
 

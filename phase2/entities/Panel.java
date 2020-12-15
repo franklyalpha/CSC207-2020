@@ -61,8 +61,7 @@ public class Panel extends Event {
      */
     @Override
     public String toString() {
-        return "Type: Panel\n" +
-                "Speakers: \n" + speakerToString() +
+        return "Type: [Panel]\n" +
                 super.toString();
     }
 
@@ -74,8 +73,9 @@ public class Panel extends Event {
     public String speakerToString(){
         StringBuilder finalList = new StringBuilder();
         for(String i: speakers){
-            finalList.append("    ").append(i).append("\n");
+            finalList.append(i).append(", ");
         }
+        finalList.delete(finalList.length()-2, finalList.length());
         return finalList.toString();
     }
 }
