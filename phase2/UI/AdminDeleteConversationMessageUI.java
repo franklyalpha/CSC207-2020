@@ -66,7 +66,7 @@ public class AdminDeleteConversationMessageUI extends AbstractUI {
                 inputAndDeletePrivate(deletePrivate);
                 break;
             }catch(UserNotFoundException e){
-                e.printStackTrace();
+                System.out.println(userPresenter.strInvalidUsername());
             }
         }
     }

@@ -226,7 +226,7 @@ public abstract class Event implements java.io.Serializable {
      * @return the string of the class event.
      */
     public String toString(){
-        String description = ("Topic: " + this.topic + "\nSpeakers: [ " + speakerToString() + " ]");
+        String description = ("Topic: [" + this.topic + "]\nSpeakers: [ " + speakerToString() + " ]");
         description += ("\nEvent Room: [ " + this.eventRoomNum + " ]");
         description += ("\nFrom: [ " + startTime + " ]  to  [" + endTime + " ]");
         description += ("\nEvent ID: [ " + this.identity + " ]");

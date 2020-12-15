@@ -71,7 +71,7 @@ public class MainUI {
             }
             System.out.println(loginPresenter.strInvalidInput());
         }catch(InvalidUserTypeException e){
-            e.printStackTrace();
+            System.out.println("Invalid User type!!!");
         }
     }
 

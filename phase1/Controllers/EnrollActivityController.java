@@ -1,15 +1,13 @@
 package Controllers;
 
 import globallyAccessible.ActivityNotFoundException;
-import Presenters.Presenter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class EnrollActivityController extends ActivityController {
-    private ArrayList<String> userName = new ArrayList<>();
+    private final ArrayList<String> userName = new ArrayList<>();
 
     public EnrollActivityController(UserController userController) {
         super(userController);

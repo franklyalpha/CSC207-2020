@@ -90,7 +90,7 @@ public class OrganizerRequestUI extends RequestUI {
                 handleRequestController.handleRequest(selection);
                 break;
             }catch(RequestNotFoundException | ExceedingMaxAttemptException e){
-                requestPresenter.strInvalidRequest();
+                System.out.println(requestPresenter.strInvalidRequest());
             }
         }
     }

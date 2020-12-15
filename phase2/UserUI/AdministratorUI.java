@@ -73,7 +73,7 @@ public class AdministratorUI extends OrganizerUI {
             }
         }
         catch (ExceedingMaxAttemptException e){
-            e.printStackTrace();
+            System.out.println("Exceeded maximum attempts allowed!!!");
         }
     }
 

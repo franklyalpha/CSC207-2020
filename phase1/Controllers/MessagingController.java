@@ -1,11 +1,6 @@
 package Controllers;
 
 import globallyAccessible.UserNotFoundException;
-import useCases.ActivityManager;
-import useCases.MessageRoomManager;
-import useCases.RoomManager;
-import useCases.UserManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -16,9 +11,9 @@ public class MessagingController extends AbstractController{
     }
 
 
-    /**
-     * Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
-     * they want to send, then sends it.
+    /*
+      Asks the user to input the username of the person they want to contact. If valid, asks the user to input the message
+      they want to send, then sends it.
      */
 
 
@@ -64,27 +59,27 @@ public class MessagingController extends AbstractController{
         return newChatroom;
     }
 
-    /**
-     * Displays the user's private messages.
+    /*
+      Displays the user's private messages.
      */
 
 
-    /**
-     * Prints the private messages between the user and the specified contact, but only if they are connected.
-     * @param historyChat ArrayList of Strings representing the user's chats.
+    /*
+      Prints the private messages between the user and the specified contact, but only if they are connected.
+      @param historyChat ArrayList of Strings representing the user's chats.
      * @param contact UUID representing the contact whose messages we want to retrieve.
      */
 
 
-    /**
-     * Displays the user's group messages.
+    /*
+      Displays the user's group messages.
      */
 
 
 
-    /**
-     * Prints the group messages from the specified activity, if it is valid and exists.
-     * @param historyChat ArrayList of Strings representing the user's group chats.
+    /*
+      Prints the group messages from the specified activity, if it is valid and exists.
+      @param historyChat ArrayList of Strings representing the user's group chats.
      */
 
 }

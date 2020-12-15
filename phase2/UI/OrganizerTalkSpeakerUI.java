@@ -38,7 +38,7 @@ public class OrganizerTalkSpeakerUI extends OrganizerRescheduleSpeakerUI {
             String speaker = determineSpeakerValidity(actID);
             talkRescheduleSpeaker.updateRescheduledSpeaker(speaker);
         } catch(NoEventsException e) {
-            e.printStackTrace();
+            System.out.println(organizerRescheduleSpeakerPresenter.strInvalidEventID());
         }
     }
 
