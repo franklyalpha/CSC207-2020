@@ -43,6 +43,12 @@ public class OutputEventInfoController extends EventController {
         document.close();
     }
 
+
+    /**
+     * Writes data into a PDF file.
+     * @param events information of events.
+     * @throws IOException: when the PDF file is not found.
+     */
     public void outputEvents(ArrayList<String[]> events) throws IOException{
         PdfDocument pdf = new PdfDocument(new PdfWriter(DEST));
         Document document = new Document(pdf);

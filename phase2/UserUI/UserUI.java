@@ -11,19 +11,6 @@ import java.util.Scanner;
  * Represents a <code>UserUI</code>.
  * Is specific for <code>Organizer</code> type usage.
  *
- * Includes:
- * Own presenter
- * Own constructor
- * run: the method for receiving user's inputs for actions and call corresponding method.
- * viewPrivateMessage(): responsible for gathering all available private messages sent to the user
- *  and print out.
- * sendPrivateMessage(): responsible for sending private message to a particular user.
- * viewGroupMessage(): responsible for gathering all message within a chatroom and print them out.
- * viewEnrolledSchedule: responsible for gathering all events that the user has been enrolled in
- *  and print out.
- * viewAvailableSchedules(): responsible for gathering all available events that the user can enroll in
- *   and print them out.
- *outputAllUpcomingEventsPdf(): responsible for generating a PDF of all upcoming events
  *
  */
 public class UserUI {

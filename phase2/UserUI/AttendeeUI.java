@@ -13,27 +13,6 @@ import java.util.Scanner;
 /**
  * Represents a <code>AttendeeUI</code> extends from <code>UserUI</code>.
  * Is specific for <code>Attendee</code> type usage.
- * Includes:
- * Own presenter
- * Own constructor
- * run: the method for receiving user's inputs for actions and call corresponding method.run: the method for receiving user's inputs for actions and call corresponding method.
- * viewEnrolledSchedule: responsible for gathering all events that the user has been enrolled in
- * as an attendee and print out.
- * viewAvailableSchedules(): responsible for gathering all available events that the user can enroll in
- * as an attendee and print out.
- * viewStatistic(): View the top five popular events and print out.
- * enrollEvent(): Sign up the user as an attendee for an event.
- * cancelEnrollment(): Cancel event registration as an attendee for the user.
- * sendPrivateMessage(): responsible for sending private message to a particular user.
- * viewPrivateMessage(): responsible for gathering all available private messages sent to the user
- * and print out.
- * viewGroupMessage(): responsible for gathering all available group messages sent to the user
- * and print out.
- * manageRequests(): responsible for managing requests of the user
- * outputAllUpcomingEventsPdf(): responsible for generating a PDF of all upcoming events.
- * viewSchedules: responsible for gathering all available conferences the user can enroll and print out.
- * enrollConference: responsible for enrolling the user into available conference after checking constraints.
- * cancelEnrollment: responsible for cancelling any conferences user is enrolled.
  */
 public class AttendeeUI extends UserUI {
 

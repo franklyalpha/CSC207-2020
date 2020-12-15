@@ -11,19 +11,6 @@ import java.util.Scanner;
 /**
  * Represents a <code>AdministratorUI</code> extends from <code>OrganizerUI</code>.
  * Is specific for <code>Administrator</code> type usage.
- *
- * Includes:
- * Own presenter
- * Own constructor
- * run: the method for receiving user's inputs for actions and call corresponding method.
- * sendPrivateMessage(): responsible for sending private messages to a particular user.
- * viewPrivateMessage(): responsible for gathering all private messages sent to a particular user
- * and print them out.
- * sendCoopMessage(): responsible for sending message to all organizers and speakers in a
- *   particular Organizer-Speaker Chatroom.
- * viewCoopChat(): responsible for viewing messages from a chatroom with only organizers and speakers.
- * deleteMessage(): responsible for deleting messages for a particular user.
- * deleteEvent(): responsible for cancelling particular event.
  */
 public class AdministratorUI extends OrganizerUI {
 

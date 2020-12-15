@@ -6,6 +6,9 @@ import useCases.AttendeeManager;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * The controller dealing with all request-related operations, including adding, deleting or modifications.
+ */
 public class RequestController extends AbstractController {
 
     /**

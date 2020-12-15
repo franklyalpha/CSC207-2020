@@ -12,25 +12,6 @@ import java.util.Scanner;
  * Represents a <code>OrganizerUI</code> extends from <code>UserUI</code>.
  * Is specific for <code>Organizer</code> type usage.
  *
- * Includes:
- * Own presenter
- * Own constructor
- * run: the method for receiving user's inputs for actions and call corresponding method.
- * createRoom(): responsible for creating a new event room.
- * createUser(): responsible for creating a new user account.
- * addSchedule(): responsible for creating a new event.
- * rescheduleSpeaker(): responsible for replacing the speaker with another for a given event.
- * sendPrivateMessage(): responsible for sending private message to a user.
- * viewPrivateMessage(): responsible for gathering all available private messages sent to a user
- *  and print out.
- * sendCoopMessage(): responsible for sending message to all other organizers and speakers in a \
- * particular Organizer-Speaker Chatroom.
- * viewCoopChat(): responsible for gathering all messages from the chatroom with only organizers and
- *  * speakers and print them out.
- * messageAllAttendee(): responsible for sending message to all registered attendees at a given event.
- * modifyEvent(): responsible for modifying information for a given event.
- * removeEvent(): responsible for cancelling a particular event
- * manageRequests(): responsible for managing all requests from a particular user.
  */
 public class OrganizerUI extends UserUI {
     final protected OrganizerPresenter organizerPresenter = new OrganizerPresenter();
